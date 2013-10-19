@@ -48,15 +48,15 @@ public class Converter
     {
         input = input.trim().toLowerCase();
         int inputLength = input.length();
-        boolean triger = true;
+        boolean trigger = true;
         for (int i = 0; i < inputLength; i++)
         {
             if ((dictionary.indexOf(input.charAt(i)) >= baseFrom) || (dictionary.indexOf(input.charAt(i)) > 15) || (dictionary.indexOf(input.charAt(i)) < 0))
             {
-                triger = false;
+                trigger = false;
                 break;
             }
         }
-        return triger;
+        return trigger;
     }
 }

@@ -13,7 +13,23 @@ public class ConvertTest
 	// 	fail();
 	// }
     @Test
-    public void ConvertToDecimalTest()
+    public void ConvertFromBinaryToDecimalTest()
+    {
+        Converter testSet = new Converter();
+        String outStr = new String(testSet.ConvertToDecimal("10101",2));
+        assertEquals(outStr, "21");
+    }
+
+    @Test
+    public void ConvertFromOctalToDecimalTest()
+    {
+        Converter testSet = new Converter();
+        String outStr = new String(testSet.ConvertToDecimal("72",8));
+        assertEquals(outStr, "58");
+    }
+
+    @Test
+    public void ConvertFromHexadecimalToDecimalTest()
     {
         Converter testSet = new Converter();
         String outStr = new String(testSet.ConvertToDecimal("a",16));
@@ -21,7 +37,23 @@ public class ConvertTest
     }
 
     @Test
-    public void ConvertFromDecimalTest()
+    public void ConvertFromDecimalToBinaryTest()
+    {
+        Converter testSet = new Converter();
+        String outStr = new String(testSet.ConvertFromDecimal("21", 2));
+        assertEquals(outStr, "10101");
+    }
+
+    @Test
+    public void ConvertFromDecimalToOctalTest()
+    {
+        Converter testSet = new Converter();
+        String outStr = new String(testSet.ConvertFromDecimal("58", 8));
+        assertEquals(outStr, "72");
+    }
+
+    @Test
+    public void ConvertFromDecimalToHexadecimalTest()
     {
         Converter testSet = new Converter();
         String outStr = new String(testSet.ConvertFromDecimal("10", 16));
@@ -40,7 +72,7 @@ public class ConvertTest
     public void OpportunityOfConvertTest()
     {
         Converter testSet = new Converter();
-        Boolean admissible = testSet.OpportunityOfConvert("10x",2);
+        Boolean admissible = testSet.OpportunityOfConvert("102",2);
         assertFalse(admissible);
     }
 }
