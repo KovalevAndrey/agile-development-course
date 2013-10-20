@@ -9,11 +9,7 @@ import static org.junit.Assert.*;
 public class ConvertTest
 {
     private Converter testSet;
-	// @Test
-	// public void failingTest()
-	// {
-	// 	fail();
-	// }
+
     @Before
     public void  SetUp()
     {
