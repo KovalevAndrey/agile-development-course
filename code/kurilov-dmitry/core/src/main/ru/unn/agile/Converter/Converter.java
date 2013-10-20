@@ -30,8 +30,8 @@ public class Converter
         String output_str = new String("");
         while (inputValue != 0)
         {
-            int indexInDictionry = inputValue % baseTo;
-            output_str = (dictionary.substring(indexInDictionry, indexInDictionry + 1)) + output_str;
+            int indexInDictionary = inputValue % baseTo;
+            output_str = (dictionary.substring(indexInDictionary, indexInDictionary + 1)) + output_str;
             inputValue = inputValue / baseTo;
         }
         return output_str;
@@ -44,7 +44,7 @@ public class Converter
         String outStr = ConvertFromDecimal(subResult, baseTo);
         return outStr;
     }
-    public boolean OpportunityOfConvert(String input, int baseFrom)
+    public boolean tryConvert(String input, int baseFrom)
     {
         input = input.trim().toLowerCase();
         int inputLength = input.length();
