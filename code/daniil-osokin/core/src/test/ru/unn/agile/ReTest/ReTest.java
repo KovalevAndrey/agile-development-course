@@ -78,4 +78,16 @@ public class ReTest
         assertThat(regex.search("where was the cat"), is(equalTo(14)));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void throwsRuntimeExceptionWhenPatternIsGarbageWithMultipleRegex()
+    {
+        Re.compile("\\{{{1^?");
+    }
+
+    @Test
+    public void canSearchEverythingThatIsNotRecognizedAsRegex()
+    {
+        assertThat(Re.search("\\(((%&*#@!", "where was the cat"), is(equalTo(Regex.NOT_FOUND_INDEX)));
+    }
+
 }
