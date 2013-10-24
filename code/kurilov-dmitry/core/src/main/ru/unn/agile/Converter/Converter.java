@@ -49,14 +49,24 @@ public class Converter
         input = input.trim().toLowerCase();
         int inputLength = input.length();
         boolean trigger = true;
+        if ((baseFrom < 2) || (baseFrom > 16))
+        {
+            System.out.println("Основание системы не входит в обробатываемый диапазон.");
+            System.out.println("Пожалуйста ввдите основание системы в диапазоне 2-16");
+            trigger = false;
+            return trigger;
+        }
         for (int i = 0; i < inputLength; i++)
         {
             if ((dictionary.indexOf(input.charAt(i)) >= baseFrom) || (dictionary.indexOf(input.charAt(i)) > 15) || (dictionary.indexOf(input.charAt(i)) < 0))
             {
+                System.out.println("Введённое число не принадлежит системе.");
+                System.out.println("Пожалуйста будте внимательнее");
                 trigger = false;
-                break;
+                return trigger;
             }
         }
+
         return trigger;
     }
 }

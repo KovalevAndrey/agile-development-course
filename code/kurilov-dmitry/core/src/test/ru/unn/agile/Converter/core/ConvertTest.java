@@ -66,6 +66,13 @@ public class ConvertTest
     }
 
     @Test
+    public void tryConvertWithUnavailableBaseTest()
+    {
+        Boolean admissible = testSet.tryConvert("102", 17);
+        assertFalse(admissible);
+    }
+
+    @Test
     public void tryConvertWithUnavailableBinaryDictionarySymbolsTest()
     {
         Boolean admissible = testSet.tryConvert("102", 2);
