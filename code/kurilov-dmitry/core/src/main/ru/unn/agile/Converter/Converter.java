@@ -4,14 +4,15 @@ import java.lang.Math;
 public class Converter
 {
 	private static String dictionary = "0123456789abcdef";
-
+    private static int decimalBase = 10;
     public  Converter()
     {
 
     }
 
-    public String ConvertToDecimal(String input, int baseFrom)
+    public String ConvertToDecimal(String input, int baseFrom) throws Exception
     {
+        tryConvert(input, baseFrom);
         input = input.trim().toLowerCase();
         int lengthOfInputString = input.length()-1;
         int outValue = 0;
@@ -23,8 +24,9 @@ public class Converter
         return outStr = Integer.toString(outValue);
     }
 
-    public String ConvertFromDecimal(String input, int baseTo)
+    public String ConvertFromDecimal(String input, int baseTo) throws Exception
     {
+        tryConvert(input, decimalBase);
         input = input.trim().toLowerCase();
         int inputValue = Integer.valueOf(input);
         String output_str = new String("");
@@ -37,36 +39,28 @@ public class Converter
         return output_str;
     }
 
-    public  String ConvertFromOneToOther(String input, int baseFrom, int baseTo)
+    public  String ConvertFromOneToOther(String input, int baseFrom, int baseTo) throws Exception
     {
         input = input.trim().toLowerCase();
         String subResult = ConvertToDecimal(input, baseFrom);
         String outStr = ConvertFromDecimal(subResult, baseTo);
         return outStr;
     }
-    public boolean tryConvert(String input, int baseFrom)
+    public void tryConvert(String input, int baseFrom) throws Exception
     {
         input = input.trim().toLowerCase();
         int inputLength = input.length();
-        boolean trigger = true;
+
         if ((baseFrom < 2) || (baseFrom > 16))
         {
-            System.out.println("Основание системы не входит в обробатываемый диапазон.");
-            System.out.println("Пожалуйста ввдите основание системы в диапазоне 2-16");
-            trigger = false;
-            return trigger;
+            throw new Exception("Основание системы не входит в обробатываемый диапазон.");
         }
         for (int i = 0; i < inputLength; i++)
         {
             if ((dictionary.indexOf(input.charAt(i)) >= baseFrom) || (dictionary.indexOf(input.charAt(i)) > 15) || (dictionary.indexOf(input.charAt(i)) < 0))
             {
-                System.out.println("Введённое число не принадлежит системе.");
-                System.out.println("Пожалуйста будте внимательнее");
-                trigger = false;
-                return trigger;
+                throw new Exception("Введённое число не принадлежит системе.");
             }
         }
-
-        return trigger;
     }
 }
