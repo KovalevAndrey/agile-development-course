@@ -4,8 +4,6 @@ import static junit.framework.Assert.*;
 
 import org.junit.Test;
 
-//import edu.semaster.demo.model.*;
-
 public class FormatterTests {
     
     @Test (expected=IllegalArgumentException.class)
