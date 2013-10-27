@@ -1,13 +1,11 @@
 package ru.unn.agile.ComplexNumber.viewmodel;
 
-import static junit.framework.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 public class ViewModelTests
 {
