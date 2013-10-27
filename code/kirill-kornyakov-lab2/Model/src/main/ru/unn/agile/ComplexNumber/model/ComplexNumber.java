@@ -38,20 +38,10 @@ public class ComplexNumber
                 other.getReal() * getImaginary() + other.getImaginary() * getReal());
     }
 
-//    public void setReal(double real)
-//    {
-//        this.re = real;
-//    }
-
     public double getReal()
     {
         return re;
     }
-
-//    public void setImaginary(double imaginary)
-//    {
-//        this.im = imaginary;
-//    }
 
     public double getImaginary()
     {
