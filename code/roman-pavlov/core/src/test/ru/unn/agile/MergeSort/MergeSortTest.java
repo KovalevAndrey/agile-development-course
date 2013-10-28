@@ -25,22 +25,37 @@ public class MergeSortTest {
 
     @Test
     public void arrayAfterMergeSortCorrectSort(){
-        int[] array=new int[]{3,2,1};
-        MergeSort.mergeSort(array);
-        assertArrayEquals(new int[]{1,2,3}, array);
+        assertArray(new int[]{1, 2, 3},new int[]{3, 2, 1});
     }
 
     @Test
     public void sortArrayCorrectSort(){
-        int[] array=new int[]{1,2,3};
-        MergeSort.mergeSort(array);
-        assertArrayEquals(new int[]{1,2,3}, array);
+        assertArray(new int[]{1, 2, 3},new int[]{1, 2, 3});
     }
 
     @Test
     public void arrayWithOneElementCorrectSort(){
-        int[] array=new int[]{1};
-        MergeSort.mergeSort(array);
-        assertArrayEquals(new int[]{1}, array);
+        assertArray(new int[]{1},new int[]{1});
     }
+
+    @Test
+    public void arrayWithNegativeElementsCorrectSort(){
+        assertArray(new int[]{-3, -2, -1},new int[]{-1, -2, -3});
+    }
+
+    @Test
+    public void arrayWithEqualElementsCorrectSort(){
+        assertArray(new int[]{1, 1, 1},new int[]{1, 1, 1});
+    }
+
+    @Test
+    public void arrayCorrectSort(){
+        assertArray(new int[]{-5, -2, 0, 1, 3, 9},new int[]{1, -5, 0, 9, -2, 3});
+    }
+
+    private void assertArray(int [] expectedArray, int [] inputArray) {
+        MergeSort.mergeSort(inputArray);
+        assertArrayEquals(expectedArray, inputArray);
+    }
+
 }
