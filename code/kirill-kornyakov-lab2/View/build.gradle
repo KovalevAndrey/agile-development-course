@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':kirill-kornyakov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
