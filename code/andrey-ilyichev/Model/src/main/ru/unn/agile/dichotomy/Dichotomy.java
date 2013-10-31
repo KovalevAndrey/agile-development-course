@@ -62,7 +62,7 @@ public class Dichotomy {
 		
 		if (builder.eps <= 0)
 		{
-			throw new IllegalArgumentException("Eps is negative");
+			throw new IllegalArgumentException("Eps is negative or zero");
 		}
 
 		this.eps = builder.eps;

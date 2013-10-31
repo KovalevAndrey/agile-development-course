@@ -47,8 +47,8 @@ project(":anatoly-vildemanov").name = "anatoly-vildemanov-Model"
 //project(":anatoly-vildemanov/View").name = "anatoly-vildemanov-View"
 
 // Andrey Ilyichev
-include "andrey-ilyichev"
-project(":andrey-ilyichev").name = "andrey-ilyichev-Model"
+include "andrey-ilyichev/Model"
+project(":andrey-ilyichev/Model").name = "andrey-ilyichev-Model"
 //include "andrey-ilyichev/ViewModel"
 //project(":andrey-ilyichev/ViewModel").name = "andrey-ilyichev-ViewModel"
 //include "andrey-ilyichev/View"
