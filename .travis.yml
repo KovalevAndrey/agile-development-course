@@ -1,4 +1,4 @@
 language: java
-script: (cd code && gradle check)
+script: (cd code && TERM=dumb && gradle check)
 notifications:
   email: false
