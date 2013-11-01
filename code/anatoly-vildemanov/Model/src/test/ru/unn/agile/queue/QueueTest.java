@@ -111,6 +111,23 @@ public class QueueTest {
         }
     }
 
+    @Test
+    public void cleanQueueFromOneElement()
+    {
+        queue.push(2);
+        queue.clean();
+        assertTrue(queue.isEmpty());
+    }
+
+    @Test
+    public void addElementAfterClean()
+    {
+        queue.push(2);
+        queue.clean();
+        queue.push(3);
+        assertEquals(3, queue.pop());
+    }
+
     private void fillUpQueue(int countOfElement)
     {
         for (int i = 0; i < countOfElement; i++)

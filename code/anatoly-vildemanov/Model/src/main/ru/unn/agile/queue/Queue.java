@@ -51,4 +51,11 @@ public class Queue {
     {
         return count >= MAX_LEN;
     }
+
+    public void clean()
+    {
+        count = 0;
+        head  = 0;
+        tail = -1;
+    }
 }
