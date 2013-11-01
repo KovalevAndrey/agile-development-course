@@ -1,19 +1,40 @@
-package ru.unn.agile.tree.model;
+package ru.unn.agile.tree.view;
 
 import javax.swing.*;
+import ru.unn.agile.tree.viewmodel.TreeViewModel;
 
-/**
- * Created with IntelliJ IDEA.
- * User: the_b_000
- * Date: 01.11.13
- * Time: 23:06
- * To change this template use File | Settings | File Templates.
- */
-public class TreeForm {
-    private JTextField textField1;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TreeForm extends TreeViewModel {
+    private JTextField treeValuesTextField;
     private JPanel mainPanel;
-    private JTextField textField2;
+    private JTextField findValueTextField;
     private JButton findButton;
+    private JLabel resultLabel;
+
+    public TreeForm() {
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                findActionHandler.onClick();
+            }
+        });
+    }
+
+    @Override
+    public void bind() {
+        treeValues = treeValuesTextField.getText();
+        findValue = findValueTextField.getText();
+        result = resultLabel.getText();
+    }
+
+    @Override
+    public void unbind() {
+        treeValuesTextField.setText(treeValues);
+        findValueTextField.setText(findValue);
+        resultLabel.setText(result);
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("TreeForm");
