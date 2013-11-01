@@ -15,7 +15,7 @@ subprojects {
 
     test {
         afterTest { desc, result -> 
-            println "Executing test ${desc.name} [${desc.className}]: ${result.resultType}"
+            println "Test: [${desc.className.substring(13)}]: ${result.resultType} in ${desc.name}"
         }
     }
 }
