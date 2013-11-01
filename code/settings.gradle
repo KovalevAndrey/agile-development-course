@@ -39,8 +39,8 @@ project(":alexey-sagin").name = "alexey-sagin-Model"
 //project(":alexey-sagin/View").name = "alexey-sagin-View"
 
 // Anatoly Vildemanov
-include "anatoly-vildemanov"
-project(":anatoly-vildemanov").name = "anatoly-vildemanov-Model"
+include "anatoly-vildemanov/Model"
+project(":anatoly-vildemanov/Model").name = "anatoly-vildemanov-Model"
 //include "anatoly-vildemanov/ViewModel"
 //project(":anatoly-vildemanov/ViewModel").name = "anatoly-vildemanov-ViewModel"
 //include "anatoly-vildemanov/View"
