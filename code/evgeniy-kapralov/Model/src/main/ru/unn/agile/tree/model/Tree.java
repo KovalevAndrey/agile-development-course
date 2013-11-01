@@ -1,4 +1,4 @@
-package ru.unn.agile.tree;
+package ru.unn.agile.tree.model;
 
 public class Tree {
     private Tree left;

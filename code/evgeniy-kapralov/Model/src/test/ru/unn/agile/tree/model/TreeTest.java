@@ -1,7 +1,7 @@
-package ru.unn.agile.tree;
+package ru.unn.agile.tree.model;
 
 import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TreeTest {
     private Tree tree;
