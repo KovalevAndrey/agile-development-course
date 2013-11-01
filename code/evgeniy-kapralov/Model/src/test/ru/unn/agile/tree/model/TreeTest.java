@@ -100,6 +100,34 @@ public class TreeTest {
     }
 
     @Test
+    public void leftRightTreesAreEqual() {
+        tree.insert(14);
+        tree.insert(-5);
+        tree.insert(0);
+
+        Tree secondTree = new Tree(rootKey);
+        secondTree.insert(14);
+        secondTree.insert(-5);
+        secondTree.insert(0);
+
+        assertEquals(tree, secondTree);
+    }
+
+    @Test
+    public void rightLeftTreesAreEqual() {
+        tree.insert(14);
+        tree.insert(-5);
+        tree.insert(12);
+
+        Tree secondTree = new Tree(rootKey);
+        secondTree.insert(14);
+        secondTree.insert(-5);
+        secondTree.insert(12);
+
+        assertEquals(tree, secondTree);
+    }
+
+    @Test
     public void findRootKey() {
         assertEquals(tree, tree.find(rootKey));
     }

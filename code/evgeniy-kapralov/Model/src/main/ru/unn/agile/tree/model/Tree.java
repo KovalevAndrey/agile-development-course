@@ -32,6 +32,14 @@ public class Tree {
                 if (tree.left == left && tree.right == right) {
                     return true;
                 }
+                else if (tree.left == null && tree.right != null && tree.right.equals(right))
+                {
+                    return true;
+                }
+                else if (tree.right == null && tree.left != null && tree.left.equals(left))
+                {
+                    return true;
+                }
                 else if (tree.left == null || tree.right == null)
                 {
                     return false;

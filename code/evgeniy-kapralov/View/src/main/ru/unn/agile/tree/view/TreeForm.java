@@ -13,7 +13,6 @@ public class TreeForm {
     private JTextField textField1;
     private JPanel mainPanel;
     private JTextField textField2;
-    private JButton createButton;
     private JButton findButton;
 
     public static void main(String[] args) {

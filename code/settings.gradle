@@ -119,10 +119,10 @@ project(":elena-tilkova").name = "elena-tilkova-Model"
 //project(":elena-tilkova/View").name = "elena-tilkova-View"
 
 // Evgeniy Kapralov
-include "evgeniy-kapralov"
-project(":evgeniy-kapralov").name = "evgeniy-kapralov-Model"
-//include "evgeniy-kapralov/ViewModel"
-//project(":evgeniy-kapralov/ViewModel").name = "evgeniy-kapralov-ViewModel"
+include "evgeniy-kapralov/Model"
+project(":evgeniy-kapralov/Model").name = "evgeniy-kapralov-Model"
+include "evgeniy-kapralov/ViewModel"
+project(":evgeniy-kapralov/ViewModel").name = "evgeniy-kapralov-ViewModel"
 include "evgeniy-kapralov/View"
 project(":evgeniy-kapralov/View").name = "evgeniy-kapralov-View"
 
