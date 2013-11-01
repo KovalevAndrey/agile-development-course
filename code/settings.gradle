@@ -239,9 +239,9 @@ project(":vyacheslav-yudanov").name = "vyacheslav-yudanov-Model"
 //project(":vyacheslav-yudanov/View").name = "vyacheslav-yudanov-View"
 
 // Zoya Maslova
-include "zoya-maslova"
-project(":zoya-maslova").name = "zoya-maslova-Model"
-//include "zoya-maslova/ViewModel"
-//project(":zoya-maslova/ViewModel").name = "zoya-maslova-ViewModel"
+include "zoya-maslova/Model"
+project(":zoya-maslova/Model").name = "zoya-maslova-Model"
+include "zoya-maslova/ViewModel"
+project(":zoya-maslova/ViewModel").name = "zoya-maslova-ViewModel"
 //include "zoya-maslova/View"
 //project(":zoya-maslova/View").name = "zoya-maslova-View"
