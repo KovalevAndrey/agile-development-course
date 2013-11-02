@@ -2,13 +2,6 @@ package ru.unn.agile.queue;
 
 import javax.swing.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: user
- * Date: 01.11.13
- * Time: 22:42
- * To change this template use File | Settings | File Templates.
- */
 public class QueueForm {
     private JButton pushButton;
     private JTextField textField1;

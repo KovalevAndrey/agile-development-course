@@ -58,4 +58,14 @@ public class Queue {
         head  = 0;
         tail = -1;
     }
+
+    public int getCount()
+    {
+        return count;
+    }
+
+    public int getMaxCount()
+    {
+        return MAX_LEN;
+    }
 }
