@@ -1,7 +1,7 @@
-package ru.unn.agile.tree;
+package ru.unn.agile.tree.model;
 
 import org.junit.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TreeTest {
     private Tree tree;
@@ -97,6 +97,34 @@ public class TreeTest {
         secondTree.insert(256);
 
         assertEquals(secondTree, tree.getRight());
+    }
+
+    @Test
+    public void leftRightTreesAreEqual() {
+        tree.insert(14);
+        tree.insert(-5);
+        tree.insert(0);
+
+        Tree secondTree = new Tree(rootKey);
+        secondTree.insert(14);
+        secondTree.insert(-5);
+        secondTree.insert(0);
+
+        assertEquals(tree, secondTree);
+    }
+
+    @Test
+    public void rightLeftTreesAreEqual() {
+        tree.insert(14);
+        tree.insert(-5);
+        tree.insert(12);
+
+        Tree secondTree = new Tree(rootKey);
+        secondTree.insert(14);
+        secondTree.insert(-5);
+        secondTree.insert(12);
+
+        assertEquals(tree, secondTree);
     }
 
     @Test
