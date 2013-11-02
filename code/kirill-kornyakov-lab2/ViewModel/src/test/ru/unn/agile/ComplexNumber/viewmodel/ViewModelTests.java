@@ -24,6 +24,37 @@ public class ViewModelTests
     }
 
     @Test
+    public void canSetDefaultValues()
+    {
+        assertEquals("", viewModel.re1);
+        assertEquals("", viewModel.im1);
+        assertEquals("", viewModel.re2);
+        assertEquals("", viewModel.im2);
+        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
+        assertEquals("", viewModel.result);
+        assertEquals("", viewModel.status);
+    }
+
+    @Test
+    public void canSetOperationFromString()
+    {
+        viewModel.setOperation("Add");
+        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
+    }
+
+    @Test
+    public void canSetMulOperationFromString()
+    {
+        viewModel.setOperation("Mul");
+        assertEquals(ViewModel.Operation.MULTIPLY, viewModel.getOperation());
+    }
+
+    @Test (expected=IllegalArgumentException.class)
+    public void testNullParameter() throws IllegalArgumentException {
+        viewModel.setOperation("Wrong string");
+    }
+
+    @Test
     public void canConvertStringToComplexNumber()
     {
         String re = "10"; String im = "20";
@@ -35,7 +66,7 @@ public class ViewModelTests
     @Test
     public void isDefaultOperationAdd()
     {
-        assertEquals(ViewModel.Operation.ADD, viewModel.op);
+        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
     }
 
     @Test
@@ -53,9 +84,9 @@ public class ViewModelTests
     {
         viewModel.re1 = "1";   viewModel.im1 = "2";
         viewModel.re2 = "-10"; viewModel.im2 = "-20";
-        viewModel.op = ViewModel.Operation.ADD;
+        viewModel.setOperation("Add");
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
         assertEquals("-9.0 - 18.0i", viewModel.result);
     }
@@ -66,9 +97,9 @@ public class ViewModelTests
         viewModel.re1 = "0"; viewModel.im1 = "0";
         viewModel.re2 = "0"; viewModel.im2 = "0";
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
-        assertEquals("Success", viewModel.message);
+        assertEquals("Success", viewModel.status);
     }
 
     @Test
@@ -76,9 +107,9 @@ public class ViewModelTests
     {
         viewModel.re1 = "a";
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
-        assertEquals("Bad Format", viewModel.message);
+        assertEquals("Bad Format", viewModel.status);
     }
 
     @Test
@@ -86,7 +117,7 @@ public class ViewModelTests
     {
         viewModel.re1 = "a";
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
         assertEquals("NA", viewModel.result);
     }
@@ -96,9 +127,9 @@ public class ViewModelTests
     {
         viewModel.re1 = "1"; viewModel.im1 = "0";
         viewModel.re2 = "2"; viewModel.im2 = "0";
-        viewModel.op = ViewModel.Operation.MULTIPLY;
+        viewModel.setOperation("Mul");
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
         assertEquals("2.0 + 0.0i", viewModel.result);
     }
@@ -109,7 +140,7 @@ public class ViewModelTests
         viewModel.re1 = "1.2";   viewModel.im1 = "2.3";
         viewModel.re2 = "-10.4"; viewModel.im2 = "-20.5";
 
-        viewModel.calcActionHandler.onClick();
+        viewModel.calculate();
 
         assertEquals("-9.2 - 18.2i", viewModel.result);
     }

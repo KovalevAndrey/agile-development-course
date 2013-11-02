@@ -2,36 +2,33 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
+//TODO: remove item selection logic from View
+//TODO: disable button if some fields are empty
+//TODO: add some periodic notifications from Model
+
 public class ViewModel
 {
     public String re1;
     public String im1;
     public String re2;
     public String im2;
+    public String result;
+    public String status;
 
     public enum Operation { ADD, MULTIPLY }
-    public Operation op;
-    public String result;
-    public String message;
-
-    public ClickHandler calcActionHandler;
+    private Operation operation;
 
     public ViewModel() {
-        op = Operation.ADD;
-
-        calcActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModel.this.bind();
-                ViewModel.this.processCalcAction();
-                ViewModel.this.unbind();
-            }
-        };
+        re1 = "";
+        im1 = "";
+        re2 = "";
+        im2 = "";
+        operation = Operation.ADD;
+        result = "";
+        status = "";
     }
 
-    public void bind() {}
-    public void unbind() {}
-
-    private void processCalcAction()
+    public void calculate()
     {
         ComplexNumber z1, z2;
         try {
@@ -40,12 +37,12 @@ public class ViewModel
         }
         catch (Exception e) {
             result = "NA";
-            message = "Bad Format";
+            status = "Bad Format";
             return;
         }
 
         ComplexNumber resultZ = new ComplexNumber();
-        switch (op) {
+        switch (operation) {
             case ADD:
                 resultZ = z1.add(z2);
                 break;
@@ -55,7 +52,20 @@ public class ViewModel
         }
 
         result = resultZ.toString();
-        message = "Success";
+        status = "Success";
+    }
+
+    public void setOperation(String operation) {
+        if (operation == "Add")
+            this.operation = Operation.ADD;
+        else if (operation == "Mul")
+            this.operation = Operation.MULTIPLY;
+        else
+            throw new IllegalArgumentException();
+    }
+
+    public Operation getOperation() {
+        return operation;
     }
 
     public ComplexNumber convertToComplexNumber(String re, String im) {
