@@ -35,13 +35,18 @@ public class Calculator
             }
         });
 
-        txtZ1Re.addFocusListener(new FocusAdapter() {
+        FocusAdapter formatChecker = new FocusAdapter() {
             public void focusLost(FocusEvent e) {
                 bind();
                 Calculator.this.viewModel.parseInputFields();
                 backBind();
             }
-        });
+        };
+
+        txtZ1Re.addFocusListener(formatChecker);
+        txtZ1Im.addFocusListener(formatChecker);
+        txtZ2Re.addFocusListener(formatChecker);
+        txtZ2Im.addFocusListener(formatChecker);
     }
 
     public void bind() {
