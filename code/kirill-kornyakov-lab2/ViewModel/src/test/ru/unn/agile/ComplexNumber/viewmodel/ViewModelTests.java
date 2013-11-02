@@ -32,7 +32,33 @@ public class ViewModelTests
         assertEquals("", viewModel.im2);
         assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
         assertEquals("", viewModel.result);
-        assertEquals("", viewModel.status);
+        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
+    }
+
+    @Test
+    public void isStatusDefaultInTheBeginning()
+    {
+        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
+    }
+
+    @Test
+    public void canReportBadFormat()
+    {
+        viewModel.re1 = "a";
+        viewModel.parseInputFields();
+
+        assertEquals(ViewModel.Statuses.BAD_FORMAT, viewModel.status);
+    }
+
+    @Test
+    public void canCleanStatusIfParseIsOK()
+    {
+        viewModel.re1 = "a";
+        viewModel.parseInputFields();
+        viewModel.re1 = "1.0";
+        viewModel.parseInputFields();
+
+        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
     }
 
     @Test
@@ -99,7 +125,7 @@ public class ViewModelTests
 
         viewModel.calculate();
 
-        assertEquals("Success", viewModel.status);
+        assertEquals(ViewModel.Statuses.SUCCESS, viewModel.status);
     }
 
     @Test
@@ -109,7 +135,7 @@ public class ViewModelTests
 
         viewModel.calculate();
 
-        assertEquals("Bad Format", viewModel.status);
+        assertEquals(ViewModel.Statuses.BAD_FORMAT, viewModel.status);
     }
 
     @Test

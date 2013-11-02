@@ -5,6 +5,8 @@ import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Calculator
 {
@@ -23,11 +25,20 @@ public class Calculator
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
+
         btnCalc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 bind();
                 Calculator.this.viewModel.calculate();
+                backBind();
+            }
+        });
+
+        txtZ1Re.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                bind();
+                Calculator.this.viewModel.parseInputFields();
                 backBind();
             }
         });

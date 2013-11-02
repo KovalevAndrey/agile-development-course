@@ -2,9 +2,9 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
-//TODO: remove item selection logic from View
 //TODO: disable button if some fields are empty
 //TODO: add some periodic notifications from Model
+//TODO: We can populate the list manually
 
 public class ViewModel
 {
@@ -18,14 +18,31 @@ public class ViewModel
     public enum Operation { ADD, MULTIPLY }
     private Operation operation;
 
+    public class Statuses {
+        public static final String DEFAULT = "";
+        public static final String BAD_FORMAT = "Bad format";
+        public static final String SUCCESS = "Success";
+    }
+
     public ViewModel() {
-        re1 = "";
-        im1 = "";
-        re2 = "";
-        im2 = "";
+        re1 = ""; im1 = "";
+        re2 = ""; im2 = "";
         operation = Operation.ADD;
-        result = "";
-        status = "";
+        result = ""; status = Statuses.DEFAULT;
+    }
+
+    public void parseInputFields() {
+        try {
+            if (!re1.isEmpty()) Double.parseDouble(re1);
+            if (!im1.isEmpty()) Double.parseDouble(im1);
+            if (!re2.isEmpty()) Double.parseDouble(re2);
+            if (!im2.isEmpty()) Double.parseDouble(im2);
+        }
+        catch (Exception e) {
+            status = Statuses.BAD_FORMAT;
+            return;
+        }
+        status = Statuses.DEFAULT;
     }
 
     public void calculate()
@@ -37,22 +54,22 @@ public class ViewModel
         }
         catch (Exception e) {
             result = "NA";
-            status = "Bad Format";
+            status = Statuses.BAD_FORMAT;
             return;
         }
 
-        ComplexNumber resultZ = new ComplexNumber();
+        ComplexNumber z3 = new ComplexNumber();
         switch (operation) {
             case ADD:
-                resultZ = z1.add(z2);
+                z3 = z1.add(z2);
                 break;
             case MULTIPLY:
-                resultZ = z1.multiply(z2);
+                z3 = z1.multiply(z2);
                 break;
         }
 
-        result = resultZ.toString();
-        status = "Success";
+        result = z3.toString();
+        status = Statuses.SUCCESS;
     }
 
     public void setOperation(String operation) {
