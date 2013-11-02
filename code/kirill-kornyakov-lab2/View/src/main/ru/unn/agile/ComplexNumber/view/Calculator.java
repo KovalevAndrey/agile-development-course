@@ -3,10 +3,9 @@ package ru.unn.agile.ComplexNumber.view;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+import java.awt.event.*;
 
 public class Calculator
 {
@@ -25,6 +24,7 @@ public class Calculator
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
+        backBind();
 
         btnCalc.addActionListener(new ActionListener() {
             @Override
@@ -35,18 +35,18 @@ public class Calculator
             }
         });
 
-        FocusAdapter formatChecker = new FocusAdapter() {
-            public void focusLost(FocusEvent e) {
+        KeyAdapter formatChecker = new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
                 bind();
                 Calculator.this.viewModel.parseInputFields();
                 backBind();
             }
         };
 
-        txtZ1Re.addFocusListener(formatChecker);
-        txtZ1Im.addFocusListener(formatChecker);
-        txtZ2Re.addFocusListener(formatChecker);
-        txtZ2Im.addFocusListener(formatChecker);
+        txtZ1Re.addKeyListener(formatChecker);
+        txtZ1Im.addKeyListener(formatChecker);
+        txtZ2Re.addKeyListener(formatChecker);
+        txtZ2Im.addKeyListener(formatChecker);
     }
 
     public void bind() {
@@ -69,6 +69,8 @@ public class Calculator
 
         txtResult.setText(viewModel.result);
         lbStatus.setText(viewModel.status);
+
+        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
     }
 
     public static void main(String[] args) {

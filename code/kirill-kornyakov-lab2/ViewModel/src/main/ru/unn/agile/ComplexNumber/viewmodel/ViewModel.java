@@ -2,33 +2,26 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
-//TODO: disable button if some fields are empty
-//TODO: add some periodic notifications from Model
 //TODO: We can populate the list manually
+//TODO: add some periodic notifications from Model
 
 public class ViewModel
 {
-    public String re1;
-    public String im1;
-    public String re2;
-    public String im2;
-    public String result;
-    public String status;
+    public String re1 = "";
+    public String im1 = "";
+    public String re2 = "";
+    public String im2 = "";
+    public String result = "";
+    public String status = Statuses.DEFAULT;
+    public boolean isCalculateButtonEnabled = false;
 
     public enum Operation { ADD, MULTIPLY }
-    private Operation operation;
+    private Operation operation = Operation.ADD;
 
     public class Statuses {
         public static final String DEFAULT = "";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
-    }
-
-    public ViewModel() {
-        re1 = ""; im1 = "";
-        re2 = ""; im2 = "";
-        operation = Operation.ADD;
-        result = ""; status = Statuses.DEFAULT;
     }
 
     public void parseInputFields() {
@@ -40,11 +33,18 @@ public class ViewModel
         }
         catch (Exception e) {
             status = Statuses.BAD_FORMAT;
+            isCalculateButtonEnabled = false;
             return;
         }
         status = Statuses.DEFAULT;
+
+        if (!re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty())
+            isCalculateButtonEnabled = true;
+        else
+            isCalculateButtonEnabled = false;
     }
 
+    //TODO: rewrite this using parseInputFields()
     public void calculate()
     {
         ComplexNumber z1, z2;

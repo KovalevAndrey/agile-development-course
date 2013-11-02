@@ -62,6 +62,44 @@ public class ViewModelTests
     }
 
     @Test
+    public void isCalculateButtonDisabledInitially()
+    {
+        assertEquals(false, viewModel.isCalculateButtonEnabled);
+    }
+
+    @Test
+    public void isCalculateButtonDisabledWhenFormatIsBad()
+    {
+        viewModel.isCalculateButtonEnabled = true;
+        viewModel.re1 = "trash";
+
+        viewModel.parseInputFields();
+
+        assertEquals(false, viewModel.isCalculateButtonEnabled);
+    }
+
+    @Test
+    public void isCalculateButtonDisabledWithIncompleteInput()
+    {
+        viewModel.re1 = "1"; viewModel.im1 = "1";
+
+        viewModel.parseInputFields();
+
+        assertEquals(false, viewModel.isCalculateButtonEnabled);
+    }
+
+    @Test
+    public void isCalculateButtonEnabledWithCorrectInput()
+    {
+        viewModel.re1 = "1"; viewModel.im1 = "1";
+        viewModel.re2 = "3"; viewModel.im2 = "3";
+
+        viewModel.parseInputFields();
+
+        assertEquals(true, viewModel.isCalculateButtonEnabled);
+    }
+
+    @Test
     public void canSetOperationFromString()
     {
         viewModel.setOperation("Add");
