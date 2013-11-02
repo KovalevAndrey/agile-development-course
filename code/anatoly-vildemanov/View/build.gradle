@@ -1,3 +1,7 @@
+dependencies	{
+	compile	project(':anatoly-vildemanov-ViewModel')
+}
+
 sourceSets {
     main.java.srcDir 'src/main'
 }

@@ -1,10 +1,9 @@
 package ru.unn.agile.queue;
 
 public class ViewModel {
-    public String Element;
-    public String topElement;
-    public String result;
-    public String message;
+    public String Element = "";
+    public String topElement = "";
+    public String message = "";
     public String size;
     public Queue queue;
 
@@ -51,7 +50,6 @@ public class ViewModel {
             el = Integer.parseInt(Element);
         }
         catch (Exception e) {
-            result = "NA";
             message = "Bad Format";
             return;
         }
@@ -80,6 +78,8 @@ public class ViewModel {
     private void cleanProcessAction()
     {
         queue.clean();
+        Element = "";
+        topElement = "";
         setStatusField();
     }
 

@@ -48,15 +48,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetNAResultWhenBadFormat()
-    {
-        viewModel.Element = "ololo";
-        viewModel.pushActionHandler.onClick();
-
-        assertEquals("NA", viewModel.result);
-    }
-
-    @Test
     public void canSetSuccessMessageAfterPush()
     {
         viewModel.Element = "2";
@@ -139,5 +130,20 @@ public class ViewModelTests {
         viewModel.cleanActionHandler.onClick();
 
         assertEquals("Success", viewModel.message);
+    }
+
+    @Test
+    public void canCleanWorkElements()
+    {
+        for (int i = 0; i < queue.getMaxCount() - 2; i++)
+        {
+            viewModel.Element = "2";
+            viewModel.pushActionHandler.onClick();
+        }
+        viewModel.popActionHandler.onClick();
+        viewModel.cleanActionHandler.onClick();
+
+        assertEquals("", viewModel.topElement);
+        assertEquals("", viewModel.Element);
     }
 }
