@@ -14,6 +14,10 @@ public class CurrencyConverterViewModel {
         return currencyCharCodes;
     }
 
+    public CurrencyConverterViewModel() {
+        this(new ConstantCurrencyProvider());
+    }
+
     public CurrencyConverterViewModel(ICurrencyProvider provider)
     {
         this.provider = provider;
