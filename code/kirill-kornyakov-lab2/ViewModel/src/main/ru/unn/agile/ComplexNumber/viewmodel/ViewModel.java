@@ -44,7 +44,6 @@ public class ViewModel
             isCalculateButtonEnabled = false;
     }
 
-    //TODO: rewrite this using parseInputFields()
     public void calculate()
     {
         ComplexNumber z1, z2;
