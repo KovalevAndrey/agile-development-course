@@ -3,10 +3,6 @@ package ru.unn.agile.dichotomy.view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -16,7 +12,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JInternalFrame;
 
 public class DichotomySolver {
 
