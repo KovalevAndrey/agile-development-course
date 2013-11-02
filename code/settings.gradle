@@ -231,8 +231,8 @@ project(":stanislav-filippenko").name = "stanislav-filippenko-Model"
 //project(":stanislav-filippenko/View").name = "stanislav-filippenko-View"
 
 // Vyacheslav Yudanov
-include "vyacheslav-yudanov"
-project(":vyacheslav-yudanov").name = "vyacheslav-yudanov-Model"
+include "vyacheslav-yudanov/Model"
+project(":vyacheslav-yudanov/Model").name = "vyacheslav-yudanov-Model"
 //include "vyacheslav-yudanov/ViewModel"
 //project(":vyacheslav-yudanov/ViewModel").name = "vyacheslav-yudanov-ViewModel"
 //include "vyacheslav-yudanov/View"
