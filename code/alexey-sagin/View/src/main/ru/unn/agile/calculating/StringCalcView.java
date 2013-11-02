@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class StringCalculatorView {
+public class StringCalcView {
 
 	private JFrame frmAsd;
 	private JTextField txtExpression;
@@ -23,7 +23,7 @@ public class StringCalculatorView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StringCalculatorView window = new StringCalculatorView();
+					StringCalcView window = new StringCalcView();
 					window.frmAsd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class StringCalculatorView {
 	/**
 	 * Create the application.
 	 */
-	public StringCalculatorView() {
+	public StringCalcView() {
 		initialize();
 	}
 
