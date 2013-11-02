@@ -151,12 +151,12 @@ project(":ilya-krylov").name = "ilya-krylov-Model"
 //project(":ilya-krylov/View").name = "ilya-krylov-View"
 
 // Kate Sergeeva
-include "kate-sergeeva"
-project(":kate-sergeeva").name = "kate-sergeeva-Model"
+include "kate-sergeeva/Model"
+project(":kate-sergeeva/Model").name = "kate-sergeeva-Model"
 //include "kate-sergeeva/ViewModel"
 //project(":kate-sergeeva/ViewModel").name = "kate-sergeeva-ViewModel"
-//include "kate-sergeeva/View"
-//project(":kate-sergeeva/View").name = "kate-sergeeva-View"
+include "kate-sergeeva/View"
+project(":kate-sergeeva/View").name = "kate-sergeeva-View"
 
 // Kurilov Dmitry
 include "kurilov-dmitry"

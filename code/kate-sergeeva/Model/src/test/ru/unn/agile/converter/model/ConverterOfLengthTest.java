@@ -1,11 +1,11 @@
-package ru.unn.agile.converter;
+package ru.unn.agile.converter.model;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-import static ru.unn.agile.converter.Unit.*;
+import static ru.unn.agile.converter.model.Unit.*;
 
 public class ConverterOfLengthTest {
     double eps = 1e-5;
