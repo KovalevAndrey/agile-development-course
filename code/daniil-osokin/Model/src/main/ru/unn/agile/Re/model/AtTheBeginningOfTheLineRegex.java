@@ -4,8 +4,18 @@ class AtTheBeginningOfTheLineRegex extends Regex
 {
     public static final String descriptor = "^";
 
+    private boolean isPatternApplicable(String pattern)
+    {
+        return pattern.substring(0, 1).equals(descriptor);
+    }
+
     AtTheBeginningOfTheLineRegex(String pattern)
     {
+        if (!isPatternApplicable(pattern))
+        {
+            throw new RuntimeException(ReError.BAD_PATTERN);
+        }
+
         String[] tokens = pattern.split("\\" + descriptor);
         lexemes.add(tokens[1]);
     }
@@ -17,7 +27,7 @@ class AtTheBeginningOfTheLineRegex extends Regex
         int position = 0;
         for (int i = 0; i < tokens.length; i++)
         {
-            if (tokens[i].indexOf(lexemes.get(0)) != Regex.NOT_FOUND_INDEX)
+            if (tokens[i].indexOf(lexemes.get(0)) == 0)
             {
                 return position;
             }

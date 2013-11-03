@@ -9,6 +9,7 @@ public abstract class Regex
 
     public int search(String text)
     {
+        text = text.split("\n")[0];
         final int size = lexemes.size();
         int[] positions = new int[size];
         for (int i = 0; i < size; i++)

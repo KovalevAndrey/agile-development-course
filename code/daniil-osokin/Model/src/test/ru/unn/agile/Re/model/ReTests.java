@@ -1,14 +1,12 @@
-package ru.unn.agile.ReTest.model;
+package ru.unn.agile.Re.model;
 
 import org.junit.Test;
-import ru.unn.agile.Re.model.Re;
-import ru.unn.agile.Re.model.Regex;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ReTest
+public class ReTests
 {
     @Test
     public void returnFirstOccurrenceIndexWithoutRegex()
@@ -47,9 +45,9 @@ public class ReTest
     }
 
     @Test
-    public void returnFirstOccurrenceAtTheBeginningOfTheLine()
+    public void returnFirstOccurrenceWithMultilineRegex()
     {
-        assertThat(Re.search("^fi", "first"), is(equalTo(0)));
+        assertThat(Re.search("^fi", "second\nfirst"), is(equalTo(7)));
     }
 
     @Test
@@ -90,4 +88,33 @@ public class ReTest
         assertThat(Re.search("\\(((%&*#@!", "where was the cat"), is(equalTo(Regex.NOT_FOUND_INDEX)));
     }
 
+    @Test
+    public void returnNotFoundIndexWithExactNumberOfRepeatsInMultipleLines()
+    {
+        assertThat(Re.search("c{1}at", "crat\ncat"), is(equalTo(Regex.NOT_FOUND_INDEX)));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void throwExceptionIfNoTextInPattern()
+    {
+        Re.search("^", "cat");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void throwExceptionIfNoTextInExactNumberOfRepeatPattern()
+    {
+        Re.search("{1}", "cat");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void cantCompileAtTheBeginningOfTheLinePatternWithLeadCharInPattern()
+    {
+        Re.compile("a^");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void cantCompileTwoSameRegexInOnePattern()
+    {
+        Re.compile("?a?");
+    }
 }

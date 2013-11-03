@@ -1,11 +1,45 @@
 package ru.unn.agile.Re.view;
 
+import ru.unn.agile.Re.viewmodel.ReViewModel;
+
 import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static javax.swing.UIManager.setLookAndFeel;
 
 public class SearchEngine
 {
+    public SearchEngine(ReViewModel viewModel)
+    {
+        this.viewModel = viewModel;
+        searchButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                bind();
+                SearchEngine.this.viewModel.search();
+                backBind();
+            }
+        });
+    }
+
+    private void bind()
+    {
+        viewModel.pattern = patternTextField.getText();
+        viewModel.text = searchTextArea.getText();
+        viewModel.status = statusTextLabel.getText();
+    }
+
+    private void backBind()
+    {
+        patternTextField.setText(viewModel.pattern);
+        searchTextArea.setText(viewModel.text);
+        statusTextLabel.setText(viewModel.status);
+    }
+
     public static void main(String[] args)
     {
         try
@@ -18,21 +52,17 @@ public class SearchEngine
         }
 
         JFrame frame = new JFrame("SearchEngine");
-        frame.setContentPane(new SearchEngine().mainPanel);
+        frame.setContentPane(new SearchEngine(new ReViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
 
+    private ReViewModel viewModel;
+
     private JPanel mainPanel;
-    private JPanel searchPanel;
-    private JPanel textPanel;
-    private JPanel statusPanel;
-    private JLabel regexLabel;
-    private JTextField regexTextField;
+    private JTextField patternTextField;
     private JButton searchButton;
-    private JLabel textLabel;
     private JTextArea searchTextArea;
-    private JLabel statusLabel;
     private JLabel statusTextLabel;
 }

@@ -11,6 +11,14 @@ abstract class RegexFactory
 
     public static Regex create(String pattern)
     {
+        for (String descriptor : descriptors)
+        {
+            if (pattern.length() == 1 && pattern.indexOf(descriptor) != Regex.NOT_FOUND_INDEX)
+            {
+                throw new RuntimeException(ReError.BAD_PATTERN);
+            }
+        }
+
         if (pattern.indexOf(NullOrOneRepeatRegex.descriptor) != Regex.NOT_FOUND_INDEX)
         {
             return new NullOrOneRepeatRegex(pattern);

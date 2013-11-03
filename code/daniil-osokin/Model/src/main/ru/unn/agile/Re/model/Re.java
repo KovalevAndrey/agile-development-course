@@ -21,15 +21,24 @@ public class Re
         int regexCounter = 0;
         for (String descriptor: RegexFactory.descriptors)
         {
-            if (pattern.indexOf(descriptor) != Regex.NOT_FOUND_INDEX)
+            String copyPattern = pattern;
+            while (copyPattern.length() > 0)
             {
-                regexCounter++;
+                if (copyPattern.indexOf(descriptor) != Regex.NOT_FOUND_INDEX)
+                {
+                    copyPattern = copyPattern.substring(copyPattern.indexOf(descriptor) + 1, copyPattern.length());
+                    regexCounter++;
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
         if (regexCounter > 1)
         {
-            throw new RuntimeException("Multiple regex isn't allowed.");
+            throw new RuntimeException(ReError.MULTIPLE_REGEX);
         }
     }
 }
