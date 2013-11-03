@@ -1,4 +1,4 @@
-package ru.unn.agile.MathStatistic;
+package ru.unn.agile.MathStatistic.model;
 
 import static java.lang.Math.pow;
 
