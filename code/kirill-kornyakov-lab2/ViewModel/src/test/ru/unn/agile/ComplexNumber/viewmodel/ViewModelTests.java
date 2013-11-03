@@ -36,13 +36,13 @@ public class ViewModelTests
     }
 
     @Test
-    public void isStatusDefaultInTheBeginning()
+    public void isStatusWaitingInTheBeginning()
     {
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
     @Test
-    public void isStatusDefaultWhenCalculateWithEmptyFields()
+    public void isStatusWaitingWhenCalculateWithEmptyFields()
     {
         viewModel.calculate();
 
@@ -50,7 +50,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void isStatusOkWhenFieldsAreFill()
+    public void isStatusReadyWhenFieldsAreFill()
     {
         viewModel.re1 = "1"; viewModel.im1 = "1";
         viewModel.re2 = "3"; viewModel.im2 = "3";
@@ -151,14 +151,14 @@ public class ViewModelTests
     }
 
     @Test
-    public void canSetOperationFromString()
+    public void canSetAddOperation()
     {
         viewModel.operation = ViewModel.Operation.ADD;
         assertEquals(ViewModel.Operation.ADD, viewModel.operation);
     }
 
     @Test
-    public void canSetMulOperationFromString()
+    public void canSetMulOperation()
     {
         viewModel.operation = ViewModel.Operation.MULTIPLY;
         assertEquals(ViewModel.Operation.MULTIPLY, viewModel.operation);
@@ -180,7 +180,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canConvertStringToComplexNumberWithFloatingPointNumbers()
+    public void canConvertScientificStringToComplexNumber()
     {
         String re = "3.14";
         String im = "-1e3";
@@ -235,7 +235,7 @@ public class ViewModelTests
     }
 
     @Test
-    public void canPerformAddActionWithRealNumbers()
+    public void canPerformAddWithArbitraryNumbers()
     {
         viewModel.re1 = "1.2";   viewModel.im1 = "2.3";
         viewModel.re2 = "-10.4"; viewModel.im2 = "-20.5";
