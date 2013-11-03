@@ -24,6 +24,8 @@ public class Calculator
         this.viewModel = viewModel;
         backBind();
 
+        loadListOfOperations();
+
         btnCalc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -36,7 +38,7 @@ public class Calculator
         KeyAdapter formatChecker = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 bind();
-                Calculator.this.viewModel.parseInputFields();
+                Calculator.this.viewModel.parseInput();
                 backBind();
             }
         };
@@ -45,6 +47,11 @@ public class Calculator
         txtZ1Im.addKeyListener(formatChecker);
         txtZ2Re.addKeyListener(formatChecker);
         txtZ2Im.addKeyListener(formatChecker);
+    }
+
+    private void loadListOfOperations() {
+        String[] operations = ViewModel.Operation.getOperations();
+        cbOperation.setModel(new JComboBox(operations).getModel());
     }
 
     public void bind() {

@@ -2,7 +2,6 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
-//TODO: We can populate the list manually
 //TODO: add some periodic notifications from Model
 
 public class ViewModel
@@ -11,20 +10,49 @@ public class ViewModel
     public String im1 = "";
     public String re2 = "";
     public String im2 = "";
+    private Operation operation = Operation.ADD;
     public String result = "";
-    public String status = Statuses.DEFAULT;
+    public String status = Status.DEFAULT;
     public boolean isCalculateButtonEnabled = false;
 
-    public enum Operation { ADD, MULTIPLY }
-    private Operation operation = Operation.ADD;
+    public enum Operation {
+        ADD ("Add"),
+        MULTIPLY ("Mul");
 
-    public class Statuses {
+        private final String name;
+
+        private Operation(String s) {
+            name = s;
+        }
+
+        public String toString() {
+            return name;
+        }
+
+        public boolean equalsName(String otherName) {
+            return (otherName != null) && name.equals(otherName);
+        }
+
+        public static String[] getOperations() {
+            int size = Operation.values().length;
+
+            String[] operations = new String[size];
+
+            for (int i = 0; i < size; i++) {
+                operations[i] = Operation.values()[i].toString();
+            }
+
+            return operations;
+        }
+    }
+
+    public class Status {
         public static final String DEFAULT = "";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
     }
 
-    public void parseInputFields() {
+    public void parseInput() {
         try {
             if (!re1.isEmpty()) Double.parseDouble(re1);
             if (!im1.isEmpty()) Double.parseDouble(im1);
@@ -32,16 +60,17 @@ public class ViewModel
             if (!im2.isEmpty()) Double.parseDouble(im2);
         }
         catch (Exception e) {
-            status = Statuses.BAD_FORMAT;
+            status = Status.BAD_FORMAT;
             isCalculateButtonEnabled = false;
             return;
         }
-        status = Statuses.DEFAULT;
 
-        if (!re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty())
-            isCalculateButtonEnabled = true;
-        else
-            isCalculateButtonEnabled = false;
+        status = Status.DEFAULT;
+        isCalculateButtonEnabled = IsInputAvailable();
+    }
+
+    private boolean IsInputAvailable() {
+        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
     }
 
     public void calculate()
@@ -53,7 +82,7 @@ public class ViewModel
         }
         catch (Exception e) {
             result = "NA";
-            status = Statuses.BAD_FORMAT;
+            status = Status.BAD_FORMAT;
             return;
         }
 
@@ -68,16 +97,19 @@ public class ViewModel
         }
 
         result = z3.toString();
-        status = Statuses.SUCCESS;
+        status = Status.SUCCESS;
     }
 
-    public void setOperation(String operation) {
-        if (operation == "Add")
+    public void setOperation(String name) {
+        if (Operation.ADD.equalsName(name)) {
             this.operation = Operation.ADD;
-        else if (operation == "Mul")
+        }
+        else if (Operation.MULTIPLY.equalsName(name)) {
             this.operation = Operation.MULTIPLY;
-        else
+        }
+        else {
             throw new IllegalArgumentException();
+        }
     }
 
     public Operation getOperation() {

@@ -32,33 +32,33 @@ public class ViewModelTests
         assertEquals("", viewModel.im2);
         assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
         assertEquals("", viewModel.result);
-        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
     }
 
     @Test
     public void isStatusDefaultInTheBeginning()
     {
-        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
     }
 
     @Test
     public void canReportBadFormat()
     {
         viewModel.re1 = "a";
-        viewModel.parseInputFields();
+        viewModel.parseInput();
 
-        assertEquals(ViewModel.Statuses.BAD_FORMAT, viewModel.status);
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
 
     @Test
     public void canCleanStatusIfParseIsOK()
     {
         viewModel.re1 = "a";
-        viewModel.parseInputFields();
+        viewModel.parseInput();
         viewModel.re1 = "1.0";
-        viewModel.parseInputFields();
+        viewModel.parseInput();
 
-        assertEquals(ViewModel.Statuses.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ViewModelTests
         viewModel.isCalculateButtonEnabled = true;
         viewModel.re1 = "trash";
 
-        viewModel.parseInputFields();
+        viewModel.parseInput();
 
         assertEquals(false, viewModel.isCalculateButtonEnabled);
     }
@@ -83,9 +83,39 @@ public class ViewModelTests
     {
         viewModel.re1 = "1"; viewModel.im1 = "1";
 
-        viewModel.parseInputFields();
+        viewModel.parseInput();
 
         assertEquals(false, viewModel.isCalculateButtonEnabled);
+    }
+
+    @Test
+    public void canGetOperationName()
+    {
+        String addName = ViewModel.Operation.ADD.toString();
+        assertEquals("Add", addName);
+    }
+
+    @Test
+    public void canGetNumberOfOperations()
+    {
+        int nOperations = ViewModel.Operation.values().length;
+        assertEquals(2, nOperations);
+    }
+
+    @Test
+    public void canGetListOfOperations()
+    {
+        String[] operations = ViewModel.Operation.getOperations();
+        String[] currentOperations = new String[]{"Add", "Mul"};
+
+        assertArrayEquals(currentOperations, operations);
+    }
+
+    @Test
+    public void canCompareOperationsByName()
+    {
+        assertEquals(ViewModel.Operation.ADD, ViewModel.Operation.ADD);
+        assertNotEquals(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
     }
 
     @Test
@@ -94,7 +124,7 @@ public class ViewModelTests
         viewModel.re1 = "1"; viewModel.im1 = "1";
         viewModel.re2 = "3"; viewModel.im2 = "3";
 
-        viewModel.parseInputFields();
+        viewModel.parseInput();
 
         assertEquals(true, viewModel.isCalculateButtonEnabled);
     }
@@ -163,7 +193,7 @@ public class ViewModelTests
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.Statuses.SUCCESS, viewModel.status);
+        assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
     }
 
     @Test
@@ -173,7 +203,7 @@ public class ViewModelTests
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.Statuses.BAD_FORMAT, viewModel.status);
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
 
     @Test
