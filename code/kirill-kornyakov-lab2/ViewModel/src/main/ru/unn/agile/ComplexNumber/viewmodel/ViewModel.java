@@ -8,7 +8,7 @@ public class ViewModel
     public String im1 = "";
     public String re2 = "";
     public String im2 = "";
-    private Operation operation = Operation.ADD;
+    public Operation operation = Operation.ADD;
     public String result = "";
     public String status = Status.DEFAULT;
     public boolean isCalculateButtonEnabled = false;
@@ -25,22 +25,6 @@ public class ViewModel
 
         public String toString() {
             return name;
-        }
-
-        public boolean equalsName(String otherName) {
-            return (otherName != null) && name.equals(otherName);
-        }
-
-        public static String[] getOperations() {
-            int size = Operation.values().length;
-
-            String[] operations = new String[size];
-
-            for (int i = 0; i < size; i++) {
-                operations[i] = Operation.values()[i].toString();
-            }
-
-            return operations;
         }
     }
 
@@ -96,22 +80,6 @@ public class ViewModel
 
         result = z3.toString();
         status = Status.SUCCESS;
-    }
-
-    public void setOperation(String name) {
-        if (Operation.ADD.equalsName(name)) {
-            this.operation = Operation.ADD;
-        }
-        else if (Operation.MULTIPLY.equalsName(name)) {
-            this.operation = Operation.MULTIPLY;
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public Operation getOperation() {
-        return operation;
     }
 
     public ComplexNumber convertToComplexNumber(String re, String im) {

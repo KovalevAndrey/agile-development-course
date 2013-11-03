@@ -30,7 +30,7 @@ public class ViewModelTests
         assertEquals("", viewModel.im1);
         assertEquals("", viewModel.re2);
         assertEquals("", viewModel.im2);
-        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
+        assertEquals(ViewModel.Operation.ADD, viewModel.operation);
         assertEquals("", viewModel.result);
         assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
     }
@@ -105,8 +105,10 @@ public class ViewModelTests
     @Test
     public void canGetListOfOperations()
     {
-        String[] operations = ViewModel.Operation.getOperations();
-        String[] currentOperations = new String[]{"Add", "Mul"};
+        ViewModel.Operation[] operations = ViewModel.Operation.values();
+        ViewModel.Operation[] currentOperations = new ViewModel.Operation[]{
+            ViewModel.Operation.ADD,
+            ViewModel.Operation.MULTIPLY};
 
         assertArrayEquals(currentOperations, operations);
     }
@@ -132,20 +134,15 @@ public class ViewModelTests
     @Test
     public void canSetOperationFromString()
     {
-        viewModel.setOperation("Add");
-        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
+        viewModel.operation = ViewModel.Operation.ADD;
+        assertEquals(ViewModel.Operation.ADD, viewModel.operation);
     }
 
     @Test
     public void canSetMulOperationFromString()
     {
-        viewModel.setOperation("Mul");
-        assertEquals(ViewModel.Operation.MULTIPLY, viewModel.getOperation());
-    }
-
-    @Test (expected=IllegalArgumentException.class)
-    public void testNullParameter() throws IllegalArgumentException {
-        viewModel.setOperation("Wrong string");
+        viewModel.operation = ViewModel.Operation.MULTIPLY;
+        assertEquals(ViewModel.Operation.MULTIPLY, viewModel.operation);
     }
 
     @Test
@@ -160,7 +157,7 @@ public class ViewModelTests
     @Test
     public void isDefaultOperationAdd()
     {
-        assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
+        assertEquals(ViewModel.Operation.ADD, viewModel.operation);
     }
 
     @Test
@@ -178,7 +175,7 @@ public class ViewModelTests
     {
         viewModel.re1 = "1";   viewModel.im1 = "2";
         viewModel.re2 = "-10"; viewModel.im2 = "-20";
-        viewModel.setOperation("Add");
+        viewModel.operation = ViewModel.Operation.ADD;
 
         viewModel.calculate();
 
@@ -221,7 +218,7 @@ public class ViewModelTests
     {
         viewModel.re1 = "1"; viewModel.im1 = "0";
         viewModel.re2 = "2"; viewModel.im2 = "0";
-        viewModel.setOperation("Mul");
+        viewModel.operation = ViewModel.Operation.MULTIPLY;
 
         viewModel.calculate();
 
@@ -233,6 +230,7 @@ public class ViewModelTests
     {
         viewModel.re1 = "1.2";   viewModel.im1 = "2.3";
         viewModel.re2 = "-10.4"; viewModel.im2 = "-20.5";
+        viewModel.operation = ViewModel.Operation.ADD;
 
         viewModel.calculate();
 

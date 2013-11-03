@@ -25,7 +25,6 @@
 TBD
 
 <!--
-  - TODO: try to use ComboBox storing Operation instead of String
   - TODO: add some periodic notifications from Model
 -->
 

@@ -16,7 +16,7 @@ public class Calculator
     private JTextField txtZ1Im;
     private JTextField txtZ2Re;
     private JTextField txtZ2Im;
-    private JComboBox<String> cbOperation;
+    private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
 
@@ -50,8 +50,8 @@ public class Calculator
     }
 
     private void loadListOfOperations() {
-        String[] operations = ViewModel.Operation.getOperations();
-        cbOperation.setModel(new JComboBox<String>(operations).getModel());
+        ViewModel.Operation[] operations = ViewModel.Operation.values();
+        cbOperation.setModel(new JComboBox<ViewModel.Operation>(operations).getModel());
     }
 
     public void bind() {
@@ -60,7 +60,7 @@ public class Calculator
         viewModel.re2 = txtZ2Re.getText();
         viewModel.im2 = txtZ2Im.getText();
 
-        viewModel.setOperation(cbOperation.getSelectedItem().toString());
+        viewModel.operation = (ViewModel.Operation)cbOperation.getSelectedItem();
 
         viewModel.result = txtResult.getText();
         viewModel.status = lbStatus.getText();
