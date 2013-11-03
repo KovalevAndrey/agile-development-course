@@ -42,6 +42,25 @@ public class ViewModelTests
     }
 
     @Test
+    public void isStatusDefaultWhenCalculateWithEmptyFields()
+    {
+        viewModel.calculate();
+
+        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
+    }
+
+    @Test
+    public void isStatusOkWhenFieldsAreFill()
+    {
+        viewModel.re1 = "1"; viewModel.im1 = "1";
+        viewModel.re2 = "3"; viewModel.im2 = "3";
+
+        viewModel.parseInput();
+
+        assertEquals(ViewModel.Status.OK, viewModel.status);
+    }
+
+    @Test
     public void canReportBadFormat()
     {
         viewModel.re1 = "a";
@@ -201,16 +220,6 @@ public class ViewModelTests
         viewModel.calculate();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
-    }
-
-    @Test
-    public void isResultNAWhenBadFormat()
-    {
-        viewModel.re1 = "a";
-
-        viewModel.calculate();
-
-        assertEquals("NA", viewModel.result);
     }
 
     @Test

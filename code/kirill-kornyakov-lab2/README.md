@@ -25,6 +25,7 @@
 TBD
 
 <!--
+  - TODO: Click btnCalc on Enter
   - TODO: add some periodic notifications from Model
 -->
 

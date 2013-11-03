@@ -35,18 +35,23 @@ public class Calculator
             }
         });
 
-        KeyAdapter formatChecker = new KeyAdapter() {
+        KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 bind();
-                Calculator.this.viewModel.parseInput();
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    Calculator.this.viewModel.calculate();
+                }
+                else {
+                    Calculator.this.viewModel.parseInput();
+                }
                 backBind();
             }
         };
 
-        txtZ1Re.addKeyListener(formatChecker);
-        txtZ1Im.addKeyListener(formatChecker);
-        txtZ2Re.addKeyListener(formatChecker);
-        txtZ2Im.addKeyListener(formatChecker);
+        txtZ1Re.addKeyListener(keyListener);
+        txtZ1Im.addKeyListener(keyListener);
+        txtZ2Re.addKeyListener(keyListener);
+        txtZ2Im.addKeyListener(keyListener);
     }
 
     private void loadListOfOperations() {

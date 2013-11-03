@@ -29,12 +29,13 @@ public class ViewModel
     }
 
     public class Status {
-        public static final String DEFAULT = "";
+        public static final String DEFAULT = "Please provide input data";
+        public static final String OK = "Press 'Calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
     }
 
-    public void parseInput() {
+    public boolean parseInput() {
         try {
             if (!re1.isEmpty()) Double.parseDouble(re1);
             if (!im1.isEmpty()) Double.parseDouble(im1);
@@ -44,11 +45,18 @@ public class ViewModel
         catch (Exception e) {
             status = Status.BAD_FORMAT;
             isCalculateButtonEnabled = false;
-            return;
+            return false;
         }
 
-        status = Status.DEFAULT;
         isCalculateButtonEnabled = IsInputAvailable();
+        if (isCalculateButtonEnabled) {
+            status = Status.OK;
+        }
+        else {
+            status = Status.DEFAULT;
+        }
+
+        return isCalculateButtonEnabled;
     }
 
     private boolean IsInputAvailable() {
@@ -57,18 +65,12 @@ public class ViewModel
 
     public void calculate()
     {
-        ComplexNumber z1, z2;
-        try {
-            z1 = convertToComplexNumber(re1, im1);
-            z2 = convertToComplexNumber(re2, im2);
-        }
-        catch (Exception e) {
-            result = "NA";
-            status = Status.BAD_FORMAT;
-            return;
-        }
+        if (!parseInput()) return;
 
+        ComplexNumber z1 = convertToComplexNumber(re1, im1);
+        ComplexNumber z2 = convertToComplexNumber(re2, im2);
         ComplexNumber z3 = new ComplexNumber();
+
         switch (operation) {
             case ADD:
                 z3 = z1.add(z2);
