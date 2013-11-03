@@ -1,4 +1,4 @@
-package ru.unn.agile.Re.core;
+package ru.unn.agile.Re.model;
 
 import java.lang.RuntimeException;
 import java.lang.String;

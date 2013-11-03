@@ -1,8 +1,8 @@
-package ru.unn.agile.ReTest;
+package ru.unn.agile.ReTest.model;
 
 import org.junit.Test;
-import ru.unn.agile.Re.core.Re;
-import ru.unn.agile.Re.core.Regex;
+import ru.unn.agile.Re.model.Re;
+import ru.unn.agile.Re.model.Regex;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
