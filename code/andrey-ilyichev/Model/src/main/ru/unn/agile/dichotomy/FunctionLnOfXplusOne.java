@@ -1,8 +1,8 @@
 package ru.unn.agile.dichotomy;
 
-public class FunctionLnOfXplusOne implements IFunction{
+public class FunctionLnOfXplusOne implements IFunction {
 	
-	public float getValue(float x){
-		return (float) (Math.log10(x+1));
+	public float getValue(float x) {
+		return (float) (Math.log10(x + 1));
 	}
 }

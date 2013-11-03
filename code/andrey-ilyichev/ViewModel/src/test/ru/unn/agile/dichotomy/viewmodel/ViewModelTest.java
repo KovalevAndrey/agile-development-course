@@ -1,15 +1,27 @@
 package ru.unn.agile.dichotomy.viewmodel;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ViewModelTest {
 	private ViewModel viewModel;
-
+	private final float delta = 0.01F;
+	
+	@Before
+	public void setUp() {
+		viewModel = new ViewModel();
+	}
+	
+	@After
+	public void setDown() {
+		viewModel = null;
+	}
 	
 	@Test
-	public void defaultValuesAreCorrect(){
-		viewModel = new ViewModel();
+	public void defaultValuesAreCorrect() {
 		assertEquals("",viewModel.a);
 		assertEquals("",viewModel.b);
 		assertEquals("",viewModel.sigma);
@@ -19,33 +31,41 @@ public class ViewModelTest {
 	}
 	
 	@Test 
-	public void correctMinFromFunctionLnOfXplusOneWithCorrectInputData(){
-		viewModel = new ViewModel.Builder().a("0").b("1").sigma("0.1").eps("0.01").function(ViewModel.Function.FunctionLnOfXplusOne).build();
+	public void correctMinimumOfFunctionLnOfXplusOneWithCorrectInputData() {
+		viewModel.a = "0";
+		viewModel.b = "1";
+		viewModel.sigma = "0.1";
+		viewModel.eps = "0.01";
+		viewModel.function = ViewModel.Function.FunctionLnOfXplusOne;
 		
 		viewModel.getResult();
 		
 		float expected = 0;
 		float actual = Float.valueOf(viewModel.result);
-		float delta = 0.01F;
-		assertEquals(expected,actual,delta);
+		assertEquals(expected, actual, delta);
 	}
 
 	@Test 
-	public void correctMinFromFunctionSqrXminusOneWithCorrectInputData(){
-		viewModel = new ViewModel.Builder().a("-1").b("2").sigma("0.4").eps("0.01").function(ViewModel.Function.FunctionSqrXminusOne).build();
+	public void correctMinOfFunctionSqrXminusOneWithCorrectInputData() {
+		viewModel.a = "-1";
+		viewModel.b = "2";
+		viewModel.sigma = "0.4";
+		viewModel.eps = "0.01";
+		viewModel.function = ViewModel.Function.FunctionSqrXminusOne;
 		
 		viewModel.getResult();
 		
 		float expected = -1;
 		float actual = Float.valueOf(viewModel.result);
-		float delta = 0.01F;
-		
-		assertEquals(expected,actual,delta);
+		assertEquals(expected, actual, delta);
 	}
 	
 	@Test 	
-	public void resultIsBadFormatIfDataIsNotFull(){
-		viewModel = new ViewModel.Builder().b("2").sigma("0.4").eps("0.01").function(ViewModel.Function.FunctionSqrXminusOne).build();
+	public void resultIsBadFormatIfDataIsNotFull() {
+		viewModel.b = "2";
+		viewModel.sigma = "0.4";
+		viewModel.eps = "0.01";
+		viewModel.function = ViewModel.Function.FunctionSqrXminusOne;
 		
 		viewModel.getResult();
 		
@@ -53,8 +73,12 @@ public class ViewModelTest {
 	}
 	
 	@Test 	
-	public void resultIsBadFormatIfDataIsNotCorrectForEntering(){
-		viewModel = new ViewModel.Builder().a("a").b("2").sigma("0.4").eps("0.01").function(ViewModel.Function.FunctionSqrXminusOne).build();
+	public void resultIsBadFormatIfDataIsNotCorrectForEntering() {
+		viewModel.a = "a";
+		viewModel.b = "2";
+		viewModel.sigma = "0.4";
+		viewModel.eps = "0.01";
+		viewModel.function = ViewModel.Function.FunctionSqrXminusOne;
 		
 		viewModel.getResult();
 		
@@ -62,11 +86,15 @@ public class ViewModelTest {
 	}
 	
 	@Test 	
-	public void resultIsDataIsInvalidIfDataIsNotCorrectForAlghorithm(){
-		viewModel = new ViewModel.Builder().a("-1").b("2").sigma("10").eps("0.01").function(ViewModel.Function.FunctionSqrXminusOne).build();
+	public void resultIsDataIsInvalidIfDataIsNotCorrectForAlgorithm() {
+		viewModel.a = "-1";
+		viewModel.b = "2";
+		viewModel.sigma = "10";
+		viewModel.eps = "0.01";
+		viewModel.function = ViewModel.Function.FunctionSqrXminusOne;
 		
 		viewModel.getResult();
 		
-		assertEquals("Data is invalid for alghorithm", viewModel.result);
+		assertEquals("Data is invalid for algorithm", viewModel.result);
 	}
 }

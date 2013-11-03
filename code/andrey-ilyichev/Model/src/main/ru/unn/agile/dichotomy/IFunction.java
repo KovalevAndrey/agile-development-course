@@ -1,6 +1,6 @@
 package ru.unn.agile.dichotomy;
 
-public interface IFunction{
+public interface IFunction {
 
 	float getValue(float x);
 }

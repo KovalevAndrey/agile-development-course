@@ -32,9 +32,6 @@ public class DichotomySolver {
 
 
 	public static void main(String[] args) {
-	/**
-	 * Launch the application.
-	 */		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,7 +50,6 @@ public class DichotomySolver {
 		loadListOfFunction();
 		
 		btnGetResult.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
 				bind();
@@ -69,9 +65,6 @@ public class DichotomySolver {
 	}
 
 	private void initialize() {
-		/**
-		 * Initialize the contents of the frame.
-		 */
 		frmDichotomySolver = new JFrame();
 		frmDichotomySolver.setResizable(false);
 		frmDichotomySolver.setTitle("Dichotomy Solver");
@@ -234,11 +227,10 @@ public class DichotomySolver {
 		this.viewModel.b = textFieldB.getText();
 		this.viewModel.eps = textFieldEps.getText();
 		this.viewModel.sigma = textFieldSigma.getText();
-		this.viewModel.function = (ViewModel.Function) comboBoxFunction.getSelectedItem();
+		this.viewModel.function = (ViewModel.Function)comboBoxFunction.getSelectedItem();
 	}
 	
 	public void backBind(){
 		textFieldResult.setText(this.viewModel.result);
 	}
-	
 }
