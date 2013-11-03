@@ -73,8 +73,8 @@ project(":anton-bevzuk-lab1").name = "anton-bevzuk-Model"
 // Artem Sinitsyn
 include "artem-sinitsyn/Model"
 project(":artem-sinitsyn/Model").name = "artem-sinitsyn-Model"
-//include "artem-sinitsyn/ViewModel"
-//project(":artem-sinitsyn/ViewModel").name = "artem-sinitsyn-ViewModel"
+include "artem-sinitsyn/ViewModel"
+project(":artem-sinitsyn/ViewModel").name = "artem-sinitsyn-ViewModel"
 include "artem-sinitsyn/View"
 project(":artem-sinitsyn/View").name = "artem-sinitsyn-View"
 
