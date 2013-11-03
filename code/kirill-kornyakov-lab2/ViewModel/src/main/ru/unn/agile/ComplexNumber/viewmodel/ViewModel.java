@@ -35,11 +35,22 @@ public class ViewModel
         public static final String SUCCESS = "Success";
     }
 
+    public static final int ENTER_CODE = 10;
+
     private boolean isInputAvailable() {
         return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
     }
 
-    public boolean parseInput() {
+    public void processKeyInTextField(int keyCode) {
+        if (keyCode == ENTER_CODE) {
+            calculate();
+        }
+        else {
+            parseInput();
+        }
+    }
+
+    private boolean parseInput() {
         try {
             if (!re1.isEmpty()) Double.parseDouble(re1);
             if (!im1.isEmpty()) Double.parseDouble(im1);

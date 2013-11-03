@@ -10,6 +10,8 @@ import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 public class ViewModelTests
 {
     private ViewModel viewModel;
+    public static final int ANY_KEY = 0;
+
 
     @Before
     public void setUp()
@@ -55,7 +57,7 @@ public class ViewModelTests
         viewModel.re1 = "1"; viewModel.im1 = "1";
         viewModel.re2 = "3"; viewModel.im2 = "3";
 
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(ViewModel.Status.READY, viewModel.status);
     }
@@ -64,7 +66,7 @@ public class ViewModelTests
     public void canReportBadFormat()
     {
         viewModel.re1 = "a";
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
@@ -73,9 +75,9 @@ public class ViewModelTests
     public void canCleanStatusIfParseIsOK()
     {
         viewModel.re1 = "a";
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
         viewModel.re1 = "1.0";
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
@@ -92,7 +94,7 @@ public class ViewModelTests
         viewModel.isCalculateButtonEnabled = true;
         viewModel.re1 = "trash";
 
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(false, viewModel.isCalculateButtonEnabled);
     }
@@ -102,7 +104,7 @@ public class ViewModelTests
     {
         viewModel.re1 = "1"; viewModel.im1 = "1";
 
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(false, viewModel.isCalculateButtonEnabled);
     }
@@ -145,7 +147,7 @@ public class ViewModelTests
         viewModel.re1 = "1"; viewModel.im1 = "1";
         viewModel.re2 = "3"; viewModel.im2 = "3";
 
-        viewModel.parseInput();
+        viewModel.processKeyInTextField(ANY_KEY);
 
         assertEquals(true, viewModel.isCalculateButtonEnabled);
     }
@@ -220,6 +222,29 @@ public class ViewModelTests
         viewModel.calculate();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
+    }
+
+
+    @Test
+    public void isStatusReadyWhenKeyIsNotEnter()
+    {
+        viewModel.re1 = "1"; viewModel.im1 = "0";
+        viewModel.re2 = "2"; viewModel.im2 = "0";
+
+        viewModel.processKeyInTextField(ANY_KEY);
+
+        assertEquals(ViewModel.Status.READY, viewModel.status);
+    }
+
+    @Test
+    public void isStatusSuccessWhenKeyIsEnter()
+    {
+        viewModel.re1 = "1"; viewModel.im1 = "0";
+        viewModel.re2 = "2"; viewModel.im2 = "0";
+
+        viewModel.processKeyInTextField(ViewModel.ENTER_CODE);
+
+        assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
     }
 
     @Test
