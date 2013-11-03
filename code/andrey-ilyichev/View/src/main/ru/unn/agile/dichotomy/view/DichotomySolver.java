@@ -5,14 +5,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ru.unn.agile.dichotomy.viewmodel.ViewModel;
+
 public class DichotomySolver {
+	private ViewModel viewModel;
 
 	private JFrame frmDichotomySolver;
 	private JTextField textFieldB;
@@ -20,15 +27,18 @@ public class DichotomySolver {
 	private JTextField textFieldA;
 	private JTextField textFieldSigma;
 	private JTextField textFieldResult;
+	private  JComboBox<ViewModel.Function> comboBoxFunction;
+	private JButton btnGetResult;
 
+
+	public static void main(String[] args) {
 	/**
 	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	 */		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DichotomySolver window = new DichotomySolver();
+					DichotomySolver window = new DichotomySolver(new ViewModel());
 					window.frmDichotomySolver.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,17 +47,31 @@ public class DichotomySolver {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public DichotomySolver() {
+	public DichotomySolver(ViewModel viewModel) {
 		initialize();
+		this.viewModel = viewModel;
+		loadListOfFunction();
+		
+		btnGetResult.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				bind();
+				DichotomySolver.this.viewModel.getResult();
+				backBind();
+			}
+		});
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	private void loadListOfFunction() {
+		ViewModel.Function[] functions = ViewModel.Function.values();
+		comboBoxFunction.setModel(new JComboBox<ViewModel.Function>(functions).getModel());
+	}
+
 	private void initialize() {
+		/**
+		 * Initialize the contents of the frame.
+		 */
 		frmDichotomySolver = new JFrame();
 		frmDichotomySolver.setResizable(false);
 		frmDichotomySolver.setTitle("Dichotomy Solver");
@@ -165,7 +189,7 @@ public class DichotomySolver {
 		gbc_lblFunction.gridy = 2;
 		panelInput.add(lblFunction, gbc_lblFunction);
 		
-		JComboBox<String> comboBoxFunction = new JComboBox<String>();
+		comboBoxFunction = new JComboBox<ViewModel.Function>();
 		GridBagConstraints gbc_comboBoxFunction = new GridBagConstraints();
 		gbc_comboBoxFunction.gridwidth = 5;
 		gbc_comboBoxFunction.fill = GridBagConstraints.HORIZONTAL;
@@ -186,7 +210,7 @@ public class DichotomySolver {
 		gbl_panelResult.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panelResult.setLayout(gbl_panelResult);
 		
-		JButton btnGetResult = new JButton("Get Result");
+		btnGetResult = new JButton("Get Result");
 		GridBagConstraints gbc_btnGetResult = new GridBagConstraints();
 		gbc_btnGetResult.gridwidth = 7;
 		gbc_btnGetResult.fill = GridBagConstraints.HORIZONTAL;
@@ -205,4 +229,16 @@ public class DichotomySolver {
 		textFieldResult.setColumns(10);
 	}
 
+	public void bind(){
+		this.viewModel.a = textFieldA.getText();
+		this.viewModel.b = textFieldB.getText();
+		this.viewModel.eps = textFieldEps.getText();
+		this.viewModel.sigma = textFieldSigma.getText();
+		this.viewModel.function = (ViewModel.Function) comboBoxFunction.getSelectedItem();
+	}
+	
+	public void backBind(){
+		textFieldResult.setText(this.viewModel.result);
+	}
+	
 }
