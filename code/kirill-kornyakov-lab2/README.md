@@ -3,6 +3,7 @@
 **Выполнил:**
 
 Корняков Кирилл
+
 ННГУ, ф-т ВМК, каф. МО ЭВМ, группа NA
 
 ## Задание
@@ -24,8 +25,8 @@
 TBD
 
 <!--
-  - TODO: add some periodic notifications from Model
   - TODO: try to use ComboBox storing Operation instead of String
+  - TODO: add some periodic notifications from Model
 -->
 
 [ComplexNumber]: <http://ru.wikipedia.org/wiki/Комплексное_число>
