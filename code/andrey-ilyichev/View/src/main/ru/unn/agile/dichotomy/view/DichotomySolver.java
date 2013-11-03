@@ -9,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -167,7 +166,6 @@ public class DichotomySolver {
 		panelInput.add(lblFunction, gbc_lblFunction);
 		
 		JComboBox<String> comboBoxFunction = new JComboBox<String>();
-		comboBoxFunction.setModel(new DefaultComboBoxModel<String>(new String[] {"Function 1", "Function 2"}));
 		GridBagConstraints gbc_comboBoxFunction = new GridBagConstraints();
 		gbc_comboBoxFunction.gridwidth = 5;
 		gbc_comboBoxFunction.fill = GridBagConstraints.HORIZONTAL;
