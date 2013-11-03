@@ -36,13 +36,16 @@ public class ViewModelStack {
 
     private void processPushAction()
     {
-        try {
+        try
+        {
         stack.Push(input);
         if (stack.IsEmpty())
             status = "No elements add";
         else
             status = "Elements added";
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             status = "Stack is overflow";
         }
     }
@@ -56,7 +59,7 @@ public class ViewModelStack {
             status = "Stack is empty";
         }
         else
-        status = "Top element popped";
+            status = "Top element popped";
     }
 
     private void topPushAction()
