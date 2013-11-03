@@ -3,14 +3,15 @@ package ru.unn.agile.ComplexNumber.view;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class Calculator
-{
+public class Calculator {
     private JPanel mainPanel;
     private JButton btnCalc;
     private ViewModel viewModel;
-
     // Fields to bind
     private JTextField txtZ1Re;
     private JTextField txtZ1Im;
@@ -49,6 +50,15 @@ public class Calculator
         txtZ2Im.addKeyListener(keyListener);
     }
 
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Calculator");
+
+        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     private void loadListOfOperations() {
         ViewModel.Operation[] operations = ViewModel.Operation.values();
         cbOperation.setModel(new JComboBox<ViewModel.Operation>(operations).getModel());
@@ -60,7 +70,7 @@ public class Calculator
         viewModel.re2 = txtZ2Re.getText();
         viewModel.im2 = txtZ2Im.getText();
 
-        viewModel.operation = (ViewModel.Operation)cbOperation.getSelectedItem();
+        viewModel.operation = (ViewModel.Operation) cbOperation.getSelectedItem();
 
         viewModel.result = txtResult.getText();
         viewModel.status = lbStatus.getText();
@@ -76,14 +86,5 @@ public class Calculator
         lbStatus.setText(viewModel.status);
 
         btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Calculator");
-
-        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
