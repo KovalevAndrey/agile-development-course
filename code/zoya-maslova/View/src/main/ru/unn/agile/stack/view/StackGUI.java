@@ -20,9 +20,6 @@ public class StackGUI
 
     public StackGUI(ViewModelStack viewModelStack)
     {
-        popButton.setSize(250,100);
-        topButton.setSize(250,100);
-
         this.viewModelStack = viewModelStack;
 
         backBind();
@@ -33,7 +30,7 @@ public class StackGUI
             public void actionPerformed(ActionEvent actionEvent)
             {
                 bind();
-                StackGUI.this.viewModelStack.pushActionHandler.onClick();
+                StackGUI.this.viewModelStack.pushPushAction();
                 backBind();
             }
         });
@@ -44,7 +41,7 @@ public class StackGUI
             public void actionPerformed(ActionEvent actionEvent)
             {
                 bind();
-                StackGUI.this.viewModelStack.popActionHandler.onClick();
+                StackGUI.this.viewModelStack.popPushAction();
                 backBind();
             }
         });
@@ -55,7 +52,7 @@ public class StackGUI
             public void actionPerformed(ActionEvent actionEvent)
             {
                 bind();
-                StackGUI.this.viewModelStack.topActionHandler.onClick();
+                StackGUI.this.viewModelStack.topPushAction();
                 backBind();
             }
         });

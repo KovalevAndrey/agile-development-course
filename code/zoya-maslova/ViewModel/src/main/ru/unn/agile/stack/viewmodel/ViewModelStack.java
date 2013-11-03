@@ -4,11 +4,7 @@ import ru.unn.agile.stack.Stack;
 
 public class ViewModelStack {
 
-    public ClickHandler pushActionHandler;
-    public ClickHandler popActionHandler;
-    public ClickHandler topActionHandler;
-
-    public String status = "You can add element to stack";
+    public String status = Status.STARTING;
     public String input = "";
     public String topElement = "";
 
@@ -17,60 +13,56 @@ public class ViewModelStack {
     public ViewModelStack()
     {
         stack=new Stack();
-        pushActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModelStack.this.processPushAction();
-            }
-        };
-        popActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModelStack.this.popPushAction();
-            }
-        };
-        topActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModelStack.this.topPushAction();
-            }
-        };
     }
 
-    private void processPushAction()
+    public void pushPushAction()
     {
         try
         {
         stack.Push(input);
         if (stack.IsEmpty())
-            status = "No elements add";
+            status = Status.NO_ADDED;
         else
-            status = "Elements added";
+            status = Status.ADDED;
         }
         catch (Exception e)
         {
-            status = "Stack is overflow";
+            status = Status.OVERFLOW;
         }
     }
 
-    private void popPushAction()
+    public void popPushAction()
     {
         topElement = stack.Pop();
         if (topElement.equals("stack is empty"))
         {
             topElement = "" ;
-            status = "Stack is empty";
+            status = Status.EMPTY;
         }
         else
-            status = "Top element popped";
+            status = Status.POPPED;
     }
 
-    private void topPushAction()
+    public void topPushAction()
     {
         topElement = stack.Top();
         if (topElement.equals("stack is empty"))
         {
             topElement = "" ;
-            status = "Stack is empty";
+            status = Status.EMPTY;
         }
         else
-            status = "Top element topped";
+            status = Status.TOPPED;
+    }
+
+    public class Status
+    {
+        public static final String STARTING = "You can add element to stack";
+        public static final String NO_ADDED= "No elements added";
+        public static final String ADDED = "Elements added";
+        public static final String EMPTY = "Stack is empty";
+        public static final String TOPPED = "Top element topped";
+        public static final String POPPED = "Top element popped";
+        public static final String OVERFLOW = "Stack is overflow";
     }
 }

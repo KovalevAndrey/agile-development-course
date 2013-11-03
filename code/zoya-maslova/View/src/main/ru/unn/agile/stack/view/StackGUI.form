@@ -53,7 +53,7 @@
           <component id="b5f9c" class="javax.swing.JButton" binding="popButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="127" height="29"/>
+                <preferred-size width="175" height="29"/>
               </grid>
             </constraints>
             <properties>
@@ -63,7 +63,7 @@
           <component id="8ab97" class="javax.swing.JButton" binding="topButton" default-binding="true">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="127" height="29"/>
+                <preferred-size width="175" height="29"/>
               </grid>
             </constraints>
             <properties>

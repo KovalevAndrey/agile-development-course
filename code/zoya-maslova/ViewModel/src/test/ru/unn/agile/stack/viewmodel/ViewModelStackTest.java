@@ -26,74 +26,74 @@ public class ViewModelStackTest {
     {
         assertEquals("", viewModel.input);
         assertEquals("", viewModel.topElement);
-        assertEquals("You can add element to stack", viewModel.status);
+        assertEquals(ViewModelStack.Status.STARTING, viewModel.status);
     }
 
     @Test
     public void IfPushEmptyString()
     {
         pushToStack("");
-        assertEquals("No elements add", viewModel.status);
+        assertEquals(ViewModelStack.Status.NO_ADDED, viewModel.status);
     }
 
     @Test
     public void ifIncorrectStringPushed()
     {
         pushToStack(",,,");
-        assertEquals("No elements add", viewModel.status);
+        assertEquals(ViewModelStack.Status.NO_ADDED, viewModel.status);
     }
 
     @Test
     public void ifOtherIncorrectStringPushed()
     {
         pushToStack("9,4,2,");
-        assertEquals("Elements added", viewModel.status);
+        assertEquals(ViewModelStack.Status.ADDED, viewModel.status);
     }
 
     @Test
     public void canPushOneElement()
     {
         pushToStack("4");
-        assertEquals("Elements added", viewModel.status);
+        assertEquals(ViewModelStack.Status.ADDED, viewModel.status);
     }
 
     @Test
     public void canPushManyElements()
     {
         pushToStack("4,7,2");
-        assertEquals("Elements added", viewModel.status);
+        assertEquals(ViewModelStack.Status.ADDED, viewModel.status);
     }
 
     @Test
     public void canNotPushTooManyElements()
     {
         pushToStack("9,5,1,7,4,9,3,6,3,7,8,2");
-        assertEquals("Stack is overflow", viewModel.status);
+        assertEquals(ViewModelStack.Status.OVERFLOW, viewModel.status);
     }
 
     @Test
     public void canPopFromStackWithOneElement()
     {
         pushToStack("7");
-        viewModel.popActionHandler.onClick();
+        viewModel.popPushAction();
         assertEquals("7", viewModel.topElement);
-        assertEquals("Top element popped", viewModel.status);
+        assertEquals(ViewModelStack.Status.POPPED, viewModel.status);
     }
 
     @Test
     public void canPopElementFromStackWithNotOneElement()
     {
         pushToStack("7,4,3");
-        viewModel.popActionHandler.onClick();
+        viewModel.popPushAction();
         assertEquals("3", viewModel.topElement);
-        assertEquals("Top element popped", viewModel.status);
+        assertEquals(ViewModelStack.Status.POPPED, viewModel.status);
     }
 
     @Test
     public void canNotPopFromEmptyStack()
     {
-        viewModel.popActionHandler.onClick();
-        assertEquals("Stack is empty", viewModel.status);
+        viewModel.popPushAction();
+        assertEquals(ViewModelStack.Status.EMPTY, viewModel.status);
         assertEquals("", viewModel.topElement);
     }
 
@@ -101,31 +101,31 @@ public class ViewModelStackTest {
     public void canTopElementFromStackWithOneElement()
     {
         pushToStack("7");
-        viewModel.topActionHandler.onClick();
+        viewModel.topPushAction();
         assertEquals("7", viewModel.topElement);
-        assertEquals("Top element topped", viewModel.status);
+        assertEquals(ViewModelStack.Status.TOPPED, viewModel.status);
     }
 
     @Test
     public void canTopElementFromStackWithNotOneElement()
     {
         pushToStack("7,4,3");
-        viewModel.topActionHandler.onClick();
+        viewModel.topPushAction();
         assertEquals("3", viewModel.topElement);
-        assertEquals("Top element topped", viewModel.status);
+        assertEquals(ViewModelStack.Status.TOPPED, viewModel.status);
     }
 
     @Test
     public void canNotTopFromEmptyStack()
     {
-        viewModel.topActionHandler.onClick();
-        assertEquals("Stack is empty", viewModel.status);
+        viewModel.topPushAction();
+        assertEquals(ViewModelStack.Status.EMPTY, viewModel.status);
         assertEquals("", viewModel.topElement);
     }
 
     private void pushToStack(String inputString)
     {
         viewModel.input = inputString;
-        viewModel.pushActionHandler.onClick();
+        viewModel.pushPushAction();
     }
 }
