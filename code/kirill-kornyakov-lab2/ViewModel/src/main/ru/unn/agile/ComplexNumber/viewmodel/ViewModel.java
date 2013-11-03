@@ -2,8 +2,6 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
-//TODO: add some periodic notifications from Model
-
 public class ViewModel
 {
     public String re1 = "";
