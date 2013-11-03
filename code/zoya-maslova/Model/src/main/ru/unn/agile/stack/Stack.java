@@ -6,7 +6,7 @@ public class Stack
     private int topPointer;
     private final int SIZE_OF_STACK = 10;
 
-    Stack()
+    public Stack()
     {
         stack = new int[SIZE_OF_STACK];
         topPointer = -1;
