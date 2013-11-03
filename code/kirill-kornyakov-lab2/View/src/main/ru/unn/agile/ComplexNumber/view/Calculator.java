@@ -37,14 +37,14 @@ public class Calculator
 
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
-                bind();
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Calculator.this.viewModel.calculate();
+                    btnCalc.doClick();
                 }
                 else {
+                    bind();
                     Calculator.this.viewModel.parseInput();
+                    backBind();
                 }
-                backBind();
             }
         };
 

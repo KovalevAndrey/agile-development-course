@@ -10,7 +10,7 @@ public class ViewModel
     public String im2 = "";
     public Operation operation = Operation.ADD;
     public String result = "";
-    public String status = Status.DEFAULT;
+    public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
 
     public enum Operation {
@@ -19,8 +19,8 @@ public class ViewModel
 
         private final String name;
 
-        private Operation(String s) {
-            name = s;
+        private Operation(String name) {
+            this.name = name;
         }
 
         public String toString() {
@@ -29,10 +29,14 @@ public class ViewModel
     }
 
     public class Status {
-        public static final String DEFAULT = "Please provide input data";
-        public static final String OK = "Press 'Calculate' or Enter";
+        public static final String WAITING = "Please provide input data";
+        public static final String READY = "Press 'Calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
+    }
+
+    private boolean isInputAvailable() {
+        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
     }
 
     public boolean parseInput() {
@@ -48,19 +52,15 @@ public class ViewModel
             return false;
         }
 
-        isCalculateButtonEnabled = IsInputAvailable();
+        isCalculateButtonEnabled = isInputAvailable();
         if (isCalculateButtonEnabled) {
-            status = Status.OK;
+            status = Status.READY;
         }
         else {
-            status = Status.DEFAULT;
+            status = Status.WAITING;
         }
 
         return isCalculateButtonEnabled;
-    }
-
-    private boolean IsInputAvailable() {
-        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
     }
 
     public void calculate()

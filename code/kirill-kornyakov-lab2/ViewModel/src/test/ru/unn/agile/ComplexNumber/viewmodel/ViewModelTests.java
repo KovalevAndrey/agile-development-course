@@ -32,13 +32,13 @@ public class ViewModelTests
         assertEquals("", viewModel.im2);
         assertEquals(ViewModel.Operation.ADD, viewModel.operation);
         assertEquals("", viewModel.result);
-        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
     @Test
     public void isStatusDefaultInTheBeginning()
     {
-        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ViewModelTests
     {
         viewModel.calculate();
 
-        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ViewModelTests
 
         viewModel.parseInput();
 
-        assertEquals(ViewModel.Status.OK, viewModel.status);
+        assertEquals(ViewModel.Status.READY, viewModel.status);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ViewModelTests
         viewModel.re1 = "1.0";
         viewModel.parseInput();
 
-        assertEquals(ViewModel.Status.DEFAULT, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
     @Test
