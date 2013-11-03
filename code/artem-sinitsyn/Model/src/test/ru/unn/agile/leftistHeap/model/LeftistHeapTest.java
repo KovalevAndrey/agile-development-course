@@ -1,7 +1,9 @@
-package ru.unn.agile.leftistHeap;
+package ru.unn.agile.leftistHeap.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.leftistHeap.model.LeftistHeap;
+import ru.unn.agile.leftistHeap.model.Pair;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
