@@ -95,12 +95,12 @@ project(":dinar-ahmatnurov").name = "dinar-ahmatnurov-Model"
 //project(":dinar-ahmatnurov/View").name = "dinar-ahmatnurov-View"
 
 // Egor Novikov
-include "egor-novikov"
-project(":egor-novikov").name = "egor-novikov-Model"
-//include "egor-novikov/ViewModel"
-//project(":egor-novikov/ViewModel").name = "egor-novikov-ViewModel"
-//include "egor-novikov/View"
-//project(":egor-novikov/View").name = "egor-novikov-View"
+include "egor-novikov/Model"
+project(":egor-novikov/Model").name = "egor-novikov-Model"
+include "egor-novikov/ViewModel"
+project(":egor-novikov/ViewModel").name = "egor-novikov-ViewModel"
+include "egor-novikov/View"
+project(":egor-novikov/View").name = "egor-novikov-View"
 
 // Elena Artemieva
 include "elena-artemieva"
