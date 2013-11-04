@@ -76,7 +76,7 @@
               <text value="a ="/>
             </properties>
           </component>
-          <component id="cf2e7" class="javax.swing.JTextField" binding="TextFieldA">
+          <component id="cf2e7" class="javax.swing.JTextField" binding="textFieldA">
             <constraints>
               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="150" height="20"/>
@@ -97,7 +97,7 @@
               <text value="b ="/>
             </properties>
           </component>
-          <component id="6eb6e" class="javax.swing.JTextField" binding="TextFieldB">
+          <component id="6eb6e" class="javax.swing.JTextField" binding="textFieldB">
             <constraints>
               <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="150" height="20"/>
@@ -109,7 +109,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="a1ccb" class="javax.swing.JTextField" binding="TextFieldC">
+          <component id="a1ccb" class="javax.swing.JTextField" binding="textFieldC">
             <constraints>
               <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <minimum-size width="150" height="20"/>

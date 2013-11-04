@@ -22,11 +22,12 @@ public class QSolverViewModel {
         try {
             Double.parseDouble(a);
             this.a = a;
+            this.result = "";
             if ( !c.equals("") && !b.equals("")) {
                 isSolveButtonEnabled = true;
             }
         } catch (NumberFormatException e){
-             result = errMessage;
+            result = errMessage;
             isSolveButtonEnabled = false;
             this.a = "";
         }
@@ -36,7 +37,8 @@ public class QSolverViewModel {
         try {
             Double.parseDouble(b);
             this.b = b;
-            if ( !c.equals("") && !b.equals("")) {
+            this.result = "";
+            if ( !c.equals("") && !a.equals("")) {
                 isSolveButtonEnabled = true;
             }
 
@@ -49,8 +51,9 @@ public class QSolverViewModel {
 
     public void setC(String c) {
         try {
-            Double.parseDouble(a);
+            Double.parseDouble(c);
             this.c = c;
+            this.result = "";
             if ( !a.equals("") && !b.equals("")) {
                 isSolveButtonEnabled = true;
             }
