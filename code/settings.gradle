@@ -143,8 +143,8 @@ project(":igor-surmin").name = "igor-surmin-Model"
 //project(":igor-surmin/View").name = "igor-surmin-View"
 
 // Ilya Krylov
-include "ilya-krylov"
-project(":ilya-krylov").name = "ilya-krylov-Model"
+include "ilya-krylov/Model"
+project(":ilya-krylov/Model").name = "ilya-krylov-Model"
 //include "ilya-krylov/ViewModel"
 //project(":ilya-krylov/ViewModel").name = "ilya-krylov-ViewModel"
 //include "ilya-krylov/View"
