@@ -22,8 +22,7 @@ public class ViewModel {
         }
 
         try {
-            Temperature t = new Temperature(Double.parseDouble(input), inputScale);
-            result = t.scaleTo(resultScale).toString();
+            _convert();
         }
         catch (NumberFormatException e) {
             status = Status.WRONG_INPUT_STRING;
@@ -33,11 +32,16 @@ public class ViewModel {
         status = Status.MODEL_OK;
     }
 
+    private void _convert() {
+        double _input = Double.parseDouble(input);
+        Temperature t = new Temperature(_input, inputScale);
+        result = t.scaleTo(resultScale).toString();
+    }
+
     public class Status {
         public static final String INPUT_SCALE_NULL = "Please select input temperature scale.";
         public static final String RESULT_SCALE_NULL = "Please select result temperature scale.";
         public static final String WRONG_INPUT_STRING = "Please specify only numbers separated by one dot.";
         public static final String MODEL_OK = "Success.";
-
     }
 }

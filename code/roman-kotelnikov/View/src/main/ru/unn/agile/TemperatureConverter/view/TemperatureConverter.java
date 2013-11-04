@@ -6,16 +6,14 @@ import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class TemperatureConverter {
     private ViewModel viewModel;
 
     private JPanel mainPanel;
     private JTextField txtTempValue;
-    private JComboBox cbFromScale;
-    private JComboBox cbToScale;
+    private JComboBox cbInputScale;
+    private JComboBox cbResultScale;
     private JButton btnConvert;
     private JTextField txtResult;
     private JLabel lbStatus;
@@ -23,7 +21,7 @@ public class TemperatureConverter {
     public TemperatureConverter(ViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
-        loadAvaliableScales();
+        loadAvailableScales();
 
         btnConvert.addActionListener(new ActionListener() {
             @Override
@@ -44,28 +42,28 @@ public class TemperatureConverter {
         frame.setVisible(true);
     }
 
-    public void loadAvaliableScales() {
+    public void loadAvailableScales() {
         AvailableScales[] scales = AvailableScales.values();
-        cbToScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
-        cbFromScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
+        cbResultScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
+        cbInputScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
     }
 
     public void bind() {
         viewModel.input = txtTempValue.getText();
-        viewModel.inputScale = (AvailableScales) cbFromScale.getSelectedItem();
+        viewModel.inputScale = (AvailableScales) cbInputScale.getSelectedItem();
 
         viewModel.result = txtResult.getText();
-        viewModel.resultScale = (AvailableScales) cbToScale.getSelectedItem();
+        viewModel.resultScale = (AvailableScales) cbResultScale.getSelectedItem();
 
         viewModel.status = lbStatus.getText();
     }
 
     public void backBind() {
         txtTempValue.setText(viewModel.input);
-        cbFromScale.setSelectedItem(viewModel.inputScale);
+        cbInputScale.setSelectedItem(viewModel.inputScale);
 
         txtResult.setText(viewModel.result);
-        cbToScale.setSelectedItem(viewModel.resultScale);
+        cbResultScale.setSelectedItem(viewModel.resultScale);
 
         lbStatus.setText(viewModel.status);
     }
