@@ -2,13 +2,7 @@ package ru.unn.agile.converter.view;
 
 import javax.swing.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Kate
- * Date: 02.11.13
- * Time: 19:14
- * To change this template use File | Settings | File Templates.
- */
+
 public class Converter {
     private JPanel mainPanel;
     private JComboBox comboBox1;
