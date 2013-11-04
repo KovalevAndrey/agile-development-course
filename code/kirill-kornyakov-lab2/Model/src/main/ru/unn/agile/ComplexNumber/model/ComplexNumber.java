@@ -1,55 +1,46 @@
 package ru.unn.agile.ComplexNumber.model;
 
-public class ComplexNumber
-{
+public class ComplexNumber {
     private double re;
     private double im;
 
-    public ComplexNumber(double real, double imaginary)
-    {
+    public ComplexNumber(double real, double imaginary) {
         this.re = real;
         this.im = imaginary;
     }
 
-    public ComplexNumber()
-    {
+    public ComplexNumber() {
         this.re = 0;
         this.im = 0;
     }
 
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         ComplexNumber number;
         number = (ComplexNumber) object;
         return number.getReal() == getReal()
-            && number.getImaginary() == getImaginary();
+                && number.getImaginary() == getImaginary();
     }
 
-    public ComplexNumber add(ComplexNumber other)
-    {
+    public ComplexNumber add(ComplexNumber other) {
         return new ComplexNumber(other.getReal() + getReal(),
                 other.getImaginary() + getImaginary());
     }
 
-    public ComplexNumber multiply(ComplexNumber other)
-    {
+    public ComplexNumber multiply(ComplexNumber other) {
         return new ComplexNumber(
-                other.getReal() * getReal() - other.getImaginary() * getImaginary(), 
+                other.getReal() * getReal() - other.getImaginary() * getImaginary(),
                 other.getReal() * getImaginary() + other.getImaginary() * getReal());
     }
 
-    public double getReal()
-    {
+    public double getReal() {
         return re;
     }
 
-    public double getImaginary()
-    {
+    public double getImaginary() {
         return im;
     }
-    
-    public String toString()
-    {
+
+    public String toString() {
         return Formatter.getFormatted(this);
     }
 }
