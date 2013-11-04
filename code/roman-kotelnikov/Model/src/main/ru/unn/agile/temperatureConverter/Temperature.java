@@ -1,4 +1,4 @@
-package ru.unn.agile.temperatureConverter;
+package ru.unn.agile.TemperatureConverter;
 
 public class Temperature {
     private double current;

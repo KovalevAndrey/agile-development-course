@@ -1,4 +1,4 @@
-package ru.unn.agile.temperatureConverterTests;
+package ru.unn.agile.TemperatureConverterTests;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,8 +7,8 @@ import org.junit.rules.ExpectedException;
 
 import static junit.framework.Assert.*;
 
-import ru.unn.agile.temperatureConverter.*;
-import static ru.unn.agile.temperatureConverter.AvailableScales.*;
+import ru.unn.agile.TemperatureConverter.*;
+import static ru.unn.agile.TemperatureConverter.AvailableScales.*;
 
 public class TemperatureConverterTests {
 
