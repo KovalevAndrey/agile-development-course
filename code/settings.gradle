@@ -31,12 +31,12 @@ project(":alexandr-komin").name = "alexandr-komin-Model"
 //project(":alexandr-komin/View").name = "alexandr-komin-View"
 
 // Alexey Sagin
-include "alexey-sagin"
-project(":alexey-sagin").name = "alexey-sagin-Model"
-//include "alexey-sagin/ViewModel"
-//project(":alexey-sagin/ViewModel").name = "alexey-sagin-ViewModel"
-//include "alexey-sagin/View"
-//project(":alexey-sagin/View").name = "alexey-sagin-View"
+include "alexey-sagin/Model"
+project(":alexey-sagin/Model").name = "alexey-sagin-Model"
+include "alexey-sagin/ViewModel"
+project(":alexey-sagin/ViewModel").name = "alexey-sagin-ViewModel"
+include "alexey-sagin/View"
+project(":alexey-sagin/View").name = "alexey-sagin-View"
 
 // Anatoly Vildemanov
 include "anatoly-vildemanov"
