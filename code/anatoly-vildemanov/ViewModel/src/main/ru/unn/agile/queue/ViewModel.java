@@ -7,43 +7,15 @@ public class ViewModel {
     public String size;
     public Queue queue;
 
-    public ClickHandler pushActionHandler;
-    public ClickHandler popActionHandler;
-    public ClickHandler cleanActionHandler;
-
     public ViewModel() {
         queue = new Queue();
         size = "0";
-
-        pushActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModel.this.bind();
-                ViewModel.this.pushProcessAction();
-                ViewModel.this.unbind();
-            }
-        };
-
-        popActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModel.this.bind();
-                ViewModel.this.popProcessAction();
-                ViewModel.this.unbind();
-            }
-        };
-
-        cleanActionHandler = new ClickHandler() {
-            public void onClick() {
-                ViewModel.this.bind();
-                ViewModel.this.cleanProcessAction();
-                ViewModel.this.unbind();
-            }
-        };
     }
 
     public void bind() {}
     public void unbind() {}
 
-    private void pushProcessAction()
+    public void pushProcessAction()
     {
         int el;
         try {
@@ -62,7 +34,7 @@ public class ViewModel {
         setStatusField();
     }
 
-    private void popProcessAction()
+    public void popProcessAction()
     {
         try {
             topElement = Integer.toString(queue.pop());
@@ -75,7 +47,7 @@ public class ViewModel {
         setStatusField();
     }
 
-    private void cleanProcessAction()
+    public void cleanProcessAction()
     {
         queue.clean();
         Element = "";

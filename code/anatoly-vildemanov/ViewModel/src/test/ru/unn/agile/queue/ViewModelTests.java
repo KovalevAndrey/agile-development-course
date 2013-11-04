@@ -33,7 +33,7 @@ public class ViewModelTests {
     public void canPushElement()
     {
         viewModel.Element = "1";
-        viewModel.pushActionHandler.onClick();
+        viewModel.pushProcessAction();
 
         assertEquals("1", viewModel.size);
     }
@@ -42,7 +42,7 @@ public class ViewModelTests {
     public void canSetBadFormatMessage()
     {
         viewModel.Element = "ololo";
-        viewModel.pushActionHandler.onClick();
+        viewModel.pushProcessAction();
 
         assertEquals("Bad Format", viewModel.message);
     }
@@ -51,7 +51,7 @@ public class ViewModelTests {
     public void canSetSuccessMessageAfterPush()
     {
         viewModel.Element = "2";
-        viewModel.pushActionHandler.onClick();
+        viewModel.pushProcessAction();
 
         assertEquals("Success", viewModel.message);
     }
@@ -60,8 +60,8 @@ public class ViewModelTests {
     public void canPopElementAfterPush()
     {
         viewModel.Element = "2";
-        viewModel.pushActionHandler.onClick();
-        viewModel.popActionHandler.onClick();
+        viewModel.pushProcessAction();
+        viewModel.popProcessAction();
 
         assertEquals("2", viewModel.topElement);
     }
@@ -70,8 +70,8 @@ public class ViewModelTests {
     public void canChangeSizeAfterPopElement()
     {
         viewModel.Element = "2";
-        viewModel.pushActionHandler.onClick();
-        viewModel.popActionHandler.onClick();
+        viewModel.pushProcessAction();
+        viewModel.popProcessAction();
 
         assertEquals("0", viewModel.size);
     }
@@ -80,8 +80,8 @@ public class ViewModelTests {
     public void canSetSuccessMassageAfterPopElement()
     {
         viewModel.Element = "2";
-        viewModel.pushActionHandler.onClick();
-        viewModel.popActionHandler.onClick();
+        viewModel.pushProcessAction();
+        viewModel.popProcessAction();
 
         assertEquals("Success", viewModel.message);
     }
@@ -89,7 +89,7 @@ public class ViewModelTests {
     @Test
     public void canSetMessageWhenPopEmptyQueue()
     {
-        viewModel.popActionHandler.onClick();
+        viewModel.popProcessAction();
 
         assertEquals("Queue is empty", viewModel.message);
     }
@@ -100,7 +100,7 @@ public class ViewModelTests {
         for (int i = 0; i < queue.getMaxCount() + 2; i++)
         {
             viewModel.Element = "2";
-            viewModel.pushActionHandler.onClick();
+            viewModel.pushProcessAction();
         }
 
         assertEquals("Queue is full", viewModel.message);
@@ -112,9 +112,9 @@ public class ViewModelTests {
         for (int i = 0; i < queue.getMaxCount() - 2; i++)
         {
             viewModel.Element = "2";
-            viewModel.pushActionHandler.onClick();
+            viewModel.pushProcessAction();
         }
-        viewModel.cleanActionHandler.onClick();
+        viewModel.cleanProcessAction();
 
         assertEquals("0", viewModel.size);
     }
@@ -125,9 +125,9 @@ public class ViewModelTests {
         for (int i = 0; i < queue.getMaxCount() - 2; i++)
         {
             viewModel.Element = "2";
-            viewModel.pushActionHandler.onClick();
+            viewModel.pushProcessAction();
         }
-        viewModel.cleanActionHandler.onClick();
+        viewModel.cleanProcessAction();
 
         assertEquals("Success", viewModel.message);
     }
@@ -138,10 +138,10 @@ public class ViewModelTests {
         for (int i = 0; i < queue.getMaxCount() - 2; i++)
         {
             viewModel.Element = "2";
-            viewModel.pushActionHandler.onClick();
+            viewModel.pushProcessAction();
         }
-        viewModel.popActionHandler.onClick();
-        viewModel.cleanActionHandler.onClick();
+        viewModel.popProcessAction();
+        viewModel.cleanProcessAction();
 
         assertEquals("", viewModel.topElement);
         assertEquals("", viewModel.Element);
