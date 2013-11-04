@@ -21,9 +21,9 @@ public class ViewModel {
         leftistHeap = new LeftistHeap();
     }
 
-    public void addToLeftistHeap(String key, String value) {
+    public void addToLeftistHeap() {
         try {
-            leftistHeap.add(new Pair(Integer.parseInt(key), value));
+            leftistHeap.add(new Pair(Integer.parseInt(keyAdd), valueAdd));
             status  = "New element is successfully added";
         }
         catch (IllegalArgumentException ex) {

@@ -97,7 +97,9 @@
         <children>
           <component id="77c6f" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="50" height="14"/>
+              </grid>
             </constraints>
             <properties>
               <text value="minKey"/>
@@ -122,7 +124,9 @@
           </component>
           <component id="330c1" class="javax.swing.JLabel" binding="minValueLabel">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="50" height="14"/>
+              </grid>
             </constraints>
             <properties>
               <background color="-1"/>
@@ -142,7 +146,7 @@
           <component id="8e9ed" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
             <constraints>
               <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="89" height="24"/>
+                <preferred-size width="61" height="24"/>
               </grid>
             </constraints>
             <properties>

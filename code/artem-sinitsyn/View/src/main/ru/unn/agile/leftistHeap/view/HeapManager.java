@@ -20,8 +20,37 @@ public class HeapManager {
 
     private ViewModel viewModel;
 
-    public HeapManager() {
-        viewModel = new ViewModel();
+    public HeapManager(ViewModel viewModel) {
+        this.viewModel = viewModel;
+        backBind();
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                HeapManager.this.viewModel.addToLeftistHeap();
+                backBind();
+            }
+        });
+
+        getButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                HeapManager.this.viewModel.getMinFromLeftistHeap();
+                backBind();
+            }
+        });
+
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                HeapManager.this.viewModel.deleteMinFromLeftistHeap();
+                backBind();
+            }
+        });
     }
 
     public void bind() {
@@ -32,7 +61,7 @@ public class HeapManager {
         viewModel.status = statusLabel.getText();
     }
 
-    public void unbind() {
+    public void backBind() {
         addKeyTextField.setText(viewModel.keyAdd);
         addValueTextField.setText(viewModel.valueAdd);
         minKeyLabel.setText(viewModel.keyGetDel);
@@ -42,7 +71,7 @@ public class HeapManager {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("HeapManager");
-        frame.setContentPane(new HeapManager().mainPanel);
+        frame.setContentPane(new HeapManager(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

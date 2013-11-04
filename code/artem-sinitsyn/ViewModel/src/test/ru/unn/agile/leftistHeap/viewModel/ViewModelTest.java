@@ -6,14 +6,10 @@ import static org.junit.Assert.*;
 
 public class ViewModelTest {
     private ViewModel viewModel;
-    private String key;
-    private String value;
 
     @Before
     public void setUp() {
         viewModel = new ViewModel();
-        key = "1";
-        value = "First";
     }
 
     @Test
@@ -27,21 +23,21 @@ public class ViewModelTest {
 
     @Test
     public void cannotConvertInvalidInput(){
-        key = "-1";
-        value = null;
-        viewModel.addToLeftistHeap(key ,value);
+        viewModel.keyAdd = "-1";
+        viewModel.valueAdd = null;
+        viewModel.addToLeftistHeap();
         assertEquals("Invalid input", viewModel.status);
     }
 
     @Test
     public void canConvertValidInput(){
-        viewModel.addToLeftistHeap(key ,value);
+        viewModel.addToLeftistHeap();
         assertEquals("New element is successfully added", viewModel.status);
     }
 
     @Test
     public void canAddToLeftistHeap() {
-        viewModel.addToLeftistHeap(key, value);
+        viewModel.addToLeftistHeap();
         assertEquals("New element is successfully added", viewModel.status);
     }
 
@@ -55,10 +51,10 @@ public class ViewModelTest {
 
     @Test
     public void canGetMinFromHeap() {
-        viewModel.addToLeftistHeap(key ,value);
+        viewModel.addToLeftistHeap();
         viewModel.getMinFromLeftistHeap();
-        assertEquals(key, viewModel.keyGetDel);
-        assertEquals(value, viewModel.valueGetDel);
+        assertEquals("0", viewModel.keyGetDel);
+        assertEquals("Zero", viewModel.valueGetDel);
         assertEquals("Min is successfully got", viewModel.status);
     }
 
@@ -72,10 +68,10 @@ public class ViewModelTest {
 
     @Test
     public void canDeleteMinFromLeftistHeap() {
-        viewModel.addToLeftistHeap(key ,value);
+        viewModel.addToLeftistHeap();
         viewModel.deleteMinFromLeftistHeap();
-        assertEquals(key, viewModel.keyGetDel);
-        assertEquals(value, viewModel.valueGetDel);
+        assertEquals("0", viewModel.keyGetDel);
+        assertEquals("Zero", viewModel.valueGetDel);
         assertEquals("Min is successfully deleted", viewModel.status);
     }
 }
