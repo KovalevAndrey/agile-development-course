@@ -57,8 +57,8 @@ project(":andrey-ilyichev").name = "andrey-ilyichev-Model"
 // Anna Sagina
 include "anna-sagina/Model"
 project(":anna-sagina/Model").name = "anna-sagina-Model"
-//include "anna-sagina/ViewModel"
-//project(":anna-sagina/ViewModel").name = "anna-sagina-ViewModel"
+include "anna-sagina/ViewModel"
+project(":anna-sagina/ViewModel").name = "anna-sagina-ViewModel"
 include "anna-sagina/View"
 project(":anna-sagina/View").name = "anna-sagina-View"
 
