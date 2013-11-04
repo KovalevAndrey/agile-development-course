@@ -13,58 +13,23 @@ public class QSolverViewModel {
    private  String errMessage = "Invalid coefficient found! Please don't worry and check your input..";
 
     public QSolverViewModel() {
-        a = "";
-        b = "";
-        c = "";
+        a = "0";
+        b = "0";
+        c = "0";
     }
 
-    public void setA(String a) {
+    public void setCoefficientValue() {
         try {
             Double.parseDouble(a);
-            this.a = a;
-            this.result = "";
-            if ( !c.equals("") && !b.equals("")) {
-                isSolveButtonEnabled = true;
-            }
-        } catch (NumberFormatException e){
-            result = errMessage;
-            isSolveButtonEnabled = false;
-            this.a = "";
-        }
-    }
-
-    public void setB(String b) {
-        try {
             Double.parseDouble(b);
-            this.b = b;
-            this.result = "";
-            if ( !c.equals("") && !a.equals("")) {
-                isSolveButtonEnabled = true;
-            }
-
-        } catch (NumberFormatException e){
-            result = errMessage;
-            isSolveButtonEnabled = false;
-            this.b = "";
-        }
-    }
-
-    public void setC(String c) {
-        try {
             Double.parseDouble(c);
-            this.c = c;
             this.result = "";
-            if ( !a.equals("") && !b.equals("")) {
-                isSolveButtonEnabled = true;
-            }
+            isSolveButtonEnabled = true;
         } catch (NumberFormatException e){
             result = errMessage;
             isSolveButtonEnabled = false;
-            this.c = "";
-
         }
     }
-
 
     public void RunSolver(){
         try {
@@ -74,10 +39,10 @@ public class QSolverViewModel {
                result = "I'm so sorry.. Your equal has no real roots at all!";
            }
            if (roots.length == 1){
-                result = "The equal has only one root:\n x = " + roots[0];
+                result = "x = " + roots[0];
            }
            if (roots.length == 2){
-                result = "The equal has two real roots:\n x = " + roots[0] + "   x = " + roots[1];
+                result = "x1 = " + roots[0] + "   x2 = " + roots[1];
            }
 
         }catch (InvalidParameterException e){

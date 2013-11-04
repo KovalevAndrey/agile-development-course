@@ -31,6 +31,15 @@ public class QuadEquationSolver {
 
     private  QSolverViewModel viewModel;
 
+    private KeyAdapter keyAdapter = new KeyAdapter() {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            bind();
+            QuadEquationSolver.this.viewModel.setCoefficientValue();
+            backBind();
+        }
+    };
+
     public QuadEquationSolver(QSolverViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
@@ -44,29 +53,9 @@ public class QuadEquationSolver {
             }
         });
 
-        textFieldA.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased (KeyEvent e) {
-               QuadEquationSolver.this.viewModel.setA( QuadEquationSolver.this.textFieldA.getText() );
-               backBind();
-            }
-        });
-
-        textFieldB.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                QuadEquationSolver.this.viewModel.setB( QuadEquationSolver.this.textFieldB.getText() );
-                backBind();
-            }
-        });
-
-        textFieldC.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                QuadEquationSolver.this.viewModel.setC( QuadEquationSolver.this.textFieldC.getText() );
-                backBind();
-            }
-        });
+        textFieldA.addKeyListener(keyAdapter);
+        textFieldB.addKeyListener(keyAdapter);
+        textFieldC.addKeyListener(keyAdapter);
 
     }
 

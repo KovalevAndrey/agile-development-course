@@ -10,7 +10,6 @@ import java.security.InvalidParameterException;
 
 public class QSolverViewModelTest {
 
-    private  String errMessage = "Invalid coefficient found! Please don't worry and check your input..";
     private QSolverViewModel qSolverViewModel;
 
     @Before
@@ -37,57 +36,40 @@ public class QSolverViewModelTest {
 
     @Test
     public void isSolveButtonEnabledAfterCorrectDataInput() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setB("1");
-        qSolverViewModel.setC("1");
+        qSolverViewModel.a = "1";
+        qSolverViewModel.b = "1";
+        qSolverViewModel.c = "1";
+        qSolverViewModel.setCoefficientValue();
 
         assertTrue(qSolverViewModel.isSolveButtonEnabled);
     }
 
     @Test
-    public void invalidCoefficientAShowsErrMessage() {
-        qSolverViewModel.setA("qq");
-        assertEquals(errMessage, qSolverViewModel.result);
-    }
+    public void invalidCoefficientInputShowsErrMessage() {
+        qSolverViewModel.a  = "1";
+        qSolverViewModel.b  = "qq";
+        qSolverViewModel.c  = "2";
+        qSolverViewModel.setCoefficientValue();
 
-
-    @Test
-    public void invalidCoefficientBShowsErrMessage() {
-        qSolverViewModel.setB("qq");
-        assertEquals(errMessage, qSolverViewModel.result);
+        assertEquals("Invalid coefficient found! Please don't worry and check your input..", qSolverViewModel.result);
     }
 
     @Test
-    public void invalidCoefficientCShowsErrMessage() {
-        qSolverViewModel.setC("q(");
-        assertEquals(errMessage, qSolverViewModel.result);
-     }
+    public void whenAnyCoefficientIsInvalidSolveButtonIsDisabled() {
+        qSolverViewModel.a  = "1";
+        qSolverViewModel.b  = "qq";
+        qSolverViewModel.c  = "2";
+        qSolverViewModel.setCoefficientValue();
 
-    @Test
-    public void invalidCoefficientASolveButtonIsDisabled() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setA("qq");
-        assertFalse(qSolverViewModel.isSolveButtonEnabled);
-    }
-
-    @Test
-    public void invalidCoefficientBSolveButtonIsDisabled() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setB("qq");
-        assertFalse(qSolverViewModel.isSolveButtonEnabled);
-    }
-
-    @Test
-    public void invalidCoefficientCSolveButtonIsDisabled() {
-        qSolverViewModel.setC("qq");
         assertFalse(qSolverViewModel.isSolveButtonEnabled);
     }
 
     @Test
     public void solveEquationWithoutRootsGivesNoRootsMessage() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setB("1");
-        qSolverViewModel.setC("3");
+        qSolverViewModel.a  = "1";
+        qSolverViewModel.b  = "1";
+        qSolverViewModel.c  = "3";
+        qSolverViewModel.setCoefficientValue();
         qSolverViewModel.RunSolver();
 
         assertEquals("I'm so sorry.. Your equal has no real roots at all!", qSolverViewModel.result);
@@ -95,29 +77,32 @@ public class QSolverViewModelTest {
 
     @Test
     public void solveEquationWithOneRootGivesOneRootMessage() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setB("-4");
-        qSolverViewModel.setC("4");
+        qSolverViewModel.a  = "1";
+        qSolverViewModel.b  = "-4";
+        qSolverViewModel.c  = "4";
+        qSolverViewModel.setCoefficientValue();
         qSolverViewModel.RunSolver();
 
-        assertEquals("The equal has only one root:\n x = 2.0", qSolverViewModel.result);
+        assertEquals("x = 2.0", qSolverViewModel.result);
     }
 
     @Test
     public void solveEquationWithTwoRootsGivesTwoRootMessage() {
-        qSolverViewModel.setA("1");
-        qSolverViewModel.setB("-3");
-        qSolverViewModel.setC("2");
+        qSolverViewModel.a  = "1";
+        qSolverViewModel.b  = "-3";
+        qSolverViewModel.c  = "2";
+        qSolverViewModel.setCoefficientValue();
         qSolverViewModel.RunSolver();
 
-        assertEquals("The equal has two real roots:\n x = 1.0   x = 2.0", qSolverViewModel.result);
+        assertEquals("x1 = 1.0   x2 = 2.0", qSolverViewModel.result);
     }
 
     @Test
    public void errorResultWhenAllCoefficientsAreZero() {
-        qSolverViewModel.setA("0");
-        qSolverViewModel.setB("0");
-        qSolverViewModel.setC("0");
+        qSolverViewModel.a  = "0";
+        qSolverViewModel.b  = "0";
+        qSolverViewModel.c  = "0";
+        qSolverViewModel.setCoefficientValue();
         qSolverViewModel.RunSolver();
 
         assertEquals("Oops.. something is wrong: All arguments cannot be zero!", qSolverViewModel.result);
@@ -125,11 +110,12 @@ public class QSolverViewModelTest {
 
     @Test
     public void errorResultWhenOnlyCisNonZero() {
-        qSolverViewModel.setA("0");
-        qSolverViewModel.setB("0");
-        qSolverViewModel.setC("2");
+        qSolverViewModel.a  = "0";
+        qSolverViewModel.b  = "0";
+        qSolverViewModel.c  = "3";
+        qSolverViewModel.setCoefficientValue();
         qSolverViewModel.RunSolver();
 
-        assertEquals("Oops.. something is wrong: Equation cannot be solve!", qSolverViewModel.result);
+        assertEquals("Oops.. something is wrong: Equation cannot be solved!", qSolverViewModel.result);
     }
 }
