@@ -33,10 +33,34 @@ public class ViewModelTests {
     }
 
     @Test
+    public void emptyInputString() {
+        viewModel.input = "";
+        viewModel.convert();
+
+        assertEquals(WRONG_INPUT_STRING, viewModel.status);
+    }
+
+    @Test
     public void wrongInputString() {
         viewModel.input = "o-lo-lo";
         viewModel.convert();
 
         assertEquals(WRONG_INPUT_STRING, viewModel.status);
+    }
+
+    @Test
+    public void nullInputScale() {
+        viewModel.inputScale = null;
+        viewModel.convert();
+
+        assertEquals(INPUT_SCALE_NULL, viewModel.status);
+    }
+
+    @Test
+    public void nullResultScale() {
+        viewModel.resultScale = null;
+        viewModel.convert();
+
+        assertEquals(RESULT_SCALE_NULL, viewModel.status);
     }
 }
