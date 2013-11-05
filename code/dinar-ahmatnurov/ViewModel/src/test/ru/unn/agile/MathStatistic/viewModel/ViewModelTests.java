@@ -111,7 +111,7 @@ public class ViewModelTests {
     public void isBehaviourOkOnNoData(){
         viewModel.calcIt();
         assertEquals(false, viewModel.isCalculateButtonEnabled);
-        assertEquals(ViewModel.Status.WAITING, viewModel.status);
+        assertEquals(ViewModel.Status.BAD_INPUT, viewModel.status);
         assertEquals("", viewModel.outputData);
     }
 
