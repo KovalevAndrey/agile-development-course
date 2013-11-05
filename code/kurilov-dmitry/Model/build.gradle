@@ -1,12 +1,12 @@
 sourceSets {
     main {
         java {
-            srcDir 'core/src/main'
+            srcDir 'Model/src/main'
         }
     }
     test {
         java {
-            srcDir 'core/src/test'
+            srcDir 'Model/src/test'
         }
     }
 }

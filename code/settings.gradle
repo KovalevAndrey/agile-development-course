@@ -159,8 +159,8 @@ project(":kate-sergeeva").name = "kate-sergeeva-Model"
 //project(":kate-sergeeva/View").name = "kate-sergeeva-View"
 
 // Kurilov Dmitry
-include "kurilov-dmitry"
-project(":kurilov-dmitry").name = "kurilov-dmitry-Model"
+include "kurilov-dmitry-Model"
+project(":kurilov-dmitry-Model").name = "kurilov-dmitry-Model"
 //include "kurilov-dmitry/ViewModel"
 //project(":kurilov-dmitry/ViewModel").name = "kurilov-dmitry-ViewModel"
 //include "kurilov-dmitry/View"
