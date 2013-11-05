@@ -1,4 +1,4 @@
-package ru.unn.agile.deque;
+package ru.unn.agile.deque.model;
 import org.junit.Before;
 import org.junit.Test;
 
