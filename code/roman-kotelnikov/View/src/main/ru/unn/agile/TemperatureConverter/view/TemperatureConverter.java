@@ -12,8 +12,8 @@ public class TemperatureConverter {
 
     private JPanel mainPanel;
     private JTextField txtTempValue;
-    private JComboBox cbInputScale;
-    private JComboBox cbResultScale;
+    private JComboBox<AvailableScales> cbInputScale;
+    private JComboBox<AvailableScales> cbResultScale;
     private JButton btnConvert;
     private JTextField txtResult;
     private JLabel lbStatus;
@@ -45,11 +45,11 @@ public class TemperatureConverter {
     public void loadAvailableScales() {
         AvailableScales[] scales = AvailableScales.values();
 
-        JComboBox<AvailableScales> inputScales = new JComboBox<AvailableScales>(scales);
-        JComboBox<AvailableScales> resultScales = new JComboBox<AvailableScales>(scales);
+        ComboBoxModel<AvailableScales> inputScales = new DefaultComboBoxModel<AvailableScales>(scales);
+        ComboBoxModel<AvailableScales> resultScales = new DefaultComboBoxModel<AvailableScales>(scales);
 
-        cbInputScale.setModel(inputScales.getModel());
-        cbResultScale.setModel(resultScales.getModel());
+        cbInputScale.setModel(inputScales);
+        cbResultScale.setModel(resultScales);
     }
 
     public void bind() {
