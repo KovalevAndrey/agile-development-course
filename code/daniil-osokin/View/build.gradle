@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':daniil-osokin-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
