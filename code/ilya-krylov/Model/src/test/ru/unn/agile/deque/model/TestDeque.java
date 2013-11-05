@@ -1,4 +1,4 @@
-package ru.unn.agile.deque;
+package ru.unn.agile.deque.model;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class TestDeque {
 
     @Test
     public void isEmptyWhenCreate(){
-       assertEquals(true, deque.isEmpty());
+       assertTrue(deque.isEmpty());
     }
 
     @Test
@@ -184,5 +184,20 @@ public class TestDeque {
         deque.popFront();
         deque.popBack();
         assertEquals(2, deque.getBack());
+    }
+
+    @Test
+    public void isToStringCorrectWhenDequeIsEmpty(){
+        assertEquals("", deque.toString());
+    }
+
+    @Test
+    public void isToStringCorrectAfterSeveralActions(){
+        deque.pushBack(5);
+        deque.pushBack(4);
+        deque.pushBack(3);
+        deque.pushFront(6);
+        deque.pushBack(2);
+        assertEquals("6 5 4 3 2 ",deque.toString());
     }
 }
