@@ -27,8 +27,8 @@ public class Calculator {
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
-        backBind();
 
+        backBind();
         loadListOfOperations();
 
         calcItButton.addActionListener(new ActionListener() {
@@ -59,6 +59,7 @@ public class Calculator {
     public void backBind() {
         outputDataTextField.setText(viewModel.outputData);
         status.setText(viewModel.status);
+        calcItButton.setEnabled(viewModel.isCalculateButtonEnabled);
     }
 
     private void loadListOfOperations() {
