@@ -153,8 +153,8 @@ project(":ilya-krylov").name = "ilya-krylov-Model"
 // Kate Sergeeva
 include "kate-sergeeva/Model"
 project(":kate-sergeeva/Model").name = "kate-sergeeva-Model"
-//include "kate-sergeeva/ViewModel"
-//project(":kate-sergeeva/ViewModel").name = "kate-sergeeva-ViewModel"
+include "kate-sergeeva/ViewModel"
+project(":kate-sergeeva/ViewModel").name = "kate-sergeeva-ViewModel"
 include "kate-sergeeva/View"
 project(":kate-sergeeva/View").name = "kate-sergeeva-View"
 
