@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import ru.unn.agile.TemperatureConverter.*;
 import static ru.unn.agile.TemperatureConverter.AvailableScales.*;
