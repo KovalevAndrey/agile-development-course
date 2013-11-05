@@ -13,14 +13,16 @@
     <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:25px:noGrow"/>
     <rowspec value="top:4dlu:noGrow"/>
+    <rowspec value="center:29px:noGrow"/>
+    <rowspec value="top:4dlu:noGrow"/>
     <rowspec value="center:48px:noGrow"/>
     <colspec value="fill:26px:noGrow"/>
     <colspec value="left:5dlu:noGrow"/>
-    <colspec value="fill:150px:noGrow"/>
+    <colspec value="fill:164px:noGrow"/>
     <colspec value="left:6dlu:noGrow"/>
     <colspec value="fill:25px:noGrow"/>
     <constraints>
-      <xy x="20" y="20" width="227" height="284"/>
+      <xy x="20" y="20" width="232" height="338"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -91,6 +93,17 @@
         <border type="none"/>
         <children/>
       </grid>
+      <grid id="a8317" layout-manager="FormLayout">
+        <rowspec value="center:d:grow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
       <grid id="60ffe" layout-manager="FormLayout">
         <rowspec value="center:d:grow"/>
         <rowspec value="top:4dlu:noGrow"/>
@@ -133,15 +146,14 @@
               <forms/>
             </constraints>
             <properties>
+              <labelFor value="11a83"/>
               <text value="Statistic"/>
             </properties>
           </component>
         </children>
       </grid>
       <grid id="3c444" layout-manager="FormLayout">
-        <rowspec value="center:d:grow"/>
-        <rowspec value="top:4dlu:noGrow"/>
-        <rowspec value="center:d:grow"/>
+        <rowspec value="center:d:noGrow"/>
         <colspec value="fill:d:grow"/>
         <constraints>
           <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -150,27 +162,13 @@
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="d914c">
+          <component id="11a83" class="javax.swing.JComboBox" binding="listOfStatistic">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-              <forms defaultalign-vert="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <forms/>
             </constraints>
             <properties/>
-            <border type="none"/>
-            <children>
-              <component id="95bd4" class="javax.swing.JList" binding="list1" default-binding="true">
-                <constraints/>
-                <properties>
-                  <model>
-                    <item value="Expected value"/>
-                    <item value="Variance"/>
-                    <item value="Third central moment"/>
-                    <item value="Fourth central moment"/>
-                  </model>
-                </properties>
-              </component>
-            </children>
-          </scrollpane>
+          </component>
         </children>
       </grid>
       <grid id="ba40d" layout-manager="FormLayout">
@@ -199,8 +197,8 @@
       <grid id="a4249" layout-manager="FormLayout">
         <rowspec value="center:d:grow"/>
         <rowspec value="top:4dlu:noGrow"/>
-        <rowspec value="center:max(d;4px):noGrow"/>
-        <colspec value="fill:d:grow"/>
+        <rowspec value="center:d:grow"/>
+        <colspec value="fill:d:noGrow"/>
         <constraints>
           <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms/>
@@ -208,21 +206,19 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="64d4a" class="javax.swing.JLabel">
+          <component id="7e97" class="javax.swing.JLabel" binding="status">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties>
-              <text value="Output data"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
       </grid>
       <grid id="ea39" layout-manager="FormLayout">
-        <rowspec value="center:d:grow"/>
-        <rowspec value="top:4dlu:noGrow"/>
-        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="center:d:noGrow"/>
         <colspec value="fill:d:grow"/>
         <constraints>
           <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -231,7 +227,31 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="3eea3" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="64d4a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <labelFor value="80b64"/>
+              <text value="Output data"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="d3042" layout-manager="FormLayout">
+        <rowspec value="center:d:grow"/>
+        <rowspec value="top:4dlu:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="80b64" class="javax.swing.JTextField" binding="outputDataTextField" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -302,6 +322,17 @@
         <colspec value="fill:d:grow"/>
         <constraints>
           <grid row="12" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="c4607" layout-manager="FormLayout">
+        <rowspec value="center:d:grow"/>
+        <colspec value="fill:d:grow"/>
+        <constraints>
+          <grid row="14" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms/>
         </constraints>
         <properties/>
