@@ -7,16 +7,18 @@ import ru.unn.agile.Re.model.ReError;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
-public class ReViewModelTests
+public class RegexViewModelTests
 {
-    private ReViewModel viewModel;
+    private RegexViewModel viewModel;
 
     @Before
     public void setUp()
     {
-        viewModel = new ReViewModel();
+        viewModel = new RegexViewModel();
     }
 
     @After

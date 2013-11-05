@@ -1,15 +1,18 @@
 package ru.unn.agile.Re.view;
 
-import ru.unn.agile.Re.viewmodel.ReViewModel;
+import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import static javax.swing.UIManager.setLookAndFeel;
 
 public class SearchEngine
 {
-    public SearchEngine(ReViewModel viewModel)
+    public SearchEngine(RegexViewModel viewModel)
     {
         this.viewModel = viewModel;
         searchButton.addActionListener(new ActionListener()
@@ -52,25 +55,10 @@ public class SearchEngine
         }
 
         JFrame frame = new JFrame("SearchEngine");
-        frame.setContentPane(new SearchEngine(new ReViewModel()).mainPanel);
+        frame.setContentPane(new SearchEngine(new RegexViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-    }
-
-    private void updateButtonState()
-    {
-        if (patternTextField.getText().equals("") || searchTextArea.getText().equals(""))
-        {
-            if (searchButton.isEnabled())
-            {
-                searchButton.setEnabled(false);
-            }
-        }
-        else if (!searchButton.isEnabled())
-        {
-            searchButton.setEnabled(true);
-        }
     }
 
     private class DefaultKeyListener implements KeyListener
@@ -89,9 +77,24 @@ public class SearchEngine
         public void keyReleased(KeyEvent e) {
             updateButtonState();
         }
+
+        private void updateButtonState()
+        {
+            if (patternTextField.getText().equals("") || searchTextArea.getText().equals(""))
+            {
+                if (searchButton.isEnabled())
+                {
+                    searchButton.setEnabled(false);
+                }
+            }
+            else if (!searchButton.isEnabled())
+            {
+                searchButton.setEnabled(true);
+            }
+        }
     }
 
-    private ReViewModel viewModel;
+    private RegexViewModel viewModel;
 
     private JPanel mainPanel;
     private JTextField patternTextField;
