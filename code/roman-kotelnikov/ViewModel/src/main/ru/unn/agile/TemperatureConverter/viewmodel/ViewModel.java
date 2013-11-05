@@ -4,10 +4,10 @@ import ru.unn.agile.TemperatureConverter.AvailableScales;
 import ru.unn.agile.TemperatureConverter.Temperature;
 
 public class ViewModel {
-    public String input = "";
-    public AvailableScales inputScale = null;
+    public String input = "0.0";
+    public AvailableScales inputScale = AvailableScales.Celsius;
     public String result = "";
-    public AvailableScales resultScale = null;
+    public AvailableScales resultScale = AvailableScales.Fahrenheit;
     public String status = "";
 
     public void convert() {

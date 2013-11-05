@@ -20,8 +20,8 @@ public class TemperatureConverter {
 
     public TemperatureConverter(ViewModel viewModel) {
         this.viewModel = viewModel;
-        backBind();
         loadAvailableScales();
+        backBind();
 
         btnConvert.addActionListener(new ActionListener() {
             @Override
@@ -44,8 +44,12 @@ public class TemperatureConverter {
 
     public void loadAvailableScales() {
         AvailableScales[] scales = AvailableScales.values();
-        cbResultScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
-        cbInputScale.setModel(new JComboBox<AvailableScales>(scales).getModel());
+
+        JComboBox<AvailableScales> inputScales = new JComboBox<AvailableScales>(scales);
+        JComboBox<AvailableScales> resultScales = new JComboBox<AvailableScales>(scales);
+
+        cbInputScale.setModel(inputScales.getModel());
+        cbResultScale.setModel(resultScales.getModel());
     }
 
     public void bind() {
