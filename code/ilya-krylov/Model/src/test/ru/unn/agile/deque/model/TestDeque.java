@@ -185,4 +185,19 @@ public class TestDeque {
         deque.popBack();
         assertEquals(2, deque.getBack());
     }
+
+    @Test
+    public void isToStringCorrectWhenDequeIsEmpty(){
+        assertEquals("", deque.toString());
+    }
+
+    @Test
+    public void isToStringCorrectAfterSeveralActions(){
+        deque.pushBack(5);
+        deque.pushBack(4);
+        deque.pushBack(3);
+        deque.pushFront(6);
+        deque.pushBack(2);
+        assertEquals("6 5 4 3 2 ",deque.toString());
+    }
 }

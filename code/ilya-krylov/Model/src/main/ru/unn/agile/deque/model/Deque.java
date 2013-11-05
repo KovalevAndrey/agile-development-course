@@ -6,10 +6,21 @@ public class Deque {
     int back;
     int front;
 
+
     public Deque(int maxCount){
         deque = new int[maxCount];
         count = 0;
         back = front = -1;
+    }
+
+    public Deque(Deque deq){
+        deque = new int[deq.getMaxCount()];
+        for (int i = 0; i < deque.length; i++){
+            deque[i] = deq.deque[i];
+        }
+        count = deq.count;
+        back = deq.back;
+        front = deq.front;
     }
 
     public boolean isEmpty(){
@@ -62,6 +73,7 @@ public class Deque {
         if (back < 0){
             back += getMaxCount();
         }
+        count--;
         return backElement;
     }
 
@@ -71,6 +83,7 @@ public class Deque {
         }
         int frontElement = getFront();
         front = (front + 1) % getMaxCount();
+        count--;
         return frontElement;
     }
 
@@ -84,5 +97,15 @@ public class Deque {
 
     public int getMaxCount(){
         return deque.length;
+    }
+
+    @Override
+    public String toString(){
+        String result = "";
+        Deque temporaryCopy = new Deque(this);
+        while(!temporaryCopy.isEmpty()){
+            result += temporaryCopy.popFront() + " ";
+        }
+        return result;
     }
 }

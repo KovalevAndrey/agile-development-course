@@ -1,7 +1,7 @@
+dependencies {
+    compile project(':ilya-krylov-ViewModel')
+}
+
 sourceSets {
-    main {
-        java {
-            srcDir 'src/main'
-        }
-    }
+    main.java.srcDir 'src/main'
 }

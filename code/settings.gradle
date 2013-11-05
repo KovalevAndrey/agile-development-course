@@ -145,8 +145,8 @@ project(":igor-surmin").name = "igor-surmin-Model"
 // Ilya Krylov
 include "ilya-krylov/Model"
 project(":ilya-krylov/Model").name = "ilya-krylov-Model"
-//include "ilya-krylov/ViewModel"
-//project(":ilya-krylov/ViewModel").name = "ilya-krylov-ViewModel"
+include "ilya-krylov/ViewModel"
+project(":ilya-krylov/ViewModel").name = "ilya-krylov-ViewModel"
 include "ilya-krylov/View"
 project(":ilya-krylov/View").name = "ilya-krylov-View"
 
