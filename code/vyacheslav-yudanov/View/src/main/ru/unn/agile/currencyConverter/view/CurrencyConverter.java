@@ -25,17 +25,17 @@ public class CurrencyConverter {
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                bindBack();
-                viewModel.convertBtnClick();
                 bind();
+                viewModel.convertBtnClick();
+                bindBack();
             }
         });
-        bind();
+        bindBack();
     }
 
-    public void bind(){
-        cmbFromCurrency.setModel(new DefaultComboBoxModel(viewModel.comboBoxData));
-        cmbToCurrency.setModel(new DefaultComboBoxModel(viewModel.comboBoxData));
+    public void bindBack(){
+        cmbFromCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.comboBoxData));
+        cmbToCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.comboBoxData));
         cmbFromCurrency.setSelectedIndex(viewModel.fromCurrencyIndex);
         cmbToCurrency.setSelectedIndex(viewModel.toCurrencyIndex);
 
@@ -43,7 +43,7 @@ public class CurrencyConverter {
         txtFromCurrencyAmount.setText(viewModel.moneyAmount);
     }
 
-    public void bindBack(){
+    public void bind(){
         viewModel.fromCurrencyIndex = cmbFromCurrency.getSelectedIndex();
         viewModel.toCurrencyIndex = cmbToCurrency.getSelectedIndex();
         viewModel.moneyAmount = txtFromCurrencyAmount.getText();
@@ -52,8 +52,8 @@ public class CurrencyConverter {
     private JPanel mainPanel;
     private JTextField txtFromCurrencyAmount;
     private JButton convertButton;
-    private JComboBox cmbFromCurrency;
-    private JComboBox cmbToCurrency;
+    private JComboBox<String> cmbFromCurrency;
+    private JComboBox<String> cmbToCurrency;
     private JTextField txtConvertResult;
 
 }

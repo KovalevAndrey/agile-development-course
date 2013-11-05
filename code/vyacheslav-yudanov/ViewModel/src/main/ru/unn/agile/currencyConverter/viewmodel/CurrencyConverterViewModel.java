@@ -44,7 +44,7 @@ public class CurrencyConverterViewModel {
             toCurrencyMoneyAmount = Double.toString(originalMoney.getMoneyAmount());
         }
         catch(Exception ex){
-                toCurrencyMoneyAmount = "Error";
+                toCurrencyMoneyAmount = "Your input number is incorrect, please correct it.";
         }
     }
 }

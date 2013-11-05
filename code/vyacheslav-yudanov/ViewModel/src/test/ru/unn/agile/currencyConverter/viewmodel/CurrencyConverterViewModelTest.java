@@ -48,7 +48,7 @@ public class CurrencyConverterViewModelTest {
     }
 
     @Test
-    public void TestSimpleConversionWithComaNumber(){
+    public void TestSimpleConversionWithCommaNumber(){
         viewModel.moneyAmount = "1,0";
         viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
         viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
@@ -77,6 +77,6 @@ public class CurrencyConverterViewModelTest {
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "Error");
+        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "Your input number is incorrect, please correct it.");
     }
 }
