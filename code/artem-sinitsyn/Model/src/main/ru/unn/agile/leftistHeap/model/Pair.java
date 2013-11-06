@@ -1,4 +1,4 @@
-package ru.unn.agile.leftistHeap;
+package ru.unn.agile.leftistHeap.model;
 
 public class Pair {
     private int key;
