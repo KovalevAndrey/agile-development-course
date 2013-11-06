@@ -1,36 +1,21 @@
 package ru.unn.agile.view;
 
-import javax.swing.*;
 import ru.unn.agile.QSolverViewModel.QSolverViewModel;
 
-import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class QuadEquationSolver {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("QuadEquationSolver");
-        frame.setContentPane(new QuadEquationSolver(new QSolverViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
     private JPanel mainPanel;
-    private JPanel dataPanel;
-    private JPanel resultPanel;
-    private JLabel eqLabel;
     private JTextField textFieldA;
-    private JLabel labelA;
-    private JLabel labelB;
-    private JLabel labelC;
     private JTextField textFieldB;
     private JTextField textFieldC;
-    private JLabel coeffLabel;
-    private JLabel theSolutionIsLabel;
     private JLabel solutionLabel;
     private JButton solveButton;
-
-    private  QSolverViewModel viewModel;
-
+    private QSolverViewModel viewModel;
     private KeyAdapter keyAdapter = new KeyAdapter() {
         @Override
         public void keyReleased(KeyEvent e) {
@@ -59,15 +44,23 @@ public class QuadEquationSolver {
 
     }
 
-    private void bind(){
-           viewModel.result = this.solutionLabel.getText();
-           viewModel.a = this.textFieldA.getText();
-           viewModel.b = this.textFieldB.getText();
-           viewModel.c = this.textFieldC.getText();
-           viewModel.isSolveButtonEnabled = this.solveButton.isEnabled();
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("QuadEquationSolver");
+        frame.setContentPane(new QuadEquationSolver(new QSolverViewModel()).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 
-    private void backBind(){
+    private void bind() {
+        viewModel.result = this.solutionLabel.getText();
+        viewModel.a = this.textFieldA.getText();
+        viewModel.b = this.textFieldB.getText();
+        viewModel.c = this.textFieldC.getText();
+        viewModel.isSolveButtonEnabled = this.solveButton.isEnabled();
+    }
+
+    private void backBind() {
         this.solutionLabel.setText(viewModel.result);
         this.textFieldA.setText(viewModel.a);
         this.textFieldB.setText(viewModel.b);
@@ -75,8 +68,4 @@ public class QuadEquationSolver {
         this.solveButton.setEnabled(viewModel.isSolveButtonEnabled);
     }
 
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
 }
