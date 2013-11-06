@@ -1,3 +1,7 @@
+dependencies {
+    compile project(':kurilov-dmitry-Model')
+}
+
 sourceSets {
     main.java.srcDir 'src/main'
     test.java.srcDir 'src/test'
