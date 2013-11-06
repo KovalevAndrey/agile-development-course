@@ -103,12 +103,12 @@ project(":egor-novikov").name = "egor-novikov-Model"
 //project(":egor-novikov/View").name = "egor-novikov-View"
 
 // Elena Artemieva
-include "elena-artemieva"
-project(":elena-artemieva").name = "elena-artemieva-Model"
-//include "elena-artemieva/ViewModel"
-//project(":elena-artemieva/ViewModel").name = "elena-artemieva-ViewModel"
-//include "elena-artemieva/View"
-//project(":elena-artemieva/View").name = "elena-artemieva-View"
+include "elena-artemieva/Model"
+project(":elena-artemieva/Model").name = "elena-artemieva-Model"
+include "elena-artemieva/ViewModel"
+project(":elena-artemieva/ViewModel").name = "elena-artemieva-ViewModel"
+include "elena-artemieva/View"
+project(":elena-artemieva/View").name = "elena-artemieva-View"
 
 // Elena Tilkova
 include "elena-tilkova"

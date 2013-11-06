@@ -1,4 +1,4 @@
-package ru.unn.agile.fraction;
+package ru.unn.agile.fraction.model;
 
 public class GreatestCommonDivisor {
 
