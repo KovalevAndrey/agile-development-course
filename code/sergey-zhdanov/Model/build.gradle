@@ -1,0 +1,12 @@
+sourceSets {
+    main {
+        java {
+            srcDir 'src/com/szhdanov/main'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/com/szhdanov/test'
+        }
+    }
+}
