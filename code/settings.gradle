@@ -175,12 +175,12 @@ project(":maksim-medvedev").name = "maksim-medvedev-Model"
 //project(":maksim-medvedev/View").name = "maksim-medvedev-View"
 
 // Roman Kotelnikov
-include "roman-kotelnikov"
-project(":roman-kotelnikov").name = "roman-kotelnikov-Model"
-//include "roman-kotelnikov/ViewModel"
-//project(":roman-kotelnikov/ViewModel").name = "roman-kotelnikov-ViewModel"
-//include "roman-kotelnikov/View"
-//project(":roman-kotelnikov/View").name = "roman-kotelnikov-View"
+include "roman-kotelnikov/Model"
+project(":roman-kotelnikov/Model").name = "roman-kotelnikov-Model"
+include "roman-kotelnikov/ViewModel"
+project(":roman-kotelnikov/ViewModel").name = "roman-kotelnikov-ViewModel"
+include "roman-kotelnikov/View"
+project(":roman-kotelnikov/View").name = "roman-kotelnikov-View"
 
 // Roman Pavlov
 include "roman-pavlov"

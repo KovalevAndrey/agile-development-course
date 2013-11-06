@@ -1,4 +1,4 @@
-package ru.unn.agile.temperatureConverter;
+package ru.unn.agile.TemperatureConverter;
 
 import java.util.Locale;
 
@@ -9,8 +9,8 @@ public enum AvailableScales {
     Newton("Newton", "N", 33.0 / 100.0, 0),
     Rankine("Rankine", "Ra", 9.0 / 5.0, 273.15 * 9.0 / 5.0),
     Delisle("Delisle", "De", -3.0 / 2.0, -100 * 3.0 / 2.0),
-    Reaumur("R?aumur", "Re", 4.0 / 5.0, 0),
-    Romer("R?mer", "Ro", 21.0 / 40.0, 7.5);
+    Reaumur("Reaumur", "Re", 4.0 / 5.0, 0),
+    Romer("Romer", "Ro", 21.0 / 40.0, 7.5);
 
     AvailableScales(String name, String suffix, double multiplier, double shift) {
         this.name = name;

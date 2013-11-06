@@ -1,18 +1,19 @@
-package ru.unn.agile.temperatureConverterTests;
+package ru.unn.agile.TemperatureConverterTests;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
-import ru.unn.agile.temperatureConverter.*;
-import static ru.unn.agile.temperatureConverter.AvailableScales.*;
+import ru.unn.agile.TemperatureConverter.*;
+import static ru.unn.agile.TemperatureConverter.AvailableScales.*;
 
 public class TemperatureConverterTests {
 
     private Temperature t;
+    private final double DELTA = 1e-4;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -44,7 +45,7 @@ public class TemperatureConverterTests {
         Temperature t = new Temperature(28.5, Romer);
         Temperature result = t.scaleTo(Celsius);
         assertEquals(Celsius, result.getScale());
-        assertEquals(40.0, result.getCurrent());
+        assertEquals(40.0, result.getCurrent(), DELTA);
     }
 
     @Test
