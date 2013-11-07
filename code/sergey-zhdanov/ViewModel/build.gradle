@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':sergey-zhdanov-Model')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/ru/unn/agile/BitArray/viewmodel'
+    test.java.srcDir 'src/test/ru/unn/agile/BitArray/viewmodel'
+}

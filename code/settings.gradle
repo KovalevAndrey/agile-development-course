@@ -217,8 +217,8 @@ project(":sergey-koklyuev").name = "sergey-koklyuev-Model"
 // Sergey Zhdanov
 include "sergey-zhdanov/Model"
 project(":sergey-zhdanov/Model").name = "sergey-zhdanov-Model"
-//include "sergey-zhdanov/ViewModel"
-//project(":sergey-zhdanov/ViewModel").name = "sergey-zhdanov-ViewModel"
+include "sergey-zhdanov/ViewModel"
+project(":sergey-zhdanov/ViewModel").name = "sergey-zhdanov-ViewModel"
 include "sergey-zhdanov/View"
 project(":sergey-zhdanov/View").name = "sergey-zhdanov-View"
 
