@@ -9,7 +9,7 @@ public class QuadraticEquationSolver {
         if (a == 0 && b == 0 && c == 0)
             throw new InvalidParameterException("All arguments cannot be zero!");
         if (a == 0 && b == 0 && c != 0)
-            throw new InvalidParameterException("Equation cannot be solve!");
+            throw new InvalidParameterException("Equation cannot be solved!");
 
         double[] X;
 
