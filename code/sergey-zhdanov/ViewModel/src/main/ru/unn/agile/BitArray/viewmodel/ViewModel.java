@@ -1,4 +1,4 @@
-
+package ru.unn.agile.BitArray.viewmodel;
 
 import com.szhdanov.main.BitArray;
 
@@ -118,8 +118,10 @@ public class ViewModel {
 
     public void outToStrAction() {
         try {
-            updateState();
-            outArrayStr = curArrayStr;
+            int startInd = Integer.parseInt(startOutIndStr);
+            int count = Integer.parseInt(countOutStr);
+            BitArray tmpModel = model.subArray(startInd, count);
+            outArrayStr = tmpModel.toBitString();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
@@ -142,8 +144,10 @@ public class ViewModel {
 
     public void outToIntsAction() {
         try {
-            updateState();
-            int[] ints = model.toIntArray();
+            int startInd = Integer.parseInt(startOutIndStr);
+            int count = Integer.parseInt(countOutStr);
+            BitArray tmpModel = model.subArray(startInd, count);
+            int[] ints = tmpModel.toIntArray();
             outArrayStr = intArrayToString(ints);
         } catch (Exception ex) {
             error = ex.getMessage();

@@ -1,3 +1,5 @@
+package ru.unn.agile.BitArray.viewmodel;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -293,6 +295,8 @@ public class ViewModelTest {
     public void outToStrAction() throws Exception {
         final String inStr =   "0100100100101001";
         viewModel.strInputAction(inStr);
+        viewModel.setStartOutIndStr("0");
+        viewModel.setCountOutStr(""+inStr.length());
         viewModel.outToStrAction();
         viewModelState = new ViewModelState() {
             {
@@ -300,7 +304,28 @@ public class ViewModelTest {
                 outArrayStr = inStr;
                 startOutIndStr = "0";
                 curLenStr = ""+inStr.length();
-                countOutStr = "0";
+                countOutStr = curLenStr;
+                error = "";
+            }
+        };
+        assertState();
+    }
+
+    @Test
+    public void outToStrActionWithArgs() throws Exception {
+        final String inStr =   "0100100100101001";
+        viewModel.strInputAction(inStr);
+        viewModel.setStartOutIndStr("1");
+        viewModel.setCountOutStr("4");
+        final String mustStr = "1001";
+        viewModel.outToStrAction();
+        viewModelState = new ViewModelState() {
+            {
+                curArrayStr = inStr;
+                outArrayStr = mustStr;
+                startOutIndStr = "1";
+                curLenStr = ""+inStr.length();
+                countOutStr = "4";
                 error = "";
             }
         };
@@ -309,16 +334,19 @@ public class ViewModelTest {
 
     @Test
     public void outToIntsAction() throws Exception {
-        final String inStr =   "1, 2, 3";
+        final String inStr =   "1, 2";
+        final String mustStr = "1000000000000000000000000000000001000000000000000000000000000000";
         viewModel.intArrayInputAction(inStr);
+        viewModel.setStartOutIndStr("0");
+        viewModel.setCountOutStr(""+mustStr.length());
         viewModel.outToIntsAction();
         viewModelState = new ViewModelState() {
             {
-                curArrayStr = viewModel.getCurArrayStr();
+                curArrayStr = mustStr;
                 outArrayStr = inStr;
                 startOutIndStr = "0";
-                curLenStr = viewModel.getCurLenStr();
-                countOutStr = "0";
+                curLenStr = ""+mustStr.length();
+                countOutStr = curLenStr;
                 error = "";
             }
         };
