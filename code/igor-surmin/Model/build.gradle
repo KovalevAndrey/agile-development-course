@@ -1,0 +1,12 @@
+sourceSets {
+    main {
+        java {
+            srcDir 'Model/src/main'
+        }
+    }
+    test {
+        java {
+            srcDir 'Model/src/test'
+        }
+    }
+}
