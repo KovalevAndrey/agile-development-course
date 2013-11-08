@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':roman-kotelnikov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
