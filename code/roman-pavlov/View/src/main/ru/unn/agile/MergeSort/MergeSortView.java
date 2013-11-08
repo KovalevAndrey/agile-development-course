@@ -1,14 +1,9 @@
 package ru.unn.agile.MergeSort;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-/**
- * Created with IntelliJ IDEA.
- * User: TROLOLO
- * Date: 08.11.13
- * Time: 20:31
- * To change this template use File | Settings | File Templates.
- */
 public class MergeSortView {
     private JPanel sortForm;
     private JLabel lblArrayMark;
@@ -18,16 +13,38 @@ public class MergeSortView {
     private JTextField textFieldResult;
     private JLabel lblStatusMark;
     private JLabel lblStatus;
+    private MergeSortViewModel viewModel;
 
-    public MergeSortView() {
+    public MergeSortView(MergeSortViewModel viewModel) {
+        MergeSortView.this.viewModel = viewModel;
+        MergeSortView.this.buttonSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                MergeSortView.this.viewModel.processSort();
+                backBind();
+            }
+        });
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MergeSortView");
-        frame.setContentPane(new MergeSortView().sortForm);
+        frame.setContentPane(new MergeSortView(new MergeSortViewModel()).sortForm);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setBounds(100,100,500,250);
+        frame.setBounds(100, 100, 500, 250);
         frame.setVisible(true);
+    }
+
+    private void bind() {
+        viewModel.statusText = lblStatus.getText();
+        viewModel.resultText = textFieldResult.getText();
+        viewModel.arrayText = textFieldArray.getText();
+    }
+
+    private void backBind() {
+        lblStatus.setText(viewModel.statusText);
+        textFieldArray.setText(viewModel.arrayText);
+        textFieldResult.setText(viewModel.resultText);
     }
 }
