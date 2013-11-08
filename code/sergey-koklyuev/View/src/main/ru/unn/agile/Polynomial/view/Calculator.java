@@ -16,7 +16,7 @@ public class Calculator {
     private JTextField polynomial2TextField;
     private JTextField polynomial1TextField;
     private JTextField resultTextField;
-    private JComboBox operationComboBox;
+    private JComboBox<Operation> operationComboBox;
     private JButton calculateButton;
     private JTextField statusTextField;
 
