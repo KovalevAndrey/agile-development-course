@@ -18,3 +18,6 @@ bin/
 gwt-unitCache/
 war/
 *.html
+
+# Mac
+.DS_Store
