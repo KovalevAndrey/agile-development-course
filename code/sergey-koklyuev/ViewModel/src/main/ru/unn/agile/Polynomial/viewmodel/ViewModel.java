@@ -23,7 +23,6 @@ public class ViewModel {
             return;
 
         Term[] resultTerms = null;
-
         switch (operation) {
             case ADD:
                 resultTerms = calculator.add(terms1, terms2);

@@ -1,6 +1,6 @@
 package ru.unn.agile.Polynomial.viewmodel;
 
-enum Operation {
+public enum Operation {
     ADD("Add"),
     SUB("Sub"),
     MUL("Mul");
