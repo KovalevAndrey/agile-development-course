@@ -2,12 +2,13 @@ package ru.unn.agile.areaConverterTests;
 
 import ru.unn.agile.areaConverter.*;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 public class AreaTests {
     private Area area;
+    private final double delta = 1e-7;
 
     @Test
     public void canCreateAreaInstance() {
@@ -40,13 +41,13 @@ public class AreaTests {
     @Test
     public void canPerformToSiConvertation() {
         area = new Area(1.0, "Hectare");
-        assertEquals(10000.0, area.toSI());
+        assertEquals(10000.0, area.toSI(), delta);
     }
 
     @Test
     public void canPerformFromSiConvertation() {
         area = new Area(12.3, "Metre");
-        assertEquals(12.3 / 0.83612736, area.fromSI("Yard"));
+        assertEquals(12.3 / 0.83612736, area.fromSI("Yard"), delta);
     }
 
 }

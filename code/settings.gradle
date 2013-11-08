@@ -15,12 +15,12 @@ project(":alexander-lyulkov").name = "alexander-lyulkov-Model"
 //project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
 
 // Alexander Malyshev
-include "alexander-malyshev"
-project(":alexander-malyshev").name = "alexander-malyshev-Model"
-//include "alexander-malyshev/ViewModel"
-//project(":alexander-malyshev/ViewModel").name = "alexander-malyshev-ViewModel"
-//include "alexander-malyshev/View"
-//project(":alexander-malyshev/View").name = "alexander-malyshev-View"
+include "alexander-malyshev/Model"
+project(":alexander-malyshev/Model").name = "alexander-malyshev-Model"
+include "alexander-malyshev/ViewModel"
+project(":alexander-malyshev/ViewModel").name = "alexander-malyshev-ViewModel"
+include "alexander-malyshev/View"
+project(":alexander-malyshev/View").name = "alexander-malyshev-View"
 
 // Alexandr Komin
 include "alexandr-komin"
