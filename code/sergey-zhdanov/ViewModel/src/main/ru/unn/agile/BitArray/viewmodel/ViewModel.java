@@ -2,35 +2,33 @@ package ru.unn.agile.BitArray.viewmodel;
 
 import com.szhdanov.main.BitArray;
 
-import java.util.ArrayList;
-
 public class ViewModel {
 
-    private BitArray model;
+    private BitArray bitArray;
     //field to bind
-    private String curArrayStr;
-    private String outArrayStr;
-    private String startOutIndStr;
-    private String countOutStr;
-    private String curLenStr;
+    private String bitStringOfCurrentArray;
+    private String arrayToOutput;
+    private String beginIndexToOutput;
+    private String bitsCountToOutput;
+    private String lengthOfCurrentArray;
     private String error;
 
     public ViewModel() {
-        this.model = new BitArray();
+        this.bitArray = new BitArray();
         updateState();
     }
     private void updateState() {
-        this.curArrayStr = model.toBitString();
-        this.outArrayStr = "";
-        this.startOutIndStr = "0";
-        this.countOutStr = "0";
-        this.curLenStr = "" + model.length();
+        this.bitStringOfCurrentArray = bitArray.toBitString();
+        this.arrayToOutput = "";
+        this.beginIndexToOutput = "0";
+        this.bitsCountToOutput = "0";
+        this.lengthOfCurrentArray = "" + bitArray.length();
         this.error = "";
     }
     //actions
-    public void strInputAction(String str) {
+    public void inputArrayFromBitString(String str) {
         try {
-            model = BitArray.fromString(str);
+            bitArray = BitArray.fromString(str);
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
@@ -41,18 +39,18 @@ public class ViewModel {
         if(strInts.length() == 0) {
             throw new IllegalArgumentException("Please input some string");
         }
-        String[] elems = strInts.split(",");
-        int[] res = new int[elems.length];
-        for(int i = 0; i < res.length; ++i) {
-            res[i] = Integer.parseInt(elems[i].trim());
+        String[] strIntegers = strInts.split(",");
+        int[] intArray = new int[strIntegers.length];
+        for(int i = 0; i < intArray.length; ++i) {
+            intArray[i] = Integer.parseInt(strIntegers[i].trim());
         }
-        return res;
+        return intArray;
     }
 
-    public  void intArrayInputAction(String str) {
+    public  void inputArrayFromStringOfInts(String str) {
         try {
             int[] ints = intArrayFromStr(str);
-            model = BitArray.fromArray(ints);
+            bitArray = BitArray.fromArray(ints);
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
@@ -61,67 +59,67 @@ public class ViewModel {
 
     public void notAction() {
         try {
-            model = model.not();
+            bitArray = bitArray.not();
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public void  lshtAction() {
+    public void leftShift() {
         try {
-            model = model.lshft(1);
+            bitArray = bitArray.lshft(1);
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public void rshtAction() {
+    public void rightShift() {
         try {
-            model = model.rshft(1);
+            bitArray = bitArray.rshft(1);
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public void setZeroToIndexAction(String index) {
-        try {
-            int intIndex = Integer.parseInt(index);
-            model.set(intIndex, 0);
-            updateState();
-        } catch (Exception ex) {
-            error = ex.getMessage();
-        }
-    }
-
-    public void setOneToIndexAction(String index) {
+    public void setZeroToIndex(String index) {
         try {
             int intIndex = Integer.parseInt(index);
-            model.set(intIndex, 1);
+            bitArray.set(intIndex, 0);
             updateState();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public void wholeToOutAction() {
+    public void setOneToIndex(String index) {
         try {
+            int intIndex = Integer.parseInt(index);
+            bitArray.set(intIndex, 1);
             updateState();
-            startOutIndStr = "0";
-            countOutStr = curLenStr;
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public void outToStrAction() {
+    public void markWholeArrayToOutput() {
         try {
-            int startInd = Integer.parseInt(startOutIndStr);
-            int count = Integer.parseInt(countOutStr);
-            BitArray tmpModel = model.subArray(startInd, count);
-            outArrayStr = tmpModel.toBitString();
+            updateState();
+            beginIndexToOutput = "0";
+            bitsCountToOutput = lengthOfCurrentArray;
+        } catch (Exception ex) {
+            error = ex.getMessage();
+        }
+    }
+
+    public void outputToBitString() {
+        try {
+            int startInd = Integer.parseInt(beginIndexToOutput);
+            int count = Integer.parseInt(bitsCountToOutput);
+            BitArray subArray = bitArray.subArray(startInd, count);
+            arrayToOutput = subArray.toBitString();
         } catch (Exception ex) {
             error = ex.getMessage();
         }
@@ -133,65 +131,65 @@ public class ViewModel {
         } else if (ints.length == 1) {
             return "" + ints[0];
         }
-        StringBuilder tmpRes = new StringBuilder();
+        StringBuilder strIntegersBuilder = new StringBuilder();
         for(int i = 0; i < ints.length - 1; ++i) {
-            tmpRes.append(ints[i]);
-            tmpRes.append(", ");
+            strIntegersBuilder.append(ints[i]);
+            strIntegersBuilder.append(", ");
         }
-        tmpRes.append(ints[ints.length - 1]);
-        return tmpRes.toString();
+        strIntegersBuilder.append(ints[ints.length - 1]);
+        return strIntegersBuilder.toString();
     }
 
-    public void outToIntsAction() {
+    public void outputToStringOfInts() {
         try {
-            int startInd = Integer.parseInt(startOutIndStr);
-            int count = Integer.parseInt(countOutStr);
-            BitArray tmpModel = model.subArray(startInd, count);
-            int[] ints = tmpModel.toIntArray();
-            outArrayStr = intArrayToString(ints);
+            int startInd = Integer.parseInt(beginIndexToOutput);
+            int count = Integer.parseInt(bitsCountToOutput);
+            BitArray subArray = bitArray.subArray(startInd, count);
+            int[] ints = subArray.toIntArray();
+            arrayToOutput = intArrayToString(ints);
         } catch (Exception ex) {
             error = ex.getMessage();
         }
     }
 
-    public String getCurArrayStr() {
-        return curArrayStr;
+    public String getBitStringOfCurrentArray() {
+        return bitStringOfCurrentArray;
     }
 
-    public void setCurArrayStr(String curArrayStr) {
-        this.curArrayStr = curArrayStr;
+    public void setBitStringOfCurrentArray(String bitStringOfCurrentArray) {
+        this.bitStringOfCurrentArray = bitStringOfCurrentArray;
     }
 
-    public String getOutArrayStr() {
-        return outArrayStr;
+    public String getArrayToOutput() {
+        return arrayToOutput;
     }
 
-    public void setOutArrayStr(String outArrayStr) {
-        this.outArrayStr = outArrayStr;
+    public void setArrayToOutput(String arrayToOutput) {
+        this.arrayToOutput = arrayToOutput;
     }
 
-    public String getStartOutIndStr() {
-        return startOutIndStr;
+    public String getBeginIndexToOutput() {
+        return beginIndexToOutput;
     }
 
-    public void setStartOutIndStr(String startOutIndStr) {
-        this.startOutIndStr = startOutIndStr;
+    public void setBeginIndexToOutput(String beginIndexToOutput) {
+        this.beginIndexToOutput = beginIndexToOutput;
     }
 
-    public String getCountOutStr() {
-        return countOutStr;
+    public String getBitsCountToOutput() {
+        return bitsCountToOutput;
     }
 
-    public void setCountOutStr(String countOutStr) {
-        this.countOutStr = countOutStr;
+    public void setBitsCountToOutput(String bitsCountToOutput) {
+        this.bitsCountToOutput = bitsCountToOutput;
     }
 
-    public String getCurLenStr() {
-        return curLenStr;
+    public String getLengthOfCurrentArray() {
+        return lengthOfCurrentArray;
     }
 
-    public void setCurLenStr(String curLenStr) {
-        this.curLenStr = curLenStr;
+    public void setLengthOfCurrentArray(String lengthOfCurrentArray) {
+        this.lengthOfCurrentArray = lengthOfCurrentArray;
     }
 
     public String getError() {

@@ -8,63 +8,46 @@ import static org.junit.Assert.*;
 
 public class ViewModelTest {
     private ViewModel viewModel;
-    private ViewModelState viewModelState;
+    private ViewModelStateChecker viewModelStateChecker;
     private void assertState() {
-        assertTrue(viewModelState.equalsToViewModel(viewModel));
+        assertTrue(viewModelStateChecker.equalsToViewModelState(viewModel));
     }
     @Before
     public void setUp() throws Exception {
         viewModel = new ViewModel();
+        viewModelStateChecker = new ViewModelStateChecker();
     }
 
     @After
     public void tearDown() throws Exception {
         viewModel = null;
-        viewModelState = null;
+        viewModelStateChecker = null;
     }
     @Test
-    public void init() {
-        viewModelState = new ViewModelState() {
+    public void emptyArray() {
+        //check empty state
+        assertState();
+    }
+
+    @Test
+    public void inputArrayFromBitString() throws Exception {
+        final String inputString = "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = "";
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = "0";
-                error = "";
+                curArrayStr = inputString;
+                curLenStr = ""+inputString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void strInputAction() throws Exception {
-        final String inStr = "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModelState = new ViewModelState() {
+    public void inputArrayFromBitStringExceptional() throws Exception {
+        final String inputString = "02a00100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = inStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = ""+inStr.length();
-                error = "";
-            }
-        };
-        assertState();
-    }
-
-    @Test
-    public void strInputActionEx() throws Exception {
-        final String inStr = "02a00100100101001";
-        viewModel.strInputAction(inStr);
-        viewModelState = new ViewModelState() {
-            {
-                curArrayStr = "";
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = "0";
                 error = "Input string must contains 0 and 1 digits only";
             }
         };
@@ -72,240 +55,186 @@ public class ViewModelTest {
     }
 
     @Test
-    public void intArrayInputAction() throws Exception {
-        final String inStr = "  1  , 2";
-        final String mustStr = "0000000000000000000000000000000100000000000000000000000000000010";
-        viewModel.intArrayInputAction(inStr);
-        viewModelState = new ViewModelState() {
+    public void inputArrayFromStringOfInts() throws Exception {
+        final String inputString = "  1  , 2";
+        final String expectedString = "0000000000000000000000000000000100000000000000000000000000000010";
+        viewModel.inputArrayFromStringOfInts(inputString);
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = mustStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = "" + mustStr.length();
-                error = "";
+                curArrayStr = expectedString;
+                curLenStr = "" + expectedString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void intArrayInputActionEx1() throws Exception {
-        final String inStr = "  1  . 2";
-        viewModel.intArrayInputAction(inStr);
+    public void inputArrayFromNotIntArrayString() throws Exception {
+        final String inputString = "  1  . 2";
+        viewModel.inputArrayFromStringOfInts(inputString);
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
-    public void intArrayInputActionEx2() throws Exception {
-        final String inStr = "  1  , 2, b";
-        viewModel.intArrayInputAction(inStr);
+    public void inputArrayFromStringOfIntsWithNotInt() throws Exception {
+        final String inputString = "  1  , 2, b";
+        viewModel.inputArrayFromStringOfInts(inputString);
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
     public void notAction() throws Exception {
-        final String inStr =        "0100100100101001";
+        final String inputString =        "0100100100101001";
         final String reverseInStr = "1011011011010110";
-        viewModel.strInputAction(inStr);
+        viewModel.inputArrayFromBitString(inputString);
         viewModel.notAction();
-        viewModelState = new ViewModelState() {
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
                 curArrayStr = reverseInStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
                 curLenStr = ""+reverseInStr.length();
-                error = "";
             }
         };
         assertState();
     }
 
     @Test
-    public void notActionEx() throws Exception {
-        viewModel.notAction();
-        viewModelState = new ViewModelState() {
+    public void leftShift() throws Exception {
+        final String inputString =   "0100100100101001";
+        final String expectedString = "1001001001010010";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.leftShift();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = "";
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = "0";
-                error = "";
+                curArrayStr = expectedString;
+                curLenStr = ""+expectedString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void lshtAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        final String mustStr = "1001001001010010";
-        viewModel.strInputAction(inStr);
-        viewModel.lshtAction();
-        viewModelState = new ViewModelState() {
-            {
-                curArrayStr = mustStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = ""+mustStr.length();
-                error = "";
-            }
-        };
-        assertState();
-    }
-
-    @Test
-    public void lshtActionEx() throws Exception {
-        viewModel.lshtAction();
+    public void leftShiftExceptional() throws Exception {
+        viewModel.leftShift();
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
-    public void rshtAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        final String mustStr = "0010010010010100";
-        viewModel.strInputAction(inStr);
-        viewModel.rshtAction();
-        viewModelState = new ViewModelState() {
+    public void rigthShiftExceptional() throws Exception {
+        final String inputString =   "0100100100101001";
+        final String expectedString = "0010010010010100";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.rightShift();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = mustStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = ""+mustStr.length();
-                error = "";
+                curArrayStr = expectedString;
+                curLenStr = ""+expectedString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void rshtActionEx() throws Exception {
-        viewModel.lshtAction();
+    public void rightShiftExceptional() throws Exception {
+        viewModel.rightShift();
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
     public void setZeroToIndexAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        final String mustStr = "0000100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setZeroToIndexAction("1");
-        viewModelState = new ViewModelState() {
+        final String inputString =   "0100100100101001";
+        final String expectedString = "0000100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setZeroToIndex("1");
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = mustStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = ""+mustStr.length();
-                error = "";
+                curArrayStr = expectedString;
+                curLenStr = ""+expectedString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void setZeroToIndexActionEx1() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setZeroToIndexAction("");
+    public void setZeroToIndexActionExceptional() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setZeroToIndex("");
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
-    public void setZeroToIndexActionEx1_2() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setZeroToIndexAction("");
-        assertEquals("", inStr, viewModel.getCurArrayStr());
+    public void setZeroToIndexActionExceptional2() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setZeroToIndex("");
+        assertEquals("", inputString, viewModel.getBitStringOfCurrentArray());
     }
 
     @Test
-    public void setZeroToIndexActionEx2() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setZeroToIndexAction("-1");
+    public void setZeroToIndexActionExceptional3() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setZeroToIndex("-1");
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
-    public void setZeroToIndexActionEx3() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setZeroToIndexAction("17");
+    public void setZeroToIndexActionExceptional4() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setZeroToIndex("17");
         assertTrue(viewModel.getError().length() > 0);
     }
 
     @Test
     public void setOneToIndexAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        final String mustStr = "0110100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setOneToIndexAction("2");
-        viewModelState = new ViewModelState() {
+        final String inputString =   "0100100100101001";
+        final String expectedString = "0110100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setOneToIndex("2");
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = mustStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                countOutStr = "0";
-                curLenStr = ""+mustStr.length();
-                error = "";
+                curArrayStr = expectedString;
+                curLenStr = ""+expectedString.length();
             }
         };
         assertState();
     }
 
     @Test
-    public void wholeToOutAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.wholeToOutAction();
-        viewModelState = new ViewModelState() {
+    public void markWholeToOutput() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.markWholeArrayToOutput();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = inStr;
-                outArrayStr = "";
-                startOutIndStr = "0";
-                curLenStr = ""+inStr.length();
+                curArrayStr = inputString;
+                curLenStr = ""+inputString.length();
                 countOutStr = curLenStr;
-                error = "";
             }
         };
         assertState();
     }
     @Test
-    public void wholeToOutActionEx() throws Exception {
-        viewModel.wholeToOutAction();
-        viewModelState = new ViewModelState() {
-            {
-                curArrayStr = "";
-                outArrayStr = "";
-                startOutIndStr = "0";
-                curLenStr = "0";
-                countOutStr = "0";
-                error = "";
-            }
-        };
+    public void markWholeToOutputExceptional() throws Exception {
+        viewModel.markWholeArrayToOutput();
+        viewModelStateChecker = new ViewModelStateChecker();
         assertState();
     }
 
     @Test
-    public void outToStrAction() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setStartOutIndStr("0");
-        viewModel.setCountOutStr(""+inStr.length());
-        viewModel.outToStrAction();
-        viewModelState = new ViewModelState() {
+    public void outputToString() throws Exception {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setBeginIndexToOutput("0");
+        viewModel.setBitsCountToOutput("" + inputString.length());
+        viewModel.outputToBitString();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = inStr;
-                outArrayStr = inStr;
-                startOutIndStr = "0";
-                curLenStr = ""+inStr.length();
+                curArrayStr = inputString;
+                outArrayStr = inputString;
+                curLenStr = ""+inputString.length();
                 countOutStr = curLenStr;
-                error = "";
             }
         };
         assertState();
@@ -313,20 +242,19 @@ public class ViewModelTest {
 
     @Test
     public void outToStrActionWithArgs() throws Exception {
-        final String inStr =   "0100100100101001";
-        viewModel.strInputAction(inStr);
-        viewModel.setStartOutIndStr("1");
-        viewModel.setCountOutStr("4");
-        final String mustStr = "1001";
-        viewModel.outToStrAction();
-        viewModelState = new ViewModelState() {
+        final String inputString =   "0100100100101001";
+        viewModel.inputArrayFromBitString(inputString);
+        viewModel.setBeginIndexToOutput("1");
+        viewModel.setBitsCountToOutput("4");
+        final String expectedString = "1001";
+        viewModel.outputToBitString();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = inStr;
-                outArrayStr = mustStr;
+                curArrayStr = inputString;
+                outArrayStr = expectedString;
                 startOutIndStr = "1";
-                curLenStr = ""+inStr.length();
+                curLenStr = ""+inputString.length();
                 countOutStr = "4";
-                error = "";
             }
         };
         assertState();
@@ -334,26 +262,24 @@ public class ViewModelTest {
 
     @Test
     public void outToIntsAction() throws Exception {
-        final String inStr =   "1, 2";
-        final String mustStr = "0000000000000000000000000000000100000000000000000000000000000010";
-        viewModel.intArrayInputAction(inStr);
-        viewModel.setStartOutIndStr("0");
-        viewModel.setCountOutStr(""+mustStr.length());
-        viewModel.outToIntsAction();
-        viewModelState = new ViewModelState() {
+        final String inputString =   "1, 2";
+        final String expectedString = "0000000000000000000000000000000100000000000000000000000000000010";
+        viewModel.inputArrayFromStringOfInts(inputString);
+        viewModel.setBeginIndexToOutput("0");
+        viewModel.setBitsCountToOutput("" + expectedString.length());
+        viewModel.outputToStringOfInts();
+        viewModelStateChecker = new ViewModelStateChecker() {
             {
-                curArrayStr = mustStr;
-                outArrayStr = inStr;
-                startOutIndStr = "0";
-                curLenStr = ""+mustStr.length();
+                curArrayStr = expectedString;
+                outArrayStr = inputString;
+                curLenStr = ""+expectedString.length();
                 countOutStr = curLenStr;
-                error = "";
             }
         };
         assertState();
     }
 
-    class ViewModelState {
+    class ViewModelStateChecker {
         public String curArrayStr;
         public String outArrayStr;
         public String startOutIndStr;
@@ -361,13 +287,22 @@ public class ViewModelTest {
         public String curLenStr;
         public String error;
 
-        public boolean equalsToViewModel(ViewModel viewModel) {
-            if (countOutStr != null ? !countOutStr.equals(viewModel.getCountOutStr()) : viewModel.getCountOutStr() != null) return false;
-            if (curArrayStr != null ? !curArrayStr.equals(viewModel.getCurArrayStr()) : viewModel.getCurArrayStr() != null) return false;
-            if (curLenStr != null ? !curLenStr.equals(viewModel.getCurLenStr()) : viewModel.getCurLenStr() != null) return false;
-            if (outArrayStr != null ? !outArrayStr.equals(viewModel.getOutArrayStr()) : viewModel.getOutArrayStr() != null) return false;
+        public ViewModelStateChecker() {
+            curArrayStr = "";
+            outArrayStr = "";
+            startOutIndStr = "0";
+            countOutStr = "0";
+            curLenStr = "0";
+            error = "";
+        }
+
+        public boolean equalsToViewModelState(ViewModel viewModel) {
+            if (countOutStr != null ? !countOutStr.equals(viewModel.getBitsCountToOutput()) : viewModel.getBitsCountToOutput() != null) return false;
+            if (curArrayStr != null ? !curArrayStr.equals(viewModel.getBitStringOfCurrentArray()) : viewModel.getBitStringOfCurrentArray() != null) return false;
+            if (curLenStr != null ? !curLenStr.equals(viewModel.getLengthOfCurrentArray()) : viewModel.getLengthOfCurrentArray() != null) return false;
+            if (outArrayStr != null ? !outArrayStr.equals(viewModel.getArrayToOutput()) : viewModel.getArrayToOutput() != null) return false;
             if (error != null ? !error.equals(viewModel.getError()) : viewModel.getError() != null) return false;
-            if (startOutIndStr != null ? !startOutIndStr.equals(viewModel.getStartOutIndStr()) : viewModel.getStartOutIndStr() != null)
+            if (startOutIndStr != null ? !startOutIndStr.equals(viewModel.getBeginIndexToOutput()) : viewModel.getBeginIndexToOutput() != null)
 
                 return false;
 

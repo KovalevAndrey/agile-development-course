@@ -45,28 +45,28 @@ public class MainForm {
         strInputBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.strInputAction(strInputTxt.getText());
+                viewModel.inputArrayFromBitString(strInputTxt.getText());
                 backBind();
             }
         });
         intArrayInputBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.intArrayInputAction(intArrayInputTxt.getText());
+                viewModel.inputArrayFromStringOfInts(intArrayInputTxt.getText());
                 backBind();
             }
         });
         setValZeroBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.setZeroToIndexAction(indForSetTxt.getText());
+                viewModel.setZeroToIndex(indForSetTxt.getText());
                 backBind();
             }
         });
         setValOneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.setOneToIndexAction(indForSetTxt.getText());
+                viewModel.setOneToIndex(indForSetTxt.getText());
                 backBind();
             }
         });
@@ -80,21 +80,21 @@ public class MainForm {
         lsthBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.lshtAction();
+                viewModel.leftShift();
                 backBind();
             }
         });
         rshtBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.rshtAction();
+                viewModel.rightShift();
                 backBind();
             }
         });
         wholeOutBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewModel.wholeToOutAction();
+                viewModel.markWholeArrayToOutput();
                 backBind();
             }
         });
@@ -102,7 +102,7 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bind();
-                viewModel.outToStrAction();
+                viewModel.outputToBitString();
                 backBind();
             }
         });
@@ -110,7 +110,7 @@ public class MainForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bind();
-                viewModel.outToIntsAction();
+                viewModel.outputToStringOfInts();
                 backBind();
             }
         });
@@ -118,17 +118,17 @@ public class MainForm {
     }
 
     private void bind() {
-        viewModel.setStartOutIndStr(startIndOutTxt.getText());
-        viewModel.setCountOutStr(countOutTxt.getText());
+        viewModel.setBeginIndexToOutput(startIndOutTxt.getText());
+        viewModel.setBitsCountToOutput(countOutTxt.getText());
     }
 
     private void backBind() {
         //field to bind
-        curArrayTxtArea.setText(viewModel.getCurArrayStr());
-        outArrayTxtArea.setText(viewModel.getOutArrayStr());
-        startIndOutTxt.setText(viewModel.getStartOutIndStr());
-        countOutTxt.setText(viewModel.getCountOutStr());
-        curLenLbl.setText(viewModel.getCurLenStr());
+        curArrayTxtArea.setText(viewModel.getBitStringOfCurrentArray());
+        outArrayTxtArea.setText(viewModel.getArrayToOutput());
+        startIndOutTxt.setText(viewModel.getBeginIndexToOutput());
+        countOutTxt.setText(viewModel.getBitsCountToOutput());
+        curLenLbl.setText(viewModel.getLengthOfCurrentArray());
         showErrorIfNeed(viewModel.getError());
     }
 
