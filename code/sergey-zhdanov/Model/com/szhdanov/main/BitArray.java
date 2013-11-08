@@ -79,7 +79,7 @@ public class BitArray {
      */
     public static BitArray fromArray(int[] array) {
         if (array == null || array.length == 0) {
-            throw new IllegalArgumentException("Input array must be not null and must have non zero len");
+            throw new IllegalArgumentException("Input array should be not null and should have non zero len");
         }
         BitArray result = new BitArray();
         result.intValues = new ArrayList<Integer>(array.length);
@@ -116,7 +116,7 @@ public class BitArray {
             throw new ArrayIndexOutOfBoundsException("trying to get with index: " + index + " when size: " + size);
         }
         int intIndex = index / NUM_OF_BIT;
-        int bitIndex = index % NUM_OF_BIT;
+        int bitIndex = NUM_OF_BIT - 1 - index % NUM_OF_BIT;
         if (index >= (intIndex + 1) * NUM_OF_BIT) {
             intIndex++;
         }
@@ -139,7 +139,7 @@ public class BitArray {
             throw new ArrayIndexOutOfBoundsException("trying to set with index: " + index + " when size: " + size);
         }
         int intIndex = index / NUM_OF_BIT;
-        int bitIndex = index % NUM_OF_BIT;
+        int bitIndex = NUM_OF_BIT - 1 - index % NUM_OF_BIT;
         if (index >= (intIndex + 1) * NUM_OF_BIT) {
             intIndex++;
         }
@@ -249,9 +249,9 @@ public class BitArray {
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
         for (int i = 0; i < shiftLenght; ++i) {
-            buffer.insert(0, 0);
+            buffer.append(0);
         }
-        BitArray result = BitArray.fromString(buffer.substring(0, length()));
+        BitArray result = BitArray.fromString(buffer.substring(shiftLenght));
         return result;
     }
 
@@ -267,9 +267,9 @@ public class BitArray {
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
         for (int i = 0; i < shiftLenght; ++i) {
-            buffer.append(0);
+            buffer.insert(0, 0);
         }
-        BitArray result = BitArray.fromString(buffer.substring(shiftLenght));
+        BitArray result = BitArray.fromString(buffer.substring(0, length()));
         return result;
     }
 

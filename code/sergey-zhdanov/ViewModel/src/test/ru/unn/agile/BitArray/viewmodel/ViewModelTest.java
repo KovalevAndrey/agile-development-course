@@ -74,7 +74,7 @@ public class ViewModelTest {
     @Test
     public void intArrayInputAction() throws Exception {
         final String inStr = "  1  , 2";
-        final String mustStr = "1000000000000000000000000000000001000000000000000000000000000000";
+        final String mustStr = "0000000000000000000000000000000100000000000000000000000000000010";
         viewModel.intArrayInputAction(inStr);
         viewModelState = new ViewModelState() {
             {
@@ -141,7 +141,7 @@ public class ViewModelTest {
     @Test
     public void lshtAction() throws Exception {
         final String inStr =   "0100100100101001";
-        final String mustStr = "0010010010010100";
+        final String mustStr = "1001001001010010";
         viewModel.strInputAction(inStr);
         viewModel.lshtAction();
         viewModelState = new ViewModelState() {
@@ -166,7 +166,7 @@ public class ViewModelTest {
     @Test
     public void rshtAction() throws Exception {
         final String inStr =   "0100100100101001";
-        final String mustStr = "1001001001010010";
+        final String mustStr = "0010010010010100";
         viewModel.strInputAction(inStr);
         viewModel.rshtAction();
         viewModelState = new ViewModelState() {
@@ -335,7 +335,7 @@ public class ViewModelTest {
     @Test
     public void outToIntsAction() throws Exception {
         final String inStr =   "1, 2";
-        final String mustStr = "1000000000000000000000000000000001000000000000000000000000000000";
+        final String mustStr = "0000000000000000000000000000000100000000000000000000000000000010";
         viewModel.intArrayInputAction(inStr);
         viewModel.setStartOutIndStr("0");
         viewModel.setCountOutStr(""+mustStr.length());

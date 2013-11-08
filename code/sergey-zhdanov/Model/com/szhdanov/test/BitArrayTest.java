@@ -261,8 +261,8 @@ public class BitArrayTest {
         for(int i = 0; i < count; ++i) {
             zeroIndexes.add(new Integer(i));
         }
-        zeroIndexes.remove(32);
-        zeroIndexes.remove(65 - 1); // because we deleted 32 already
+        zeroIndexes.remove(63);
+        zeroIndexes.remove(94 - 1); // because we deleted 63 already
 
         assertBySet(array, zeroIndexes, 0);
     }
@@ -273,8 +273,8 @@ public class BitArrayTest {
         BitArray array = BitArray.fromArray(testArray);
         //generate one indexes
         ArrayList<Integer> ones = new ArrayList<Integer>();
-        ones.add(32);
-        ones.add(65);
+        ones.add(63);
+        ones.add(94);
         assertBySet(array, ones, 1);
     }
 
@@ -461,8 +461,8 @@ public class BitArrayTest {
 
     @Test
     public void lshft() throws Exception {
-        String testString = "1111111111111000000000000";
-        String resultString1 = "0001111111111111000000000";
+        String testString =    "1111111111111000000000000";
+        String resultString1 = "1111111111000000000000000";
 
         BitArray array = BitArray.fromString(testString);
         BitArray resultArray = array.lshft(3);
@@ -507,8 +507,8 @@ public class BitArrayTest {
 
     @Test
     public void rshft() throws Exception {
-        String testString = "0000000000001111111111111";
-        String resultString1 = "0001111111111111000000000";
+        String testString =    "0000000000001111111111111";
+        String resultString1 = "0000000000000000000001111";
 
         BitArray array = BitArray.fromString(testString);
         BitArray resultArray = array.rshft(9);
