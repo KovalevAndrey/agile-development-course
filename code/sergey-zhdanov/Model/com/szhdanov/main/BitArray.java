@@ -60,14 +60,14 @@ public class BitArray {
      */
     public static BitArray fromString(String bitString) {
         if (bitString == null || bitString.length() == 0) {
-            throw new IllegalArgumentException("Input string must be not null and must have non zero length");
+            throw new IllegalArgumentException("Input string should be not null and should have non zero length");
         }
         BitArray result = new BitArray(bitString.length(), 0);
         int bitFromString = -1;
         for (int i = 0; i < bitString.length(); ++i) {
             bitFromString = Integer.valueOf(bitString.substring(i, i + 1));
             if (bitFromString > 1 || bitFromString < 0) {
-                throw new IllegalArgumentException("Input string must contains 0 and 1 digits only");
+                throw new IllegalArgumentException("Input string should contains 0 and 1 digits only");
             }
             result.set(i, bitFromString);
         }
@@ -79,7 +79,7 @@ public class BitArray {
      */
     public static BitArray fromArray(int[] array) {
         if (array == null || array.length == 0) {
-            throw new IllegalArgumentException("Input array must be not null and must have non zero len");
+            throw new IllegalArgumentException("Input array should be not null and should have non zero len");
         }
         BitArray result = new BitArray();
         result.intValues = new ArrayList<Integer>(array.length);
@@ -116,7 +116,7 @@ public class BitArray {
             throw new ArrayIndexOutOfBoundsException("trying to get with index: " + index + " when size: " + size);
         }
         int intIndex = index / NUM_OF_BIT;
-        int bitIndex = index % NUM_OF_BIT;
+        int bitIndex = NUM_OF_BIT - 1 - index % NUM_OF_BIT;
         if (index >= (intIndex + 1) * NUM_OF_BIT) {
             intIndex++;
         }
@@ -139,7 +139,7 @@ public class BitArray {
             throw new ArrayIndexOutOfBoundsException("trying to set with index: " + index + " when size: " + size);
         }
         int intIndex = index / NUM_OF_BIT;
-        int bitIndex = index % NUM_OF_BIT;
+        int bitIndex = NUM_OF_BIT - 1 - index % NUM_OF_BIT;
         if (index >= (intIndex + 1) * NUM_OF_BIT) {
             intIndex++;
         }
@@ -244,14 +244,14 @@ public class BitArray {
      */
     public BitArray lshft(int shiftLenght) {
         if (shiftLenght <= 0) {
-            throw new IllegalArgumentException("Shift len must be >= 0");
+            throw new IllegalArgumentException("Shift len should be >= 0");
         }
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
         for (int i = 0; i < shiftLenght; ++i) {
-            buffer.insert(0, 0);
+            buffer.append(0);
         }
-        BitArray result = BitArray.fromString(buffer.substring(0, length()));
+        BitArray result = BitArray.fromString(buffer.substring(shiftLenght));
         return result;
     }
 
@@ -262,14 +262,14 @@ public class BitArray {
      */
     public BitArray rshft(int shiftLenght) {
         if (shiftLenght <= 0) {
-            throw new IllegalArgumentException("Shift len must be >= 0");
+            throw new IllegalArgumentException("Shift len should be >= 0");
         }
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
         for (int i = 0; i < shiftLenght; ++i) {
-            buffer.append(0);
+            buffer.insert(0, 0);
         }
-        BitArray result = BitArray.fromString(buffer.substring(shiftLenght));
+        BitArray result = BitArray.fromString(buffer.substring(0, length()));
         return result;
     }
 
@@ -293,7 +293,7 @@ public class BitArray {
      */
     public BitArray subArray(int startIndex, int elementsCount) {
         if (elementsCount <= 0) {
-            throw new IllegalArgumentException("Elements count must be > 0");
+            throw new IllegalArgumentException("Elements count should be > 0");
         }
         BitArray result = new BitArray(elementsCount, 0);
         for (int i = 0; i < elementsCount; ++i) {
