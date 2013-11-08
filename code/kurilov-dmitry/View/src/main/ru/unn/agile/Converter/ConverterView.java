@@ -36,8 +36,10 @@ public class ConverterView
         });
 
 
-        KeyAdapter keyListener = new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
+        KeyAdapter keyListener = new KeyAdapter()
+        {
+            public void keyReleased(KeyEvent e)
+            {
                 bind();
                 ConverterView.this.viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
@@ -57,11 +59,13 @@ public class ConverterView
 
     private void loadListOfSystems()
     {
-        Systems[] operations = Systems.values();
-        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(operations).getModel());
+        Systems[] syst = Systems.values();
+        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(syst).getModel());
+        toComboBox.setModel(new JComboBox<ViewModel.Systems>(syst).getModel());
     }
 
-    public void bind() {
+    public void bind()
+    {
         viewModel.inputNumber = inputTextField.getText();
 
         viewModel.inputSys = (ViewModel.Systems) fromComboBox.getSelectedItem();
@@ -74,7 +78,8 @@ public class ConverterView
         viewModel.status = statusLabel.getText();
     }
 
-    public void backBind() {
+    public void backBind()
+    {
         inputTextField.setText(viewModel.inputNumber);
 
         resultTextField.setText(viewModel.result);
