@@ -31,11 +31,7 @@ public class Calculator {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 bind();
-                try {
-                    Calculator.this.viewModel.calculate();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(frame, e.getMessage());
-                }
+                Calculator.this.viewModel.calculate();
                 backBind();
             }
         });
@@ -44,11 +40,7 @@ public class Calculator {
             @Override
             public void keyReleased(KeyEvent e) {
                 bind();
-                try {
-                    Calculator.this.viewModel.processKeyInTextField(e.getKeyCode());
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(frame, e1.getMessage());
-                }
+                Calculator.this.viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
             }
         };

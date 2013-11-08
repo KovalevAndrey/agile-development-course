@@ -18,28 +18,21 @@ public class ViewModel {
         calculator = new PolynomialCalculator();
     }
 
-    public void calculate() throws Exception {
+    public void calculate() {
         if (!parseInput())
             return;
 
         Term[] resultTerms = null;
-        switch (operation) {
-            case ADD:
-                resultTerms = calculator.add(terms1, terms2);
-                break;
-            case SUB:
-                resultTerms = calculator.sub(terms1, terms2);
-                break;
-            case MUL:
-                resultTerms = calculator.mul(terms1, terms2);
-                break;
-        }
+        resultTerms = tryCalculate();
+
+        if (resultTerms == null)
+            return;
 
         result = writer.writePolynomial(resultTerms);
         status = Status.SUCCESS;
     }
 
-    public void processKeyInTextField(int keyCode) throws Exception {
+    public void processKeyInTextField(int keyCode) {
         if (keyCode == ENTER_CODE)
             calculate();
         else
@@ -51,6 +44,7 @@ public class ViewModel {
         public static final String READY = "Press 'Calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
+        public static final String ERROR = "Internal error";
     }
 
     private boolean isInputAvailable() {
@@ -75,6 +69,29 @@ public class ViewModel {
         }
 
         return isCalculateButtonEnabled;
+    }
+
+    private Term[] tryCalculate() {
+        Term[] result = null;
+        try
+        {
+            switch (operation) {
+                case ADD:
+                result = calculator.add(terms1, terms2);
+                break;
+                case SUB:
+                result = calculator.sub(terms1, terms2);
+                break;
+                case MUL:
+                result = calculator.mul(terms1, terms2);
+                break;
+            }
+        }
+        catch (Exception e) {
+            status = Status.ERROR;
+            return null;
+        }
+        return result;
     }
 
     private PolynomialParser parser = null;
