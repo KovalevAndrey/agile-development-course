@@ -1,6 +1,6 @@
 package ru.unn.agile.Polynomial;
 
-class Term implements  Comparable {
+public class Term implements  Comparable {
     public int coefficient;
     public int degree;
 

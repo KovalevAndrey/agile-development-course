@@ -209,10 +209,10 @@ project(":sergei-lebedev").name = "sergei-lebedev-Model"
 // Sergey Koklyuev
 include "sergey-koklyuev/Model"
 project(":sergey-koklyuev/Model").name = "sergey-koklyuev-Model"
-//include "sergey-koklyuev/ViewModel"
-//project(":sergey-koklyuev/ViewModel").name = "sergey-koklyuev-ViewModel"
-//include "sergey-koklyuev/View"
-//project(":sergey-koklyuev/View").name = "sergey-koklyuev-View"
+include "sergey-koklyuev/ViewModel"
+project(":sergey-koklyuev/ViewModel").name = "sergey-koklyuev-ViewModel"
+include "sergey-koklyuev/View"
+project(":sergey-koklyuev/View").name = "sergey-koklyuev-View"
 
 // Sergey Zhdanov
 include "sergey-zhdanov"

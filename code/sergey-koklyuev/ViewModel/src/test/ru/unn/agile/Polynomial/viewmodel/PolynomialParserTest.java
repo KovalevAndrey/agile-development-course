@@ -1,11 +1,10 @@
-package ru.unn.agile.Polynomial;
+package ru.unn.agile.Polynomial.viewmodel;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.Polynomial.Term;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PolynomialParserTest {
     private PolynomialParser parser = null;

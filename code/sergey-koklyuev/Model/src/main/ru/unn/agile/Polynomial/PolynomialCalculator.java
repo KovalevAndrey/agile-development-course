@@ -1,73 +1,64 @@
 package ru.unn.agile.Polynomial;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class PolynomialCalculator {
 
     public PolynomialCalculator() {
-        parser = new PolynomialParser();
-        writer = new PolynomialWriter();
     }
 
-    public String add(String summand1, String summand2) {
-        Term[] terms1 = parsePolynomial(summand1);
-        Term[] terms2 = parsePolynomial(summand2);
-
-        if (terms1 == null || terms2 == null)
-            return "Incorrect polynomials format";
-
-        Term[] result = simplify(combineTerms(terms1, terms2));
-
-        return writer.writePolynomial(result);
-    }
-
-    public String sub(String minuend, String subtrahend) {
-        Term[] terms1 = parsePolynomial(minuend);
-        Term[] terms2 = parsePolynomial(subtrahend);
-
-        if (terms1 == null || terms2 == null)
-            return "Incorrect polynomials format";
-
-        for (int i = 0; i < terms2.length; i++) {
-            terms2[i].coefficient *= -1;
+    public Term[] add(Term[] summand1, Term[] summand2) throws Exception {
+        if (summand1 == null || summand2 == null) {
+            throw new Exception("The polynomial is equal to null");
         }
 
-        Term[] result = simplify(combineTerms(terms1, terms2));
+        Term[] polynomial1 = summand1.clone();
+        Term[] polynomial2 = summand2.clone();
 
-        return writer.writePolynomial(result);
+        Term[] result = simplify(combineTerms(polynomial1, polynomial2));
+
+        return result;
     }
 
-    public String mul(String multiplier1, String multiplier2) {
-        Term[] terms1 = parsePolynomial(multiplier1);
-        Term[] terms2 = parsePolynomial(multiplier2);
+    public Term[] sub(Term[] minuend, Term[] subtrahend) throws Exception {
+        if (minuend == null || subtrahend == null) {
+            throw new Exception("The polynomial is equal to null");
+        }
 
-        if (terms1 == null || terms2 == null)
-            return "Incorrect polynomials format";
+        Term[] polynomial1 = minuend.clone();
+        Term[] polynomial2 = subtrahend.clone();
+
+        for (int i = 0; i < polynomial2.length; i++) {
+            polynomial2[i].coefficient *= -1;
+        }
+
+        Term[] result = simplify(combineTerms(polynomial1, polynomial2));
+
+        return result;
+    }
+
+    public Term[] mul(Term[] multiplier1, Term[] multiplier2) throws Exception {
+        if (multiplier1 == null || multiplier2 == null) {
+            throw new Exception("The polynomial is equal to null");
+        }
+
+        Term[] polynomial1 = multiplier1.clone();
+        Term[] polynomial2 = multiplier2.clone();
 
         ArrayList<Term> product = new ArrayList<Term>();
 
-        for (int i = 0; i < terms1.length; i++) {
-            for (int j = 0; j < terms2.length; j++) {
+        for (int i = 0; i < polynomial1.length; i++) {
+            for (int j = 0; j < polynomial2.length; j++) {
                 Term term = new Term(0, 0);
-                term.setValues(terms1[i].coefficient * terms2[j].coefficient, terms1[i].degree + terms2[j].degree);
+                term.setValues(polynomial1[i].coefficient * polynomial2[j].coefficient, polynomial1[i].degree + polynomial2[j].degree);
                 product.add(term);
             }
         }
 
         Term[] result = simplify(product.toArray(new Term[product.size()]));
 
-        return writer.writePolynomial(result);
-    }
-
-    private Term[] parsePolynomial(String polynomial) {
-        Term[] terms = null;
-
-        try {
-            terms = parser.parsePolynomial(polynomial);
-        } catch (NumberFormatException e) {
-        }
-        return terms;
+        return result;
     }
 
     private Term[] simplify(Term[] terms) {
@@ -86,8 +77,9 @@ public class PolynomialCalculator {
                 simplifiedTerms.add(terms[i]);
             }
         }
-
-        return simplifiedTerms.toArray(new Term[simplifiedTerms.size()]);
+        Term[] result = simplifiedTerms.toArray(new Term[simplifiedTerms.size()]);
+        Arrays.sort(result);
+        return result;
     }
 
     private Term[] combineTerms(Term[] terms1, Term[] terms2) {
@@ -97,6 +89,4 @@ public class PolynomialCalculator {
         return bothTerms;
     }
 
-    private PolynomialParser parser = null;
-    private PolynomialWriter writer = null;
 }
