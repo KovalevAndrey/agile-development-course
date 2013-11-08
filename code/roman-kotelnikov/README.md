@@ -12,9 +12,9 @@
 * Цельсий
 * Фаренгейт
 * Кельвин
+* Ньютон
 * Rankine
 * Delisle
-* Newton
 * Réaumur
 * Rømer
 

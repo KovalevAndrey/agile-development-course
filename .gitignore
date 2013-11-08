@@ -6,6 +6,8 @@ build
 out
 .idea
 *.iml
+*.ipr
+*.iws
 
 # Eclipse
 .classpath

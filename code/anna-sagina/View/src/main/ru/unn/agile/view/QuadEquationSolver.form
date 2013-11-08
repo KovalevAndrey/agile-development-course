@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.unn.agile.view.QuadEquationSolver">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="34" width="827" height="556"/>
+    </constraints>
+    <properties>
+      <font size="22"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="c44b5" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4385f" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <text value="The solution is:"/>
+            </properties>
+          </component>
+          <component id="95188" class="javax.swing.JLabel" binding="solutionLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="22"/>
+              <text value="Label"/>
+            </properties>
+          </component>
+          <vspacer id="a7f06">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="100"/>
+              </grid>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <grid id="233f5" layout-manager="GridLayoutManager" row-count="5" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="10" vgap="10">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="24" height="94"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="etched"/>
+        <children>
+          <component id="19a6e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="210" height="55"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font size="22"/>
+              <horizontalAlignment value="10"/>
+              <text value="a*x^2 + b*x + c = 0"/>
+            </properties>
+          </component>
+          <component id="161ab" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <text value="a ="/>
+            </properties>
+          </component>
+          <component id="cf2e7" class="javax.swing.JTextField" binding="textFieldA">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="150" height="20"/>
+                <preferred-size width="150" height="-1"/>
+                <maximum-size width="150" height="20"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e2465" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <text value="b ="/>
+            </properties>
+          </component>
+          <component id="6eb6e" class="javax.swing.JTextField" binding="textFieldB">
+            <constraints>
+              <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="150" height="20"/>
+                <preferred-size width="150" height="-1"/>
+                <maximum-size width="150" height="20"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="a1ccb" class="javax.swing.JTextField" binding="textFieldC">
+            <constraints>
+              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="150" height="20"/>
+                <preferred-size width="150" height="20"/>
+                <maximum-size width="150" height="20"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="68b37" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <text value="c ="/>
+            </properties>
+          </component>
+          <component id="989d1" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <labelFor value="cf2e7"/>
+              <text value="Please enter coefficients:"/>
+            </properties>
+          </component>
+          <hspacer id="e8b93">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="bd851">
+            <constraints>
+              <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="10"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <vspacer id="cb5de">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="2" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="1" height="1"/>
+                <preferred-size width="1" height="28"/>
+                <maximum-size width="1" height="1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <vspacer id="50ae1">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="30" height="40"/>
+              </grid>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <vspacer id="8d869">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="5" height="20"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <grid id="4f61d" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="etched"/>
+        <children>
+          <component id="2e81e" class="javax.swing.JButton" binding="solveButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="200" height="25"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font size="22"/>
+              <text value="Solve"/>
+            </properties>
+          </component>
+          <vspacer id="66648">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="15"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <vspacer id="a8fc2">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="15"/>
+              </grid>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
