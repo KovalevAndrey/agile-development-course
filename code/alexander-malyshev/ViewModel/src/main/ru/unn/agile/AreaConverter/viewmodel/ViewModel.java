@@ -5,31 +5,25 @@ import ru.unn.agile.areaConverter.AreaConverter;
 
 public class ViewModel {
     public String input = "0.0";
-    public String inputScale = "Metre";
+    public ScaleTable inputScale = ScaleTable.Metre;
     public String result = "";
-    public String resultScale = "Hectare";
+    public ScaleTable resultScale = ScaleTable.Hectare;
     public String status = "";
 
     public void convert() {
-        try {
-            ScaleTable.valueOf(inputScale);
-        }
-        catch (Exception e) {
-           status = Status.INCORRECT_INPUT_SCALE;
+        if (inputScale == null) {
+            status = Status.NULL_INPUT_SCALE;
             return;
         }
 
-        try {
-            ScaleTable.valueOf(resultScale);
-        }
-        catch (Exception e) {
-            status = Status.INCORRECT_OUTINPUT_SCALE;
+        if (resultScale == null) {
+            status = Status.NULL_RESULT_SCALE;
             return;
         }
 
         try {
             double inputArea = Double.parseDouble(input);
-            double outputArea = AreaConverter.convert(inputArea, inputScale, resultScale);
+            double outputArea = AreaConverter.convert(inputArea, inputScale.name(), resultScale.name());
             result = Double.toString(outputArea);
         }
         catch (NumberFormatException e) {
@@ -47,8 +41,8 @@ public class ViewModel {
     public class Status {
         public static final String INCORRECT_INPUT_AREA = "Please input non-negative value separated by dot";
         public static final String NEGATIVE_INPUT_AREA = "Please don't use negative area";
-        public static final String INCORRECT_INPUT_SCALE = "Please choose correct input scale";
-        public static final String INCORRECT_OUTINPUT_SCALE = "Please choose correct input scale";
+        public static final String NULL_INPUT_SCALE = "Input scale is null";
+        public static final String NULL_RESULT_SCALE = "Result scale is null";
         public static final String MODEL_OK = "Success";
     }
 }

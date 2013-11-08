@@ -54,10 +54,10 @@ public class AreaConverter {
 
     public void bind() {
         viewModel.input = txtAreaValue.getText();
-        viewModel.inputScale = cbInputScale.getSelectedItem().toString();
+        viewModel.inputScale = (ScaleTable) cbInputScale.getSelectedItem();
 
         viewModel.result = txtResult.getText();
-        viewModel.resultScale = cbResultScale.getSelectedItem().toString();
+        viewModel.resultScale = (ScaleTable) cbResultScale.getSelectedItem();
 
         viewModel.status = lbStatus.getText();
     }
