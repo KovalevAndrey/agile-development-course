@@ -1,8 +1,7 @@
-package ru.unn.agile.Converter.core;
+package ru.unn.agile.Converter;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.Converter.Converter;
 
 import static org.junit.Assert.*;
 

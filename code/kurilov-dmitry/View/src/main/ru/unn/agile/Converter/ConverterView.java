@@ -1,28 +1,87 @@
 package ru.unn.agile.Converter;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Red_Shuhov
- * Date: 05.11.13
- * Time: 18:27
- * To change this template use File | Settings | File Templates.
- */
-public class ConverterView {
+import static ru.unn.agile.Converter.ViewModel.*;
+
+public class ConverterView
+{
+    private JPanel MainPanel;
+    private ViewModel viewModel;
+    private JComboBox<ViewModel.Systems> fromComboBox;
+    private JComboBox<ViewModel.Systems> toComboBox;
+    private JButton calculateButton;
+    private JTextField inputTextField;
+    private JLabel statusLabel;
+    private JTextField resultTextField;
+
+    public ConverterView(ViewModel viewModel)
+    {
+        this.viewModel = viewModel;
+        backBind();
+
+        loadListOfSystems();
+
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                ConverterView.this.viewModel.calculate();
+                backBind();
+            }
+        });
+
+
+        KeyAdapter keyListener = new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                bind();
+                ConverterView.this.viewModel.processKeyInTextField(e.getKeyCode());
+                backBind();
+            }
+        };
+
+        inputTextField.addKeyListener(keyListener);
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("ConverterView");
-        frame.setContentPane(new ConverterView().MainPanel);
+        frame.setContentPane(new ConverterView(new ViewModel()).MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
 
-    private JPanel MainPanel;
-    private JComboBox fromComboBox;
-    private JComboBox toComboBox;
-    private JButton calculateButton;
-    private JTextField inputTextField;
-    private JLabel statusLabel;
-    private JTextField resultTextField;
+    private void loadListOfSystems()
+    {
+        Systems[] operations = Systems.values();
+        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(operations).getModel());
+    }
+
+    public void bind() {
+        viewModel.inputNumber = inputTextField.getText();
+
+        viewModel.inputSys = (ViewModel.Systems) fromComboBox.getSelectedItem();
+        System.out.println(viewModel.inputSys);
+
+        viewModel.outputSys = (ViewModel.Systems) toComboBox.getSelectedItem();
+        System.out.println(viewModel.outputSys);
+
+        viewModel.result = resultTextField.getText();
+        viewModel.status = statusLabel.getText();
+    }
+
+    public void backBind() {
+        inputTextField.setText(viewModel.inputNumber);
+
+        resultTextField.setText(viewModel.result);
+        statusLabel.setText(viewModel.status);
+
+        calculateButton.setEnabled(viewModel.isCalculateButtonEnabled);
+    }
+
+
 }

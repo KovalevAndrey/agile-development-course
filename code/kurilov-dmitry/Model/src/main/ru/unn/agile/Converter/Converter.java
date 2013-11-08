@@ -3,8 +3,9 @@ import java.lang.Math;
 
 public class Converter
 {
-	private static String dictionary = "0123456789abcdef";
+    private static String dictionary = "0123456789abcdef";
     private static int decimalBase = 10;
+
     public  Converter()
     {
 

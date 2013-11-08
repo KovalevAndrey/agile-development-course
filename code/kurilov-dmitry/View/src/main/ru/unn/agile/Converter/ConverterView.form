@@ -31,7 +31,7 @@
             </constraints>
             <properties>
               <model>
-                <item value="Boolean"/>
+                <item value="Binary"/>
                 <item value="Octal"/>
                 <item value="Decimal"/>
                 <item value="Hexadecimal"/>
@@ -54,7 +54,7 @@
             </constraints>
             <properties>
               <model>
-                <item value="Boolean"/>
+                <item value="Binary"/>
                 <item value="Octal"/>
                 <item value="Decimal"/>
                 <item value="Hexadecimal"/>
