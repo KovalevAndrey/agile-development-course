@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ViewModelTest {
     private ViewModel viewModel;
@@ -48,7 +50,7 @@ public class ViewModelTest {
         viewModel.inputArrayFromBitString(inputString);
         viewModelStateChecker = new ViewModelStateChecker() {
             {
-                error = "Input string must contains 0 and 1 digits only";
+                error = "Input string should contains 0 and 1 digits only";
             }
         };
         assertState();
@@ -72,14 +74,14 @@ public class ViewModelTest {
     public void inputArrayFromNotIntArrayString() throws Exception {
         final String inputString = "  1  . 2";
         viewModel.inputArrayFromStringOfInts(inputString);
-        assertTrue(viewModel.getError().length() > 0);
+        assertEquals(viewModel.getError(), "Can't parse string: For input string: \"" + inputString.trim() + "\"");
     }
 
     @Test
     public void inputArrayFromStringOfIntsWithNotInt() throws Exception {
         final String inputString = "  1  , 2, b";
         viewModel.inputArrayFromStringOfInts(inputString);
-        assertTrue(viewModel.getError().length() > 0);
+        assertEquals(viewModel.getError(), "Can't parse string: For input string: \"b\"");
     }
 
     @Test
@@ -115,11 +117,11 @@ public class ViewModelTest {
     @Test
     public void leftShiftExceptional() throws Exception {
         viewModel.leftShift();
-        assertTrue(viewModel.getError().length() > 0);
+        assertEquals(viewModel.getError(), "Input string should be not null and should have non zero length");
     }
 
     @Test
-    public void rigthShiftExceptional() throws Exception {
+    public void rightShift() throws Exception {
         final String inputString =   "0100100100101001";
         final String expectedString = "0010010010010100";
         viewModel.inputArrayFromBitString(inputString);
@@ -136,7 +138,7 @@ public class ViewModelTest {
     @Test
     public void rightShiftExceptional() throws Exception {
         viewModel.rightShift();
-        assertTrue(viewModel.getError().length() > 0);
+        assertEquals(viewModel.getError(), "Input string should be not null and should have non zero length");
     }
 
     @Test
@@ -174,16 +176,18 @@ public class ViewModelTest {
     public void setZeroToIndexActionExceptional3() throws Exception {
         final String inputString =   "0100100100101001";
         viewModel.inputArrayFromBitString(inputString);
-        viewModel.setZeroToIndex("-1");
-        assertTrue(viewModel.getError().length() > 0);
+        String stringIndex = "-1";
+        viewModel.setZeroToIndex(stringIndex);
+        assertEquals(viewModel.getError(), "trying to set with index: " + stringIndex + " when size: " + inputString.length());
     }
 
     @Test
     public void setZeroToIndexActionExceptional4() throws Exception {
         final String inputString =   "0100100100101001";
         viewModel.inputArrayFromBitString(inputString);
-        viewModel.setZeroToIndex("17");
-        assertTrue(viewModel.getError().length() > 0);
+        String stringIndex = "17";
+        viewModel.setZeroToIndex(stringIndex);
+        assertEquals(viewModel.getError(), "trying to set with index: " + stringIndex + " when size: " + inputString.length());
     }
 
     @Test
@@ -223,7 +227,7 @@ public class ViewModelTest {
     }
 
     @Test
-    public void outputToString() throws Exception {
+    public void outputToStringWholeArray() throws Exception {
         final String inputString =   "0100100100101001";
         viewModel.inputArrayFromBitString(inputString);
         viewModel.setBeginIndexToOutput("0");
@@ -241,7 +245,7 @@ public class ViewModelTest {
     }
 
     @Test
-    public void outToStrActionWithArgs() throws Exception {
+    public void outputToStringSubArray() throws Exception {
         final String inputString =   "0100100100101001";
         viewModel.inputArrayFromBitString(inputString);
         viewModel.setBeginIndexToOutput("1");
@@ -261,7 +265,7 @@ public class ViewModelTest {
     }
 
     @Test
-    public void outToIntsAction() throws Exception {
+    public void outputToStringOfInts() throws Exception {
         final String inputString =   "1, 2";
         final String expectedString = "0000000000000000000000000000000100000000000000000000000000000010";
         viewModel.inputArrayFromStringOfInts(inputString);

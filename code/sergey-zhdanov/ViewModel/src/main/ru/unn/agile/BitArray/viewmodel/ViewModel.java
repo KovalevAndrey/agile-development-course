@@ -53,7 +53,7 @@ public class ViewModel {
             bitArray = BitArray.fromArray(ints);
             updateState();
         } catch (Exception ex) {
-            error = ex.getMessage();
+            error = "Can't parse string: " + ex.getMessage();
         }
     }
 

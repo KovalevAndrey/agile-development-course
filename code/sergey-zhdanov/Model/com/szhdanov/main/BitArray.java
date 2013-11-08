@@ -60,14 +60,14 @@ public class BitArray {
      */
     public static BitArray fromString(String bitString) {
         if (bitString == null || bitString.length() == 0) {
-            throw new IllegalArgumentException("Input string must be not null and must have non zero length");
+            throw new IllegalArgumentException("Input string should be not null and should have non zero length");
         }
         BitArray result = new BitArray(bitString.length(), 0);
         int bitFromString = -1;
         for (int i = 0; i < bitString.length(); ++i) {
             bitFromString = Integer.valueOf(bitString.substring(i, i + 1));
             if (bitFromString > 1 || bitFromString < 0) {
-                throw new IllegalArgumentException("Input string must contains 0 and 1 digits only");
+                throw new IllegalArgumentException("Input string should contains 0 and 1 digits only");
             }
             result.set(i, bitFromString);
         }
@@ -244,7 +244,7 @@ public class BitArray {
      */
     public BitArray lshft(int shiftLenght) {
         if (shiftLenght <= 0) {
-            throw new IllegalArgumentException("Shift len must be >= 0");
+            throw new IllegalArgumentException("Shift len should be >= 0");
         }
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
@@ -262,7 +262,7 @@ public class BitArray {
      */
     public BitArray rshft(int shiftLenght) {
         if (shiftLenght <= 0) {
-            throw new IllegalArgumentException("Shift len must be >= 0");
+            throw new IllegalArgumentException("Shift len should be >= 0");
         }
         String bitString = toBitString();
         StringBuffer buffer = new StringBuffer(bitString);
@@ -293,7 +293,7 @@ public class BitArray {
      */
     public BitArray subArray(int startIndex, int elementsCount) {
         if (elementsCount <= 0) {
-            throw new IllegalArgumentException("Elements count must be > 0");
+            throw new IllegalArgumentException("Elements count should be > 0");
         }
         BitArray result = new BitArray(elementsCount, 0);
         for (int i = 0; i < elementsCount; ++i) {
