@@ -135,12 +135,12 @@ project(":grigory-smorkalov").name = "grigory-smorkalov-Model"
 //project(":grigory-smorkalov/View").name = "grigory-smorkalov-View"
 
 // Igor Surmin
-include "igor-surmin"
-project(":igor-surmin").name = "igor-surmin-Model"
+include "igor-surmin/Model"
+project(":igor-surmin/Model").name = "igor-surmin-Model"
 //include "igor-surmin/ViewModel"
 //project(":igor-surmin/ViewModel").name = "igor-surmin-ViewModel"
-//include "igor-surmin/View"
-//project(":igor-surmin/View").name = "igor-surmin-View"
+include "igor-surmin/View"
+project(":igor-surmin/View").name = "igor-surmin-View"
 
 // Ilya Krylov
 include "ilya-krylov/Model"
