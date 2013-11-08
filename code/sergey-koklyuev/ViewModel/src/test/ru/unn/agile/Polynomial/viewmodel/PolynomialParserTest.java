@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Polynomial.Term;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class PolynomialParserTest {
@@ -74,7 +75,7 @@ public class PolynomialParserTest {
         Term[] expected_terms = new Term[1];
         term.setValues(3, 4);
         expected_terms[0] = term;
-        assertEquals(expected_terms, parser.parsePolynomial("3x^4"));
+        assertArrayEquals(expected_terms, parser.parsePolynomial("3x^4"));
     }
 
     @Test
@@ -86,6 +87,6 @@ public class PolynomialParserTest {
         expected_terms[0] = term1;
         expected_terms[1] = term2;
         expected_terms[2] = term3;
-        assertEquals(expected_terms, parser.parsePolynomial("3x^2 + -5x + 7"));
+        assertArrayEquals(expected_terms, parser.parsePolynomial("3x^2 + -5x + 7"));
     }
 }
