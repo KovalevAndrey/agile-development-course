@@ -15,12 +15,12 @@ project(":alexander-lyulkov").name = "alexander-lyulkov-Model"
 //project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
 
 // Alexander Malyshev
-include "alexander-malyshev"
-project(":alexander-malyshev").name = "alexander-malyshev-Model"
-//include "alexander-malyshev/ViewModel"
-//project(":alexander-malyshev/ViewModel").name = "alexander-malyshev-ViewModel"
-//include "alexander-malyshev/View"
-//project(":alexander-malyshev/View").name = "alexander-malyshev-View"
+include "alexander-malyshev/Model"
+project(":alexander-malyshev/Model").name = "alexander-malyshev-Model"
+include "alexander-malyshev/ViewModel"
+project(":alexander-malyshev/ViewModel").name = "alexander-malyshev-ViewModel"
+include "alexander-malyshev/View"
+project(":alexander-malyshev/View").name = "alexander-malyshev-View"
 
 // Alexandr Komin
 include "alexandr-komin"
@@ -215,12 +215,12 @@ project(":sergey-koklyuev").name = "sergey-koklyuev-Model"
 //project(":sergey-koklyuev/View").name = "sergey-koklyuev-View"
 
 // Sergey Zhdanov
-include "sergey-zhdanov"
-project(":sergey-zhdanov").name = "sergey-zhdanov-Model"
-//include "sergey-zhdanov/ViewModel"
-//project(":sergey-zhdanov/ViewModel").name = "sergey-zhdanov-ViewModel"
-//include "sergey-zhdanov/View"
-//project(":sergey-zhdanov/View").name = "sergey-zhdanov-View"
+include "sergey-zhdanov/Model"
+project(":sergey-zhdanov/Model").name = "sergey-zhdanov-Model"
+include "sergey-zhdanov/ViewModel"
+project(":sergey-zhdanov/ViewModel").name = "sergey-zhdanov-ViewModel"
+include "sergey-zhdanov/View"
+project(":sergey-zhdanov/View").name = "sergey-zhdanov-View"
 
 // Stanislav Filippenko
 include "stanislav-filippenko"
