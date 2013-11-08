@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':roman-pavlov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
