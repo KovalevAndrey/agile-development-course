@@ -1,9 +1,9 @@
-package ru.unn.agile.determinant;
+package ru.unn.agile.determinant.model;
 
 public class DeterminantCalculator {
     private double determinant;
 
-    DeterminantCalculator(Matrix A) {
+    public DeterminantCalculator(Matrix A) {
         if (A == null)
             throw new NullPointerException("Matrix is null");
         LUDecomposition lu = new LUDecomposition(A);

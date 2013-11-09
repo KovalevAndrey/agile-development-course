@@ -1,4 +1,4 @@
-package ru.unn.agile.determinant;
+package ru.unn.agile.determinant.model;
 
 
 public class Matrix {
@@ -22,7 +22,7 @@ public class Matrix {
     public double getItem(int i, int j) {
         if (i < 0 || i >= n || j < 0 || j > n)
             throw new IndexOutOfBoundsException("Item is out of bounds");
-         return data[i * n + j];
+        return data[i * n + j];
     }
 
     public  void setItem(int i, int j, double val) {

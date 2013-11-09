@@ -1,3 +1,8 @@
-sourceSets {
-    main.java.srcDir 'src/main'
+dependencies {
+    compile project(':igor-surmin-ViewModel')
+}
+
+sourceSets {	
+	main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }
