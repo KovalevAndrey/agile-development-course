@@ -1,11 +1,11 @@
-package ru.unn.agile.fraction;
+package ru.unn.agile.fraction.model;
 
 public class Fraction {
 
     private int m_numerator;
     private int m_denominator;
 
-    Fraction(int numerator, int denominator) {
+    public Fraction(int numerator, int denominator) {
         if (denominator == 0)
             throw new IllegalArgumentException("Argument 'denominator' can not be zero!");
 
