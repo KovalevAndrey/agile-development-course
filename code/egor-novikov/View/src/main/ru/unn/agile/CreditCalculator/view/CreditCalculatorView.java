@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 public class CreditCalculatorView {
     private JPanel mainPanel;
     private CreditCalculatorViewModel creditCalculatorViewModel;
-    // Fields to bind
     private JTextField creditAmountTextField;
     private JTextField monthsCountTextField;
     private JTextField percentTextField;
