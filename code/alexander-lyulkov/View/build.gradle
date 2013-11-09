@@ -1,3 +1,7 @@
+dependencies {
+    compile project(':alexander-lyulkov-ViewModel')
+}
+
 sourceSets {
     main.java.srcDir 'src/main'
 }

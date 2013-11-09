@@ -90,7 +90,7 @@ public class ViewModel {
             keyIndex = "";
         } else {
             status = Status.SUCCESS;
-            keyIndex = Integer.toString(index);
+            keyIndex = Integer.toString(index + 1);
         }
 
     }
@@ -119,7 +119,7 @@ public class ViewModel {
 
     public class Status {
         public static final String WAITING = "Please provide input data";
-        public static final String READY = "Press 'Calculate' or Enter";
+        public static final String READY = "Press 'Search' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
         public static final String NOT_FOUND = "The list of elements doesn't have this key";

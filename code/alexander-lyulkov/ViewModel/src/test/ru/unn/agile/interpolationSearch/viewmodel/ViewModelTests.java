@@ -146,7 +146,7 @@ public class ViewModelTests {
         viewModel.key = "8";
         viewModel.calculate();
 
-        assertEquals("1", viewModel.keyIndex);
+        assertEquals("2", viewModel.keyIndex);
     }
 
     @Test
