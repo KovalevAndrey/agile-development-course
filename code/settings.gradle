@@ -23,12 +23,12 @@ include "alexander-malyshev/View"
 project(":alexander-malyshev/View").name = "alexander-malyshev-View"
 
 // Alexandr Komin
-include "alexandr-komin"
-project(":alexandr-komin").name = "alexandr-komin-Model"
-//include "alexandr-komin/ViewModel"
-//project(":alexandr-komin/ViewModel").name = "alexandr-komin-ViewModel"
-//include "alexandr-komin/View"
-//project(":alexandr-komin/View").name = "alexandr-komin-View"
+include "alexandr-komin/Model"
+project(":alexandr-komin/Model").name = "alexandr-komin-Model"
+include "alexandr-komin/ViewModel"
+project(":alexandr-komin/ViewModel").name = "alexandr-komin-ViewModel"
+include "alexandr-komin/View"
+project(":alexandr-komin/View").name = "alexandr-komin-View"
 
 // Alexey Sagin
 include "alexey-sagin/Model"
