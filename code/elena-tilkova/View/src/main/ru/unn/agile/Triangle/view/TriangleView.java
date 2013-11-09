@@ -7,7 +7,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import ru.unn.agile.Triangle.viewmodel.ViewModel;
 
-public class Triangle
+public class TriangleView
 {
     private JPanel mainPanel;
     private JTextField txtPointA1;
@@ -28,7 +28,7 @@ public class Triangle
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("Triangle");
-        frame.setContentPane(new Triangle(new ViewModel()).mainPanel);
+        frame.setContentPane(new TriangleView(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -37,7 +37,7 @@ public class Triangle
     private void createUIComponents()
     {}
 
-    public Triangle(ViewModel viewModel)
+    public TriangleView(ViewModel viewModel)
     {
         this.viewModel = viewModel;
         backBind();
@@ -50,7 +50,7 @@ public class Triangle
             public void actionPerformed(ActionEvent actionEvent)
             {
                 bind();
-                Triangle.this.viewModel.calculate();
+                TriangleView.this.viewModel.calculate();
                 backBind();
             }
         });
@@ -60,7 +60,7 @@ public class Triangle
             public void keyReleased(KeyEvent e)
             {
                 bind();
-                Triangle.this.viewModel.enterKeyInTextField(e.getKeyCode());
+                TriangleView.this.viewModel.enterKeyInTextField(e.getKeyCode());
                 backBind();
             }
         };
