@@ -24,4 +24,5 @@ public class Finder {
 
     private JPanel mainPanel;
     private JButton searchButton;
+    private JTextField textField4;
 }
