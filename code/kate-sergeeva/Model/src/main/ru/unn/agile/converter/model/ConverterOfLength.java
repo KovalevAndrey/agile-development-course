@@ -1,4 +1,4 @@
-package ru.unn.agile.converter;
+package ru.unn.agile.converter.model;
 
 
 public class ConverterOfLength {
@@ -13,7 +13,7 @@ public class ConverterOfLength {
 
     private boolean isCorrectInputValue(double inputValue, double factor){
         boolean isCorrect = true;
-        if ((inputValue * factor >= Double.MAX_VALUE)||(inputValue * factor <= Double.MIN_NORMAL)||(inputValue < 0))
+        if ((inputValue * factor >= Double.MAX_VALUE)||((inputValue != 0.0)&&(inputValue * factor <= Double.MIN_NORMAL)))
             isCorrect = false;
         return isCorrect;
     }
