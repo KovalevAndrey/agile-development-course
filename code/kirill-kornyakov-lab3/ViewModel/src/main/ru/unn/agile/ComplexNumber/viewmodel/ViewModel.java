@@ -2,6 +2,8 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
+import java.util.List;
+
 public class ViewModel {
     public static final int ENTER_CODE = 10;
     public String re1 = "";
@@ -12,6 +14,12 @@ public class ViewModel {
     public String result = "";
     public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
+
+    private ILogger logger;
+
+    public ViewModel(ILogger logger) {
+        this.logger = logger;
+    }
 
     public void processKeyInTextField(int keyCode) {
         if (keyCode == ENTER_CODE) {
@@ -48,6 +56,8 @@ public class ViewModel {
     }
 
     public void calculate() {
+        logger.Log(prepareLogMessage());
+
         if (!parseInput()) return;
 
         ComplexNumber z1 = convertToComplexNumber(re1, im1);
@@ -71,6 +81,23 @@ public class ViewModel {
         return new ComplexNumber(Double.parseDouble(re), Double.parseDouble(im));
     }
 
+    public List<String> getLog() {
+        List<String> log = logger.getLog();
+        return log;
+    }
+
+    public String prepareLogMessage() {
+        String message =
+                LogMessages.CALCULATE_WAS_PRESSED + "With input arguments"
+                + ": Re1 = " + re1
+                + "; Im1 = " + im1
+                + "; Re2 = " + re2
+                + "; Im2 = " + im2 + "."
+                + "And the following operation: " + operation.toString() + ".";
+
+        return message;
+    }
+
     public enum Operation {
         ADD("Add"),
         MULTIPLY("Mul");
@@ -90,5 +117,9 @@ public class ViewModel {
         public static final String READY = "Press 'Calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
+    }
+
+    public class LogMessages {
+        public static final String CALCULATE_WAS_PRESSED = "Calculate button pressed!";
     }
 }
