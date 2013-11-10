@@ -1,6 +1,5 @@
 package ru.unn.agile.ComplexNumber.infrastructure;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,12 +9,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertArrayEquals;
-
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
@@ -23,7 +19,7 @@ public class TxtLoggerTests {
     private TxtLogger txtLogger;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         txtLogger = new TxtLogger(filename);
     }
 
@@ -36,8 +32,7 @@ public class TxtLoggerTests {
     public void canCreateLogFileOnDisk() {
         try {
             new BufferedReader(new FileReader(filename));
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             fail("File " + filename + " wasn't found!");
         }
     }
@@ -60,7 +55,7 @@ public class TxtLoggerTests {
         txtLogger.Log(messages[1]);
 
         List<String> actualMessages = readLines();
-        for (int i = 0; i < actualMessages.size(); i++ )
+        for (int i = 0; i < actualMessages.size(); i++)
             assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
     }
 
@@ -85,8 +80,7 @@ public class TxtLoggerTests {
                 log.add(line);
                 line = reader.readLine();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

@@ -1,20 +1,18 @@
 package ru.unn.agile.ComplexNumber.viewmodel;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.LogMessages;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Status;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Operation;
+import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Status;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
-    public static final int ANY_KEY = 0;
     private ViewModel viewModel;
 
     @Before
@@ -34,7 +32,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.im1);
         assertEquals("", viewModel.re2);
         assertEquals("", viewModel.im2);
-        assertEquals(Operation.ADD, viewModel.operation);
+        assertEquals(Operation.ADD, viewModel.getOperation());
         assertEquals("", viewModel.result);
         assertEquals(Status.WAITING, viewModel.status);
     }
@@ -58,7 +56,7 @@ public class ViewModelTests {
         viewModel.re2 = "3";
         viewModel.im2 = "3";
 
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
         assertEquals(Status.READY, viewModel.status);
     }
@@ -66,7 +64,7 @@ public class ViewModelTests {
     @Test
     public void canReportBadFormat() {
         viewModel.re1 = "a";
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
         assertEquals(Status.BAD_FORMAT, viewModel.status);
     }
@@ -74,26 +72,31 @@ public class ViewModelTests {
     @Test
     public void canCleanStatusIfParseIsOK() {
         viewModel.re1 = "a";
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
         viewModel.re1 = "1.0";
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
         assertEquals(Status.WAITING, viewModel.status);
     }
 
     @Test
     public void isCalculateButtonDisabledInitially() {
-        assertEquals(false, viewModel.isCalculateButtonEnabled);
+        assertEquals(false, viewModel.isCalculateButtonEnabled());
     }
 
     @Test
     public void isCalculateButtonDisabledWhenFormatIsBad() {
-        viewModel.isCalculateButtonEnabled = true;
+        viewModel.re1 = "1";
+        viewModel.im1 = "1";
+        viewModel.re2 = "3";
+        viewModel.im2 = "3";
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
+        assertEquals(true, viewModel.isCalculateButtonEnabled());
+
         viewModel.re1 = "trash";
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        viewModel.processKeyInTextField(ANY_KEY);
-
-        assertEquals(false, viewModel.isCalculateButtonEnabled);
+        assertEquals(false, viewModel.isCalculateButtonEnabled());
     }
 
     @Test
@@ -101,9 +104,9 @@ public class ViewModelTests {
         viewModel.re1 = "1";
         viewModel.im1 = "1";
 
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(false, viewModel.isCalculateButtonEnabled);
+        assertEquals(false, viewModel.isCalculateButtonEnabled());
     }
 
     @Test
@@ -141,44 +144,26 @@ public class ViewModelTests {
         viewModel.re2 = "3";
         viewModel.im2 = "3";
 
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(true, viewModel.isCalculateButtonEnabled);
+        assertEquals(true, viewModel.isCalculateButtonEnabled());
     }
 
     @Test
     public void canSetAddOperation() {
-        viewModel.operation = Operation.ADD;
-        assertEquals(Operation.ADD, viewModel.operation);
+        viewModel.setOperation(Operation.ADD);
+        assertEquals(Operation.ADD, viewModel.getOperation());
     }
 
     @Test
     public void canSetMulOperation() {
-        viewModel.operation = Operation.MULTIPLY;
-        assertEquals(Operation.MULTIPLY, viewModel.operation);
-    }
-
-    @Test
-    public void canConvertStringToComplexNumber() {
-        String re = "10";
-        String im = "20";
-        ComplexNumber z = viewModel.convertToComplexNumber(re, im);
-
-        assertEquals(new ComplexNumber(10, 20), z);
+        viewModel.setOperation(Operation.MULTIPLY);
+        assertEquals(Operation.MULTIPLY, viewModel.getOperation());
     }
 
     @Test
     public void isDefaultOperationAdd() {
-        assertEquals(Operation.ADD, viewModel.operation);
-    }
-
-    @Test
-    public void canConvertScientificStringToComplexNumber() {
-        String re = "3.14";
-        String im = "-1e3";
-        ComplexNumber z = viewModel.convertToComplexNumber(re, im);
-
-        assertEquals(new ComplexNumber(3.14, -1e3), z);
+        assertEquals(Operation.ADD, viewModel.getOperation());
     }
 
     @Test
@@ -187,7 +172,7 @@ public class ViewModelTests {
         viewModel.im1 = "2";
         viewModel.re2 = "-10";
         viewModel.im2 = "-20";
-        viewModel.operation = Operation.ADD;
+        viewModel.setOperation(Operation.ADD);
 
         viewModel.calculate();
 
@@ -222,7 +207,7 @@ public class ViewModelTests {
         viewModel.re2 = "2";
         viewModel.im2 = "0";
 
-        viewModel.processKeyInTextField(ANY_KEY);
+        viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
         assertEquals(Status.READY, viewModel.status);
     }
@@ -234,7 +219,7 @@ public class ViewModelTests {
         viewModel.re2 = "2";
         viewModel.im2 = "0";
 
-        viewModel.processKeyInTextField(ViewModel.ENTER_CODE);
+        viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
         assertEquals(Status.SUCCESS, viewModel.status);
     }
@@ -245,7 +230,7 @@ public class ViewModelTests {
         viewModel.im1 = "0";
         viewModel.re2 = "2";
         viewModel.im2 = "0";
-        viewModel.operation = Operation.MULTIPLY;
+        viewModel.setOperation(Operation.MULTIPLY);
 
         viewModel.calculate();
 
@@ -258,7 +243,7 @@ public class ViewModelTests {
         viewModel.im1 = "2.3";
         viewModel.re2 = "-10.4";
         viewModel.im2 = "-20.5";
-        viewModel.operation = Operation.ADD;
+        viewModel.setOperation(Operation.ADD);
 
         viewModel.calculate();
 
@@ -320,7 +305,8 @@ public class ViewModelTests {
         viewModel.re2 = "23";
         viewModel.im2 = "24";
 
-        String message = viewModel.prepareLogMessage();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
 
         assertThat(message, matchesPattern(".*Arguments"
                 + ": Re1 = " + viewModel.re1
@@ -332,7 +318,7 @@ public class ViewModelTests {
 
     @Test
     public void isOperationMentionedInTheLog() {
-        viewModel.operation = Operation.ADD;
+        viewModel.setOperation(Operation.ADD);
 
         viewModel.calculate();
 
@@ -342,7 +328,7 @@ public class ViewModelTests {
 
     @Test
     public void isMulOperationMentionedInTheLog() {
-        viewModel.operation = Operation.MULTIPLY;
+        viewModel.setOperation(Operation.MULTIPLY);
 
         viewModel.calculate();
 
@@ -357,6 +343,22 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals(3, viewModel.getLog().size());
+    }
+
+    @Test
+    public void canSeeOperationChangeInLog() {
+        viewModel.setOperation(Operation.MULTIPLY);
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern("^" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
+    }
+
+    @Test
+    public void isOperationNotLoggedWhenNotChanged() {
+        viewModel.setOperation(Operation.MULTIPLY);
+        viewModel.setOperation(Operation.MULTIPLY);
+
+        assertEquals(1, viewModel.getLog().size());
     }
 }
 

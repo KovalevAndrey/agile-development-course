@@ -50,6 +50,13 @@ public class Calculator {
         txtZ1Im.addKeyListener(keyListener);
         txtZ2Re.addKeyListener(keyListener);
         txtZ2Im.addKeyListener(keyListener);
+        cbOperation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                backBind();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -73,7 +80,7 @@ public class Calculator {
         viewModel.re2 = txtZ2Re.getText();
         viewModel.im2 = txtZ2Im.getText();
 
-        viewModel.operation = (ViewModel.Operation) cbOperation.getSelectedItem();
+        viewModel.setOperation((ViewModel.Operation) cbOperation.getSelectedItem());
 
         viewModel.result = txtResult.getText();
         viewModel.status = lbStatus.getText();

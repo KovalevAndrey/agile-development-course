@@ -9,6 +9,11 @@ public class ComplexNumber {
         this.im = imaginary;
     }
 
+    public ComplexNumber(String re, String im) {
+        this.re = Double.parseDouble(re);
+        this.im = Double.parseDouble(im);
+    }
+
     public ComplexNumber() {
         this.re = 0;
         this.im = 0;

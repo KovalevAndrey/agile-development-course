@@ -5,15 +5,14 @@ import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 import java.util.List;
 
 public class ViewModel {
-    public static final int ENTER_CODE = 10;
     public String re1 = "";
     public String im1 = "";
     public String re2 = "";
     public String im2 = "";
-    public Operation operation = Operation.ADD;
+    private Operation operation = Operation.ADD;
     public String result = "";
     public String status = Status.WAITING;
-    public boolean isCalculateButtonEnabled = false;
+    private boolean isCalculateButtonEnabled = false;
 
     private ILogger logger;
 
@@ -22,7 +21,7 @@ public class ViewModel {
     }
 
     public void processKeyInTextField(int keyCode) {
-        if (keyCode == ENTER_CODE) {
+        if (keyCode == KeyboardKeys.ENTER) {
             calculate();
         } else {
             parseInput();
@@ -31,6 +30,10 @@ public class ViewModel {
 
     private boolean isInputAvailable() {
         return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
+    }
+
+    public boolean isCalculateButtonEnabled() {
+        return isCalculateButtonEnabled;
     }
 
     private boolean parseInput() {
@@ -60,8 +63,8 @@ public class ViewModel {
 
         if (!parseInput()) return;
 
-        ComplexNumber z1 = convertToComplexNumber(re1, im1);
-        ComplexNumber z2 = convertToComplexNumber(re2, im2);
+        ComplexNumber z1 = new ComplexNumber(re1, im1);
+        ComplexNumber z2 = new ComplexNumber(re2, im2);
         ComplexNumber z3 = new ComplexNumber();
 
         switch (operation) {
@@ -77,16 +80,12 @@ public class ViewModel {
         status = Status.SUCCESS;
     }
 
-    public ComplexNumber convertToComplexNumber(String re, String im) {
-        return new ComplexNumber(Double.parseDouble(re), Double.parseDouble(im));
-    }
-
     public List<String> getLog() {
         List<String> log = logger.getLog();
         return log;
     }
 
-    public String prepareLogMessage() {
+    private String prepareLogMessage() {
         String message =
                 LogMessages.CALCULATE_WAS_PRESSED + "Arguments"
                 + ": Re1 = " + re1
@@ -96,6 +95,18 @@ public class ViewModel {
                 + " Operation: " + operation.toString() + ".";
 
         return message;
+    }
+
+    public void setOperation(Operation operation) {
+        if (this.operation != operation)
+        {
+            logger.Log(LogMessages.OPERATION_WAS_CHANGED + operation.toString());
+            this.operation = operation;
+        }
+    }
+
+    public Operation getOperation() {
+        return operation;
     }
 
     public enum Operation {
@@ -121,5 +132,6 @@ public class ViewModel {
 
     public class LogMessages {
         public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+        public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
     }
 }
