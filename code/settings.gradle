@@ -1,10 +1,10 @@
 // Kirill Kornyakov
-include "kirill-kornyakov-lab2/Model"
-project(":kirill-kornyakov-lab2/Model").name = "kirill-kornyakov-Model"
-include "kirill-kornyakov-lab2/ViewModel"
-project(":kirill-kornyakov-lab2/ViewModel").name = "kirill-kornyakov-ViewModel"
-include "kirill-kornyakov-lab2/View"
-project(":kirill-kornyakov-lab2/View").name = "kirill-kornyakov-View"
+include "kirill-kornyakov-lab3/Model"
+project(":kirill-kornyakov-lab3/Model").name = "kirill-kornyakov-Model"
+include "kirill-kornyakov-lab3/ViewModel"
+project(":kirill-kornyakov-lab3/ViewModel").name = "kirill-kornyakov-ViewModel"
+include "kirill-kornyakov-lab3/View"
+project(":kirill-kornyakov-lab3/View").name = "kirill-kornyakov-View"
 
 // Alexander Lyulkov
 include "alexander-lyulkov"
