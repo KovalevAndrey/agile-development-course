@@ -322,7 +322,7 @@ public class ViewModelTests {
 
         String message = viewModel.prepareLogMessage();
 
-        assertThat(message, matchesPattern(".*With input arguments"
+        assertThat(message, matchesPattern(".*Arguments"
                 + ": Re1 = " + viewModel.re1
                 + "; Im1 = " + viewModel.im1
                 + "; Re2 = " + viewModel.re2

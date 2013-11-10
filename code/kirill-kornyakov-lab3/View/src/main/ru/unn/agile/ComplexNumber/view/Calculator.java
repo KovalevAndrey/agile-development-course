@@ -1,5 +1,6 @@
 package ru.unn.agile.ComplexNumber.view;
 
+import ru.unn.agile.ComplexNumber.infrastructure.TxtLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class Calculator {
     private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
+    private JList lstLog;
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -53,7 +55,8 @@ public class Calculator {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
+        TxtLogger logger = new TxtLogger("/Users/kirill-kornyakov/Temp/agile.log");
+        frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -86,5 +89,7 @@ public class Calculator {
         lbStatus.setText(viewModel.status);
 
         btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
+
+        lstLog.setListData(viewModel.getLog().toArray());
     }
 }

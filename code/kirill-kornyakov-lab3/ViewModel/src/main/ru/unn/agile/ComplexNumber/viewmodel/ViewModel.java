@@ -88,12 +88,12 @@ public class ViewModel {
 
     public String prepareLogMessage() {
         String message =
-                LogMessages.CALCULATE_WAS_PRESSED + "With input arguments"
+                LogMessages.CALCULATE_WAS_PRESSED + "Arguments"
                 + ": Re1 = " + re1
                 + "; Im1 = " + im1
                 + "; Re2 = " + re2
                 + "; Im2 = " + im2 + "."
-                + "And the following operation: " + operation.toString() + ".";
+                + " Operation: " + operation.toString() + ".";
 
         return message;
     }
@@ -120,6 +120,6 @@ public class ViewModel {
     }
 
     public class LogMessages {
-        public static final String CALCULATE_WAS_PRESSED = "Calculate button pressed!";
+        public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
     }
 }
