@@ -1,11 +1,13 @@
-package ru.unn.agile.Polynomial;
+package ru.unn.agile.Polynomial.viewmodel;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import ru.unn.agile.Polynomial.Term;
+import ru.unn.agile.Polynomial.viewmodel.PolynomialWriter;
+
+import static org.junit.Assert.assertEquals;
 
 public class PolynomialWriterTest {
-
     private PolynomialWriter writer = null;
     private Term term = null;
 

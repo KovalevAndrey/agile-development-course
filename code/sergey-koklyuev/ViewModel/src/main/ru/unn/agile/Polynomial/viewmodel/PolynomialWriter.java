@@ -1,4 +1,6 @@
-package ru.unn.agile.Polynomial;
+package ru.unn.agile.Polynomial.viewmodel;
+
+import ru.unn.agile.Polynomial.Term;
 
 import java.util.Arrays;
 

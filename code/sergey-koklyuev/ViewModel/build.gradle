@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':sergey-koklyuev-Model')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
+}
