@@ -4,6 +4,9 @@ import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
 import java.util.List;
 
+//TODO: Avoid logging updated input while it is not updated
+//TODO: introduce such methods as enterPressed() and focusLost()
+
 public class ViewModel {
     public String re1 = "";
     public String im1 = "";
@@ -21,19 +24,21 @@ public class ViewModel {
     }
 
     public void processKeyInTextField(int keyCode) {
-        if (keyCode == KeyboardKeys.ENTER) {
-            calculate();
-        } else {
-            parseInput();
-        }
-    }
+        parseInput();
 
-    private boolean isInputAvailable() {
-        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
+        if (keyCode == KeyboardKeys.ENTER) {
+            editingFinished();
+            if (isCalculateButtonEnabled())
+                calculate();
+        }
     }
 
     public boolean isCalculateButtonEnabled() {
         return isCalculateButtonEnabled;
+    }
+
+    private boolean isInputAvailable() {
+        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
     }
 
     private boolean parseInput() {
@@ -109,6 +114,21 @@ public class ViewModel {
         return operation;
     }
 
+    public void editingFinished() {
+        logger.Log(prepareEditingFinishedMessage());
+    }
+
+    private String prepareEditingFinishedMessage() {
+        String message = LogMessages.EDITING_FINISHED
+                        + "Input arguments are: ["
+                        + re1 + "; "
+                        + im1 + "; "
+                        + re2 + "; "
+                        + im2 + "]";
+
+        return message;
+    }
+
     public enum Operation {
         ADD("Add"),
         MULTIPLY("Mul");
@@ -133,5 +153,6 @@ public class ViewModel {
     public class LogMessages {
         public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
         public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
+        public static final String EDITING_FINISHED = "Updated input. ";
     }
 }

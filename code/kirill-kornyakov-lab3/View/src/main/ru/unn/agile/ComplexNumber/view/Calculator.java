@@ -4,10 +4,7 @@ import ru.unn.agile.ComplexNumber.infrastructure.TxtLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class Calculator {
     private JPanel mainPanel;
@@ -38,18 +35,6 @@ public class Calculator {
             }
         });
 
-        KeyAdapter keyListener = new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                bind();
-                Calculator.this.viewModel.processKeyInTextField(e.getKeyCode());
-                backBind();
-            }
-        };
-
-        txtZ1Re.addKeyListener(keyListener);
-        txtZ1Im.addKeyListener(keyListener);
-        txtZ2Re.addKeyListener(keyListener);
-        txtZ2Im.addKeyListener(keyListener);
         cbOperation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -57,6 +42,30 @@ public class Calculator {
                 backBind();
             }
         });
+
+        KeyAdapter keyListener = new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                bind();
+                Calculator.this.viewModel.processKeyInTextField(e.getKeyCode());
+                backBind();
+            }
+        };
+        txtZ1Re.addKeyListener(keyListener);
+        txtZ1Im.addKeyListener(keyListener);
+        txtZ2Re.addKeyListener(keyListener);
+        txtZ2Im.addKeyListener(keyListener);
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                bind();
+                Calculator.this.viewModel.editingFinished();
+                backBind();
+            }
+        };
+        txtZ1Re.addFocusListener(focusLostListener);
+        txtZ1Im.addFocusListener(focusLostListener);
+        txtZ2Re.addFocusListener(focusLostListener);
+        txtZ2Im.addFocusListener(focusLostListener);
     }
 
     public static void main(String[] args) {
@@ -74,28 +83,20 @@ public class Calculator {
         cbOperation.setModel(new JComboBox<ViewModel.Operation>(operations).getModel());
     }
 
-    public void bind() {
+    private void bind() {
         viewModel.re1 = txtZ1Re.getText();
         viewModel.im1 = txtZ1Im.getText();
         viewModel.re2 = txtZ2Re.getText();
         viewModel.im2 = txtZ2Im.getText();
 
         viewModel.setOperation((ViewModel.Operation) cbOperation.getSelectedItem());
-
-        viewModel.result = txtResult.getText();
-        viewModel.status = lbStatus.getText();
     }
 
-    public void backBind() {
-        txtZ1Re.setText(viewModel.re1);
-        txtZ1Im.setText(viewModel.im1);
-        txtZ2Re.setText(viewModel.re2);
-        txtZ2Im.setText(viewModel.im2);
+    private void backBind() {
+        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled());
 
         txtResult.setText(viewModel.result);
         lbStatus.setText(viewModel.status);
-
-        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
 
         lstLog.setListData(viewModel.getLog().toArray());
     }

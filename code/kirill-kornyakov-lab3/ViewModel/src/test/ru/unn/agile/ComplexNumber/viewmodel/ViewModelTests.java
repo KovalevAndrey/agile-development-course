@@ -338,6 +338,11 @@ public class ViewModelTests {
 
     @Test
     public void canPutSeveralLogMessages() {
+        viewModel.re1 = "31";
+        viewModel.im1 = "32";
+        viewModel.re2 = "33";
+        viewModel.im2 = "34";
+
         viewModel.calculate();
         viewModel.calculate();
         viewModel.calculate();
@@ -358,6 +363,53 @@ public class ViewModelTests {
         viewModel.setOperation(Operation.MULTIPLY);
         viewModel.setOperation(Operation.MULTIPLY);
 
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isEditingFinishLogged() {
+        viewModel.editingFinished();
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void areArgumentsCorrectlyLoggedOnEditingFinish() {
+        viewModel.re1 = "31";
+        viewModel.im1 = "32";
+        viewModel.re2 = "33";
+        viewModel.im2 = "34";
+        viewModel.editingFinished();
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED
+                + "Input arguments are: \\["
+                + viewModel.re1 + "; "
+                + viewModel.im1 + "; "
+                + viewModel.re2 + "; "
+                + viewModel.im2 + "\\]"));
+    }
+
+    @Test
+    public void isEditingFinishedCalledOnEnter() {
+        viewModel.re1 = "1";
+        viewModel.im1 = "0";
+        viewModel.re2 = "2";
+        viewModel.im2 = "0";
+
+        viewModel.processKeyInTextField(KeyboardKeys.ENTER);
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void isCalculateNotCalledWhenButtonIsDisabled() {
+        viewModel.processKeyInTextField(KeyboardKeys.ENTER);
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
         assertEquals(1, viewModel.getLog().size());
     }
 }
