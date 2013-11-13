@@ -7,12 +7,12 @@ include "kirill-kornyakov-lab2/View"
 project(":kirill-kornyakov-lab2/View").name = "kirill-kornyakov-View"
 
 // Alexander Lyulkov
-include "alexander-lyulkov"
-project(":alexander-lyulkov").name = "alexander-lyulkov-Model"
-//include "alexander-lyulkov/ViewModel"
-//project(":alexander-lyulkov/ViewModel").name = "alexander-lyulkov-ViewModel"
-//include "alexander-lyulkov/View"
-//project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
+include "alexander-lyulkov/Model"
+project(":alexander-lyulkov/Model").name = "alexander-lyulkov-Model"
+include "alexander-lyulkov/ViewModel"
+project(":alexander-lyulkov/ViewModel").name = "alexander-lyulkov-ViewModel"
+include "alexander-lyulkov/View"
+project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
 
 // Alexander Malyshev
 include "alexander-malyshev/Model"
