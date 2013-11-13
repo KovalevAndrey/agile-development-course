@@ -1,4 +1,4 @@
-package ru.unn.agile.determinant;
+package ru.unn.agile.determinant.model;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

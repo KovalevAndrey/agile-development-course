@@ -1,6 +1,5 @@
-package ru.unn.agile.determinant;
+package ru.unn.agile.determinant.model;
 
-import org.junit.Rule;
 import org.junit.Test;
 
 public class TestLUDecomposition {

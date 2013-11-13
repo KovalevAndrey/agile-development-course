@@ -1,6 +1,5 @@
-package ru.unn.agile.determinant;
+package ru.unn.agile.determinant.model;
 
-import java.lang.String;
 import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,10 +26,10 @@ public class TestMatrix {
 
     @Test
     public void SetItemTest() {
-       Matrix a = new Matrix(3);
-       double val = 10.0;
-       a.setItem(2, 1, val);
-       assertEquals(a.getItem(2, 1), val, Matrix.EPS);
+        Matrix a = new Matrix(3);
+        double val = 10.0;
+        a.setItem(2, 1, val);
+        assertEquals(a.getItem(2, 1), val, Matrix.EPS);
     }
 
     @Test
@@ -144,11 +143,11 @@ public class TestMatrix {
 
     @Test
     public void IsMatrixUpperTriangularPositive() {
-       Matrix A = new Matrix(3);
-       A.setItem(0, 0, 1.0);
-       A.setItem(1, 1, 3.0);
-       A.setItem(1, 2, 5.0);
-       assert (A.isUpperTriangular());
+        Matrix A = new Matrix(3);
+        A.setItem(0, 0, 1.0);
+        A.setItem(1, 1, 3.0);
+        A.setItem(1, 2, 5.0);
+        assert (A.isUpperTriangular());
     }
 
     @Test
