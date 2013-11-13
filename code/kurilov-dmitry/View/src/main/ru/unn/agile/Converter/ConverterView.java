@@ -59,9 +59,9 @@ public class ConverterView
 
     private void loadListOfSystems()
     {
-        Systems[] syst = Systems.values();
-        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(syst).getModel());
-        toComboBox.setModel(new JComboBox<ViewModel.Systems>(syst).getModel());
+        Systems[] system = Systems.values();
+        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(system).getModel());
+        toComboBox.setModel(new JComboBox<ViewModel.Systems>(system).getModel());
     }
 
     public void bind()

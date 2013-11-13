@@ -28,8 +28,8 @@ public class ViewModelTests
     public void canSetDefaultValues()
     {
         assertEquals("", viewModel.inputNumber);
-        assertEquals(ViewModel.Systems.Decimal, viewModel.inputSys);
-        assertEquals(ViewModel.Systems.Decimal, viewModel.outputSys);
+        assertEquals(ViewModel.Systems.Binary, viewModel.inputSys);
+        assertEquals(ViewModel.Systems.Binary, viewModel.outputSys);
         assertEquals("", viewModel.result);
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
@@ -44,7 +44,6 @@ public class ViewModelTests
     public void isStatusWaitingWhenCalculateWithEmptyFields()
     {
         viewModel.calculate();
-
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
 
@@ -74,7 +73,7 @@ public class ViewModelTests
         viewModel.inputNumber = "10";
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(ViewModel.Status.WAITING, viewModel.status);
+        assertEquals(ViewModel.Status.READY, viewModel.status);
     }
 
     @Test
@@ -97,8 +96,8 @@ public class ViewModelTests
     @Test
     public void canGetSystemNumber()
     {
-        int syst = ViewModel.Systems.Decimal.toInt();
-        assertEquals(10, syst);
+        int system = ViewModel.Systems.Decimal.toInt();
+        assertEquals(10, system);
     }
 
     @Test
@@ -132,29 +131,29 @@ public class ViewModelTests
     }
 
     @Test
-    public void canSetBinaryInputSystem()
+    public void canSetDecimalInputSystem()
     {
-        viewModel.inputSys = ViewModel.Systems.Binary;
-        assertEquals(ViewModel.Systems.Binary, viewModel.inputSys);
-    }
-
-    @Test
-    public void canSetBinaryOutputSystem()
-    {
-        viewModel.outputSys = ViewModel.Systems.Binary;
-        assertEquals(ViewModel.Systems.Binary, viewModel.outputSys);
-    }
-
-    @Test
-    public void isDefaultInputSystemDecimal()
-    {
+        viewModel.inputSys = ViewModel.Systems.Decimal;
         assertEquals(ViewModel.Systems.Decimal, viewModel.inputSys);
     }
 
     @Test
-    public void isDefaultOutputSystemDecimal()
+    public void canSetDecimalOutputSystem()
     {
+        viewModel.outputSys = ViewModel.Systems.Decimal;
         assertEquals(ViewModel.Systems.Decimal, viewModel.outputSys);
+    }
+
+    @Test
+    public void isDefaultInputSystemBinary()
+    {
+        assertEquals(ViewModel.Systems.Binary, viewModel.inputSys);
+    }
+
+    @Test
+    public void isDefaultOutputSystemBinary()
+    {
+        assertEquals(ViewModel.Systems.Binary, viewModel.outputSys);
     }
 
     @Test
@@ -177,4 +176,5 @@ public class ViewModelTests
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
+
 }

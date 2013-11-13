@@ -4,11 +4,9 @@ public class ViewModel
 {
     public static final int ENTER_CODE = 10;
     public String inputNumber = "";
-    //public int inputBase = 10;
-    //public int outputBase = 10;
     public String result = "";
-    public Systems inputSys = Systems.Decimal;
-    public Systems outputSys = Systems.Decimal;
+    public Systems inputSys = Systems.Binary;
+    public Systems outputSys = Systems.Binary;
     public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
 
@@ -26,9 +24,10 @@ public class ViewModel
 
     private boolean parseInput()
     {
+        Converter converter = new Converter();
         try
         {
-            if (!inputNumber.isEmpty()) Integer.parseInt(inputNumber);
+            if (!inputNumber.isEmpty()) converter.tryConvert(inputNumber, inputSys.sys);
         }
         catch (Exception e)
         {
@@ -59,9 +58,6 @@ public class ViewModel
         try
         {
             result = new String(converter.ConvertFromOneToOther(inputNumber, inputSys.sys, outputSys.sys));
-            System.out.println(inputSys.sys);
-            System.out.println(outputSys.sys);
-
         }
         catch (Exception e)
         {
@@ -79,9 +75,9 @@ public class ViewModel
         Hexadecimal(16);
         private final int sys;
 
-        private Systems(int syst)
+        private Systems(int system)
         {
-            this.sys = syst;
+            this.sys = system;
         }
 
         public int toInt()
@@ -93,7 +89,7 @@ public class ViewModel
     public class Status
     {
         public static final String WAITING = "Please provide input data";
-        public static final String READY = "Press 'Calculate' or Enter";
+        public static final String READY = "Press 'calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
     }
