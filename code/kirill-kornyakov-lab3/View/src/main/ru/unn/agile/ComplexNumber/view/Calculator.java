@@ -58,7 +58,7 @@ public class Calculator {
         FocusAdapter focusLostListener = new FocusAdapter() {
             public void focusLost(FocusEvent e) {
                 bind();
-                Calculator.this.viewModel.editingFinished();
+                Calculator.this.viewModel.focusLost();
                 backBind();
             }
         };
@@ -84,10 +84,10 @@ public class Calculator {
     }
 
     private void bind() {
-        viewModel.re1 = txtZ1Re.getText();
-        viewModel.im1 = txtZ1Im.getText();
-        viewModel.re2 = txtZ2Re.getText();
-        viewModel.im2 = txtZ2Im.getText();
+        viewModel.setRe1(txtZ1Re.getText());
+        viewModel.setIm1(txtZ1Im.getText());
+        viewModel.setRe2(txtZ2Re.getText());
+        viewModel.setIm2(txtZ2Im.getText());
 
         viewModel.setOperation((ViewModel.Operation) cbOperation.getSelectedItem());
     }
@@ -95,8 +95,8 @@ public class Calculator {
     private void backBind() {
         btnCalc.setEnabled(viewModel.isCalculateButtonEnabled());
 
-        txtResult.setText(viewModel.result);
-        lbStatus.setText(viewModel.status);
+        txtResult.setText(viewModel.getResult());
+        lbStatus.setText(viewModel.getStatus());
 
         lstLog.setListData(viewModel.getLog().toArray());
     }

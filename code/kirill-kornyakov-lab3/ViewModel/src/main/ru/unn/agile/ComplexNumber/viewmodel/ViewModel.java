@@ -4,33 +4,65 @@ import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
 import java.util.List;
 
-//TODO: Avoid logging updated input while it is not updated
-//TODO: introduce such methods as enterPressed() and focusLost()
-
 public class ViewModel {
-    public String re1 = "";
-    public String im1 = "";
-    public String re2 = "";
-    public String im2 = "";
-    private Operation operation = Operation.ADD;
-    public String result = "";
-    public String status = Status.WAITING;
-    private boolean isCalculateButtonEnabled = false;
-
+    private String re1;
+    private String im1;
+    private String re2;
+    private String im2;
+    private Operation operation;
+    private String result;
+    private String status;
+    private boolean isCalculateButtonEnabled;
+    private boolean isInputChanged;
     private ILogger logger;
 
     public ViewModel(ILogger logger) {
         this.logger = logger;
+        re1 = "";
+        im1 = "";
+        re2 = "";
+        im2 = "";
+        operation = Operation.ADD;
+        result = "";
+        status = Status.WAITING;
+
+        isCalculateButtonEnabled = false;
+        isInputChanged = true;
     }
 
     public void processKeyInTextField(int keyCode) {
         parseInput();
 
-        if (keyCode == KeyboardKeys.ENTER) {
-            editingFinished();
-            if (isCalculateButtonEnabled())
-                calculate();
-        }
+        if (keyCode == KeyboardKeys.ENTER) enterPressed();
+    }
+
+    private void enterPressed() {
+        logInputParams();
+
+        if (isCalculateButtonEnabled())
+            calculate();
+    }
+
+    private void logInputParams() {
+        if (!isInputChanged) return;
+
+        logger.Log(editingFinishedLogMessage());
+        isInputChanged = false;
+    }
+
+    public void focusLost() {
+        logInputParams();
+    }
+
+    private String editingFinishedLogMessage() {
+        String message = LogMessages.EDITING_FINISHED
+                + "Input arguments are: ["
+                + re1 + "; "
+                + im1 + "; "
+                + re2 + "; "
+                + im2 + "]";
+
+        return message;
     }
 
     public boolean isCalculateButtonEnabled() {
@@ -64,7 +96,7 @@ public class ViewModel {
     }
 
     public void calculate() {
-        logger.Log(prepareLogMessage());
+        logger.Log(calculateLogMessage());
 
         if (!parseInput()) return;
 
@@ -90,7 +122,7 @@ public class ViewModel {
         return log;
     }
 
-    private String prepareLogMessage() {
+    private String calculateLogMessage() {
         String message =
                 LogMessages.CALCULATE_WAS_PRESSED + "Arguments"
                 + ": Re1 = " + re1
@@ -102,6 +134,10 @@ public class ViewModel {
         return message;
     }
 
+    public Operation getOperation() {
+        return operation;
+    }
+
     public void setOperation(Operation operation) {
         if (this.operation != operation)
         {
@@ -110,23 +146,56 @@ public class ViewModel {
         }
     }
 
-    public Operation getOperation() {
-        return operation;
+    public String getResult() {
+        return result;
     }
 
-    public void editingFinished() {
-        logger.Log(prepareEditingFinishedMessage());
+    public String getStatus() {
+        return status;
     }
 
-    private String prepareEditingFinishedMessage() {
-        String message = LogMessages.EDITING_FINISHED
-                        + "Input arguments are: ["
-                        + re1 + "; "
-                        + im1 + "; "
-                        + re2 + "; "
-                        + im2 + "]";
+    public String getRe1() {
+        return re1;
+    }
 
-        return message;
+    public void setRe1(String re1) {
+        if (re1.equals(this.re1)) return;
+
+        this.re1 = re1;
+        isInputChanged = true;
+    }
+
+    public String getIm1() {
+        return im1;
+    }
+
+    public void setIm1(String im1) {
+        if (im1.equals(this.im1)) return;
+
+        this.im1 = im1;
+        isInputChanged = true;
+    }
+
+    public String getRe2() {
+        return re2;
+    }
+
+    public void setRe2(String re2) {
+        if (re2.equals(this.re2)) return;
+
+        this.re2 = re2;
+        isInputChanged = true;
+    }
+
+    public String getIm2() {
+        return im2;
+    }
+
+    public void setIm2(String im2) {
+        if (im2.equals(this.im2)) return;
+
+        this.im2 = im2;
+        isInputChanged = true;
     }
 
     public enum Operation {

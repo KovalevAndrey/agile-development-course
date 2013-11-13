@@ -28,55 +28,59 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", viewModel.re1);
-        assertEquals("", viewModel.im1);
-        assertEquals("", viewModel.re2);
-        assertEquals("", viewModel.im2);
+        assertEquals("", viewModel.getRe1());
+        assertEquals("", viewModel.getIm1());
+        assertEquals("", viewModel.getRe2());
+        assertEquals("", viewModel.getIm2());
         assertEquals(Operation.ADD, viewModel.getOperation());
-        assertEquals("", viewModel.result);
-        assertEquals(Status.WAITING, viewModel.status);
+        assertEquals("", viewModel.getResult());
+        assertEquals(Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(Status.WAITING, viewModel.status);
+        assertEquals(Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
 
-        assertEquals(Status.WAITING, viewModel.status);
+        assertEquals(Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusReadyWhenFieldsAreFill() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "1";
-        viewModel.re2 = "3";
-        viewModel.im2 = "3";
+        fillInputFields();
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.status);
+        assertEquals(Status.READY, viewModel.getStatus());
+    }
+
+    private void fillInputFields() {
+        viewModel.setRe1("1");
+        viewModel.setIm1("1");
+        viewModel.setRe2("3");
+        viewModel.setIm2("3");
     }
 
     @Test
     public void canReportBadFormat() {
-        viewModel.re1 = "a";
+        viewModel.setRe1("a");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.BAD_FORMAT, viewModel.status);
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
     public void canCleanStatusIfParseIsOK() {
-        viewModel.re1 = "a";
+        viewModel.setRe1("a");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
-        viewModel.re1 = "1.0";
+        viewModel.setRe1("1.0");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.WAITING, viewModel.status);
+        assertEquals(Status.WAITING, viewModel.getStatus());
     }
 
     @Test
@@ -86,14 +90,11 @@ public class ViewModelTests {
 
     @Test
     public void isCalculateButtonDisabledWhenFormatIsBad() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "1";
-        viewModel.re2 = "3";
-        viewModel.im2 = "3";
+        fillInputFields();
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
         assertEquals(true, viewModel.isCalculateButtonEnabled());
 
-        viewModel.re1 = "trash";
+        viewModel.setRe1("trash");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
         assertEquals(false, viewModel.isCalculateButtonEnabled());
@@ -101,8 +102,8 @@ public class ViewModelTests {
 
     @Test
     public void isCalculateButtonDisabledWithIncompleteInput() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "1";
+        viewModel.setRe1("1");
+        viewModel.setIm1("1");
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
@@ -139,10 +140,7 @@ public class ViewModelTests {
 
     @Test
     public void isCalculateButtonEnabledWithCorrectInput() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "1";
-        viewModel.re2 = "3";
-        viewModel.im2 = "3";
+        fillInputFields();
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
@@ -168,86 +166,77 @@ public class ViewModelTests {
 
     @Test
     public void canPerformCalcAction() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "2";
-        viewModel.re2 = "-10";
-        viewModel.im2 = "-20";
+        viewModel.setRe1("1");
+        viewModel.setIm1("2");
+        viewModel.setRe2("-10");
+        viewModel.setIm2("-20");
         viewModel.setOperation(Operation.ADD);
 
         viewModel.calculate();
 
-        assertEquals("-9.0 - 18.0i", viewModel.result);
+        assertEquals("-9.0 - 18.0i", viewModel.getResult());
     }
 
     @Test
     public void canSetSuccessMessage() {
-        viewModel.re1 = "0";
-        viewModel.im1 = "0";
-        viewModel.re2 = "0";
-        viewModel.im2 = "0";
+        fillInputFields();
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS, viewModel.status);
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
     public void canSetBadFormatMessage() {
-        viewModel.re1 = "a";
+        viewModel.setRe1("a");
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.status);
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
     public void isStatusReadyWhenKeyIsNotEnter() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "0";
-        viewModel.re2 = "2";
-        viewModel.im2 = "0";
+        fillInputFields();
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.status);
+        assertEquals(Status.READY, viewModel.getStatus());
     }
 
     @Test
     public void isStatusSuccessWhenKeyIsEnter() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "0";
-        viewModel.re2 = "2";
-        viewModel.im2 = "0";
+        fillInputFields();
 
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
-        assertEquals(Status.SUCCESS, viewModel.status);
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
     public void canMultiplyNumbers() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "0";
-        viewModel.re2 = "2";
-        viewModel.im2 = "0";
+        viewModel.setRe1("1");
+        viewModel.setIm1("0");
+        viewModel.setRe2("2");
+        viewModel.setIm2("0");
         viewModel.setOperation(Operation.MULTIPLY);
 
         viewModel.calculate();
 
-        assertEquals("2.0 + 0.0i", viewModel.result);
+        assertEquals("2.0 + 0.0i", viewModel.getResult());
     }
 
     @Test
     public void canPerformAddWithArbitraryNumbers() {
-        viewModel.re1 = "1.2";
-        viewModel.im1 = "2.3";
-        viewModel.re2 = "-10.4";
-        viewModel.im2 = "-20.5";
+        viewModel.setRe1("1.2");
+        viewModel.setIm1("2.3");
+        viewModel.setRe2("-10.4");
+        viewModel.setIm2("-20.5");
         viewModel.setOperation(Operation.ADD);
 
         viewModel.calculate();
 
-        assertEquals("-9.2 - 18.2i", viewModel.result);
+        assertEquals("-9.2 - 18.2i", viewModel.getResult());
     }
 
     @Test
@@ -283,36 +272,30 @@ public class ViewModelTests {
 
     @Test
     public void isLogContainsInputArguments() {
-        viewModel.re1 = "10";
-        viewModel.im1 = "11";
-        viewModel.re2 = "12";
-        viewModel.im2 = "13";
+        fillInputFields();
 
         viewModel.calculate();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + viewModel.re1
-                                         + ".*" + viewModel.im1
-                                         + ".*" + viewModel.re2
-                                         + ".*" + viewModel.im2 + ".*"
+        assertThat(message, matchesPattern(".*" + viewModel.getRe1()
+                + ".*" + viewModel.getIm1()
+                + ".*" + viewModel.getRe2()
+                + ".*" + viewModel.getIm2() + ".*"
         ));
     }
 
     @Test
     public void isProperlyFormattingInfoAboutArguments() {
-        viewModel.re1 = "21";
-        viewModel.im1 = "22";
-        viewModel.re2 = "23";
-        viewModel.im2 = "24";
+        fillInputFields();
 
         viewModel.calculate();
         String message = viewModel.getLog().get(0);
 
         assertThat(message, matchesPattern(".*Arguments"
-                + ": Re1 = " + viewModel.re1
-                + "; Im1 = " + viewModel.im1
-                + "; Re2 = " + viewModel.re2
-                + "; Im2 = " + viewModel.im2 + ".*"
+                + ": Re1 = " + viewModel.getRe1()
+                + "; Im1 = " + viewModel.getIm1()
+                + "; Re2 = " + viewModel.getRe2()
+                + "; Im2 = " + viewModel.getIm2() + ".*"
         ));
     }
 
@@ -338,10 +321,7 @@ public class ViewModelTests {
 
     @Test
     public void canPutSeveralLogMessages() {
-        viewModel.re1 = "31";
-        viewModel.im1 = "32";
-        viewModel.re2 = "33";
-        viewModel.im2 = "34";
+        fillInputFields();
 
         viewModel.calculate();
         viewModel.calculate();
@@ -368,7 +348,9 @@ public class ViewModelTests {
 
     @Test
     public void isEditingFinishLogged() {
-        viewModel.editingFinished();
+        viewModel.setRe1("10");
+
+        viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
         assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
@@ -376,27 +358,21 @@ public class ViewModelTests {
 
     @Test
     public void areArgumentsCorrectlyLoggedOnEditingFinish() {
-        viewModel.re1 = "31";
-        viewModel.im1 = "32";
-        viewModel.re2 = "33";
-        viewModel.im2 = "34";
-        viewModel.editingFinished();
+        fillInputFields();
+        viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
         assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED
                 + "Input arguments are: \\["
-                + viewModel.re1 + "; "
-                + viewModel.im1 + "; "
-                + viewModel.re2 + "; "
-                + viewModel.im2 + "\\]"));
+                + viewModel.getRe1() + "; "
+                + viewModel.getIm1() + "; "
+                + viewModel.getRe2() + "; "
+                + viewModel.getIm2() + "\\]"));
     }
 
     @Test
-    public void isEditingFinishedCalledOnEnter() {
-        viewModel.re1 = "1";
-        viewModel.im1 = "0";
-        viewModel.re2 = "2";
-        viewModel.im2 = "0";
+    public void isLogInputsCalledOnEnter() {
+        fillInputFields();
 
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
@@ -410,6 +386,32 @@ public class ViewModelTests {
 
         String message = viewModel.getLog().get(0);
         assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwice() {
+        fillInputFields();
+        fillInputFields();
+
+        viewModel.focusLost();
+        viewModel.focusLost();
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.setRe1("12");
+        viewModel.setRe1("12");
+        viewModel.setRe1("12");
+
+        viewModel.focusLost();
+        viewModel.focusLost();
+        viewModel.focusLost();
+
         assertEquals(1, viewModel.getLog().size());
     }
 }
