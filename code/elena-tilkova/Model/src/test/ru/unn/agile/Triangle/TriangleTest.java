@@ -191,5 +191,16 @@ public class TriangleTest
 
         triangle.angle("D");
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void canNotGetAngleForWrongLengthAngleName()
+    {
+        Point pointA = new Point(0, 0);
+        Point pointB = new Point(0, 10);
+        Point pointC = new Point(10, 9);
+        Triangle triangle = new Triangle(pointA, pointB, pointC);
+
+        triangle.angle("DDD");
+    }
 }
 

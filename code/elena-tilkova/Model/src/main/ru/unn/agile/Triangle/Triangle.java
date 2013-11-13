@@ -10,7 +10,6 @@ public class Triangle
 
     public Triangle(Point pointA, Point pointB, Point pointC)
     {
-        System.out.println("Hello") ;
         if (pointA.equals(pointB) || pointA.equals(pointC) || pointB.equals(pointC))
             throw new IllegalArgumentException("Points must be different.");
 
@@ -153,7 +152,8 @@ public class Triangle
 
             angle = Math.acos(cosAngle);
         }
-        else new IllegalArgumentException("The name of angle is wrong.");
+        else
+            throw new IllegalArgumentException("The name of angle is wrong.");
 
         return angle;
     }
