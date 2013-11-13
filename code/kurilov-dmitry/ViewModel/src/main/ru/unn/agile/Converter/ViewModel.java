@@ -10,15 +10,20 @@ public class ViewModel
     public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
 
-    public void processKeyInTextField(int keyCode) {
-        if (keyCode == ENTER_CODE) {
+    public void processKeyInTextField(int keyCode)
+    {
+        if (keyCode == ENTER_CODE)
+        {
             calculate();
-        } else {
+        }
+        else
+        {
             parseInput();
         }
     }
 
-    private boolean isInputAvailable() {
+    private boolean isInputAvailable()
+    {
         return !inputNumber.isEmpty();
     }
 
@@ -50,7 +55,8 @@ public class ViewModel
         return isCalculateButtonEnabled;
     }
 
-    public void calculate() {
+    public void calculate()
+    {
         if (!parseInput()) return;
 
         Converter converter = new Converter();

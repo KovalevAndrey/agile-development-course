@@ -26,6 +26,15 @@ public class ConverterView
 
         loadListOfSystems();
 
+        fromComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                ConverterView.this.viewModel.processKeyInTextField(0);
+                backBind();
+            }
+        });
+
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -69,10 +78,8 @@ public class ConverterView
         viewModel.inputNumber = inputTextField.getText();
 
         viewModel.inputSys = (ViewModel.Systems) fromComboBox.getSelectedItem();
-        System.out.println(viewModel.inputSys);
 
         viewModel.outputSys = (ViewModel.Systems) toComboBox.getSelectedItem();
-        System.out.println(viewModel.outputSys);
 
         viewModel.result = resultTextField.getText();
         viewModel.status = statusLabel.getText();

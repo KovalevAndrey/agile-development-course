@@ -176,5 +176,4 @@ public class ViewModelTests
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
-
 }
