@@ -2,6 +2,7 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
 public class RegexMatcher extends BaseMatcher {
     private final String regex;
@@ -19,7 +20,11 @@ public class RegexMatcher extends BaseMatcher {
         description.appendText(regex);
     }
 
-    public static RegexMatcher matchesPattern(String regex){
-        return new RegexMatcher(regex);
+    public static Matcher<? super String> matchesPattern(String regex){
+        RegexMatcher matcher = new RegexMatcher(regex);
+        //NOTE: this ugly cast is needed to workaround 'unchecked' Java warning
+        @SuppressWarnings (value="unchecked")
+        Matcher<? super String> castedMatcher = (Matcher<? super String>)matcher;
+        return castedMatcher;
     }
 }

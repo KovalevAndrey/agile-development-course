@@ -5,12 +5,13 @@ import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class Calculator {
     private JPanel mainPanel;
     private JButton btnCalc;
     private ViewModel viewModel;
-    // Fields to bind
+
     private JTextField txtZ1Re;
     private JTextField txtZ1Im;
     private JTextField txtZ2Re;
@@ -18,7 +19,7 @@ public class Calculator {
     private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
-    private JList lstLog;
+    private JList<String> lstLog;
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -98,6 +99,8 @@ public class Calculator {
         txtResult.setText(viewModel.getResult());
         lbStatus.setText(viewModel.getStatus());
 
-        lstLog.setListData(viewModel.getLog().toArray());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 }
