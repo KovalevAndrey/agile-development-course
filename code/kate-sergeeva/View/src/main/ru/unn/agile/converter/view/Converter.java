@@ -13,8 +13,8 @@ public class Converter {
 
     private ViewModel viewModel;
     private JPanel mainPanel;
-    private JComboBox comboBoxInput;
-    private JComboBox comboBoxOutput;
+    private JComboBox<Unit> comboBoxInput;
+    private JComboBox<Unit> comboBoxOutput;
     private JTextField txtInput;
     private JTextField txtOutput;
     private JButton convertButton;
