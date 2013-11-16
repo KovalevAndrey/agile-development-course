@@ -72,7 +72,7 @@ public class Calculator {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        TxtLogger logger = new TxtLogger("/Users/kirill-kornyakov/Temp/agile.log");
+        TxtLogger logger = new TxtLogger("./Calculator.log");
         frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

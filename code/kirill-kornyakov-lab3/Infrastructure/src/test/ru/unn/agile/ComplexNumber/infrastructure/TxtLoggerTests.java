@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
-    private static final String filename = "./log.txt";
+    private static final String filename = "./TxtLoggerTests.log";
     private TxtLogger txtLogger;
 
     @Before

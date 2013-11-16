@@ -420,5 +420,3 @@ public class ViewModelTests {
         assertEquals(1, viewModel.getLog().size());
     }
 }
-
-
