@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    protected ViewModel viewModel;
 
     @Before
     public void setUp() {
@@ -25,6 +25,11 @@ public class ViewModelTests {
     public void tearDown() {
         viewModel = null;
     }
+
+//    @Test
+//    public void intentionallyFailingTest() {
+//        fail("Hahaha");
+//    }
 
     @Test
     public void canSetDefaultValues() {
@@ -267,7 +272,7 @@ public class ViewModelTests {
         viewModel.calculate();
         String message = viewModel.getLog().get(0);
 
-        assertThat(message, matchesPattern("^" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
     }
 
     @Test
@@ -335,7 +340,7 @@ public class ViewModelTests {
         viewModel.setOperation(Operation.MULTIPLY);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern("^" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
     }
 
     @Test
@@ -353,7 +358,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
     }
 
     @Test
@@ -362,7 +367,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED
+        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED
                 + "Input arguments are: \\["
                 + viewModel.getRe1() + "; "
                 + viewModel.getIm1() + "; "
@@ -377,7 +382,7 @@ public class ViewModelTests {
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
     }
 
     @Test
@@ -385,7 +390,7 @@ public class ViewModelTests {
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
         assertEquals(1, viewModel.getLog().size());
     }
 
@@ -398,7 +403,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
         assertEquals(1, viewModel.getLog().size());
     }
 
