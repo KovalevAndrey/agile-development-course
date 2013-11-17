@@ -113,10 +113,10 @@ project(":elena-artemieva/View").name = "elena-artemieva-View"
 // Elena Tilkova
 include "elena-tilkova"
 project(":elena-tilkova").name = "elena-tilkova-Model"
-//include "elena-tilkova/ViewModel"
-//project(":elena-tilkova/ViewModel").name = "elena-tilkova-ViewModel"
-//include "elena-tilkova/View"
-//project(":elena-tilkova/View").name = "elena-tilkova-View"
+include "elena-tilkova/ViewModel"
+project(":elena-tilkova/ViewModel").name = "elena-tilkova-ViewModel"
+include "elena-tilkova/View"
+project(":elena-tilkova/View").name = "elena-tilkova-View"
 
 // Evgeniy Kapralov
 include "evgeniy-kapralov/Model"
