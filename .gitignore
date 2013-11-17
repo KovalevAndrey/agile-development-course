@@ -1,3 +1,7 @@
+# General
+*.log
+.DS_Store
+
 # Gradle
 .gradle
 build
