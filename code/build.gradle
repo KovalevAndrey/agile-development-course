@@ -20,7 +20,8 @@ subprojects {
 
     test {
         afterTest { desc, result ->
-            println "Test: [${desc.className.substring(13)}]: ${result.resultType} in ${desc.name}"
+            String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
+            println "[${suiteName}]: ${result.resultType} in ${desc.name}"
         }
     }
 }
