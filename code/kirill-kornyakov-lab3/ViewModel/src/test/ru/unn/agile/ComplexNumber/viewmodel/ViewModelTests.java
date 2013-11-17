@@ -26,11 +26,6 @@ public class ViewModelTests {
         viewModel = null;
     }
 
-//    @Test
-//    public void intentionallyFailingTest() {
-//        fail("Hahaha");
-//    }
-
     @Test
     public void canSetDefaultValues() {
         assertEquals("", viewModel.getRe1());
