@@ -28,8 +28,8 @@ public class ViewModelTests
     public void canSetDefaultValues()
     {
         assertEquals("", viewModel.inputNumber);
-        assertEquals(ViewModel.Systems.Binary, viewModel.inputSys);
-        assertEquals(ViewModel.Systems.Binary, viewModel.outputSys);
+        assertEquals(ViewModel.NumeralSystems.Binary, viewModel.inputSys);
+        assertEquals(ViewModel.NumeralSystems.Binary, viewModel.outputSys);
         assertEquals("", viewModel.result);
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
@@ -96,20 +96,20 @@ public class ViewModelTests
     @Test
     public void canGetSystemNumber()
     {
-        int system = ViewModel.Systems.Decimal.toInt();
+        int system = ViewModel.NumeralSystems.Decimal.toInt();
         assertEquals(10, system);
     }
 
     @Test
     public void canGetListOfSystems()
     {
-        ViewModel.Systems[] systems = ViewModel.Systems.values();
-        ViewModel.Systems[] currentSystems = new ViewModel.Systems[]
+        ViewModel.NumeralSystems[] systems = ViewModel.NumeralSystems.values();
+        ViewModel.NumeralSystems[] currentSystems = new ViewModel.NumeralSystems[]
                 {
-                    ViewModel.Systems.Binary,
-                    ViewModel.Systems.Octal,
-                    ViewModel.Systems.Decimal,
-                    ViewModel.Systems.Hexadecimal
+                    ViewModel.NumeralSystems.Binary,
+                    ViewModel.NumeralSystems.Octal,
+                    ViewModel.NumeralSystems.Decimal,
+                    ViewModel.NumeralSystems.Hexadecimal
                 };
         assertArrayEquals(currentSystems, systems);
     }
@@ -117,8 +117,8 @@ public class ViewModelTests
     @Test
     public void canCompareSystemsByName()
     {
-        assertEquals(ViewModel.Systems.Decimal, ViewModel.Systems.Decimal);
-        assertNotEquals(ViewModel.Systems.Decimal, ViewModel.Systems.Binary);
+        assertEquals(ViewModel.NumeralSystems.Decimal, ViewModel.NumeralSystems.Decimal);
+        assertNotEquals(ViewModel.NumeralSystems.Decimal, ViewModel.NumeralSystems.Binary);
     }
 
     @Test
@@ -133,35 +133,35 @@ public class ViewModelTests
     @Test
     public void canSetDecimalInputSystem()
     {
-        viewModel.inputSys = ViewModel.Systems.Decimal;
-        assertEquals(ViewModel.Systems.Decimal, viewModel.inputSys);
+        viewModel.inputSys = ViewModel.NumeralSystems.Decimal;
+        assertEquals(ViewModel.NumeralSystems.Decimal, viewModel.inputSys);
     }
 
     @Test
     public void canSetDecimalOutputSystem()
     {
-        viewModel.outputSys = ViewModel.Systems.Decimal;
-        assertEquals(ViewModel.Systems.Decimal, viewModel.outputSys);
+        viewModel.outputSys = ViewModel.NumeralSystems.Decimal;
+        assertEquals(ViewModel.NumeralSystems.Decimal, viewModel.outputSys);
     }
 
     @Test
     public void isDefaultInputSystemBinary()
     {
-        assertEquals(ViewModel.Systems.Binary, viewModel.inputSys);
+        assertEquals(ViewModel.NumeralSystems.Binary, viewModel.inputSys);
     }
 
     @Test
     public void isDefaultOutputSystemBinary()
     {
-        assertEquals(ViewModel.Systems.Binary, viewModel.outputSys);
+        assertEquals(ViewModel.NumeralSystems.Binary, viewModel.outputSys);
     }
 
     @Test
     public void canPerformCalcAction()
     {
         viewModel.inputNumber = "3";
-        viewModel.inputSys = ViewModel.Systems.Decimal;
-        viewModel.outputSys = ViewModel.Systems.Binary;
+        viewModel.inputSys = ViewModel.NumeralSystems.Decimal;
+        viewModel.outputSys = ViewModel.NumeralSystems.Binary;
 
         viewModel.calculate();
 

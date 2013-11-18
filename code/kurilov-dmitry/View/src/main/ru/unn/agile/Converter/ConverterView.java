@@ -12,8 +12,8 @@ public class ConverterView
 {
     private JPanel MainPanel;
     private ViewModel viewModel;
-    private JComboBox<ViewModel.Systems> fromComboBox;
-    private JComboBox<ViewModel.Systems> toComboBox;
+    private JComboBox<ViewModel.NumeralSystems> fromComboBox;
+    private JComboBox<ViewModel.NumeralSystems> toComboBox;
     private JButton calculateButton;
     private JTextField inputTextField;
     private JLabel statusLabel;
@@ -68,18 +68,18 @@ public class ConverterView
 
     private void loadListOfSystems()
     {
-        Systems[] system = Systems.values();
-        fromComboBox.setModel(new JComboBox<ViewModel.Systems>(system).getModel());
-        toComboBox.setModel(new JComboBox<ViewModel.Systems>(system).getModel());
+        NumeralSystems[] system = NumeralSystems.values();
+        fromComboBox.setModel(new JComboBox<ViewModel.NumeralSystems>(system).getModel());
+        toComboBox.setModel(new JComboBox<ViewModel.NumeralSystems>(system).getModel());
     }
 
     public void bind()
     {
         viewModel.inputNumber = inputTextField.getText();
 
-        viewModel.inputSys = (ViewModel.Systems) fromComboBox.getSelectedItem();
+        viewModel.inputSys = (ViewModel.NumeralSystems) fromComboBox.getSelectedItem();
 
-        viewModel.outputSys = (ViewModel.Systems) toComboBox.getSelectedItem();
+        viewModel.outputSys = (ViewModel.NumeralSystems) toComboBox.getSelectedItem();
 
         viewModel.result = resultTextField.getText();
         viewModel.status = statusLabel.getText();

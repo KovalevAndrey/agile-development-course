@@ -5,8 +5,8 @@ public class ViewModel
     public static final int ENTER_CODE = 10;
     public String inputNumber = "";
     public String result = "";
-    public Systems inputSys = Systems.Binary;
-    public Systems outputSys = Systems.Binary;
+    public NumeralSystems inputSys = NumeralSystems.Binary;
+    public NumeralSystems outputSys = NumeralSystems.Binary;
     public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
 
@@ -73,7 +73,7 @@ public class ViewModel
         status = Status.SUCCESS;
     }
 
-    public enum Systems
+    public enum NumeralSystems
     {
         Binary(2),
         Octal(8),
@@ -81,7 +81,7 @@ public class ViewModel
         Hexadecimal(16);
         private final int sys;
 
-        private Systems(int system)
+        private NumeralSystems(int system)
         {
             this.sys = system;
         }
