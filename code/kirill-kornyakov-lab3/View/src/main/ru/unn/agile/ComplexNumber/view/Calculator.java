@@ -1,18 +1,17 @@
 package ru.unn.agile.ComplexNumber.view;
 
+import ru.unn.agile.ComplexNumber.infrastructure.TxtLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.util.List;
 
 public class Calculator {
     private JPanel mainPanel;
     private JButton btnCalc;
     private ViewModel viewModel;
-    // Fields to bind
+
     private JTextField txtZ1Re;
     private JTextField txtZ1Im;
     private JTextField txtZ2Re;
@@ -20,6 +19,7 @@ public class Calculator {
     private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
+    private JList<String> lstLog;
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -36,6 +36,14 @@ public class Calculator {
             }
         });
 
+        cbOperation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                backBind();
+            }
+        });
+
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 bind();
@@ -43,17 +51,29 @@ public class Calculator {
                 backBind();
             }
         };
-
         txtZ1Re.addKeyListener(keyListener);
         txtZ1Im.addKeyListener(keyListener);
         txtZ2Re.addKeyListener(keyListener);
         txtZ2Im.addKeyListener(keyListener);
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                bind();
+                Calculator.this.viewModel.focusLost();
+                backBind();
+            }
+        };
+        txtZ1Re.addFocusListener(focusLostListener);
+        txtZ1Im.addFocusListener(focusLostListener);
+        txtZ2Re.addFocusListener(focusLostListener);
+        txtZ2Im.addFocusListener(focusLostListener);
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
+        TxtLogger logger = new TxtLogger("./Calculator.log");
+        frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -64,27 +84,23 @@ public class Calculator {
         cbOperation.setModel(new JComboBox<ViewModel.Operation>(operations).getModel());
     }
 
-    public void bind() {
-        viewModel.re1 = txtZ1Re.getText();
-        viewModel.im1 = txtZ1Im.getText();
-        viewModel.re2 = txtZ2Re.getText();
-        viewModel.im2 = txtZ2Im.getText();
+    private void bind() {
+        viewModel.setRe1(txtZ1Re.getText());
+        viewModel.setIm1(txtZ1Im.getText());
+        viewModel.setRe2(txtZ2Re.getText());
+        viewModel.setIm2(txtZ2Im.getText());
 
-        viewModel.operation = (ViewModel.Operation) cbOperation.getSelectedItem();
-
-        viewModel.result = txtResult.getText();
-        viewModel.status = lbStatus.getText();
+        viewModel.setOperation((ViewModel.Operation) cbOperation.getSelectedItem());
     }
 
-    public void backBind() {
-        txtZ1Re.setText(viewModel.re1);
-        txtZ1Im.setText(viewModel.im1);
-        txtZ2Re.setText(viewModel.re2);
-        txtZ2Im.setText(viewModel.im2);
+    private void backBind() {
+        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled());
 
-        txtResult.setText(viewModel.result);
-        lbStatus.setText(viewModel.status);
+        txtResult.setText(viewModel.getResult());
+        lbStatus.setText(viewModel.getStatus());
 
-        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 }

@@ -83,4 +83,23 @@ public class ComplexNumberTests {
         ComplexNumber sum = z1.multiply(z2);
         assertEquals(new ComplexNumber(-5, 10), sum);
     }
+
+
+    @Test
+    public void canConvertStringToComplexNumber() {
+        String re = "10";
+        String im = "20";
+        ComplexNumber z = new ComplexNumber(re, im);
+
+        assertEquals(new ComplexNumber(10, 20), z);
+    }
+
+    @Test
+    public void canConvertScientificStringToComplexNumber() {
+        String re = "3.14";
+        String im = "-1e3";
+        ComplexNumber z = new ComplexNumber(re, im);
+
+        assertEquals(new ComplexNumber(3.14, -1e3), z);
+    }
 }
