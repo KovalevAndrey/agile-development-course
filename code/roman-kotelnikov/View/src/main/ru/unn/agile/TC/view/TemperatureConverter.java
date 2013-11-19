@@ -1,7 +1,7 @@
-package ru.unn.agile.TemperatureConverter.view;
+package ru.unn.agile.TC.view;
 
-import ru.unn.agile.TemperatureConverter.AvailableScales;
-import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
+import ru.unn.agile.TC.AvailableScales;
+import ru.unn.agile.TC.viewmodel.ViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

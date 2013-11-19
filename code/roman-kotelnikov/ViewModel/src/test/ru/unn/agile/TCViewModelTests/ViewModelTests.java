@@ -1,12 +1,12 @@
-package ru.unn.agile.TemperatureConverter.viewmodel;
+package ru.unn.agile.TCViewModelTests;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static ru.unn.agile.TemperatureConverter.AvailableScales.*;
-import static ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Status.*;
+import ru.unn.agile.TC.viewmodel.ViewModel;
+import static ru.unn.agile.TC.AvailableScales.*;
+import static ru.unn.agile.TC.viewmodel.ViewModel.Status.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;

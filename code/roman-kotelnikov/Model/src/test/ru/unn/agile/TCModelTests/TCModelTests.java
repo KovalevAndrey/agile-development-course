@@ -1,4 +1,4 @@
-package ru.unn.agile.TemperatureConverterTests;
+package ru.unn.agile.TCModelTests;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,10 +7,10 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
-import ru.unn.agile.TemperatureConverter.*;
-import static ru.unn.agile.TemperatureConverter.AvailableScales.*;
+import ru.unn.agile.TC.*;
+import static ru.unn.agile.TC.AvailableScales.*;
 
-public class TemperatureConverterTests {
+public class TCModelTests {
 
     private Temperature t;
     private final double DELTA = 1e-4;
