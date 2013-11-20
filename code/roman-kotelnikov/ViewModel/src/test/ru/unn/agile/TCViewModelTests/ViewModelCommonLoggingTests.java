@@ -42,7 +42,7 @@ public abstract class ViewModelCommonLoggingTests {
     }
 
     public void checkUserInputsLogging() {
-        viewModel.inputFocusLost();
+        viewModel.inputParametersChanged();
 
         String message = String.format(ILogger.Messages.LOG_INPUT_MESSAGE,
                 viewModel.input,

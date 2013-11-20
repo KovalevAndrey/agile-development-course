@@ -50,7 +50,7 @@ public class ViewModel {
         logger.putMessage(LOG_VIEW_MODEL_OK);
     }
 
-    public void inputFocusLost() {
+    public void inputParametersChanged() {
         String logMessage = String.format(LOG_INPUT_MESSAGE, input, inputScale, resultScale);
         status = String.format(Status.STATUS_INPUTS, input, inputScale, resultScale);
         logger.putMessage(logMessage);
