@@ -5,6 +5,7 @@ import ru.unn.agile.currencyConverter.*;
 public class CurrencyConverterViewModel {
     ICurrencyProvider provider;
     Currency[] actualCurrencies;
+    ILogger logger;
 
     private static String[] prepareComboboxData(Currency[] currencies){
         String[] currencyCharCodes = new String[currencies.length];
@@ -15,17 +16,25 @@ public class CurrencyConverterViewModel {
     }
 
     public CurrencyConverterViewModel() {
-        this(new ConstantCurrencyProvider());
+        this(new ConstantCurrencyProvider(), null);
     }
 
     public CurrencyConverterViewModel(ICurrencyProvider provider)
+    {
+        this(provider, null);
+    }
+
+    public CurrencyConverterViewModel(ICurrencyProvider provider, ILogger logger)
     {
         this.provider = provider;
         actualCurrencies = provider.getActualCurrencyCourse();
         comboBoxData = prepareComboboxData(actualCurrencies);
         toCurrencyMoneyAmount = "";
         moneyAmount = "";
+        this.logger = logger;
     }
+
+
 
     public String[] comboBoxData;
 

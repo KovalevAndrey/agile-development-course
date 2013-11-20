@@ -16,6 +16,7 @@ public class CurrencyConverterViewModelTest {
     @Test
     public void TestConstructing(){
         Assert.assertNotNull(viewModel.provider);
+        Assert.assertNull(viewModel.logger);
         Assert.assertNotNull(viewModel.actualCurrencies);
         Assert.assertNotNull(viewModel.comboBoxData);
         Assert.assertEquals(viewModel.comboBoxData.length, viewModel.actualCurrencies.length);
