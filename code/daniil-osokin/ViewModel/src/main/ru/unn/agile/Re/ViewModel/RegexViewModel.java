@@ -9,15 +9,21 @@ public class RegexViewModel
     public String text;
     public String status;
 
-
     private String lastPattern = Status.NOTHING_FOUND;
     private Regex regex;
+    private ILogger logger;
 
-    public RegexViewModel()
+    public RegexViewModel(ILogger logger)
     {
         pattern = "";
         text = "";
         status = "";
+
+        if(logger == null)
+        {
+            throw new RuntimeException("Logger is null");
+        }
+        this.logger = logger;
     }
 
     public void search()

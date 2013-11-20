@@ -1,5 +1,6 @@
 package ru.unn.agile.Re.view;
 
+import ru.unn.agile.Re.viewmodel.MockLogger;
 import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class SearchEngine
         }
 
         JFrame frame = new JFrame("SearchEngine");
-        frame.setContentPane(new SearchEngine(new RegexViewModel()).mainPanel);
+        frame.setContentPane(new SearchEngine(new RegexViewModel(new MockLogger())).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
