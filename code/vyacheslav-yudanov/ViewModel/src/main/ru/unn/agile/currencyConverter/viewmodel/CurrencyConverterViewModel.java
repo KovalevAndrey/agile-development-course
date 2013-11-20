@@ -34,14 +34,47 @@ public class CurrencyConverterViewModel {
         this.logger = logger;
     }
 
+    private String[] comboBoxData;
+    public String[] getComboBoxData()
+    {
+        return comboBoxData;
+    }
 
+    private String moneyAmount;
+    public String getMoneyAmount()
+    {
+        return  moneyAmount;
+    }
+    public void setMoneyAmount(String moneyAmount)
+    {
+        this.moneyAmount = moneyAmount;
+    }
 
-    public String[] comboBoxData;
+    private int fromCurrencyIndex;
+    public int getFromCurrencyIndex()
+    {
+        return fromCurrencyIndex;
+    }
+    public void setFromCurrencyIndex(int fromCurrencyIndex)
+    {
+        this.fromCurrencyIndex = fromCurrencyIndex;
+    }
 
-    public String moneyAmount;
-    public int fromCurrencyIndex;
-    public int toCurrencyIndex;
-    public String toCurrencyMoneyAmount;
+    private int toCurrencyIndex;
+    public int getToCurrencyIndex()
+    {
+        return toCurrencyIndex;
+    }
+    public void setToCurrencyIndex(int toCurrencyIndex)
+    {
+        this.toCurrencyIndex = toCurrencyIndex;
+    }
+
+    private String toCurrencyMoneyAmount;
+    public String getToCurrencyMoneyAmount()
+    {
+        return  toCurrencyMoneyAmount;
+    }
 
     public void convertBtnClick(){
         try

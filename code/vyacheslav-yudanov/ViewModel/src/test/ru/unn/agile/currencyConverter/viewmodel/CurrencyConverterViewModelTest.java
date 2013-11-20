@@ -18,66 +18,66 @@ public class CurrencyConverterViewModelTest {
         Assert.assertNotNull(viewModel.provider);
         Assert.assertNull(viewModel.logger);
         Assert.assertNotNull(viewModel.actualCurrencies);
-        Assert.assertNotNull(viewModel.comboBoxData);
-        Assert.assertEquals(viewModel.comboBoxData.length, viewModel.actualCurrencies.length);
-        Assert.assertEquals(viewModel.fromCurrencyIndex, 0);
-        Assert.assertEquals(viewModel.toCurrencyIndex, 0);
-        Assert.assertEquals(viewModel.moneyAmount, "");
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "");
+        Assert.assertNotNull(viewModel.getComboBoxData());
+        Assert.assertEquals(viewModel.getComboBoxData().length, viewModel.actualCurrencies.length);
+        Assert.assertEquals(viewModel.getFromCurrencyIndex(), 0);
+        Assert.assertEquals(viewModel.getToCurrencyIndex(), 0);
+        Assert.assertEquals(viewModel.getMoneyAmount(), "");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "");
     }
 
     @Test
     public void TestSimpleConversion(){
-        viewModel.moneyAmount = "1";
-        viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
-        viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
+        viewModel.setMoneyAmount("1");
+        viewModel.setToCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
+        viewModel.setFromCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "1.0");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "1.0");
     }
 
     @Test
     public void TestSimpleConversionWithPointNumber(){
-        viewModel.moneyAmount = "1.0";
-        viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
-        viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
+        viewModel.setMoneyAmount("1.0");
+        viewModel.setToCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
+        viewModel.setFromCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "1.0");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "1.0");
     }
 
     @Test
     public void TestSimpleConversionWithCommaNumber(){
-        viewModel.moneyAmount = "1,0";
-        viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
-        viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
+        viewModel.setMoneyAmount("1,0");
+        viewModel.setToCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
+        viewModel.setFromCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "1.0");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "1.0");
     }
 
     @Test
     public void TestSimpleConversionWithDifferentCurrencies(){
-        viewModel.moneyAmount = "1.0";
-        viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
-        viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.RUB.toInt();
+        viewModel.setMoneyAmount("1.0");
+        viewModel.setFromCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
+        viewModel.setToCurrencyIndex(ConstantCurrencyProvider.Indexes.RUB.toInt());
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "32.2133");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "32.2133");
     }
 
     @Test
     public void TestMoneyAmountWithTwoPoints(){
-        viewModel.moneyAmount = "1.1.0";
-        viewModel.fromCurrencyIndex = ConstantCurrencyProvider.Indexes.USD.toInt();
-        viewModel.toCurrencyIndex = ConstantCurrencyProvider.Indexes.RUB.toInt();
+        viewModel.setMoneyAmount("1.1.0");
+        viewModel.setFromCurrencyIndex(ConstantCurrencyProvider.Indexes.USD.toInt());
+        viewModel.setToCurrencyIndex(ConstantCurrencyProvider.Indexes.RUB.toInt());
 
         viewModel.convertBtnClick();
 
-        Assert.assertEquals(viewModel.toCurrencyMoneyAmount, "Your input number is incorrect, please correct it.");
+        Assert.assertEquals(viewModel.getToCurrencyMoneyAmount(), "Your input number is incorrect, please correct it.");
     }
 }

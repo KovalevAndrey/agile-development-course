@@ -34,19 +34,19 @@ public class CurrencyConverter {
     }
 
     public void bindBack(){
-        cmbFromCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.comboBoxData));
-        cmbToCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.comboBoxData));
-        cmbFromCurrency.setSelectedIndex(viewModel.fromCurrencyIndex);
-        cmbToCurrency.setSelectedIndex(viewModel.toCurrencyIndex);
+        cmbFromCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.getComboBoxData()));
+        cmbToCurrency.setModel(new DefaultComboBoxModel<String>(viewModel.getComboBoxData()));
+        cmbFromCurrency.setSelectedIndex(viewModel.getFromCurrencyIndex());
+        cmbToCurrency.setSelectedIndex(viewModel.getToCurrencyIndex());
 
-        txtConvertResult.setText(viewModel.toCurrencyMoneyAmount);
-        txtFromCurrencyAmount.setText(viewModel.moneyAmount);
+        txtConvertResult.setText(viewModel.getToCurrencyMoneyAmount());
+        txtFromCurrencyAmount.setText(viewModel.getMoneyAmount());
     }
 
     public void bind(){
-        viewModel.fromCurrencyIndex = cmbFromCurrency.getSelectedIndex();
-        viewModel.toCurrencyIndex = cmbToCurrency.getSelectedIndex();
-        viewModel.moneyAmount = txtFromCurrencyAmount.getText();
+        viewModel.setFromCurrencyIndex(cmbFromCurrency.getSelectedIndex());
+        viewModel.setToCurrencyIndex(cmbToCurrency.getSelectedIndex());
+        viewModel.setMoneyAmount(txtFromCurrencyAmount.getText());
     }
 
     private JPanel mainPanel;
