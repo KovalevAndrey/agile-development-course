@@ -183,8 +183,8 @@ include "roman-kotelnikov/ViewModel"
 project(":roman-kotelnikov/ViewModel").name = "roman-kotelnikov-ViewModel"
 include "roman-kotelnikov/View"
 project(":roman-kotelnikov/View").name = "roman-kotelnikov-View"
-include "roman-kotelnikov-lab3/Infrastructure"
-project(":roman-kotelnikov-lab3/Infrastructure").name = "roman-kotelnikov-Infrastructure"
+include "roman-kotelnikov/Infrastructure"
+project(":roman-kotelnikov/Infrastructure").name = "roman-kotelnikov-Infrastructure"
 
 // Roman Pavlov
 include "roman-pavlov/Model"

@@ -8,13 +8,13 @@ public class FakeLogger implements ILogger {
     ArrayList<String> log = new ArrayList<String>();
 
     @Override
-    public void puts(LoggerConstant message) {
-        log.add(message.toString());
+    public void putMessage(String message) {
+        log.add(message);
     }
 
     @Override
-    public void putsString(String message) {
-        log.add(message);
+    public void putError(Errors message) {
+        log.add(message.toString());
     }
 
     @Override
@@ -24,6 +24,8 @@ public class FakeLogger implements ILogger {
     
     @Override
     public String getLastMessage() {
-        return log.get(log.size() - 1);
+        int size = log.size();
+
+        return size > 0 ? log.get(size - 1) : "";
     }
 }

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class TemperatureConverter {
     private ViewModel viewModel;
+    private static final String logFilename = "TemperatureConverterLog.txt";
 
     private JPanel mainPanel;
     private JTextField txtTempValue;
@@ -37,7 +38,7 @@ public class TemperatureConverter {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Temperature converter");
 
-        frame.setContentPane(new TemperatureConverter(new ViewModel(new TxtLogger())).mainPanel);
+        frame.setContentPane(new TemperatureConverter(new ViewModel(new TxtLogger(logFilename))).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
