@@ -1,6 +1,7 @@
 package ru.unn.agile.TC.view;
 
 import ru.unn.agile.TC.AvailableScales;
+import ru.unn.agile.TC.infrastructure.TxtLogger;
 import ru.unn.agile.TC.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -36,7 +37,7 @@ public class TemperatureConverter {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Temperature converter");
 
-        frame.setContentPane(new TemperatureConverter(new ViewModel()).mainPanel);
+        frame.setContentPane(new TemperatureConverter(new ViewModel(new TxtLogger())).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
