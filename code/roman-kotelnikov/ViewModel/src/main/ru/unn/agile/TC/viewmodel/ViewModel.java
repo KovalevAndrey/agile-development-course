@@ -16,7 +16,11 @@ public class ViewModel {
     public String status = "";
 
     public ViewModel(ILogger logger) {
+        if(logger == null)
+            throw new IllegalArgumentException();
+
         this.logger = logger;
+
         input = "0.0";
         inputScale = AvailableScales.Celsius;
         result = "";
@@ -50,7 +54,7 @@ public class ViewModel {
         logger.putMessage(LOG_VIEW_MODEL_OK);
     }
 
-    public void inputFocusLost() {
+    public void inputParametersChanged() {
         String logMessage = String.format(LOG_INPUT_MESSAGE, input, inputScale, resultScale);
         status = String.format(Status.STATUS_INPUTS, input, inputScale, resultScale);
         logger.putMessage(logMessage);

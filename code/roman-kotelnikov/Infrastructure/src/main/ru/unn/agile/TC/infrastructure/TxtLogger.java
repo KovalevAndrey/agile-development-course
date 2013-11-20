@@ -16,6 +16,9 @@ public class TxtLogger implements ILogger {
 
 
     public TxtLogger(String filename) {
+        if(filename == null || filename.isEmpty())
+            throw new IllegalArgumentException();
+
         this.filename = filename;
         lastMessageBuffer = "";
 

@@ -1,16 +1,21 @@
 package ru.unn.agile.TCViewModelTests;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import org.junit.rules.ExpectedException;
 import ru.unn.agile.TC.viewmodel.ViewModel;
 import static ru.unn.agile.TC.AvailableScales.*;
 import static ru.unn.agile.TC.viewmodel.ViewModel.Status.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() {
@@ -68,5 +73,11 @@ public class ViewModelTests {
         viewModel.convert();
 
         assertEquals(STATUS_RESULT_SCALE_NULL, viewModel.status);
+    }
+
+    @Test
+    public void canHandleNullLogger() {
+        exception.expect(IllegalArgumentException.class);
+        viewModel = new ViewModel(null);
     }
 }

@@ -7,6 +7,8 @@ import ru.unn.agile.TC.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class TemperatureConverter {
     private ViewModel viewModel;
@@ -33,6 +35,34 @@ public class TemperatureConverter {
                 backBind();
             }
         });
+
+        cbInputScale.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                TemperatureConverter.this.viewModel.inputParametersChanged();
+                backBind();
+            }
+        });
+
+        cbResultScale.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                TemperatureConverter.this.viewModel.inputParametersChanged();
+                backBind();
+            }
+        });
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                bind();
+                TemperatureConverter.this.viewModel.inputParametersChanged();
+                backBind();
+            }
+        };
+
+        txtTempValue.addFocusListener(focusLostListener);
     }
 
     public static void main(String[] args) {
