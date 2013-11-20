@@ -22,7 +22,7 @@ public class FakeLogger implements ILogger {
 
     @Override
     public void logError(String message) {
-        log.add(message);
+        log.add("ERROR: " + message);
     }
 
     @Override

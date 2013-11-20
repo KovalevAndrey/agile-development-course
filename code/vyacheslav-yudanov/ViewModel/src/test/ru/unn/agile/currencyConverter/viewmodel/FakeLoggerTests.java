@@ -55,7 +55,7 @@ public class FakeLoggerTests {
 
         logger.logError(message);
 
-        Assert.assertEquals(message, logger.getLastLogMessage());
+        Assert.assertEquals("ERROR: " + message, logger.getLastLogMessage());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class FakeLoggerTests {
         logger.setLogLevel(LoggingLevel.Release);
         logger.logError(message);
 
-        Assert.assertEquals(message, logger.getLastLogMessage());
+        Assert.assertEquals("ERROR: " + message, logger.getLastLogMessage());
     }
 
     @Test

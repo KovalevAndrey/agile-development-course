@@ -48,6 +48,9 @@ public class CurrencyConverterViewModel {
     public void setMoneyAmount(String moneyAmount)
     {
         this.moneyAmount = moneyAmount;
+
+        if(logger != null)
+            logger.logMessage("moneyAmount was set to: " + moneyAmount);
     }
 
     private int fromCurrencyIndex;
@@ -58,6 +61,9 @@ public class CurrencyConverterViewModel {
     public void setFromCurrencyIndex(int fromCurrencyIndex)
     {
         this.fromCurrencyIndex = fromCurrencyIndex;
+
+        if(logger != null)
+            logger.logMessage("fromCurrencyIndex was set to: " + fromCurrencyIndex);
     }
 
     private int toCurrencyIndex;
@@ -68,6 +74,9 @@ public class CurrencyConverterViewModel {
     public void setToCurrencyIndex(int toCurrencyIndex)
     {
         this.toCurrencyIndex = toCurrencyIndex;
+
+        if(logger != null)
+            logger.logMessage("toCurrencyIndex was set to: " + toCurrencyIndex);
     }
 
     private String toCurrencyMoneyAmount;
@@ -84,9 +93,19 @@ public class CurrencyConverterViewModel {
             Money originalMoney = new Money(actualCurrencies[fromCurrencyIndex], moneyAmountNum);
             originalMoney.convertToCurrency(actualCurrencies[toCurrencyIndex]);
             toCurrencyMoneyAmount = Double.toString(originalMoney.getMoneyAmount());
+
+            if(logger != null){
+                String errorMessageFormat = "Convert success with parameters. moneyAmount = %s, toCurrencyIndex = %d, fromCurrencyIndex = %d";
+                logger.logMessage(String.format(errorMessageFormat, moneyAmount, toCurrencyIndex, fromCurrencyIndex));
+            }
         }
         catch(Exception ex){
                 toCurrencyMoneyAmount = "Your input number is incorrect, please correct it.";
+
+                if(logger != null){
+                    String errorMessageFormat = "Convert error with parameters. moneyAmount = %s, toCurrencyIndex = %d, fromCurrencyIndex = %d";
+                    logger.logError(String.format(errorMessageFormat, moneyAmount, toCurrencyIndex, fromCurrencyIndex));
+                }
         }
     }
 }
