@@ -8,13 +8,13 @@ import org.junit.Assert;
 public class NullSafeLoggerWrapperTest extends FakeLoggerTests{
 
     @Before
-    public  void init()
+    public  void SetUp()
     {
         logger = new NullSafeLoggerWrapper(new FakeLogger());
     }
 
     @After
-    public  void tearDown()
+    public  void CleanUp()
     {
         logger = null;
     }
