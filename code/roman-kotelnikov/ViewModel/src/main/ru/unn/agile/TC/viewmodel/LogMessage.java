@@ -41,7 +41,10 @@ public class LogMessage {
 
         @Override
         public String toString() {
-            return message;
+            if(code == 0)
+                return message;
+            else
+                return String.format("ERROR #%d:%s", code, message);
         }
 
         private final int code;

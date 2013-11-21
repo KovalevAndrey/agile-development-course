@@ -15,6 +15,18 @@ public class LogMessageTests {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
+    public void canGetPrettyInfo() {
+        assertEquals("Conversion result success",
+                LOG_INFO_VM_OK.toString());
+    }
+
+    @Test
+    public void canGetPrettyError() {
+        assertEquals("ERROR #1:User haven't selected input scale",
+                LOG_ERROR_INPUT_SCALE_IS_NULL.toString());
+    }
+
+    @Test
     public void canCreateLogMessage() {
         logMessage = new LogMessage(LOG_INFO_VM_OK);
 
