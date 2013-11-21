@@ -37,6 +37,10 @@ public final class LogFormat {
             throw  new IllegalArgumentException("Pattern cannot be empty");
 
 
+        return _isFormatOk(logMessage, pattern);
+    }
+
+    private static boolean _isFormatOk(String logMessage, String pattern) {
         String[] splitMessage = logMessage.split(DELIMITER);
         if(splitMessage.length != MESSAGE_FORMAT.split(DELIMITER).length)
             return false;
@@ -52,6 +56,4 @@ public final class LogFormat {
 
         return splitMessage[1].equals(pattern);
     }
-
-
 }

@@ -16,27 +16,26 @@ public class ViewModel {
 
     public ViewModel(ILogger logger) {
         if(logger == null)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Logger cannot be null");
 
         this.logger = logger;
     }
 
     public ViewModel() {
-        this.logger = null;
+        this.logger = new DummyLogger();
+        this.status = "Cannot create log file. Logging disabled.";
     }
 
     public void convert() {
         if (inputScale == null) {
             status = Status.STATUS_INPUT_SCALE_NULL;
-            if(logger != null)
-                logger.putMessage(new LogMessage(LOG_ERROR_INPUT_SCALE_IS_NULL));
+            logger.putMessage(new LogMessage(LOG_ERROR_INPUT_SCALE_IS_NULL));
             return;
         }
 
         if (resultScale == null) {
             status = Status.STATUS_RESULT_SCALE_NULL;
-            if(logger != null)
-                logger.putMessage(new LogMessage(LOG_ERROR_RESULT_SCALE_IS_NULL));
+            logger.putMessage(new LogMessage(LOG_ERROR_RESULT_SCALE_IS_NULL));
             return;
         }
 
@@ -45,20 +44,17 @@ public class ViewModel {
         }
         catch (NumberFormatException e) {
             status = Status.STATUS_WRONG_INPUT_STRING;
-            if(logger != null)
-                logger.putMessage(new LogMessage(LOG_ERROR_WRONG_INPUT_STRING));
+            logger.putMessage(new LogMessage(LOG_ERROR_WRONG_INPUT_STRING));
             return;
         }
 
         status = Status.STATUS_VIEW_MODEL_OK;
-        if(logger != null)
-            logger.putMessage(new LogMessage(LOG_INFO_VM_OK));
+        logger.putMessage(new LogMessage(LOG_INFO_VM_OK));
     }
 
     public void inputParametersChanged() {
         status = String.format(Status.STATUS_INPUTS, input, inputScale, resultScale);
-        if(logger != null)
-            logger.putMessage(new LogMessage(LOG_INFO_INPUT, input, inputScale, resultScale));
+        logger.putMessage(new LogMessage(LOG_INFO_INPUT, input, inputScale, resultScale));
     }
 
     private void _convert() {
@@ -66,8 +62,7 @@ public class ViewModel {
         Temperature t = new Temperature(_input, inputScale);
         result = t.scaleTo(resultScale).toString();
 
-        if(logger != null)
-            logger.putMessage(new LogMessage(LOG_INFO_CONVERT, t, result));
+        logger.putMessage(new LogMessage(LOG_INFO_CONVERT, t, result));
     }
 
     public class Status {

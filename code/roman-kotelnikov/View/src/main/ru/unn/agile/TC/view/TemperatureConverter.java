@@ -23,7 +23,7 @@ public class TemperatureConverter {
     private JTextField txtResult;
     private JLabel lbStatus;
 
-    public TemperatureConverter(ViewModel viewModel) {
+    public TemperatureConverter(final ViewModel viewModel) {
         this.viewModel = viewModel;
         loadAvailableScales();
         backBind();
@@ -40,26 +40,35 @@ public class TemperatureConverter {
         cbInputScale.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                bind();
-                TemperatureConverter.this.viewModel.inputParametersChanged();
-                backBind();
+                if (viewModel.inputScale != cbInputScale.getSelectedItem())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
             }
         });
 
         cbResultScale.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                bind();
-                TemperatureConverter.this.viewModel.inputParametersChanged();
-                backBind();
+                if (viewModel.resultScale != cbResultScale.getSelectedItem())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
             }
         });
 
         FocusAdapter focusLostListener = new FocusAdapter() {
             public void focusLost(FocusEvent e) {
-                bind();
-                TemperatureConverter.this.viewModel.inputParametersChanged();
-                backBind();
+                if (viewModel.input != e.toString())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
             }
         };
 
@@ -76,7 +85,6 @@ public class TemperatureConverter {
         }
         catch (IOException e) {
             tempViewModel = new ViewModel();
-            tempViewModel.status = "Cannot create log file. Logging disabled.";
         }
 
         frame.setContentPane((new TemperatureConverter(tempViewModel)).mainPanel);

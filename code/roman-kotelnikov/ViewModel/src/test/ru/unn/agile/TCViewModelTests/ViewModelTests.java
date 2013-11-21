@@ -84,6 +84,7 @@ public class ViewModelTests {
     @Test
     public void canHandleNullLogger() {
         exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Logger cannot be null");
         viewModel = new ViewModel(null);
     }
 }
