@@ -7,7 +7,7 @@ import org.junit.Assert;
 import ru.unn.agile.currencyConverter.*;
 
 public class FakeLoggerTests {
-     private FakeLogger logger;
+     protected ILogger logger;
 
     @Before
     public  void SetUp()
