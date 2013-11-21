@@ -27,6 +27,15 @@ public class ViewModel {
     }
 
     public void convert() {
+        try {
+            _convert();
+        }
+        catch (UnsupportedOperationException e) {
+            status = e.getMessage();
+        }
+    }
+
+    public void _convert() {
         if (inputScale == null) {
             status = Status.STATUS_INPUT_SCALE_NULL;
             logger.putMessage(new LogMessage(LOG_ERROR_INPUT_SCALE_IS_NULL));
@@ -40,7 +49,7 @@ public class ViewModel {
         }
 
         try {
-            _convert();
+            __convert();
         }
         catch (NumberFormatException e) {
             status = Status.STATUS_WRONG_INPUT_STRING;
@@ -57,7 +66,7 @@ public class ViewModel {
         logger.putMessage(new LogMessage(LOG_INFO_INPUT, input, inputScale, resultScale));
     }
 
-    private void _convert() {
+    private void __convert() {
         double _input = Double.parseDouble(input);
         Temperature t = new Temperature(_input, inputScale);
         result = t.scaleTo(resultScale).toString();
