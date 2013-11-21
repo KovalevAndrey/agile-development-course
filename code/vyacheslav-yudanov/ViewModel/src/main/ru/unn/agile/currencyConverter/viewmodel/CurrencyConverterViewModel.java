@@ -24,6 +24,11 @@ public class CurrencyConverterViewModel {
         this(provider, null);
     }
 
+    public CurrencyConverterViewModel(ILogger logger)
+    {
+        this(new ConstantCurrencyProvider(), logger);
+    }
+
     public CurrencyConverterViewModel(ICurrencyProvider provider, ILogger logger)
     {
         this.provider = provider;
