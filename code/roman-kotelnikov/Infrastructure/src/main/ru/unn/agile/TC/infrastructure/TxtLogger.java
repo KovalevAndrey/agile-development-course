@@ -1,52 +1,50 @@
 package ru.unn.agile.TC.infrastructure;
 
 import ru.unn.agile.TC.viewmodel.ILogger;
+import ru.unn.agile.TC.viewmodel.LogMessage;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static ru.unn.agile.TC.viewmodel.LogFormat.*;
 
 public class TxtLogger implements ILogger {
     private String filename;
     private BufferedWriter bufferedWriter;
     private String lastMessageBuffer;
 
-    private final static String MESSAGE_FORMAT = "%s > %s";
+    public TxtLogger(String filename) throws IOException{
+        if(filename == null)
+            throw new IllegalArgumentException("File name cannot be null");
 
-
-    public TxtLogger(String filename) {
-        if(filename == null || filename.isEmpty())
-            throw new IllegalArgumentException();
+        if(filename.isEmpty())
+            throw new IllegalArgumentException("File name cannot be empty");
 
         this.filename = filename;
         lastMessageBuffer = "";
 
-        try {
-            FileWriter fileWriter = new FileWriter(filename);
-            bufferedWriter = new BufferedWriter(fileWriter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        bufferedWriter = new BufferedWriter(new FileWriter(filename));
     }
 
     @Override
-    public void putMessage(String message) {
-        lastMessageBuffer = String.format(MESSAGE_FORMAT, now(), message);
-        tryWriteBuffer();
+    public void putMessage(LogMessage message) {
+        if(message == null)
+            throw new IllegalArgumentException("LogMessage cannot be null");
+
+        String formattedMessage = formatEntry(message);
+
+        boolean writeOk = tryWriteBuffer(formattedMessage);
+        if(writeOk)
+            lastMessageBuffer = formattedMessage;
+        else
+            throw new UnsupportedOperationException("Something wrong with file. Message wasn't logged.");
     }
 
     @Override
-    public void putError(Errors message) {
-        lastMessageBuffer = String.format(MESSAGE_FORMAT, now(), message.toString());
-        tryWriteBuffer();
-    }
-
-    @Override
-    public List<String> getLog() {
+    public List<String> getLog() throws IOException{
         BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();
-        try {
             reader = new BufferedReader(new FileReader(filename));
             String line = reader.readLine();
 
@@ -54,32 +52,28 @@ public class TxtLogger implements ILogger {
                 log.add(line);
                 line = reader.readLine();
             }
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
         return log;
     }
 
     @Override
     public String getLastMessage() {
+        if(lastMessageBuffer.isEmpty())
+            throw new UnsupportedOperationException("Cannot get last message of empty log");
+
         return lastMessageBuffer;
     }
 
-    private void tryWriteBuffer() {
+    private boolean tryWriteBuffer(String message) {
         try {
-            bufferedWriter.write(lastMessageBuffer);
+            bufferedWriter.write(message);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    private static String now() {
-        Date now = new Date();
-        return now.toString();
+            return true;
+        }
+        catch (IOException e) {
+            return false;
+        }
     }
 }

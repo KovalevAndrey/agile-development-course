@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.IOException;
 
 public class TemperatureConverter {
     private ViewModel viewModel;
@@ -68,7 +69,17 @@ public class TemperatureConverter {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Temperature converter");
 
-        frame.setContentPane(new TemperatureConverter(new ViewModel(new TxtLogger(logFilename))).mainPanel);
+        ViewModel tempViewModel;
+
+        try {
+            tempViewModel = new ViewModel(new TxtLogger(logFilename));
+        }
+        catch (IOException e) {
+            tempViewModel = new ViewModel();
+            tempViewModel.status = "Cannot create log file. Logging disabled.";
+        }
+
+        frame.setContentPane((new TemperatureConverter(tempViewModel)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

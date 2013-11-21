@@ -7,29 +7,35 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.junit.rules.ExpectedException;
+import ru.unn.agile.TC.viewmodel.ILogger;
 import ru.unn.agile.TC.viewmodel.ViewModel;
+
+import java.io.IOException;
+
 import static ru.unn.agile.TC.AvailableScales.*;
 import static ru.unn.agile.TC.viewmodel.ViewModel.Status.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+    private ILogger logger;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel(new FakeLogger());
+        logger = new FakeLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @Test
-    public void canInitializeWithDefaults() {
+    public void canInitializeWithDefaults() throws IOException {
         assertEquals("0.0", viewModel.input);
         assertEquals(Celsius, viewModel.inputScale);
         assertEquals("", viewModel.result);
         assertEquals(Fahrenheit, viewModel.resultScale);
 
-        assertEquals(0, viewModel.getLogger().getLog().size());
+        assertEquals(0, logger.getLog().size());
     }
 
     @Test

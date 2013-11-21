@@ -1,6 +1,8 @@
 package ru.unn.agile.TCViewModelTests;
 
 import ru.unn.agile.TC.viewmodel.ILogger;
+import ru.unn.agile.TC.viewmodel.LogFormat;
+import ru.unn.agile.TC.viewmodel.LogMessage;
 
 import java.util.ArrayList;
 
@@ -8,13 +10,11 @@ public class FakeLogger implements ILogger {
     ArrayList<String> log = new ArrayList<String>();
 
     @Override
-    public void putMessage(String message) {
-        log.add(message);
-    }
+    public void putMessage(LogMessage message) {
+        if(message == null)
+            throw new IllegalArgumentException("LogMessage cannot be null");
 
-    @Override
-    public void putError(Errors message) {
-        log.add(message.toString());
+        log.add(LogFormat.formatEntry(message));
     }
 
     @Override
@@ -25,7 +25,9 @@ public class FakeLogger implements ILogger {
     @Override
     public String getLastMessage() {
         int size = log.size();
+        if(size > 0)
+            return log.get(size - 1);
 
-        return size > 0 ? log.get(size - 1) : "";
+        throw new UnsupportedOperationException("Cannot get last message of empty log");
     }
 }

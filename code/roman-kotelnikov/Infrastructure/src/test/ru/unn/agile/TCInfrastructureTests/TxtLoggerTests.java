@@ -2,31 +2,30 @@ package ru.unn.agile.TCInfrastructureTests;
 
 import org.junit.Before;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import ru.unn.agile.TC.infrastructure.TxtLogger;
 import ru.unn.agile.TCViewModelTests.CommonLoggerTests;
 
+import java.io.IOException;
+
 public class TxtLoggerTests extends CommonLoggerTests {
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Before
-    public void setUp() {
+    public void setUp() throws IOException{
         logger = new TxtLogger("TxtLoggerTestLog.txt");
     }
 
     @Test
-    public void canHandleEmptyFileName() {
+    public void ensureEmptyFilenameExceptionThrown() throws IOException{
         exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("File name cannot be empty");
         logger = new TxtLogger("");
     }
 
     @Test
-    public void canHandleNullFileName() {
+    public void ensureNullFileNameExceptionThrown() throws IOException{
         exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("File name cannot be null");
         logger = new TxtLogger(null);
     }
 }

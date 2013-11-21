@@ -1,52 +1,50 @@
 package ru.unn.agile.TCViewModelTests;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import ru.unn.agile.TC.viewmodel.ILogger;
+import ru.unn.agile.TC.viewmodel.LogFormat;
+import ru.unn.agile.TC.viewmodel.LogMessage;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static ru.unn.agile.TC.viewmodel.ILogger.Errors.*;
+import static ru.unn.agile.TC.viewmodel.LogMessage.MessagePattern.*;
 
 public abstract class CommonLoggerTests {
     protected ILogger logger;
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
-    public void canInitializeEmpty() {
+    public void canInitializeEmpty() throws IOException {
         assertEquals(0, logger.getLog().size());
     }
 
     @Test
-    public void canPutMessage() {
-        String message = "Test message";
+    public void canPutMessage() throws IOException {
+        LogMessage message = new LogMessage(LOG_INFO_VM_OK);
         logger.putMessage(message);
 
-        assertTrue(logger.getLastMessage().contains(message));
-    }
-
-    @Test
-    public void ensureLogSizeOnPutMessage() {
-        logger.putMessage("msg");
-
+        assertTrue(LogFormat.isFormatOk(logger.getLastMessage(),
+                message.toString()));
         assertEquals(1, logger.getLog().size());
     }
 
     @Test
-    public void canPutError() {
-        logger.putError(LOG_ERROR_WRONG_INPUT_STRING);
-        String lastMessage = logger.getLastMessage();
-
-        assertTrue(lastMessage.contains(LOG_ERROR_WRONG_INPUT_STRING.toString()));
+    public void ensureMessageIsNullExceptionThrown() throws IOException{
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("LogMessage cannot be null");
+        logger.putMessage(null);
     }
 
     @Test
-    public void ensureLogSizeOnPutError() {
-        logger.putError(LOG_ERROR_RESULT_SCALE_IS_NULL);
-
-        assertEquals(1, logger.getLog().size());
-    }
-
-    @Test
-    public void canGetEmptyStringIfEmpty() {
-        assertEquals("", logger.getLastMessage());
+    public void ensureEmptyLogGetLastMessageExceptionThrown() throws IOException{
+        exception.expect(UnsupportedOperationException.class);
+        exception.expectMessage("Cannot get last message of empty log");
+        logger.getLastMessage();
     }
 }

@@ -3,8 +3,7 @@ package ru.unn.agile.TC.viewmodel;
 import ru.unn.agile.TC.AvailableScales;
 import ru.unn.agile.TC.Temperature;
 
-import static ru.unn.agile.TC.viewmodel.ILogger.Errors.*;
-import static ru.unn.agile.TC.viewmodel.ILogger.Messages.*;
+import static ru.unn.agile.TC.viewmodel.LogMessage.MessagePattern.*;
 
 public class ViewModel {
     private final ILogger logger;
@@ -20,24 +19,24 @@ public class ViewModel {
             throw new IllegalArgumentException();
 
         this.logger = logger;
+    }
 
-        input = "0.0";
-        inputScale = AvailableScales.Celsius;
-        result = "";
-        resultScale = AvailableScales.Fahrenheit;
-        status = "";
+    public ViewModel() {
+        this.logger = null;
     }
 
     public void convert() {
         if (inputScale == null) {
             status = Status.STATUS_INPUT_SCALE_NULL;
-            logger.putError(LOG_ERROR_INPUT_SCALE_IS_NULL);
+            if(logger != null)
+                logger.putMessage(new LogMessage(LOG_ERROR_INPUT_SCALE_IS_NULL));
             return;
         }
 
         if (resultScale == null) {
             status = Status.STATUS_RESULT_SCALE_NULL;
-            logger.putError(LOG_ERROR_RESULT_SCALE_IS_NULL);
+            if(logger != null)
+                logger.putMessage(new LogMessage(LOG_ERROR_RESULT_SCALE_IS_NULL));
             return;
         }
 
@@ -46,22 +45,20 @@ public class ViewModel {
         }
         catch (NumberFormatException e) {
             status = Status.STATUS_WRONG_INPUT_STRING;
-            logger.putError(LOG_ERROR_WRONG_INPUT_STRING);
+            if(logger != null)
+                logger.putMessage(new LogMessage(LOG_ERROR_WRONG_INPUT_STRING));
             return;
         }
 
         status = Status.STATUS_VIEW_MODEL_OK;
-        logger.putMessage(LOG_VIEW_MODEL_OK);
+        if(logger != null)
+            logger.putMessage(new LogMessage(LOG_INFO_VM_OK));
     }
 
     public void inputParametersChanged() {
-        String logMessage = String.format(LOG_INPUT_MESSAGE, input, inputScale, resultScale);
         status = String.format(Status.STATUS_INPUTS, input, inputScale, resultScale);
-        logger.putMessage(logMessage);
-    }
-
-    public ILogger getLogger() {
-        return logger;
+        if(logger != null)
+            logger.putMessage(new LogMessage(LOG_INFO_INPUT, input, inputScale, resultScale));
     }
 
     private void _convert() {
@@ -69,8 +66,8 @@ public class ViewModel {
         Temperature t = new Temperature(_input, inputScale);
         result = t.scaleTo(resultScale).toString();
 
-        String logMessage = String.format(LOG_CONVERT_MESSAGE, t, result);
-        logger.putMessage(logMessage);
+        if(logger != null)
+            logger.putMessage(new LogMessage(LOG_INFO_CONVERT, t, result));
     }
 
     public class Status {

@@ -8,7 +8,7 @@ public class ViewModelFakeLoggingTests extends ViewModelCommonLoggingTests {
 
     @Before
     public void setUp() {
-        FakeLogger logger = new FakeLogger();
+        logger = new FakeLogger();
         viewModel = new ViewModel(logger);
     }
 }
