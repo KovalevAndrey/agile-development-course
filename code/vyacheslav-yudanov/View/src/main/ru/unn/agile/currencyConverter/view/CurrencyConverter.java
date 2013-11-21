@@ -1,5 +1,6 @@
 package ru.unn.agile.currencyConverter.view;
 
+import ru.unn.agile.currencyConverter.infrastructure.TxtFileLogger;
 import ru.unn.agile.currencyConverter.viewmodel.CurrencyConverterViewModel;
 
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class CurrencyConverter {
     private CurrencyConverterViewModel viewModel;
 
     public CurrencyConverter(){
-        viewModel = new CurrencyConverterViewModel();
+        viewModel = new CurrencyConverterViewModel(new TxtFileLogger("currencyConverterLog.log"));
 
         convertButton.addActionListener(new ActionListener() {
             @Override

@@ -1,5 +1,6 @@
 dependencies {
     compile project(':vyacheslav-yudanov-ViewModel')
+    compile project(':vyacheslav-yudanov-Infrastructure')
 }
 
 sourceSets {
