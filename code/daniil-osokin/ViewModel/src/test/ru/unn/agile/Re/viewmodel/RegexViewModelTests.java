@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Re.model.ReError;
 
-import java.lang.reflect.Field;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
@@ -14,24 +12,11 @@ import static org.junit.Assert.*;
 public class RegexViewModelTests
 {
     private RegexViewModel viewModel;
-    private String TAG;
-    private ILogger logger;
 
     @Before
     public void setUp()
     {
         viewModel = new RegexViewModel(new MockLogger());
-
-        try
-        {
-            logger = getLogger("logger");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
-        }
-        TAG = getClass().getName();
     }
 
     @After
@@ -125,51 +110,5 @@ public class RegexViewModelTests
         viewModel.search();
 
         assertNotEquals(viewModel.status, previousStatus);
-    }
-
-    @Test
-    public void canCreateViewModelWithLogger()
-    {
-        viewModel = new RegexViewModel(new MockLogger());
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void throwRuntimeExceptionInConstructorWhenLoggerIsNull()
-    {
-        viewModel = new RegexViewModel(null);
-    }
-
-    private ILogger getLogger(String fieldName) throws NoSuchFieldException, IllegalAccessException
-    {
-        Field loggerField = viewModel.getClass().getDeclaredField(fieldName);
-        loggerField.setAccessible(true);
-        return (ILogger) loggerField.get(viewModel);
-    }
-
-    @Test
-    public void logIsEmptyAfterInitialization()
-    {
-        assertEquals(0, logger.getLog().size());
-    }
-
-    @Test
-    public void loggingInfoEntryIncrementsEmptyLogSize()
-    {
-        logger.i(TAG, "info entry");
-        assertEquals(1, logger.getLog().size());
-    }
-
-    @Test
-    public void loggingWarningEntryIncrementsEmptyLogSize()
-    {
-        logger.w(TAG, "warning entry");
-        assertEquals(1, logger.getLog().size());
-    }
-
-    @Test
-    public void loggingErrorEntryIncrementsEmptyLogSize()
-    {
-        logger.e(TAG, "error entry");
-        assertEquals(1, logger.getLog().size());
     }
 }

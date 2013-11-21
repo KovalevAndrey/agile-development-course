@@ -16,4 +16,20 @@ public class LogEntry
         this.tag = tag;
         this.text = text;
     }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
 }

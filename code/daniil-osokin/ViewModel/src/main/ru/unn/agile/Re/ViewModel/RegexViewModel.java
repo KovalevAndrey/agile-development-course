@@ -3,6 +3,9 @@ package ru.unn.agile.Re.viewmodel;
 import ru.unn.agile.Re.model.Re;
 import ru.unn.agile.Re.model.Regex;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegexViewModel
 {
     public String pattern;
@@ -12,12 +15,14 @@ public class RegexViewModel
     private String lastPattern = Status.NOTHING_FOUND;
     private Regex regex;
     private ILogger logger;
+    private Map<String, String> inputText;
 
     public RegexViewModel(ILogger logger)
     {
         pattern = "";
         text = "";
         status = "";
+        inputText = new HashMap<String, String>();
 
         if(logger == null)
         {
@@ -56,6 +61,24 @@ public class RegexViewModel
             statusMessage = Status.FIRST_OCCURRENCE_IS + firstOccurrence;
         }
         return statusMessage;
+    }
+
+    public void focusLost(String tag, String text)
+    {
+        if (text.equals(""))
+        {
+            logger.e(tag, "empty field");
+            return;
+        }
+        if (!text.equals(inputText.get(tag)))
+        {
+            inputText.put(tag, text);
+            logger.i(tag, text);
+        }
+        else
+        {
+            logger.w(tag, "value isn't change: " + text);
+        }
     }
 }
 

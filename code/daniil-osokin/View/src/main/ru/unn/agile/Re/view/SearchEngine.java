@@ -4,16 +4,14 @@ import ru.unn.agile.Re.viewmodel.MockLogger;
 import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.text.JTextComponent;
+import java.awt.event.*;
 
 import static javax.swing.UIManager.setLookAndFeel;
 
 public class SearchEngine
 {
-    public SearchEngine(RegexViewModel viewModel)
+    public SearchEngine(final RegexViewModel viewModel)
     {
         this.viewModel = viewModel;
         searchButton.addActionListener(new ActionListener()
@@ -26,8 +24,31 @@ public class SearchEngine
                 backBind();
             }
         });
-        patternTextField.addKeyListener(new DefaultKeyListener());
-        searchTextArea.addKeyListener(new DefaultKeyListener());
+
+        KeyAdapter defaultKeyListener = new KeyAdapter()
+        {
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                super.keyReleased(e);
+                updateButtonState();
+            }
+        };
+        patternTextField.addKeyListener(defaultKeyListener);
+        searchTextArea.addKeyListener(defaultKeyListener);
+
+        FocusAdapter defaultTextFocusAdapter = new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                super.focusLost(e);
+                JTextComponent component = (JTextComponent)e.getSource();
+                viewModel.focusLost(component.getClass().getName(), component.getText());
+            }
+        };
+        patternTextField.addFocusListener(defaultTextFocusAdapter);
+        searchTextArea.addFocusListener(defaultTextFocusAdapter);
     }
 
     private void bind()
@@ -62,36 +83,18 @@ public class SearchEngine
         frame.setVisible(true);
     }
 
-    private class DefaultKeyListener implements KeyListener
+    private void updateButtonState()
     {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            updateButtonState();
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            updateButtonState();
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            updateButtonState();
-        }
-
-        private void updateButtonState()
+        if (patternTextField.getText().equals("") || searchTextArea.getText().equals(""))
         {
-            if (patternTextField.getText().equals("") || searchTextArea.getText().equals(""))
+            if (searchButton.isEnabled())
             {
-                if (searchButton.isEnabled())
-                {
-                    searchButton.setEnabled(false);
-                }
+                searchButton.setEnabled(false);
             }
-            else if (!searchButton.isEnabled())
-            {
-                searchButton.setEnabled(true);
-            }
+        }
+        else if (!searchButton.isEnabled())
+        {
+            searchButton.setEnabled(true);
         }
     }
 
