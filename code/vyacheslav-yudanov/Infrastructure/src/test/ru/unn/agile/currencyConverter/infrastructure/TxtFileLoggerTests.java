@@ -13,7 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class TxtFileLoggerTests extends FakeLoggerTests{
-    private final String filename ="MyTestLog.txt";
+    private final String filename ="MyTestLog.log";
 
     @Before
     public  void SetUp()
