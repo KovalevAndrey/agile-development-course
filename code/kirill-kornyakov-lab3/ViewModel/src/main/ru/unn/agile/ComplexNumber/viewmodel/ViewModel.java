@@ -17,6 +17,9 @@ public class ViewModel {
     private ILogger logger;
 
     public ViewModel(ILogger logger) {
+        if(logger == null)
+            throw new IllegalArgumentException("Logger parameter can't ve null");
+
         this.logger = logger;
         re1 = "";
         im1 = "";
