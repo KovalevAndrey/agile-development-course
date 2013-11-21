@@ -14,32 +14,35 @@ public class RegexViewModel
 
     private String lastPattern = Status.NOTHING_FOUND;
     private Regex regex;
-    private ILogger logger;
+    private ILogger log;
     private Map<String, String> inputText;
 
-    public RegexViewModel(ILogger logger)
+    public RegexViewModel(ILogger log)
     {
         pattern = "";
         text = "";
         status = "";
         inputText = new HashMap<String, String>();
 
-        if(logger == null)
+        if(log == null)
         {
             throw new RuntimeException("Logger is null");
         }
-        this.logger = logger;
+        this.log = log;
     }
 
     public void search()
     {
+        final String TAG = "search";
         try
         {
             status = getStatusMessage(findFirstOccurrence());
+            log.i(TAG, status);
         }
         catch (Exception e)
         {
             status = e.getMessage();
+            log.e(TAG, status);
         }
     }
 
@@ -67,17 +70,17 @@ public class RegexViewModel
     {
         if (text.equals(""))
         {
-            logger.e(tag, "empty field");
+            log.e(tag, "empty field");
             return;
         }
         if (!text.equals(inputText.get(tag)))
         {
             inputText.put(tag, text);
-            logger.i(tag, text);
+            log.i(tag, text);
         }
         else
         {
-            logger.w(tag, "value isn't change: " + text);
+            log.w(tag, "value isn't change: " + text);
         }
     }
 }
