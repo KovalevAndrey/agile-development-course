@@ -18,7 +18,7 @@ public class StackGUI
     private JLabel lbStatus;
     private JLabel lbTopElement;
     private JPanel mainPanel;
-    private JList lstLog;
+    private JList<String> lstLog;
 
     private ViewModelStack viewModelStack;
 
