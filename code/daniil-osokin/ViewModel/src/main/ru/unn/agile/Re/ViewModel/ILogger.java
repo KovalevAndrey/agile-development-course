@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface ILogger
 {
-    static final int INFO  = 0;
-    static final int WARN  = 1;
-    static final int ERROR = 2;
+    static final String INFO  = "INFO";
+    static final String WARN  = "WARNING";
+    static final String ERROR = "ERROR";
 
     void i(String tag, String text);
     void w(String tag, String text);

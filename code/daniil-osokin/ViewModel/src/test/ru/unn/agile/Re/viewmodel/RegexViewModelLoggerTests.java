@@ -12,11 +12,11 @@ import static org.junit.Assert.*;
 
 public class RegexViewModelLoggerTests
 {
-    private RegexViewModel viewModel;
-    private String TAG;
-    private ILogger log;
-    private String pattern;
-    private String text;
+    protected RegexViewModel viewModel;
+    protected String TAG;
+    protected ILogger log;
+    protected String pattern;
+    protected String text;
 
     @Before
     public void setUp()
@@ -57,7 +57,7 @@ public class RegexViewModelLoggerTests
         viewModel = new RegexViewModel(null);
     }
 
-    private ILogger getLogger(String fieldName) throws NoSuchFieldException, IllegalAccessException
+    protected ILogger getLogger(String fieldName) throws NoSuchFieldException, IllegalAccessException
     {
         Field loggerField = viewModel.getClass().getDeclaredField(fieldName);
         loggerField.setAccessible(true);
@@ -111,7 +111,7 @@ public class RegexViewModelLoggerTests
         String text = "";
         viewModel.text = text;
         viewModel.focusLost(TAG, text);
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.ERROR)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.ERROR)));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class RegexViewModelLoggerTests
     public void logInfoEntryWhenFieldContentIsChanged()
     {
         viewModel.focusLost(TAG, text);
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.INFO)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.INFO)));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class RegexViewModelLoggerTests
     {
         viewModel.focusLost(TAG, text);
         viewModel.focusLost(TAG, text);
-        assertThat(log.getLog().get(1).getPriority(), is(equalTo(ILogger.WARN)));
+        assertThat(log.getLog().get(1).getType(), is(equalTo(ILogger.WARN)));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class RegexViewModelLoggerTests
     {
         viewModel.pattern = "{1}a?";
         viewModel.search();
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.ERROR)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.ERROR)));
     }
 
     @Test
@@ -154,7 +154,7 @@ public class RegexViewModelLoggerTests
         viewModel.pattern = "{1}a";
         viewModel.text = "cat";
         viewModel.search();
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.INFO)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.INFO)));
     }
 
     @Test
@@ -163,6 +163,6 @@ public class RegexViewModelLoggerTests
         viewModel.pattern = "{1}a";
         viewModel.text = "dog";
         viewModel.search();
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.INFO)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.INFO)));
     }
 }

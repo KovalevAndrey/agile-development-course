@@ -53,21 +53,21 @@ public class TxtLoggerTests
     public void logInfoEntry()
     {
         log.i(tag, text);
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.INFO)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.INFO)));
     }
 
     @Test
     public void logWarnEntry()
     {
         log.w(tag, text);
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.WARN)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.WARN)));
     }
 
     @Test
     public void logErrorEntry()
     {
         log.e(tag, text);
-        assertThat(log.getLog().get(0).getPriority(), is(equalTo(ILogger.ERROR)));
+        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.ERROR)));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class TxtLoggerTests
 
     private void sanityCheckLogEntry(LogEntry actualLogEntry, LogEntry expectedLogEntry)
     {
-        assertThat(actualLogEntry.getPriority(), is(equalTo(expectedLogEntry.getPriority())));
+        assertThat(actualLogEntry.getType(), is(equalTo(expectedLogEntry.getType())));
         assertThat(actualLogEntry.getDate(), is(equalTo(expectedLogEntry.getDate())));
         assertThat(actualLogEntry.getTag(), is(equalTo(expectedLogEntry.getTag())));
         assertThat(actualLogEntry.getText(), is(equalTo(expectedLogEntry.getText())));

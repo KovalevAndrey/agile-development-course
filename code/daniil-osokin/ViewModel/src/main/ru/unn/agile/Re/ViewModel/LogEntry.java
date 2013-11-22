@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class LogEntry
 {
-    private final int priority;
+    private final String type;
     private final Date date;
     private final String tag;
     private final String text;
 
-    public LogEntry(int priority, Date date, String tag, String text)
+    public LogEntry(String type, Date date, String tag, String text)
     {
-        this.priority = priority;
+        this.type = type;
         this.date = date;
         this.tag = tag;
         this.text = text;
@@ -29,7 +29,7 @@ public class LogEntry
         return date;
     }
 
-    public int getPriority() {
-        return priority;
+    public String getType() {
+        return type;
     }
 }

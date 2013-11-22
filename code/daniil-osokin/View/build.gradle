@@ -1,5 +1,6 @@
 dependencies {
     compile project(':daniil-osokin-ViewModel')
+    compile project(':daniil-osokin-Infrastructure')
 }
 
 sourceSets {
