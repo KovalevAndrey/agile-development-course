@@ -87,6 +87,8 @@ include "daniil-osokin/ViewModel"
 project(":daniil-osokin/ViewModel").name = "daniil-osokin-ViewModel"
 include "daniil-osokin/View"
 project(":daniil-osokin/View").name = "daniil-osokin-View"
+include "daniil-osokin/Infrastructure"
+project(":daniil-osokin/Infrastructure").name = "daniil-osokin-Infrastructure"
 
 // Dinar Ahmatnurov
 include "dinar-ahmatnurov/Model"
