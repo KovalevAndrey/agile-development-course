@@ -1,8 +1,9 @@
 dependencies {
     compile project(':zoya-maslova-ViewModel')
-    compile project(':zoya-maslova-Infrastructure')
+    testCompile project(':zoya-maslova-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
     main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }

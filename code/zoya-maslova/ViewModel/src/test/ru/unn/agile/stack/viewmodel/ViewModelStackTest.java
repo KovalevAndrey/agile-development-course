@@ -1,18 +1,26 @@
 package ru.unn.agile.stack.viewmodel;
 
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ViewModelStackTest {
 
-    private  ViewModelStack viewModel;
+    protected ViewModelStack viewModel;
 
     @Before
     public void setUp()
     {
-        viewModel=new ViewModelStack();
+        FakeLogger logger = new FakeLogger();
+        viewModel = new ViewModelStack(logger);
     }
 
     @After
@@ -123,9 +131,124 @@ public class ViewModelStackTest {
         assertEquals("", viewModel.topElement);
     }
 
+    @Test
+    public void canCreateViewModelStackWithLogger()
+    {
+        FakeLogger logger = new FakeLogger();
+        ViewModelStack viewModelLogged = new ViewModelStack(logger);
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test
+    public void ifCreateViewModelStackWithEmptyLogger()
+    {
+        try
+        {
+            viewModel = new ViewModelStack(null);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void isLogEmptyWhenLogIsCreated()
+    {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
+    }
+
+    @Test
+    public void isLogNotEmptyWhenOneElementPushed()
+    {
+        pushToStack("8");
+        List<String> log = viewModel.getLog();
+        assertNotEquals(0, log.size());
+    }
+
+    @Test
+    public void isLogNotEmptyWhenPopActionPerformed()
+    {
+        viewModel.popPushAction();
+        assertNotEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isLogNotEmptyWhenTopActionPerformed()
+    {
+        viewModel.topPushAction();
+        assertNotEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void canWriteToLogOneElementPushed()
+    {
+        pushToStack("9");
+        assertEqualsWithDate("tried to push",viewModel.getLog().get(0).toString());
+        assertEqualsWithDate("pushed",viewModel.getLog().get(1).toString());
+    }
+
+    @Test
+    public void canWriteToLogNotOneElementPushed()
+    {
+        pushToStack("9,5,7");
+        assertEqualsWithDate("tried to push",viewModel.getLog().get(0).toString());
+        assertEqualsWithDate("pushed",viewModel.getLog().get(1).toString());
+    }
+
+    @Test
+    public void canWriteToLogTooManyElementsCanNotPushed()
+    {
+        pushToStack("9,5,1,7,4,9,3,6,3,7,8,2");
+        assertEqualsWithDate("tried to push",viewModel.getLog().get(0).toString());
+        assertEqualsWithDate("not pushed",viewModel.getLog().get(1).toString());
+    }
+
+    @Test
+    public void canWriteToLogTopElementToppedFromNotEmptyStack()
+    {
+        pushToStack("8");
+        viewModel.topPushAction();
+        assertEqualsWithDate("tried to top",viewModel.getLog().get(2).toString());
+        assertEqualsWithDate("topped",viewModel.getLog().get(3).toString());
+    }
+
+    @Test
+    public void canWriteToLogTopElementCanNotToppedFromEmptyStack()
+    {
+        viewModel.topPushAction();
+        assertEqualsWithDate("tried to top",viewModel.getLog().get(0).toString());
+        assertEqualsWithDate("not topped",viewModel.getLog().get(1).toString());
+    }
+
+    @Test
+    public void canWriteToLogTopElementPoppedFromNotEmptyStack()
+    {
+        pushToStack("8");
+        viewModel.popPushAction();
+        assertEqualsWithDate("tried to pop",viewModel.getLog().get(2).toString());
+        assertEqualsWithDate("popped",viewModel.getLog().get(3).toString());
+    }
+
+    @Test
+    public void canWriteToLogTopElementCanNotPoppedFromEmptyStack()
+    {
+        viewModel.popPushAction();
+        assertEqualsWithDate("tried to pop",viewModel.getLog().get(0).toString());
+        assertEqualsWithDate("not popped",viewModel.getLog().get(1).toString());
+    }
+
     private void pushToStack(String inputString)
     {
         viewModel.input = inputString;
         viewModel.pushPushAction();
+    }
+
+    private void assertEqualsWithDate(String testString, String output)
+    {
+        Pattern pattern = Pattern.compile(".*" + testString + "$");
+        Matcher matcher = pattern.matcher(output);
+        assertEquals(true, matcher.matches());
     }
 }
