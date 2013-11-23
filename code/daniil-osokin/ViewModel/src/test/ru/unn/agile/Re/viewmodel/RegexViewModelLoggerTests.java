@@ -57,7 +57,7 @@ public class RegexViewModelLoggerTests
         viewModel = new RegexViewModel(null);
     }
 
-    private ILogger getLogger(String fieldName) throws NoSuchFieldException, IllegalAccessException
+    protected ILogger getLogger(String fieldName) throws NoSuchFieldException, IllegalAccessException
     {
         Field loggerField = viewModel.getClass().getDeclaredField(fieldName);
         loggerField.setAccessible(true);

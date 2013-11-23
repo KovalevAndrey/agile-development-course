@@ -17,7 +17,6 @@ public class RegexViewModel
     private Regex regex;
     private ILogger log;
     private Map<String, String> inputText;
-    private static final String DATE_FORMAT_NOW = "HH:mm:ss yyyy-MM-dd";
 
     public RegexViewModel(ILogger log)
     {

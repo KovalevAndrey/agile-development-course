@@ -8,7 +8,7 @@ public class ViewModelWithTxtLoggerTests extends RegexViewModelLoggerTests
     @Override
     public void setUp()
     {
-        viewModel = new RegexViewModel(new TxtLogger("./ViewModelWithTxtLoggerTests.log"));
+        viewModel = new RegexViewModel(new TxtLogger("ViewModelWithTxtLoggerTests.log"));
         pattern = "{2}a";
         viewModel.pattern = pattern;
         text = "simple text";
@@ -16,7 +16,7 @@ public class ViewModelWithTxtLoggerTests extends RegexViewModelLoggerTests
 
         try
         {
-            log = new TxtLogger("ViewModelWithTxtLoggerTests.log");
+            log = getLogger("log");
         }
         catch (Exception e)
         {
