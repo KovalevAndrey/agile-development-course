@@ -59,6 +59,7 @@ public class SearchEngine
 
         logTableModel = new LogTableModel();
         logTable.setModel(logTableModel);
+        logTable.getColumnModel().getColumn(0).setPreferredWidth(40);
         logTable.setDefaultRenderer(Object.class, new LogTableRowRenderer());
     }
 
@@ -171,5 +172,4 @@ public class SearchEngine
     private JTextArea searchTextArea;
     private JLabel statusTextLabel;
     private JTable logTable;
-    private JScrollPane logTableScrollPane;
 }
