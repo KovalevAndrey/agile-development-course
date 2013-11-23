@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Re.viewmodel.ILogger;
-import ru.unn.agile.Re.viewmodel.LogEntry;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -53,21 +52,21 @@ public class TxtLoggerTests
     public void logInfoEntry()
     {
         log.i(tag, text);
-        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.INFO)));
+        assertThat(log.getLog().get(0)[ILogger.TYPE_ID], is(equalTo(ILogger.INFO)));
     }
 
     @Test
     public void logWarnEntry()
     {
         log.w(tag, text);
-        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.WARN)));
+        assertThat(log.getLog().get(0)[ILogger.TYPE_ID], is(equalTo(ILogger.WARN)));
     }
 
     @Test
     public void logErrorEntry()
     {
         log.e(tag, text);
-        assertThat(log.getLog().get(0).getType(), is(equalTo(ILogger.ERROR)));
+        assertThat(log.getLog().get(0)[ILogger.TYPE_ID], is(equalTo(ILogger.ERROR)));
     }
 
     @Test
@@ -83,15 +82,7 @@ public class TxtLoggerTests
     public void loggedDateIsNoNull()
     {
         log.i(tag, text);
-        assertTrue(log.getLog().get(0).getDate() != null);
-    }
-
-    private void sanityCheckLogEntry(LogEntry actualLogEntry, LogEntry expectedLogEntry)
-    {
-        assertThat(actualLogEntry.getType(), is(equalTo(expectedLogEntry.getType())));
-        assertThat(actualLogEntry.getDate(), is(equalTo(expectedLogEntry.getDate())));
-        assertThat(actualLogEntry.getTag(), is(equalTo(expectedLogEntry.getTag())));
-        assertThat(actualLogEntry.getText(), is(equalTo(expectedLogEntry.getText())));
+        assertTrue(log.getLog().get(0)[ILogger.DATE_ID] != null);
     }
 
     @Test
@@ -99,8 +90,8 @@ public class TxtLoggerTests
     {
         log.i(tag, text);
 
-        LogEntry actualLogEntry = log.getLog().get(0);
-        sanityCheckLogEntry(actualLogEntry, new LogEntry(ILogger.INFO, actualLogEntry.getDate(), tag, text));
+        String[] actualLogEntry = log.getLog().get(0);
+        assertThat(actualLogEntry, is(equalTo(new String[]{ILogger.INFO, tag, text, actualLogEntry[ILogger.DATE_ID]})));
     }
 
     private String[][] getEntriesArray()
@@ -109,7 +100,7 @@ public class TxtLoggerTests
         entries[0][0] = "tag1";
         entries[0][1] = "text1";
         entries[1][0] = "tag2";
-        entries[1][0] = "text2";
+        entries[1][1] = "text2";
 
         return entries;
     }
@@ -123,8 +114,8 @@ public class TxtLoggerTests
 
         for (int i = 0; i < entries.length; i++)
         {
-            LogEntry actualLogEntry = log.getLog().get(i);
-            sanityCheckLogEntry(actualLogEntry, new LogEntry(ILogger.INFO, actualLogEntry.getDate(), entries[i][0], entries[i][1]));
+            String[] actualLogEntry = log.getLog().get(i);
+            assertThat(actualLogEntry, is(equalTo(new String[]{ILogger.INFO, entries[i][0], entries[i][1], actualLogEntry[ILogger.DATE_ID]})));
         }
     }
 

@@ -16,7 +16,7 @@ public class ViewModelWithTxtLoggerTests extends RegexViewModelLoggerTests
 
         try
         {
-            log = getLogger("log");
+            log = new TxtLogger("ViewModelWithTxtLoggerTests.log");
         }
         catch (Exception e)
         {

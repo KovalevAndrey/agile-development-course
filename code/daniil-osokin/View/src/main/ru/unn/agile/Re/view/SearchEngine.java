@@ -2,7 +2,6 @@ package ru.unn.agile.Re.view;
 
 import ru.unn.agile.Re.infrastructure.TxtLogger;
 import ru.unn.agile.Re.viewmodel.ILogger;
-import ru.unn.agile.Re.viewmodel.LogEntry;
 import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
@@ -11,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 import static javax.swing.UIManager.setLookAndFeel;
 
@@ -74,7 +74,8 @@ public class SearchEngine
         patternTextField.setText(viewModel.pattern);
         searchTextArea.setText(viewModel.text);
         statusTextLabel.setText(viewModel.status);
-        logTableModel.updateData(viewModel.getLog().get(viewModel.getLog().size()-1));
+        List<String[]> logList = viewModel.getLog();
+        logTableModel.updateData(logList.get(logList.size()-1));
     }
 
     public static void main(String[] args)
@@ -126,10 +127,10 @@ public class SearchEngine
             return columnNames[index];
         }
 
-        public void updateData(LogEntry logEntry)
+        public void updateData(String[] logEntry)
         {
             int firstRow = getRowCount();
-            addRow(viewModel.getLogTableRow(logEntry));
+            addRow(logEntry);
             int lastRow = getRowCount() - 1;
 
             fireTableRowsInserted(firstRow, lastRow);

@@ -3,7 +3,6 @@ package ru.unn.agile.Re.viewmodel;
 import ru.unn.agile.Re.model.Re;
 import ru.unn.agile.Re.model.Regex;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,21 +86,9 @@ public class RegexViewModel
         }
     }
 
-    public List<LogEntry> getLog()
+    public List<String[]> getLog()
     {
         return log.getLog();
-    }
-
-    public String[] getLogTableRow(LogEntry logEntry)
-    {
-        String[] formattedLogEntry = new String[4];
-        formattedLogEntry[0] = logEntry.getType();
-        formattedLogEntry[1] = logEntry.getTag();
-        formattedLogEntry[2] = logEntry.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        formattedLogEntry[3] = sdf.format(logEntry.getDate());
-
-        return formattedLogEntry;
     }
 }
 
