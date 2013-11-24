@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':anna-sagina-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
+

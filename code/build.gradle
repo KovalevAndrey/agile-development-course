@@ -1,7 +1,9 @@
+apply plugin: 'idea'
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
-    apply from:'http://github.com/breskeby/gradleplugins/raw/master/emmaPlugin/emma.gradle'
+    apply plugin: 'idea'
 
     repositories {
        mavenCentral()
@@ -11,9 +13,15 @@ subprojects {
         testCompile 'junit:junit:4.11'
     }
 
+    tasks.withType(Compile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.compilerArgs << "-Werror"
+    }
+
     test {
-        afterTest { desc, result -> 
-            println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+        afterTest { desc, result ->
+            String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
+            println "[${suiteName}]: ${result.resultType} in ${desc.name}"
         }
     }
 }

@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':vyacheslav-yudanov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}

@@ -1,0 +1,7 @@
+dependencies {
+    compile	project(':evgeniy-kapralov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}

@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':elena-tilkova-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
