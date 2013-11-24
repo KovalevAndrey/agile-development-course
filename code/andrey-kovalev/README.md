@@ -10,12 +10,12 @@
 
 Реализовать класс для расчета обьема трехмерных фигур, таких как:
 
-*Куб
-*Шар
-*Пирамида
-*Конус
-*Цилиндр
-*Параллелепипед
+ * Куб
+ * Шар
+ * Пирамида
+ * Конус
+ * Цилиндр
+ * Параллелепипед
 
 To find out more about the volume please click on the following link ["Volume"](http://en.wikipedia.org/wiki/Volume) 
 
