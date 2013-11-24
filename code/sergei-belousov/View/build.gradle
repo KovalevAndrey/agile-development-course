@@ -1,0 +1,7 @@
+dependencies {
+    compile project(':sergei-belousov-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+}
