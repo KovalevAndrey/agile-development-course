@@ -1,6 +1,6 @@
 dependencies {
     compile project(':artem-sinitsyn-ViewModel')
-	 compile project(':artem-sinitsyn-Infrastructure')
+	compile project(':artem-sinitsyn-Infrastructure')
 }
 
 sourceSets {

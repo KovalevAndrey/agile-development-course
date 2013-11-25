@@ -19,7 +19,7 @@ public class HeapManager {
     private JLabel statusLabel;
     private JLabel minKeyLabel;
     private JLabel minValueLabel;
-    private JList logList;
+    private JList<String> logList;
 
     private ViewModel viewModel;
 
@@ -71,7 +71,8 @@ public class HeapManager {
         statusLabel.setText(viewModel.status);
 
         List<String> log = viewModel.getLog();
-        String[] items = log.toArray(new String[log.size()]);
+        String[] items = new String[log.size()];
+        log.toArray(items);
         logList.setListData(items);
     }
 
