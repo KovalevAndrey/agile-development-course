@@ -79,6 +79,8 @@ include "artem-sinitsyn/ViewModel"
 project(":artem-sinitsyn/ViewModel").name = "artem-sinitsyn-ViewModel"
 include "artem-sinitsyn/View"
 project(":artem-sinitsyn/View").name = "artem-sinitsyn-View"
+include "artem-sinitsyn/Infrastructure"
+project(":artem-sinitsyn/Infrastructure").name = "artem-sinitsyn-Infrastructure"
 
 // Daniil Osokin
 include "daniil-osokin/Model"
