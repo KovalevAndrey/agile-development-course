@@ -161,12 +161,12 @@ include "kate-sergeeva/View"
 project(":kate-sergeeva/View").name = "kate-sergeeva-View"
 
 // Kurilov Dmitry
-include "kurilov-dmitry"
-project(":kurilov-dmitry").name = "kurilov-dmitry-Model"
-//include "kurilov-dmitry/ViewModel"
-//project(":kurilov-dmitry/ViewModel").name = "kurilov-dmitry-ViewModel"
-//include "kurilov-dmitry/View"
-//project(":kurilov-dmitry/View").name = "kurilov-dmitry-View"
+include "kurilov-dmitry/Model"
+project(":kurilov-dmitry/Model").name = "kurilov-dmitry-Model"
+include "kurilov-dmitry/ViewModel"
+project(":kurilov-dmitry/ViewModel").name = "kurilov-dmitry-ViewModel"
+include "kurilov-dmitry/View"
+project(":kurilov-dmitry/View").name = "kurilov-dmitry-View"
 
 // Maksim Medvedev
 include "maksim-medvedev"
