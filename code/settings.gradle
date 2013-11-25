@@ -103,6 +103,8 @@ include "egor-novikov/ViewModel"
 project(":egor-novikov/ViewModel").name = "egor-novikov-ViewModel"
 include "egor-novikov/View"
 project(":egor-novikov/View").name = "egor-novikov-View"
+include "egor-novikov/Infrastructure"
+project(":egor-novikov/Infrastructure").name = "egor-novikov-Infrastructure"
 
 // Elena Artemieva
 include "elena-artemieva/Model"
