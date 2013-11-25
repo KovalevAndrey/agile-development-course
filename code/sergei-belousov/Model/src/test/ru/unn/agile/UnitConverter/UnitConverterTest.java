@@ -49,6 +49,12 @@ public class UnitConverterTest {
         }
     }
 
+    @Test
+    public void canClearUnitConverter() {
+        weightConverter.clear();
+        assertTrue(weightConverter.isEmpty());
+    }
+
     private void assertConvertReturns(double expected, String from, String to, double value)
     {
         try {

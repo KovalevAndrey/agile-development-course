@@ -193,12 +193,12 @@ include "roman-pavlov/View"
 project(":roman-pavlov/View").name = "roman-pavlov-View"
 
 // Sergei Belousov
-include "sergei-belousov"
-project(":sergei-belousov").name = "sergei-belousov-Model"
-//include "sergei-belousov/ViewModel"
-//project(":sergei-belousov/ViewModel").name = "sergei-belousov-ViewModel"
-//include "sergei-belousov/View"
-//project(":sergei-belousov/View").name = "sergei-belousov-View"
+include "sergei-belousov/Model"
+project(":sergei-belousov/Model").name = "sergei-belousov-Model"
+include "sergei-belousov/ViewModel"
+project(":sergei-belousov/ViewModel").name = "sergei-belousov-ViewModel"
+include "sergei-belousov/View"
+project(":sergei-belousov/View").name = "sergei-belousov-View"
 
 // Sergei Lebedev
 include "sergei-lebedev"

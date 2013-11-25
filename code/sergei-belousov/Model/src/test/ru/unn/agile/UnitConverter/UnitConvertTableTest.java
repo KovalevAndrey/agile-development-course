@@ -52,4 +52,13 @@ public class UnitConvertTableTest {
             assertTrue(e.getMessage().contains("key not found."));
         }
     }
+
+    @Test
+    public void canClearTable() {
+        UnitConvertTable unitConvertTable = new UnitConvertTable();
+        unitConvertTable.addPair(new UnitKey("kg", "g"), 1000.);
+        unitConvertTable.clear();
+        assertTrue(unitConvertTable.isEmpty());
+    }
+
 }

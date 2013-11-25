@@ -1,10 +1,16 @@
 package ru.unn.agile.UnitConverter;
 
+import java.util.HashMap;
+
 public class UnitConverter {
     private UnitConvertTable unitConvertTable;
 
     public UnitConverter() {
         unitConvertTable = new UnitConvertTable();
+    }
+
+    public void clear() {
+        unitConvertTable.clear();
     }
 
     public boolean isEmpty() {
@@ -41,6 +47,10 @@ public class UnitConverter {
         } catch (UnitConvertTableException e){
             throw e;
         }
+    }
+
+    public HashMap<UnitKey, Double> getTable() {
+        return unitConvertTable.getTable();
     }
 
     public Unit convert(Unit from, String to) throws UnitConvertTableException {
