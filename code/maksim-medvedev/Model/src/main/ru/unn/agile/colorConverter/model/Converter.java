@@ -1,13 +1,11 @@
-package ru.unn.agile.colorConverter;
+package ru.unn.agile.colorConverter.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: maxmedvedev
- * Date: 10/19/13
- * Time: 3:29 AM
- * To change this template use File | Settings | File Templates.
- */
+import javax.swing.*;
+
 public class Converter {
+    private JButton button1;
+    private JPanel panel1;
+
     public RGBColor toRGB(Color color) throws ColorException {
         return color.getRGB();
     }

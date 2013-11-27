@@ -1,16 +1,8 @@
-package ru.unn.agile.colorConverter;
+package ru.unn.agile.colorConverter.model;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: maxmedvedev
- * Date: 10/19/13
- * Time: 1:50 AM
- * To change this template use File | Settings | File Templates.
- */
 public class HSVColorTest {
     @Test
     public void canCreateInstanceWithInitalValues() throws Exception {
