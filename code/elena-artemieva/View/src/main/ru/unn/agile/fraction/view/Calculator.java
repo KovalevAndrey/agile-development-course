@@ -1,5 +1,6 @@
 package ru.unn.agile.fraction.view;
 
+import ru.unn.agile.fraction.infrastructure.TextLogger;
 import ru.unn.agile.fraction.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -7,24 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class Calculator {
 
     private ViewModel viewModel;
 
     private JPanel mainPanel;
-
-    // Commands
     private JButton btnAdd;
     private JButton btnSubtract;
     private JButton btnMultiply;
     private JButton btnDivide;
-
-    // Fields to bind
     private JTextField txtInput1;
     private JTextField txtInput2;
     private JTextField txtResult;
-
+    private JList<String> listLog;
 
     public Calculator(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -81,7 +79,9 @@ public class Calculator {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Fraction Calculator");
 
-        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
+        TextLogger logger = new TextLogger("./Fraction Calculator.log");
+
+        frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -102,5 +102,9 @@ public class Calculator {
         btnSubtract.setEnabled(viewModel.isSubtractButtonEnabled);
         btnMultiply.setEnabled(viewModel.isMultiplyButtonEnabled);
         btnDivide.setEnabled(viewModel.isDivideButtonEnabled);
+
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        listLog.setListData(items);
     }
 }

@@ -5,14 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ViewModelTests {
-
-    private ViewModel viewModel;
+    protected ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger fakeLogger = new FakeLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
@@ -153,5 +157,87 @@ public class ViewModelTests {
         viewModel.divide();
 
         assertEquals("1/8", viewModel.result);
+    }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test (expected=IllegalArgumentException.class)
+    public void canCreateViewModelWithEmptyLogger() {
+        viewModel = new ViewModel(null);
+    }
+
+    @Test
+    public void isLogEmptyAtStart() {
+        List<String> log = viewModel.getLog();
+
+        assertEquals(0, log.size());
+    }
+
+    @Test
+    public void isLogNotEmptyWhenAddAnything() {
+        viewModel.input1 = "3/10";
+        viewModel.input2 = "1/10";
+
+        viewModel.add();
+        viewModel.subtract();
+        viewModel.multiply();
+        viewModel.divide();
+
+        List<String> log = viewModel.getLog();
+
+        assertEquals(8, log.size());
+    }
+
+    @Test
+    public void canWriteToLogSumOperands() {
+        viewModel.input1 = "3/10";
+        viewModel.input2 = "1/10";
+        viewModel.add();
+
+        assertEqualsWithData("Trying to add fractions: ", viewModel.getLog().get(0));
+        assertEqualsWithData("Calculation successful. Result: ",viewModel.getLog().get(1));
+    }
+
+    @Test
+    public void canWriteToLogSubtractOperands() {
+        viewModel.input1 = "3/10";
+        viewModel.input2 = "1/10";
+        viewModel.subtract();
+
+        assertEqualsWithData("Trying to subtract fractions: ", viewModel.getLog().get(0));
+        assertEqualsWithData("Calculation successful. Result: ",viewModel.getLog().get(1));
+    }
+
+    @Test
+    public void canWriteToLogMultiplyOperands() {
+        viewModel.input1 = "3/10";
+        viewModel.input2 = "1/10";
+        viewModel.multiply();
+
+        assertEqualsWithData("Trying to multiply fractions: ", viewModel.getLog().get(0));
+        assertEqualsWithData("Calculation successful. Result: ",viewModel.getLog().get(1));
+    }
+
+    @Test
+    public void canWriteToLogDivideOperands() {
+        viewModel.input1 = "3/10";
+        viewModel.input2 = "1/10";
+        viewModel.divide();
+
+        assertEqualsWithData("Trying to divide fractions: ", viewModel.getLog().get(0));
+        assertEqualsWithData("Calculation successful. Result: ",viewModel.getLog().get(1));
+    }
+
+    private void assertEqualsWithData(String message, String logMessages) {
+        Pattern pattern = Pattern.compile(".*" + message + ".*");
+        Matcher matcher = pattern.matcher(logMessages);
+
+        assertEquals(true, matcher.matches());
     }
 }
