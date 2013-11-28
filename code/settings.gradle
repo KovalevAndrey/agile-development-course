@@ -55,6 +55,8 @@ include "andrey-ilyichev/ViewModel"
 project(":andrey-ilyichev/ViewModel").name = "andrey-ilyichev-ViewModel"
 include "andrey-ilyichev/View"
 project(":andrey-ilyichev/View").name = "andrey-ilyichev-View"
+include "andrey-ilyichev/Infrastructure"
+project(":andrey-ilyichev/Infrastructure").name = "andrey-ilyichev-Infrastructure"
 
 // Anna Sagina
 include "anna-sagina/Model"

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import ru.unn.agile.dichotomy.viewmodel.ViewModel;
+import ru.unn.agile.dichotomy.viewmodel.VirtualLogger;
 
 public class DichotomySolver {
 	private ViewModel viewModel;
@@ -35,7 +36,7 @@ public class DichotomySolver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DichotomySolver window = new DichotomySolver(new ViewModel());
+					DichotomySolver window = new DichotomySolver(new ViewModel.Builder().logger(new VirtualLogger()).build());
 					window.frmDichotomySolver.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -223,14 +224,14 @@ public class DichotomySolver {
 	}
 
 	public void bind(){
-		this.viewModel.a = textFieldA.getText();
-		this.viewModel.b = textFieldB.getText();
-		this.viewModel.eps = textFieldEps.getText();
-		this.viewModel.sigma = textFieldSigma.getText();
-		this.viewModel.function = (ViewModel.Function)comboBoxFunction.getSelectedItem();
+		this.viewModel.setA(textFieldA.getText());
+		this.viewModel.setB(textFieldB.getText());
+		this.viewModel.setEps(textFieldEps.getText());
+		this.viewModel.setSigma(textFieldSigma.getText());
+		this.viewModel.setFunction((ViewModel.Function)comboBoxFunction.getSelectedItem());
 	}
 	
 	public void backBind(){
-		textFieldResult.setText(this.viewModel.result);
+		textFieldResult.setText(this.viewModel.getResultMessage());
 	}
 }

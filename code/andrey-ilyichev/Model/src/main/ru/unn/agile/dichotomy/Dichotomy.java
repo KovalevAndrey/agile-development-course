@@ -42,7 +42,6 @@ public class Dichotomy {
 		public Dichotomy build() {
 			return new Dichotomy(this);
 		}
-
 	}
 	
 	public Dichotomy(Builder builder)
