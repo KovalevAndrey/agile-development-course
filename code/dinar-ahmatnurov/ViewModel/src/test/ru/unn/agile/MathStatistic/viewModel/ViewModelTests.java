@@ -99,8 +99,7 @@ public class ViewModelTests {
     @Test
     public void isBehaviourOkOnGoodData(){
         viewModel.inputData = "-1 1 -2.7 3.1 17.8 -100 2.1 87";
-        viewModel.convertToArrayOfDoubles();
-        viewModel.calcIt();
+        viewModel.processKeyInTextField(viewModel.ENTER_CODE);
         assertEquals(true, viewModel.isCalculateButtonEnabled);
         assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
         assertNotEquals("", viewModel.outputData);
@@ -108,17 +107,15 @@ public class ViewModelTests {
 
     @Test
     public void isBehaviourOkOnNoData(){
-        viewModel.calcIt();
         assertEquals(false, viewModel.isCalculateButtonEnabled);
-        assertEquals(ViewModel.Status.BAD_INPUT, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.status);
         assertEquals("", viewModel.outputData);
     }
 
     @Test
     public void isBehaviourOkOnBadData() {
         viewModel.inputData = "-1 1 -2.7 3.1 17.8 qqq -100 2.1 87";
-        viewModel.convertToArrayOfDoubles();
-        viewModel.calcIt();
+        viewModel.processKeyInTextField(viewModel.ENTER_CODE);
         assertEquals(ViewModel.Status.BAD_INPUT, viewModel.status);
         assertEquals(ViewModel.Statistic.EXPECTED_VALUE, viewModel.operation);
         assertEquals("", viewModel.outputData);
