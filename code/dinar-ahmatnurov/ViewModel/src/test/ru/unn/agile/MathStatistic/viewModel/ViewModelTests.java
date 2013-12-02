@@ -3,7 +3,6 @@ package ru.unn.agile.MathStatistic.viewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.MathStatistic.model.MathStatistic;
 
 import static org.junit.Assert.*;
 
@@ -94,7 +93,7 @@ public class ViewModelTests {
     public void isDefaultStateOK(){
         assertEquals(false, viewModel.isCalculateButtonEnabled);
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
-        assertEquals(ViewModel.Statistic.EXPECTEDVALUE, viewModel.operation);
+        assertEquals(ViewModel.Statistic.EXPECTED_VALUE, viewModel.operation);
     }
 
     @Test
@@ -121,7 +120,7 @@ public class ViewModelTests {
         viewModel.convertToArrayOfDoubles();
         viewModel.calcIt();
         assertEquals(ViewModel.Status.BAD_INPUT, viewModel.status);
-        assertEquals(ViewModel.Statistic.EXPECTEDVALUE, viewModel.operation);
+        assertEquals(ViewModel.Statistic.EXPECTED_VALUE, viewModel.operation);
         assertEquals("", viewModel.outputData);
     }
 }

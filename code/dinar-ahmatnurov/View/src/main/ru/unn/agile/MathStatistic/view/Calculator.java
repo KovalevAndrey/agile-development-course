@@ -18,11 +18,14 @@ public class Calculator {
     }
 
     private JPanel mainPanel;
-    private JTextField inputDataTextField;
-    private JComboBox<ViewModel.Statistic> listOfStatistic;
     private JButton calcItButton;
-    private JTextField outputDataTextField;
+    private JTextArea log;
+    private JTextField inputData;
+    private JTextField outputData;
+    private JComboBox<ViewModel.Statistic> listOfStatistic;
     private JLabel status;
+
+
     private ViewModel viewModel;
 
     public Calculator(ViewModel viewModel) {
@@ -48,16 +51,16 @@ public class Calculator {
             }
         };
 
-        inputDataTextField.addKeyListener(keyListener);
+        inputData.addKeyListener(keyListener);
     }
 
     public void bind() {
-        viewModel.inputData = inputDataTextField.getText();
+        viewModel.inputData = inputData.getText();
         viewModel.operation = (ViewModel.Statistic) listOfStatistic.getSelectedItem();
     }
 
     public void backBind() {
-        outputDataTextField.setText(viewModel.outputData);
+        outputData.setText(viewModel.outputData);
         status.setText(viewModel.status);
         calcItButton.setEnabled(viewModel.isCalculateButtonEnabled);
     }
