@@ -1,10 +1,13 @@
 package ru.unn.agile.stack.view;
 
 import javax.swing.*;
+
+import ru.unn.agile.stack.TxtStackLogger;
 import ru.unn.agile.stack.viewmodel.ViewModelStack;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class StackGUI
 {
@@ -15,6 +18,7 @@ public class StackGUI
     private JLabel lbStatus;
     private JLabel lbTopElement;
     private JPanel mainPanel;
+    private JList<String> lstLog;
 
     private ViewModelStack viewModelStack;
 
@@ -70,12 +74,16 @@ public class StackGUI
         lbStatus.setText(viewModelStack.status);
         txtInputString.setText(viewModelStack.input);
         lbTopElement.setText(viewModelStack.topElement);
+        List<String> log = viewModelStack.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("StackGUI");
-        frame.setContentPane(new StackGUI(new ViewModelStack()).mainPanel);
+        TxtStackLogger logger = new TxtStackLogger("StackLog.log");
+        frame.setContentPane(new StackGUI(new ViewModelStack(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
