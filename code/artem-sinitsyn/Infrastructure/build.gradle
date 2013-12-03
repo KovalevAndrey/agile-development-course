@@ -1,8 +1,9 @@
 dependencies {
     compile project(':artem-sinitsyn-ViewModel')
-	compile project(':artem-sinitsyn-Infrastructure')
+    testCompile project(':artem-sinitsyn-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
     main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }

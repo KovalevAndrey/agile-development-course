@@ -6,7 +6,7 @@ import ru.unn.agile.leftistHeap.model.Pair;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class NodeTest {
+public class NodeTests {
     private Node node;
 
     @Test

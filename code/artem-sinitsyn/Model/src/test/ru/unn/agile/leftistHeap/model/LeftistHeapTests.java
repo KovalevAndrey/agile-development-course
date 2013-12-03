@@ -8,7 +8,7 @@ import ru.unn.agile.leftistHeap.model.Pair;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class LeftistHeapTest {
+public class LeftistHeapTests {
     private Pair defaultData;
     private LeftistHeap emptyHeap;
     private LeftistHeap defaultOneElementHeap;

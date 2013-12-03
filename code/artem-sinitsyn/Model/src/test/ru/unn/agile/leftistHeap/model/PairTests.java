@@ -5,7 +5,7 @@ import ru.unn.agile.leftistHeap.model.Pair;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class PairTest {
+public class PairTests {
     private Pair pair;
 
     @Test
