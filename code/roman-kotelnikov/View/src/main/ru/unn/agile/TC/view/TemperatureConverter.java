@@ -1,14 +1,19 @@
-package ru.unn.agile.TemperatureConverter.view;
+package ru.unn.agile.TC.view;
 
-import ru.unn.agile.TemperatureConverter.AvailableScales;
-import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
+import ru.unn.agile.TC.AvailableScales;
+import ru.unn.agile.TC.infrastructure.TxtLogger;
+import ru.unn.agile.TC.viewmodel.ViewModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.io.IOException;
 
 public class TemperatureConverter {
     private ViewModel viewModel;
+    private static final String logFilename = "TemperatureConverterLog.txt";
 
     private JPanel mainPanel;
     private JTextField txtTempValue;
@@ -18,7 +23,7 @@ public class TemperatureConverter {
     private JTextField txtResult;
     private JLabel lbStatus;
 
-    public TemperatureConverter(ViewModel viewModel) {
+    public TemperatureConverter(final ViewModel viewModel) {
         this.viewModel = viewModel;
         loadAvailableScales();
         backBind();
@@ -31,12 +36,58 @@ public class TemperatureConverter {
                 backBind();
             }
         });
+
+        cbInputScale.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (viewModel.inputScale != cbInputScale.getSelectedItem())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
+            }
+        });
+
+        cbResultScale.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (viewModel.resultScale != cbResultScale.getSelectedItem())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
+            }
+        });
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                if (viewModel.input != e.toString())
+                {
+                    bind();
+                    TemperatureConverter.this.viewModel.inputParametersChanged();
+                    backBind();
+                }
+            }
+        };
+
+        txtTempValue.addFocusListener(focusLostListener);
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Temperature converter");
 
-        frame.setContentPane(new TemperatureConverter(new ViewModel()).mainPanel);
+        ViewModel tempViewModel;
+
+        try {
+            tempViewModel = new ViewModel(new TxtLogger(logFilename));
+        }
+        catch (IOException e) {
+            tempViewModel = new ViewModel();
+        }
+
+        frame.setContentPane((new TemperatureConverter(tempViewModel)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
