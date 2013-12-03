@@ -5,12 +5,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
-public class NullSafeLoggerWrapperTest extends FakeLoggerTests{
+public class NullLoggerTest{
+    ILogger logger;
 
     @Before
     public  void SetUp()
     {
-        logger = new NullSafeLoggerWrapper(new FakeLogger());
+        logger = new NullLogger();
     }
 
     @After
@@ -19,50 +20,39 @@ public class NullSafeLoggerWrapperTest extends FakeLoggerTests{
         logger = null;
     }
 
-    private void initNullLogger()
-    {
-        logger = new NullSafeLoggerWrapper(null);
-    }
-
     @Test
     public void isNullSafeWrapperSafeForWriteMessage()
     {
-        initNullLogger();
         logger.logMessage("test");
     }
 
     @Test
     public void isNullSafeWrapperSafeForWriteError()
     {
-        initNullLogger();
         logger.logError("test");
     }
 
     @Test
     public void isNullSafeWrapperSafeForSetLoggingLevel()
     {
-        initNullLogger();
         logger.setLogLevel(LoggingLevel.Release);
     }
 
     @Test
     public void isNullSafeWrapperSafeForGetLoggingLevel()
     {
-        initNullLogger();
         Assert.assertNull(logger.getLogLevel());
     }
 
     @Test
     public void isNullSafeWrapperSafeForGetLogFull()
     {
-        initNullLogger();
         Assert.assertNull(logger.getLogFull());
     }
 
     @Test
     public void isNullSafeWrapperSafeForGetLastLogMessage()
     {
-        initNullLogger();
         Assert.assertNull(logger.getLastLogMessage());
     }
 }

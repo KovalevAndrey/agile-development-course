@@ -36,7 +36,7 @@ public class CurrencyConverterViewModel {
         comboBoxData = prepareComboboxData(actualCurrencies);
         toCurrencyMoneyAmount = "";
         moneyAmount = "";
-        this.logger = new NullSafeLoggerWrapper(logger);
+        this.logger = logger != null ? logger : new NullLogger();
     }
 
     private String[] comboBoxData;
