@@ -1,5 +1,6 @@
 dependencies {
     compile project(':sergei-belousov-Model')
+    compile project(':sergei-belousov-Infrastructure')
 }
 
 sourceSets {
