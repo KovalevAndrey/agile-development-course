@@ -21,7 +21,7 @@ public class CreditCalculatorView {
     private JComboBox<CreditCalculatorViewModel.PaymentType> paymentTypesComboBox;
     private JTextField resultTextField;
     private JLabel statusLabel;
-    private JList logList;
+    private JList<String> logList;
 
     public CreditCalculatorView(CreditCalculatorViewModel viewModel) {
         this.creditCalculatorViewModel = viewModel;
