@@ -3,6 +3,7 @@ package ru.unn.agile.Re.viewmodel;
 import ru.unn.agile.Re.model.Re;
 import ru.unn.agile.Re.model.Regex;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,24 @@ public class RegexViewModel
     public List<String[]> getLog()
     {
         return log.getLog();
+    }
+
+    public Color getRowColor(String logType)
+    {
+        Color rowColor = Color.WHITE;
+        if (ILogger.INFO.equals(logType))
+        {
+            rowColor = Color.LIGHT_GRAY;
+        }
+        else if (ILogger.WARN.equals(logType))
+        {
+            rowColor = Color.YELLOW;
+        }
+        else if (ILogger.ERROR.equals(logType))
+        {
+            rowColor = Color.MAGENTA;
+        }
+        return rowColor;
     }
 }
 

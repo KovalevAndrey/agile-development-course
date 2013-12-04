@@ -1,7 +1,6 @@
 package ru.unn.agile.Re.view;
 
 import ru.unn.agile.Re.infrastructure.TxtLogger;
-import ru.unn.agile.Re.viewmodel.ILogger;
 import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
@@ -145,19 +144,7 @@ public class SearchEngine
         {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             String logType = (String) table.getValueAt(row, 0);
-
-            if (ILogger.INFO.equals(logType))
-            {
-                setBackground(Color.LIGHT_GRAY);
-            }
-            else if (ILogger.WARN.equals(logType))
-            {
-                setBackground(Color.YELLOW);
-            }
-            else if (ILogger.ERROR.equals(logType))
-            {
-                setBackground(Color.MAGENTA);
-            }
+            setBackground(viewModel.getRowColor(logType));
 
             return this;
         }
