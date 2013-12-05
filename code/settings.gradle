@@ -31,6 +31,8 @@ include "alexandr-komin/ViewModel"
 project(":alexandr-komin/ViewModel").name = "alexandr-komin-ViewModel"
 include "alexandr-komin/View"
 project(":alexandr-komin/View").name = "alexandr-komin-View"
+include "alexandr-komin/Infrastructure"
+project(":alexandr-komin/Infrastructure").name = "alexandr-komin-Infrastructure"
 
 // Alexey Sagin
 include "alexey-sagin/Model"

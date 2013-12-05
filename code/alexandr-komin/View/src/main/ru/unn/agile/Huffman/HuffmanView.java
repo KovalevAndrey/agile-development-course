@@ -1,8 +1,11 @@
 package ru.unn.agile.Huffman;
 
+import ru.unn.agile.Huffman.Infrastructure.HuffmanTxtLogger;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class HuffmanView {
     private JPanel mainPanel;
@@ -11,16 +14,9 @@ public class HuffmanView {
     private JButton btnCompress;
     private JTextArea txtArea;
     private JLabel lblStatus;
+    private JList<String> listLog;
 
     private HuffmanViewModel huffmanViewModel; 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("HuffmanView");
-        frame.setContentPane(new HuffmanView(new HuffmanViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 
     public HuffmanView(HuffmanViewModel huffmanViewModel) {
         this.huffmanViewModel = huffmanViewModel;
@@ -55,7 +51,6 @@ public class HuffmanView {
 
     }
 
-
     private void bind() {
         huffmanViewModel.status = lblStatus.getText();
         huffmanViewModel.text=txtArea.getText();
@@ -72,5 +67,20 @@ public class HuffmanView {
         btnExpand.setEnabled(huffmanViewModel.isActiveEncodingButton);
         txtArea.setEditable(huffmanViewModel.isEditableTextArea);
         txtArea.setEditable(huffmanViewModel.isEditableTextArea);
+
+        List<String> log = huffmanViewModel.getLog();
+        String[] items = new String[log.size()];
+        log.toArray(items);
+        listLog.setListData(items);
+    }
+
+    public static void main(String[] args) {
+        HuffmanTxtLogger huffmanTxtLogger = new HuffmanTxtLogger("Huffman.log");
+
+        JFrame frame = new JFrame("HuffmanView");
+        frame.setContentPane(new HuffmanView(new HuffmanViewModel(huffmanTxtLogger)).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
