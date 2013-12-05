@@ -2,8 +2,6 @@ package ru.unn.agile.UnitConverter.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
