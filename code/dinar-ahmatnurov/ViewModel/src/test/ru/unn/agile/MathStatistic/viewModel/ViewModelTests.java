@@ -120,4 +120,9 @@ public class ViewModelTests {
         assertEquals(ViewModel.Statistic.EXPECTED_VALUE, viewModel.operation);
         assertEquals("", viewModel.outputData);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void isBehaviourOkWithNoLogger() {
+        viewModel = new ViewModel(null);
+    }
 }

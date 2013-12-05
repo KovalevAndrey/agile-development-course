@@ -10,6 +10,28 @@ public class ViewModel {
     public String status = Status.WAITING;
     public boolean isCalculateButtonEnabled = false;
     private float[] inputArray;
+    ILogger logger;
+
+    public ViewModel() {
+        inputData = "";
+        operation = Statistic.EXPECTED_VALUE;
+        outputData = "";
+        status = Status.WAITING;
+        isCalculateButtonEnabled = false;
+        logger = null;
+    }
+
+    public ViewModel(ILogger actLogger) {
+        if(actLogger == null) {
+            throw new IllegalArgumentException("Logger can not be a null");
+        }
+        inputData = "";
+        operation = Statistic.EXPECTED_VALUE;
+        outputData = "";
+        status = Status.WAITING;
+        isCalculateButtonEnabled = false;
+        logger = actLogger;
+    }
 
     public class Status {
         public static final String WAITING = "Provide input data";
