@@ -171,6 +171,8 @@ include "kurilov-dmitry/ViewModel"
 project(":kurilov-dmitry/ViewModel").name = "kurilov-dmitry-ViewModel"
 include "kurilov-dmitry/View"
 project(":kurilov-dmitry/View").name = "kurilov-dmitry-View"
+include "kurilov-dmitry/Infrastructure"
+project(":kurilov-dmitry/Infrastructure").name = "kurilov-dmitry-Infrastructure"
 
 // Maksim Medvedev
 include "maksim-medvedev/Model"

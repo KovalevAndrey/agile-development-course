@@ -1,10 +1,12 @@
 package ru.unn.agile.Converter;
 
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import static ru.unn.agile.Converter.ViewModel.*;
 
@@ -18,6 +20,7 @@ public class ConverterView
     private JTextField inputTextField;
     private JLabel statusLabel;
     private JTextField resultTextField;
+    private JList<String> logList;
 
     public ConverterView(ViewModel viewModel)
     {
@@ -58,9 +61,12 @@ public class ConverterView
         inputTextField.addKeyListener(keyListener);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        TxtLogger txtLogger = new TxtLogger("./ConverterView.log");
+
         JFrame frame = new JFrame("ConverterView");
-        frame.setContentPane(new ConverterView(new ViewModel()).MainPanel);
+        frame.setContentPane(new ConverterView(new ViewModel(txtLogger)).MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -76,11 +82,8 @@ public class ConverterView
     public void bind()
     {
         viewModel.inputNumber = inputTextField.getText();
-
         viewModel.inputSys = (ViewModel.NumeralSystems) fromComboBox.getSelectedItem();
-
         viewModel.outputSys = (ViewModel.NumeralSystems) toComboBox.getSelectedItem();
-
         viewModel.result = resultTextField.getText();
         viewModel.status = statusLabel.getText();
     }
@@ -88,12 +91,12 @@ public class ConverterView
     public void backBind()
     {
         inputTextField.setText(viewModel.inputNumber);
-
         resultTextField.setText(viewModel.result);
         statusLabel.setText(viewModel.status);
-
         calculateButton.setEnabled(viewModel.isCalculateButtonEnabled);
+        List<String> log = viewModel.getLog();
+        String[] items = new String[log.size()];
+        log.toArray(items);
+        logList.setListData(items);
     }
-
-
 }
