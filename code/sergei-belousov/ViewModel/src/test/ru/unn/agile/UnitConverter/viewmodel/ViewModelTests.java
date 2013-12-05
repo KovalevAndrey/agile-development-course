@@ -1,5 +1,4 @@
 package ru.unn.agile.UnitConverter.viewmodel;
-import ru.unn.agile.UnitConverter.infrastructure.TxtFileLogger;
 
 import org.junit.After;
 import org.junit.Before;
