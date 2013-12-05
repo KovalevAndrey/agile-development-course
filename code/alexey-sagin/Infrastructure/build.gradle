@@ -1,8 +1,9 @@
 dependencies {
-	compile project(':alexey-sagin-Infrastructure')
     compile project(':alexey-sagin-ViewModel')
+	testCompile project(':alexey-sagin-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
     main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }

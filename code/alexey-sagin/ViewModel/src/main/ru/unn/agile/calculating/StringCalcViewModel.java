@@ -2,27 +2,39 @@ package ru.unn.agile.calculating;
 
 public class StringCalcViewModel {
 
-	public String status;
-	public String expression;
-	public String result;
+    private final String logMessage = "\"Calculate\" button was pressed with params";
+    public String status;
+    public String expression;
+    public String result;
+    private ILogger log;
 
-	public StringCalcViewModel() {
-		status = "Type expression and click \"Calculate\"";
-		expression = "";
-		result = "";
-	}
+    public StringCalcViewModel(ILogger log) {
+        status = "Type expression and click \"Calculate\"";
+        expression = "";
+        result = "";
+        if (null == log) throw new RuntimeException("Log is null");
+        this.log = log;
+    }
 
-	public void processCalculate() {
-		try {
-			double res = StringCalculator.calculate(expression);
-			result = String.valueOf(res);
-			status = "Success";
-		} catch (ArithmeticException e) {
-			status = e.getMessage();
-			result = "";
-		} catch (IllegalArgumentException e) {
-			status = e.getMessage();
-			result = "";
-		}
-	}
+    public ILogger getLog() {
+        return log;
+    }
+
+    public void processCalculate() {
+        try {
+            log.putMessage("\"Calculate\" button was pressed with expr "
+                    + expression);
+            double res = StringCalculator.calculate(expression);
+            result = String.valueOf(res);
+            status = "Success";
+        } catch (ArithmeticException e) {
+            log.putMessage("Exception occurred: " + e.getMessage());
+            status = e.getMessage();
+            result = "";
+        } catch (IllegalArgumentException e) {
+            log.putMessage("Exception occurred: " + e.getMessage());
+            status = e.getMessage();
+            result = "";
+        }
+    }
 }
