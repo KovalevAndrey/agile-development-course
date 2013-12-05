@@ -11,13 +11,18 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ru.unn.agile.dichotomy.infrastructure.TxtLogger;
 import ru.unn.agile.dichotomy.viewmodel.ViewModel;
-import ru.unn.agile.dichotomy.viewmodel.VirtualLogger;
+
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+
 
 public class DichotomySolver {
 	private ViewModel viewModel;
@@ -28,15 +33,15 @@ public class DichotomySolver {
 	private JTextField textFieldA;
 	private JTextField textFieldSigma;
 	private JTextField textFieldResult;
-	private  JComboBox<ViewModel.Function> comboBoxFunction;
+	private JComboBox<ViewModel.Function> comboBoxFunction;
 	private JButton btnGetResult;
-
+	private JList<String> jListLog;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DichotomySolver window = new DichotomySolver(new ViewModel.Builder().logger(new VirtualLogger()).build());
+					DichotomySolver window = new DichotomySolver(new ViewModel.Builder().logger(new TxtLogger("log.txt")).build());
 					window.frmDichotomySolver.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,26 +74,28 @@ public class DichotomySolver {
 		frmDichotomySolver = new JFrame();
 		frmDichotomySolver.setResizable(false);
 		frmDichotomySolver.setTitle("Dichotomy Solver");
-		frmDichotomySolver.setBounds(100, 100, 512, 178);
+		frmDichotomySolver.setBounds(100, 100, 512, 330);
 		frmDichotomySolver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{500, 0};
-		gridBagLayout.rowHeights = new int[]{151, 0};
+		gridBagLayout.rowHeights = new int[]{151, 145, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		frmDichotomySolver.getContentPane().setLayout(gridBagLayout);
 		
 		JPanel panelMain = new JPanel();
 		GridBagConstraints gbc_panelMain = new GridBagConstraints();
+		gbc_panelMain.gridheight = 2;
+		gbc_panelMain.insets = new Insets(0, 0, 5, 0);
 		gbc_panelMain.fill = GridBagConstraints.BOTH;
 		gbc_panelMain.gridx = 0;
 		gbc_panelMain.gridy = 0;
 		frmDichotomySolver.getContentPane().add(panelMain, gbc_panelMain);
 		GridBagLayout gbl_panelMain = new GridBagLayout();
 		gbl_panelMain.columnWidths = new int[]{265, 0};
-		gbl_panelMain.rowHeights = new int[]{27, 56, 0};
+		gbl_panelMain.rowHeights = new int[]{27, 56, 165, 0};
 		gbl_panelMain.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panelMain.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelMain.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelMain.setLayout(gbl_panelMain);
 		
 		JPanel panelInput = new JPanel();
@@ -185,6 +192,7 @@ public class DichotomySolver {
 		
 		comboBoxFunction = new JComboBox<ViewModel.Function>();
 		GridBagConstraints gbc_comboBoxFunction = new GridBagConstraints();
+		gbc_comboBoxFunction.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBoxFunction.gridwidth = 5;
 		gbc_comboBoxFunction.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxFunction.gridx = 2;
@@ -193,34 +201,49 @@ public class DichotomySolver {
 		
 		JPanel panelResult = new JPanel();
 		GridBagConstraints gbc_panelResult = new GridBagConstraints();
+		gbc_panelResult.gridheight = 2;
+		gbc_panelResult.insets = new Insets(0, 0, 5, 0);
 		gbc_panelResult.fill = GridBagConstraints.BOTH;
 		gbc_panelResult.gridx = 0;
 		gbc_panelResult.gridy = 1;
 		panelMain.add(panelResult, gbc_panelResult);
 		GridBagLayout gbl_panelResult = new GridBagLayout();
 		gbl_panelResult.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panelResult.rowHeights = new int[]{0, 0, 0};
+		gbl_panelResult.rowHeights = new int[]{0, 0, 141, 0};
 		gbl_panelResult.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelResult.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelResult.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panelResult.setLayout(gbl_panelResult);
 		
 		btnGetResult = new JButton("Get Result");
 		GridBagConstraints gbc_btnGetResult = new GridBagConstraints();
 		gbc_btnGetResult.gridwidth = 7;
 		gbc_btnGetResult.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnGetResult.insets = new Insets(0, 0, 5, 0);
+		gbc_btnGetResult.insets = new Insets(0, 0, 5, 5);
 		gbc_btnGetResult.gridx = 1;
 		gbc_btnGetResult.gridy = 0;
 		panelResult.add(btnGetResult, gbc_btnGetResult);
 		
 		textFieldResult = new JTextField();
 		GridBagConstraints gbc_textFieldResult = new GridBagConstraints();
+		gbc_textFieldResult.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldResult.gridwidth = 7;
 		gbc_textFieldResult.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldResult.gridx = 1;
 		gbc_textFieldResult.gridy = 1;
 		panelResult.add(textFieldResult, gbc_textFieldResult);
 		textFieldResult.setColumns(10);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 7;
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 2;
+		panelResult.add(scrollPane, gbc_scrollPane);
+		
+		jListLog = new JList<String>();
+		scrollPane.setColumnHeaderView(jListLog);
 	}
 
 	public void bind(){
@@ -233,5 +256,8 @@ public class DichotomySolver {
 	
 	public void backBind(){
 		textFieldResult.setText(this.viewModel.getResultMessage());
+		List<String> listLog = viewModel.getLog();
+		String[] log = listLog.toArray(new String[listLog.size()]);
+		jListLog.setListData(log);
 	}
 }

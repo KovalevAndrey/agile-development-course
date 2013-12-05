@@ -113,20 +113,40 @@ public class ViewModel {
 	}
 	
 	public ViewModel(Builder builder) {
-		this.a = builder.a;
-		this.b = builder.b;
-		this.sigma = builder.sigma;
-		this.eps = builder.eps;
-		this.resultMessage = null;
+		
+		if (builder.a==null)
+			this.a = "";
+		else
+			this.a = builder.a;
+		
+		if (builder.b==null)
+			this.b = "";
+		else
+			this.b = builder.b;
+		
+		if (builder.sigma==null)
+			this.sigma = "";
+		else
+			this.sigma = builder.sigma;
+		
+		if (builder.eps==null)
+			this.eps = "";
+		else
+			this.eps = builder.eps;
+		
+		this.resultMessage = "";
+		
 		if (builder.function==null)
 			this.function = ViewModel.Function.FunctionLnOfXplusOne;
 		else
 			this.function = builder.function;
+		
 		this.logger = builder.logger;
 	}
 	
 	public int getLogSize() {
-		return this.logger.getLogSize();
+		int result =  this.logger.getLogSize();
+		return result;
 	}
 	
 	public void getResult() {
@@ -134,7 +154,7 @@ public class ViewModel {
 		
 		if (this.logger == null)
 		{
-			resultMessage = "Logger has null pointer";
+			resultMessage = "Logger is null";
 			return;
 		}
 		try{
@@ -165,10 +185,12 @@ public class ViewModel {
 				
 				default:
 					this.resultMessage = "Error of function";
+					this.logger.addRecord(createLogRecord());
 					return;	
 			}
 		} catch(Exception ex) {
 			this.resultMessage = "Data is invalid for algorithm";	
+			this.logger.addRecord(createLogRecord());
 			return;
 		}
 		dichotomySolver = null;
