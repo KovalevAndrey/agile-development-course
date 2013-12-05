@@ -45,27 +45,6 @@ public class TxtLogger implements ILogger{
         }
     }
 
-    /*@Override
-    public List<String> getLog() {
-        BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-
-            while (line != null) {
-                LogMessage logMessage = new LogMessage(line, separator);
-                log.add(logMessage.toString());
-                line = reader.readLine();
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return log;
-    }*/
-
     @Override
     public List<String> getLog(LogStatus logStatus) {
         BufferedReader reader;
@@ -88,7 +67,7 @@ public class TxtLogger implements ILogger{
         return log;
     }
 
-    public static String time(){
+    private static String time(){
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(calendar.getTime());

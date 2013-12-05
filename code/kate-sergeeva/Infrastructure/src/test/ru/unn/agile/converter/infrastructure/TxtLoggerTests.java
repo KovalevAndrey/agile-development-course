@@ -40,14 +40,20 @@ public class TxtLoggerTests {
     public void isCorrectAddingMessageInLog(){
         String message = "Adding test log message.";
         txtLogger.Add(message, LogStatus.success);
-        assertEquals(txtLogger.getLog(LogStatus.all).get(0), txtLogger.time() + " > " + "Adding test log message. Status: success");
+        String logMessage = txtLogger.getLog(LogStatus.all).get(0);
+        String[] arrayParts = new String[2];
+        arrayParts = logMessage.split(">");
+        assertEquals(arrayParts[1], " Adding test log message. Status: success");
     }
 
     @Test
-    public void isCorrectGetLogWithDefinedStatus(){
+    public void isCorrectGetLogWithErrorStatus(){
         String message = "Adding test log message.";
         txtLogger.Add(message, LogStatus.error);
-        assertEquals(txtLogger.getLog(LogStatus.error).get(0), txtLogger.time() + " > " + "Adding test log message. Status: error");
+        String logMessage = txtLogger.getLog(LogStatus.all).get(0);
+        String[] arrayParts = new String[2];
+        arrayParts = logMessage.split(">");
+        assertEquals(arrayParts[1], " Adding test log message. Status: error");
     }
 
     @Test

@@ -12,11 +12,6 @@ public class FakeLogger implements ILogger{
         log.add(inputLog + " Status: " + statusLog.toString());
     }
 
-    /*@Override
-    public List<String> getLog() {
-        return log;
-    }  */
-
     @Override
     public List<String> getLog(LogStatus logStatus) {
         return log;
