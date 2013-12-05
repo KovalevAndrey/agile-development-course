@@ -2,15 +2,17 @@ package ru.unn.agile.MathStatistic.viewModel;
 
 import ru.unn.agile.MathStatistic.model.MathStatistic;
 
+import java.util.ArrayList;
+
 public class ViewModel {
     public final int ENTER_CODE = 10;
-    public String inputData = "";
-    public Statistic operation = Statistic.EXPECTED_VALUE;
-    public String outputData = "";
-    public String status = Status.WAITING;
-    public boolean isCalculateButtonEnabled = false;
-    private float[] inputArray;
     ILogger logger;
+    private String inputData = "";
+    private Statistic operation = Statistic.EXPECTED_VALUE;
+    private String outputData = "";
+    private String status = Status.WAITING;
+    private boolean isCalculateButtonEnabled = false;
+    private float[] inputArray;
 
     public ViewModel() {
         inputData = "";
@@ -22,7 +24,7 @@ public class ViewModel {
     }
 
     public ViewModel(ILogger actLogger) {
-        if(actLogger == null) {
+        if (actLogger == null) {
             throw new IllegalArgumentException("Logger can not be a null");
         }
         inputData = "";
@@ -31,29 +33,25 @@ public class ViewModel {
         status = Status.WAITING;
         isCalculateButtonEnabled = false;
         logger = actLogger;
+
+        logger.saveToLog("Program successfully started", ILogger.MessageType.INFO);
+        printActState();
     }
 
-    public class Status {
-        public static final String WAITING = "Provide input data";
-        public static final String READY = "Press 'Calc it!' or Enter";
-        public static final String BAD_INPUT = "Bad input data";
-        public static final String SUCCESS = "Success";
-        public static final String ERROR = "Internal error";
-    }
-
-    public enum Statistic {
-        EXPECTED_VALUE("Expected value"),
-        VARIANCE("Variance"),
-        THIRD_CENTRAL_MOMENT("Third central moment"),
-        FOURTH_CENTRAL_MOMENT("Fourth central moment");
-        private final String name;
-
-        private Statistic(String name) {
-            this.name = name;
+    public ArrayList<String> getEntireLog() {
+        if (logger != null) {
+            return logger.getEntireLog();
+        } else {
+            return null;
         }
 
-        public String toString() {
-            return name;
+    }
+
+    public ArrayList<String> getParticularType(ILogger.MessageType type) {
+        if (logger != null) {
+            return logger.getParticularType(type);
+        } else {
+            return null;
         }
     }
 
@@ -63,8 +61,6 @@ public class ViewModel {
             if (status == Status.READY) {
                 calcIt();
             }
-        } else {
-            convertToArrayOfDoubles();
         }
     }
 
@@ -93,10 +89,8 @@ public class ViewModel {
         } else {
             status = Status.WAITING;
         }
-    }
-
-    public float[] getInputArray() {
-        return inputArray;
+        outputData = "";
+        printActState();
     }
 
     public void calcIt() {
@@ -128,5 +122,110 @@ public class ViewModel {
                 isCalculateButtonEnabled = false;
             }
         }
+        printActState();
     }
+
+    private void printActState() {
+        if (logger != null) {
+            ILogger.MessageType type;
+            String status = getStatus();
+            String newLogEntry = "state:[";
+            newLogEntry += getInputData() + "|";
+            newLogEntry += getOperationInString() + "|";
+            newLogEntry += getOutputData() + "|";
+            newLogEntry += getStatus() + "|";
+            if (status.equals(Status.WAITING)) {
+                type = ILogger.MessageType.INFO;
+
+            } else if (status.equals(Status.READY)) {
+                type = ILogger.MessageType.INFO;
+
+            } else if (status.equals(Status.BAD_INPUT)) {
+                type = ILogger.MessageType.WARNING;
+
+            } else if (status.equals(Status.SUCCESS)) {
+                type = ILogger.MessageType.INFO;
+
+            } else if (status.equals(Status.ERROR)) {
+                type = ILogger.MessageType.ERROR;
+
+            } else {
+                throw new IllegalArgumentException("unknown type");
+            }
+            newLogEntry += getCalculateButtonStateInString() + "]";
+            logger.saveToLog(newLogEntry, type);
+        }
+    }
+
+    public String getInputData() {
+        return inputData;
+    }
+
+    public void setInputData(String actInputData) {
+        inputData = actInputData;
+    }
+
+    public Statistic getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Statistic actOperation) {
+        if (operation != actOperation) {
+            operation = actOperation;
+            printActState();
+        }
+    }
+
+    public String getOperationInString() {
+        return operation.toString();
+    }
+
+    public String getOutputData() {
+        return outputData;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public boolean getCalculateButtonState() {
+        return isCalculateButtonEnabled;
+    }
+
+    public String getCalculateButtonStateInString() {
+        if (isCalculateButtonEnabled == true) {
+            return "enabled";
+        } else {
+            return "disabled";
+        }
+    }
+
+    public float[] getInputArray() {
+        return inputArray;
+    }
+
+    public enum Statistic {
+        EXPECTED_VALUE("Expected value"),
+        VARIANCE("Variance"),
+        THIRD_CENTRAL_MOMENT("Third central moment"),
+        FOURTH_CENTRAL_MOMENT("Fourth central moment");
+        private final String name;
+
+        private Statistic(String name) {
+            this.name = name;
+        }
+
+        public String toString() {
+            return name;
+        }
+    }
+
+    public class Status {
+        public static final String WAITING = "Provide input data";
+        public static final String READY = "Press 'Calc it!' or Enter";
+        public static final String BAD_INPUT = "Bad input data";
+        public static final String SUCCESS = "Success";
+        public static final String ERROR = "Internal error";
+    }
+
 }

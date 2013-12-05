@@ -95,6 +95,8 @@ include "dinar-ahmatnurov/ViewModel"
 project(":dinar-ahmatnurov/ViewModel").name = "dinar-ahmatnurov-ViewModel"
 include "dinar-ahmatnurov/View"
 project(":dinar-ahmatnurov/View").name = "dinar-ahmatnurov-View"
+include "dinar-ahmatnurov/Infrastructure"
+project(":dinar-ahmatnurov/Infrastructure").name = "dinar-ahmatnurov-Infrastructure"
 
 // Egor Novikov
 include "egor-novikov/Model"

@@ -13,5 +13,6 @@ public interface ILogger {
     void saveToLog(String message, MessageType type);
 
     ArrayList<String> getEntireLog();
+
     ArrayList<String> getParticularType(MessageType type);
 }

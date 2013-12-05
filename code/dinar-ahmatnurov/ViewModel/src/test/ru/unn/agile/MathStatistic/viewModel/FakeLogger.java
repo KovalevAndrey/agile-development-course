@@ -12,9 +12,9 @@ public class FakeLogger implements ILogger {
     }
 
     @Override
-    public void saveToLog(String message, MessageType type){
+    public void saveToLog(String message, MessageType type) {
         String header;
-        switch (type){
+        switch (type) {
             case INFO:
                 header = "[info] ";
                 break;
@@ -25,7 +25,7 @@ public class FakeLogger implements ILogger {
                 header = "[error] ";
                 break;
             case UNKNOWN:
-                throw new  IllegalArgumentException("you can specify only: info, warning or error");
+                throw new IllegalArgumentException("you can specify only: info, warning or error");
             default:
                 throw new IllegalArgumentException("unknown message type");
         }
@@ -33,30 +33,29 @@ public class FakeLogger implements ILogger {
         Date now = new Date();
         String data = now.toString() + ":";
 
-        storage.add(header+data+message);
+        storage.add(header + data + message);
     }
 
 
-    public ArrayList<String> getParticularType(MessageType requiredType){
+    public ArrayList<String> getParticularType(MessageType requiredType) {
         ArrayList<String> filteredStorage = new ArrayList<String>();
         MessageType actType;
-        for (String item: filteredStorage) {
+        for (String item : storage) {
 
-            if(item.indexOf("[info]") == 0){
+            if (item.indexOf("[info]") == 0) {
                 actType = MessageType.INFO;
-            }else if(item.indexOf("[warning]") == 0) {
+            } else if (item.indexOf("[warning]") == 0) {
                 actType = MessageType.WARNING;
-            }else if(item.indexOf("[error]") == 0) {
+            } else if (item.indexOf("[error]") == 0) {
                 actType = MessageType.ERROR;
-            }else{
+            } else {
                 actType = MessageType.UNKNOWN;
             }
 
-            if(actType == requiredType){
+            if (actType == requiredType) {
                 filteredStorage.add(item);
             }
         }
-
         return filteredStorage;
     }
 }
