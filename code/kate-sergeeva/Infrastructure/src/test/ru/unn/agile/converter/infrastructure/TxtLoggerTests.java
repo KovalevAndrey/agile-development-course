@@ -10,8 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 public class TxtLoggerTests {

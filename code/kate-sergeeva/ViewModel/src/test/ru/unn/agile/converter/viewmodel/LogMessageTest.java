@@ -4,11 +4,11 @@ package ru.unn.agile.converter.viewmodel;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.*;
+
 
 public class LogMessageTest {
-    LogMessage logMessage;
+    private LogMessage logMessage;
 
     @Before
     public void setUp() {

@@ -23,7 +23,7 @@ public class Converter {
     private JButton convertButton;
     private JLabel JlabelStatus;
     private JList<String> lstLog;
-    private JComboBox comboBoxTypeLog;
+    private JComboBox<LogStatus> comboBoxTypeLog;
     private JLabel JlabelLogStatus;
 
     public Converter(ViewModel viewModel)
