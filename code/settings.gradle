@@ -205,6 +205,8 @@ include "sergei-belousov/ViewModel"
 project(":sergei-belousov/ViewModel").name = "sergei-belousov-ViewModel"
 include "sergei-belousov/View"
 project(":sergei-belousov/View").name = "sergei-belousov-View"
+include "sergei-belousov/Infrastructure"
+project(":sergei-belousov/Infrastructure").name = "sergei-belousov-Infrastructure"
 
 // Sergei Lebedev
 include "sergei-lebedev"

@@ -10,8 +10,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
-//        viewModel.setAddMode(false);
+        viewModel = new ViewModel(new FakeLogger());
     }
 
     @After
@@ -21,7 +20,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        ViewModel viewModel = new ViewModel();
+        ViewModel viewModel = new ViewModel(new FakeLogger());
         assertEquals("", viewModel.fromValueText);
         assertEquals("", viewModel.toValueText);
         assertEquals("", viewModel.fromUnitText);
@@ -105,4 +104,67 @@ public class ViewModelTests {
         assertFalse(viewModel.toValueEnabled);
         assertEquals("convert", viewModel.actionButtonText);
     }
+
+    @Test
+    public void viewErrorMsgForNullLogger() {
+        try {
+            ViewModel viewModel = new ViewModel(null);
+        } catch(RuntimeException e) {
+            assertEquals(e.getMessage(), "Logger must not be null");
+        }
+    }
+
+    @Test
+    public void correctCreateViewModelWithLogger() {
+        try {
+            ViewModel viewModel1 = new ViewModel(new FakeLogger());
+            assertTrue(true);
+        } catch(RuntimeException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void canGetLoggerMessages() {
+        assertTrue(viewModel.getLog().get(0).contains("ViewModel: start program"));
+    }
+
+    @Test
+    public void canLoggedModeChange() {
+        viewModel.setAddMode(true);
+        assertTrue(viewModel.getLog().get(1).contains("setAddMode: add"));
+    }
+
+    @Test
+    public void canLoggedAddPair() {
+        viewModel.setAddMode(true);
+        viewModel.fromValueText = "1.";
+        viewModel.toValueText = "1000.";
+        viewModel.fromUnitText = "kg";
+        viewModel.toUnitText = "g";
+        viewModel.processKey();
+        assertTrue(viewModel.getLog().get(3).contains("addPair"));
+    }
+
+    @Test
+    public void canLoggedParseInputStatus() {
+        viewModel.setAddMode(true);
+        viewModel.fromValueText = "1.";
+        viewModel.toValueText = "1000.";
+        viewModel.fromUnitText = "kg";
+        viewModel.toUnitText = "g";
+        viewModel.processKey();
+        assertTrue(viewModel.getLog().get(2).contains("parseInput"));
+    }
+
+    @Test
+    public void canLoggedConvertDate() {
+        viewModel.setAddMode(false);
+        viewModel.fromUnitText = "g";
+        viewModel.toUnitText = "kg";
+        viewModel.fromValueText = "1.";
+        viewModel.processKey();
+        assertTrue(viewModel.getLog().get(3).contains("convert"));
+    }
+
 }
