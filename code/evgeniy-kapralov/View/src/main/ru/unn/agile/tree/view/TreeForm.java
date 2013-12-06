@@ -1,6 +1,8 @@
 package ru.unn.agile.tree.view;
 
 import javax.swing.*;
+
+import ru.unn.agile.tree.viewmodel.ILogger;
 import ru.unn.agile.tree.viewmodel.TreeViewModel;
 
 import java.awt.event.ActionEvent;
@@ -13,7 +15,8 @@ public class TreeForm extends TreeViewModel {
     private JButton findButton;
     private JLabel resultLabel;
 
-    public TreeForm() {
+    public TreeForm(ILogger logger) {
+        super(logger);
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,7 +41,8 @@ public class TreeForm extends TreeViewModel {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("TreeForm");
-        frame.setContentPane(new TreeForm().mainPanel);
+        ILogger logger = null;
+        frame.setContentPane(new TreeForm(logger).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
