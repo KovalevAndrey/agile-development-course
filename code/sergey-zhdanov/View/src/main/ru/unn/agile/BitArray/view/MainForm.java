@@ -1,10 +1,13 @@
 package ru.unn.agile.BitArray.view;
 
 import javax.swing.*;
+
+import ru.unn.agile.BitArray.Insfrastructure.TextLogger;
 import ru.unn.agile.BitArray.viewmodel.ViewModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MainForm {
     private JPanel mainPanel;
@@ -27,6 +30,7 @@ public class MainForm {
     private JButton outToIntsBtn;
     private JTextArea outArrayTxtArea;
     private JLabel curLenLbl;
+    private JList logList;
 
     ViewModel viewModel;
     public static void main(String[] args) {
@@ -40,7 +44,7 @@ public class MainForm {
     }
 
     public MainForm() {
-        this.viewModel = new ViewModel();
+        this.viewModel = new ViewModel(new TextLogger("./log.log"));
         backBind();
         strInputBtn.addActionListener(new ActionListener() {
             @Override
@@ -129,6 +133,10 @@ public class MainForm {
         startIndOutTxt.setText(viewModel.getBeginIndexToOutput());
         countOutTxt.setText(viewModel.getBitsCountToOutput());
         curLenLbl.setText(viewModel.getLengthOfCurrentArray());
+
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        logList.setListData(items);
         showErrorIfNeed(viewModel.getError());
     }
 

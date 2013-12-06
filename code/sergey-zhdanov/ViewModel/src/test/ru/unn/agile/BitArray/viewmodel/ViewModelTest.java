@@ -7,16 +7,20 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class ViewModelTest {
     private ViewModel viewModel;
     private ViewModelStateChecker viewModelStateChecker;
+    private ILogger logger;
+
     private void assertState() {
         assertTrue(viewModelStateChecker.equalsToViewModelState(viewModel));
     }
     @Before
     public void setUp() throws Exception {
-        viewModel = new ViewModel();
+        logger = mock(ILogger.class);
+        viewModel = new ViewModel(logger);
         viewModelStateChecker = new ViewModelStateChecker();
     }
 
@@ -25,6 +29,7 @@ public class ViewModelTest {
         viewModel = null;
         viewModelStateChecker = null;
     }
+
     @Test
     public void emptyArray() {
         //check empty state

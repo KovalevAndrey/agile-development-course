@@ -1,5 +1,6 @@
 dependencies {
     compile project(':sergey-zhdanov-Model')
+    compile files('./mockito-all-1.9.5.jar')
 }
 
 sourceSets {
