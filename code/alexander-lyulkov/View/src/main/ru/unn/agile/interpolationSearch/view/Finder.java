@@ -21,7 +21,7 @@ public class Finder {
     private JButton searchButton;
     private JLabel lbResult;
     private JLabel lbStatus;
-    private JList lstLog;
+    private JList<String> lstLog;
 
     public Finder(ViewModel viewModel) {
         this.viewModel = viewModel;
