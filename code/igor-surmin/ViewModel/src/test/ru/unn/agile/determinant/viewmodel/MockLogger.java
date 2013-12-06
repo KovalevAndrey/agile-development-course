@@ -7,12 +7,17 @@ public class MockLogger implements ILogger {
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override
-    public void LogMessage(String s) {
+    public void logMessage(String s) {
         log.add(s);
     }
 
     @Override
     public List<String> getLog() {
         return log;
+    }
+
+    @Override
+    public void clearLog() {
+        log.clear();
     }
 }
