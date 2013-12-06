@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DeterminantViewModelTest {
 
-    private DeterminantViewModel viewModel;
+    protected DeterminantViewModel viewModel;
 
     @Before
     public void setUp() {

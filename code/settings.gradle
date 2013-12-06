@@ -147,6 +147,8 @@ include "igor-surmin/ViewModel"
 project(":igor-surmin/ViewModel").name = "igor-surmin-ViewModel"
 include "igor-surmin/View"
 project(":igor-surmin/View").name = "igor-surmin-View"
+include "igor-surmin/Infrastructure"
+project(":igor-surmin/Infrastructure").name = "igor-surmin-Infrastructure"
 
 // Ilya Krylov
 include "ilya-krylov/Model"
