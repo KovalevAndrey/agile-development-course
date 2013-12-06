@@ -1,17 +1,20 @@
 package ru.unn.agile.determinant.view;
 
 import ru.unn.agile.determinant.viewmodel.DeterminantViewModel;
+import ru.unn.agile.determinant.infrastructure.TxtLogger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class DeterminantForm {
     public static void main(String[] args) {
         JFrame frame = new JFrame("DeterminantForm");
-        frame.setContentPane(new DeterminantForm(new DeterminantViewModel()).mainPanel);
+        TxtLogger logger = new TxtLogger("./Determinant.log");
+        frame.setContentPane(new DeterminantForm(new DeterminantViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -25,6 +28,7 @@ public class DeterminantForm {
     private JLabel lblMatrix;
     private JLabel lblResult;
     private JTextField tfResult;
+    private JList lstLog;
 
     private DeterminantViewModel viewModel;
 
@@ -53,17 +57,21 @@ public class DeterminantForm {
     }
 
     public void bind() {
-        viewModel.matrixSize = tfMatrixSize.getText();
-        viewModel.matrix = taMatrix.getText();
+        viewModel.setMatrixSize(tfMatrixSize.getText());
+        viewModel.setMatrix(taMatrix.getText());
         viewModel.isCalculateButtonEnabled = btnCalculate.isEnabled();
         viewModel.status = tfResult.getText();
     }
 
     public void backBind() {
-        tfMatrixSize.setText(viewModel.matrixSize);
-        taMatrix.setText(viewModel.matrix);
+        tfMatrixSize.setText(viewModel.getMatrixSize());
+        taMatrix.setText(viewModel.getMatrix());
         btnCalculate.setEnabled(viewModel.isCalculateButtonEnabled);
         tfResult.setText(viewModel.status);
+
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 
     private void createUIComponents() {
