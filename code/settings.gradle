@@ -179,6 +179,8 @@ include "maksim-medvedev/ViewModel"
 project(":maksim-medvedev/ViewModel").name = "maksim-medvedev-ViewModel"
 include "maksim-medvedev/View"
 project(":maksim-medvedev/View").name = "maksim-medvedev-View"
+include "maksim-medvedev/Infrastructure"
+project(":maksim-medvedev/Infrastructure").name = "maksim-medvedev-Infrastructure"
 
 // Roman Kotelnikov
 include "roman-kotelnikov/Model"

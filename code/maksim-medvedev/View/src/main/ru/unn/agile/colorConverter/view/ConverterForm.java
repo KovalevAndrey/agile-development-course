@@ -1,17 +1,24 @@
 package ru.unn.agile.colorConverter.view;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.util.List;
+
+import ru.unn.agile.colorConverter.infrastructure.XmlLogger;
 
 import ru.unn.agile.colorConverter.viewmodel.ViewModel;
 
 public class ConverterForm {
     public static void main(String[] args) {
+        XmlLogger logger = null;
+        try {
+            logger = new XmlLogger("./log.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         JFrame frame = new JFrame("ConverterForm");
-        frame.setContentPane(new ConverterForm(new ViewModel()).mainPanel);
+        frame.setContentPane(new ConverterForm(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -33,6 +40,14 @@ public class ConverterForm {
             }
         });
 
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                backBind();
+            }
+        };
+
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 bind();
@@ -44,6 +59,9 @@ public class ConverterForm {
         firstColorFirstValueField.addKeyListener(keyListener);
         firstColorSecondValueField.addKeyListener(keyListener);
         firstColorThirdValueField.addKeyListener(keyListener);
+
+        firstColorSpaceCombo.addActionListener(actionListener);
+        secondColorSpaceCombo.addActionListener(actionListener);
     }
 
     private void loadListOfColorSpaces() {
@@ -53,31 +71,31 @@ public class ConverterForm {
     }
 
     private void bind() {
-        viewModel.firstColorFirstValue = firstColorFirstValueField.getText();
-        viewModel.firstColorSecondValue = firstColorSecondValueField.getText();
-        viewModel.firstColorThirdValue = firstColorThirdValueField.getText();
+        viewModel.setFirstColorFirstValue(firstColorFirstValueField.getText());
+        viewModel.setFirstColorSecondValue(firstColorSecondValueField.getText());
+        viewModel.setFirstColorThirdValue(firstColorThirdValueField.getText());
 
-        viewModel.secondColorFirstValue = secondColorFirstValueField.getText();
-        viewModel.secondColorSecondValue = secondColorSecondValueField.getText();
-        viewModel.secondColorThirdValue = secondColorThirdValueField.getText();
+        viewModel.setFirstColorSpace((ViewModel.ColorSpace) firstColorSpaceCombo.getSelectedItem());
+        viewModel.setSecondColorSpace((ViewModel.ColorSpace) secondColorSpaceCombo.getSelectedItem());
 
-        viewModel.firstColorSpace = (ViewModel.ColorSpace) firstColorSpaceCombo.getSelectedItem();
-        viewModel.secondColorSpace = (ViewModel.ColorSpace) secondColorSpaceCombo.getSelectedItem();
-
-        viewModel.status = statusLabel.getText();
+        viewModel.setStatus(statusLabel.getText());
     }
 
     private void backBind() {
-        firstColorFirstValueField.setText(viewModel.firstColorFirstValue);
-        firstColorSecondValueField.setText(viewModel.firstColorSecondValue);
-        firstColorThirdValueField.setText(viewModel.firstColorThirdValue);
+        firstColorFirstValueField.setText(viewModel.getFirstColorFirstValue());
+        firstColorSecondValueField.setText(viewModel.getFirstColorSecondValue());
+        firstColorThirdValueField.setText(viewModel.getFirstColorThirdValue());
 
-        secondColorFirstValueField.setText(viewModel.secondColorFirstValue);
-        secondColorSecondValueField.setText(viewModel.secondColorSecondValue);
-        secondColorThirdValueField.setText(viewModel.secondColorThirdValue);
+        secondColorFirstValueField.setText(viewModel.getSecondColorFirstValue());
+        secondColorSecondValueField.setText(viewModel.getSecondColorSecondValue());
+        secondColorThirdValueField.setText(viewModel.getSecondColorThirdValue());
 
-        convertButton.setEnabled(viewModel.isConvertButtonEnabled);
-        statusLabel.setText(viewModel.status);
+        convertButton.setEnabled(viewModel.isConvertButtonEnabled());
+        statusLabel.setText(viewModel.getStatus());
+
+        List<String> logContent = viewModel.getLog();
+        String[] items = logContent.toArray(new String[logContent.size()]);
+        logList.setListData(items);
     }
 
     private JPanel mainPanel;
@@ -91,4 +109,5 @@ public class ConverterForm {
     private JLabel statusLabel;
     private JComboBox<ViewModel.ColorSpace> secondColorSpaceCombo;
     private JComboBox<ViewModel.ColorSpace> firstColorSpaceCombo;
+    private JList<String> logList;
 }
