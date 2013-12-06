@@ -27,7 +27,7 @@ public class Calculator {
     private JTextField outputData;
     private JComboBox<ViewModel.Statistic> listOfStatistic;
     private JLabel status;
-    private JList logList;
+    private JList<String> logList;
 
 
     private ViewModel viewModel;

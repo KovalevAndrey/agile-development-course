@@ -44,7 +44,7 @@ public class TextFileLoggerTest {
         try {
             textFileLogger = new TextFileLogger(fileName);
             fail("you cant create a file named \"" + fileName + "\"");
-        } catch (IOException e) {
+        } catch (Exception e) {
         }
     }
 
