@@ -15,7 +15,7 @@ public class QueueForm{
     private JPanel mainPanel;
     private JLabel lbStatus;
     private JLabel lbSize;
-    private JList listLog;
+    private JList<String> listLog;
     private ViewModel viewModel;
 
     public QueueForm(ViewModel viewModel)

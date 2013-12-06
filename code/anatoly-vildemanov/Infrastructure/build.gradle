@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':anatoly-vildemanov-Infrastructure')
-    testCompile project(':anatoly-vildemanov-Infrastructure').sourceSets.test.output
+    compile project(':anatoly-vildemanov-ViewModel')
+    testCompile project(':anatoly-vildemanov-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
