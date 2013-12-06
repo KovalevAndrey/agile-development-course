@@ -171,9 +171,11 @@ public class DeterminantViewModelTest {
     public void isLogSizeCorrect()  {
         viewModel.clearLog();
         viewModel.setMatrixSize("1");
-        viewModel.setMatrix("10");
+        viewModel.setMatrix("1");
         viewModel.Calculate();
+        viewModel.setMatrix("2");
         viewModel.Calculate();
+        viewModel.setMatrix("3");
         viewModel.Calculate();
         assertEquals(3, viewModel.getLog().size());
     }
@@ -183,11 +185,10 @@ public class DeterminantViewModelTest {
         viewModel.clearLog();
         viewModel.setMatrixSize("1");
         viewModel.setMatrix("10");
-        viewModel.handleKey();
-
+        viewModel.Calculate();
         viewModel.setMatrixSize("1");
         viewModel.setMatrix("10");
-        viewModel.handleKey();
+        viewModel.Calculate();
         assertEquals(1, viewModel.getLog().size());
     }
 

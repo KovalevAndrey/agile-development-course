@@ -41,7 +41,7 @@ public class DeterminantViewModel {
     }
 
     public void setMatrix(String matrix) {
-        if (this.matrix.equals(matrix))
+        if (parseInput() && this.matrix.equals(matrix))
             return;
         this.matrix = matrix;
         isInputChanged = true;
@@ -51,10 +51,15 @@ public class DeterminantViewModel {
         return status;
     }
 
+    public String formatMatrix(String matrix)
+    {
+        return "[" + matrix.trim().replace(' ', ',').replace('\n', ',') + "]";
+    }
+
     public String getInputReadyLogMessage()
     {
         String message = LogMessages.READY_MESSAGE + "matrix size = " + matrixSize
-            + ", matrix = " + matrix;
+            + ", matrix = " + formatMatrix(matrix);
         return message;
     }
 
@@ -132,24 +137,35 @@ public class DeterminantViewModel {
     }
 
     public void handleKey() {
-        if (parseInput() && isInputChanged)
-        {
-            logger.logMessage(getInputReadyLogMessage());
-            isInputChanged = false;
-        }
+        logInput();
+        parseInput();
     }
 
     private String getCalculateLogMessage()
     {
         String message = LogMessages.CALCULATE_MESSAGE + "matrix size = " + matrixSize
-                + ", matrix = " + matrix;
+                + ", matrix = " + formatMatrix(matrix);
         return message;
+    }
+
+    private void logInput() {
+        if (!isInputChanged || !parseInput())
+            return;
+        logger.logMessage(getInputReadyLogMessage());
+    }
+
+    private void logCalculating() {
+        if (!isInputChanged)
+            return;
+        logger.logMessage(getCalculateLogMessage());
+        isInputChanged = false;
     }
 
     public void Calculate()
     {
-        logger.logMessage(getCalculateLogMessage());
-        if (!parseInput()) return;
+        logCalculating();
+        if (!parseInput())
+            return;
 
         int n = Integer.parseInt(matrixSize);
         Matrix A = new Matrix(n);
