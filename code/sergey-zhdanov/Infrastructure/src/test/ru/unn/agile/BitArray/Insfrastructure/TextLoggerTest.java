@@ -14,9 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 public class TextLoggerTest {
     private static final String LoggerFileName = "./log.log";
