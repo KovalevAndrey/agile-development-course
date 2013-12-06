@@ -16,7 +16,7 @@ public class DequeEmulator {
     private JTextArea dequeTextArea;
     private JLabel statusLabel;
     private JTextField maximumSizeTextField;
-    private JList logList;
+    private JList<String> logList;
     private ViewModel viewModel;
 
     public DequeEmulator(ViewModel viewModel) {
