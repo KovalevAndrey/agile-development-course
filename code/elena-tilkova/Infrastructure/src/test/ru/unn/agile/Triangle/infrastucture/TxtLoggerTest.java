@@ -49,7 +49,7 @@ public class TxtLoggerTest
     {
         String testMessage = "Test message";
         txtLogger.Log(testMessage);
-        String message = readLog().get(0).substring(txtLogger.dataSize());
+        String message = readLog().get(0).substring(txtLogger.dateSize());
         assertEquals(message, testMessage);
     }
     @Test
@@ -61,7 +61,7 @@ public class TxtLoggerTest
 
         List<String> actualMessages = readLog();
         for (int i = 0; i < actualMessages.size(); i++)
-            assertEquals(actualMessages.get(i).substring(txtLogger.dataSize()), messages[i]);
+            assertEquals(actualMessages.get(i).substring(txtLogger.dateSize()), messages[i]);
     }
 
     private List<String> readLog() {

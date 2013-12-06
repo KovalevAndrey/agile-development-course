@@ -327,7 +327,7 @@ public class ViewModelTests
         viewModel.pointA1 = Double.toString(0);
         viewModel.pointA2 = Double.toString(0);
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( ; ); PointC( ; ); Operation: Perimetr; status: ");
     }
 
@@ -341,7 +341,7 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = Double.toString(4);
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 3.0; 0.0); PointC( 0.0; 4.0); Operation: Perimetr; status: Data is correct");
     }
 
@@ -355,7 +355,7 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = Double.toString(0);
         viewModel.enterKeyInTextField(ENTER_CODE);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "calculate PointA( 0.0; 0.0); PointB( 0.0; 0.0); PointC( 0.0; 0.0); Operation: Perimetr; status: Points must be different.");
     }
 
@@ -369,7 +369,7 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = "d";
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 0.0; d); Operation: Perimetr; status: Bad format numbers");
     }
 
@@ -384,7 +384,7 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.SQUARE;
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: Square; status: Data is correct");
     }
 
@@ -399,7 +399,7 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.INRADIUS;
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: InRadius; status: Data is correct");
     }
 
@@ -414,7 +414,7 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.ANGLEA;
         viewModel.enterKeyInTextField(ENTER_CODE);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDataSize());
+        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
         assertEquals(message, "calculate PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: Angle A; status: Done");
     }
 

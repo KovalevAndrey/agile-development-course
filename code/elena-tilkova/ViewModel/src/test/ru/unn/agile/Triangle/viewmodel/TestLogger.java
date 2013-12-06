@@ -20,7 +20,7 @@ public class TestLogger implements ILogger
     }
 
     @Override
-    public int dataSize()
+    public int dateSize()
     {
         return data.length() + 1;
     }

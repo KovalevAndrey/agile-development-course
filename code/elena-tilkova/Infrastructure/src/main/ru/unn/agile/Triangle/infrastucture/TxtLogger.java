@@ -50,7 +50,7 @@ public class TxtLogger implements ILogger
     }
 
     @Override
-    public int dataSize()
+    public int dateSize()
     {
         return DATE.length() + 1;
     }

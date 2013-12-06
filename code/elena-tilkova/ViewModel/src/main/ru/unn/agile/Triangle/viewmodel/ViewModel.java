@@ -178,9 +178,9 @@ public class ViewModel
         return message;
     }
 
-    public int logDataSize()
+    public int logDateSize()
     {
-        return logger.dataSize();
+        return logger.dateSize();
     }
 
     private enum logEvent
