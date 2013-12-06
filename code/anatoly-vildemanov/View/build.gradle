@@ -1,5 +1,6 @@
 dependencies	{
 	compile	project(':anatoly-vildemanov-ViewModel')
+    compile project(':anatoly-vildemanov-Infrastructure')
 }
 
 sourceSets {

@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
-    private Queue queue;
+    protected ViewModel viewModel;
+    protected Queue queue;
 
     @Before
     public void setUp()

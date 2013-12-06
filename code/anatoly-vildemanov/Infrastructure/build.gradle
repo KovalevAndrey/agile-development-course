@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':anatoly-vildemanov-Infrastructure')
+    testCompile project(':anatoly-vildemanov-Infrastructure').sourceSets.test.output
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
+}

@@ -47,6 +47,8 @@ include "anatoly-vildemanov/ViewModel"
 project(":anatoly-vildemanov/ViewModel").name = "anatoly-vildemanov-ViewModel"
 include "anatoly-vildemanov/View"
 project(":anatoly-vildemanov/View").name = "anatoly-vildemanov-View"
+include "anatoly-vildemanov/Infrastructure"
+project(":anatoly-vildemanov/Infrastructure").name = "anatoly-vildemanov-Infrastructure"
 
 // Andrey Ilyichev
 include "andrey-ilyichev/Model"
