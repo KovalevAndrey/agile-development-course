@@ -1,18 +1,24 @@
 package ru.unn.agile.deque.viewmodel;
 import  ru.unn.agile.deque.model.Deque;
 
+import java.util.List;
+
 public class ViewModel {
-    public String maximumSize;
-    public String pushedValue;
-    public String dequeRepresentation;
-    public String status;
-    public Action action;
-    public boolean isActionsComboBoxEnabled;
-    public boolean isPushTextFieldEnabled;
-    public boolean isActButtonEnabled;
+    private ILogger logger;
+    private String maximumSize;
+    private String pushedValue;
+    private String dequeRepresentation;
+    private String status;
+    private Action action;
+    private boolean isActionsComboBoxEnabled;
+    private boolean isPushTextFieldEnabled;
+    private boolean isActButtonEnabled;
     public Deque deque;
 
-    public ViewModel(){
+    public ViewModel(ILogger logger){
+        if (logger == null) {
+            throw new IllegalArgumentException("Null-logger cannot be used");
+        }
         maximumSize = "";
         pushedValue = "";
         dequeRepresentation = "";
@@ -21,6 +27,7 @@ public class ViewModel {
         isPushTextFieldEnabled = false;
         isActButtonEnabled = false;
         action = Action.PUSH_FRONT;
+        this.logger = logger;
     }
 
     private boolean isMaximumSizeTextFieldCorrect() {
@@ -41,9 +48,15 @@ public class ViewModel {
             isPushTextFieldEnabled = true;
             isActionsComboBoxEnabled = true;
             status = Status.DO_ACTION;
+            logger.log("Creating deque with maximum size equals to "
+                    +  getMaximumSize()
+                    +  " is completed successfully");
         }
         else {
             status = Status.BAD_PARAMETER;
+            logger.log("Creating deque with maximum size equals to "
+                    +  getMaximumSize()
+                    +  " is impossible: invalid parameter");
         }
     }
 
@@ -63,13 +76,22 @@ public class ViewModel {
         if (isPushedValueCorrect()) {
             if (!deque.isFull()){
                 deque.pushFront(Integer.parseInt(pushedValue));
+                logger.log("Pushing front of "
+                        + getPushedValue()
+                        + " is completed successfully");
             }
             else{
                 status = Status.DEQUE_IS_FULL;
+                logger.log("Pushing front of "
+                        + getPushedValue()
+                        + " is impossible: deque is full");
             }
         }
         else {
             status = Status.BAD_PARAMETER;
+            logger.log("Pushing front of "
+                    + getPushedValue()
+                    + " is impossible: invalid parameter");
         }
     }
 
@@ -77,28 +99,49 @@ public class ViewModel {
         if (isPushedValueCorrect()) {
             if (!deque.isFull()){
                 deque.pushBack(Integer.parseInt(pushedValue));
+                logger.log("Pushing back of "
+                        +  getPushedValue()
+                        + " is completed successfully");
             }
             else{
                 status = Status.DEQUE_IS_FULL;
+                logger.log("Pushing back of "
+                        +  getPushedValue()
+                        + " is impossible: deque is full");
             }
         }
         else{
             status = Status.BAD_PARAMETER;
+            logger.log("Pushing back of "
+                    + getPushedValue()
+                    + " is impossible: invalid parameter");
         }
     }
 
     public void popFront(){
         if (deque.isEmpty()){
             status = Status.DEQUE_IS_EMPTY;
+            logger.log("Popping front is impossible: deque is empty");
         }
-        else deque.popFront();
+        else {
+            int popped = deque.popFront();
+            logger.log("Popping front of "
+                    + popped
+                    + " is completed successfully");
+        }
     }
 
     public void popBack(){
         if (deque.isEmpty()){
             status = Status.DEQUE_IS_EMPTY;
+            logger.log("Popping back is impossible: deque is empty");
         }
-        else deque.popBack();
+        else {
+            int popped = deque.popBack();
+            logger.log("Popping back of "
+                    + popped
+                    + " is completed successfully");
+        }
     }
 
     public void act(){
@@ -143,4 +186,74 @@ public class ViewModel {
         public static final String DEQUE_IS_EMPTY = "Deque is empty. Popping is unavailable.";
         public static final String DEQUE_IS_FULL = "Deque is full. Pushing is unavailable.";
     }
+
+    public String getMaximumSize(){
+        return maximumSize;
+    }
+
+    public void setMaximumSize(String maximumSize){
+        this.maximumSize = maximumSize;
+    }
+
+    public String getPushedValue(){
+        return pushedValue;
+    }
+
+    public void setPushedValue(String pushedValue){
+        this.pushedValue = pushedValue;
+    }
+
+    public String getDequeRepresentation(){
+        return dequeRepresentation;
+    }
+
+    public void setDequeRepresentation(String dequeRepresentation){
+        this.dequeRepresentation = dequeRepresentation;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
+
+    public Action getAction(){
+        return action;
+    }
+
+    public void setAction(Action action){
+        this.action = action;
+    }
+
+    public boolean getActionsComboBoxEnabled(){
+        return isActionsComboBoxEnabled;
+    }
+
+    public void setActionsComboBoxEnabled(boolean isActionsComboBoxEnabled){
+        this.isActionsComboBoxEnabled = isActionsComboBoxEnabled;
+    }
+
+    public boolean getPushTextFieldEnabled(){
+        return isPushTextFieldEnabled;
+    }
+
+    public void setPushTextFieldEnabled(boolean isPushTextFieldEnabled){
+        this.isPushTextFieldEnabled = isPushTextFieldEnabled;
+    }
+
+    public boolean getActButtonEnabled(){
+        return isActButtonEnabled;
+    }
+
+
+    public void setActButtonEnabled(boolean isActButtonEnabled){
+        this.isActButtonEnabled = isActButtonEnabled;
+    }
+
+    public List<String> getLog(){
+        return logger.getLog();
+    }
+
 }
