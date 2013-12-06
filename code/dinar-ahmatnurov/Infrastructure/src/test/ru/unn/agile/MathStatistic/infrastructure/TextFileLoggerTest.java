@@ -40,7 +40,7 @@ public class TextFileLoggerTest {
 
     @Test
     public void canConstructorHandleBadArgument() {
-        String fileName = ".!@#$%^&*().txt";
+        String fileName = "\\/";
         try {
             textFileLogger = new TextFileLogger(fileName);
             fail("you cant create a file named \"" + fileName + "\"");
