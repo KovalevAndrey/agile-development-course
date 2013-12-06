@@ -3,6 +3,8 @@ package ru.unn.agile.Triangle.viewmodel;
 import ru.unn.agile.Triangle.Triangle;
 import ru.unn.agile.Triangle.Point;
 
+import java.util.List;
+
 public class ViewModel
 {
     public static final int ENTER_CODE = 10;
@@ -16,6 +18,15 @@ public class ViewModel
     public String result = "";
     public Operation operation = Operation.PERIMETR;
     public boolean isCalculateButtonEnabled = false;
+    private ILogger logger;
+
+    public ViewModel(ILogger logger)
+    {
+        if (logger != null)
+            this.logger = logger;
+        else
+            throw new RuntimeException("null pointer");
+    }
 
     public enum Operation
     {
@@ -52,7 +63,9 @@ public class ViewModel
         else
         {
             parseInput();
+            logger.Log(logMessage(logEvent.UPDATE.toString()));
         }
+
     }
 
     private boolean isInputAvailable()
@@ -81,68 +94,109 @@ public class ViewModel
         if (isCalculateButtonEnabled)
         {
             status = "Data is correct";
-        } else {
+        } else
+        {
             status = "";
         }
-
         return isCalculateButtonEnabled;
     }
 
     public void calculate()
     {
-        if (!parseInput()) return;
-
-        Point A = new Point(Double.parseDouble(pointA1), Double.parseDouble(pointA2));
-        Point B = new Point(Double.parseDouble(pointB1), Double.parseDouble(pointB2));
-        Point C = new Point(Double.parseDouble(pointC1), Double.parseDouble(pointC2));
-
-        double answer = 0;
-        Triangle triangle;
-
-        try
+        if (parseInput())
         {
-            triangle = new Triangle(A, B, C);
+            Point A = new Point(Double.parseDouble(pointA1), Double.parseDouble(pointA2));
+            Point B = new Point(Double.parseDouble(pointB1), Double.parseDouble(pointB2));
+            Point C = new Point(Double.parseDouble(pointC1), Double.parseDouble(pointC2));
+
+            double answer = 0;
+            Triangle triangle;
+
+            try
+            {
+                triangle = new Triangle(A, B, C);
+            }
+            catch (IllegalArgumentException e)
+            {
+                status = e.getMessage();
+                logger.Log(logMessage(logEvent.CALCULATE.toString()));
+                return;
+            }
+
+            switch (operation)
+            {
+                case PERIMETR:
+                    answer = triangle.perimeter();
+                    break;
+                case SQUARE:
+                    answer = triangle.square();
+                    break;
+                case INRADIUS:
+                    answer = triangle.inRadius();
+                    break;
+                case CIRCUMRADIUS:
+                    answer = triangle.circumradius();
+                    break;
+                case SIDELENGTHAB:
+                    answer = triangle.sideLength("AB");
+                    break;
+                case SIDELENGTHBC:
+                    answer = triangle.sideLength("BC");
+                    break;
+                case SIDELENGTHAC:
+                    answer = triangle.sideLength("AC");
+                    break;
+                case ANGLEA:
+                    answer = triangle.angle("A");
+                    break;
+                case ANGLEB:
+                    answer = triangle.angle("B");
+                    break;
+                case ANGLEC:
+                    answer = triangle.angle("C");
+                    break;
+            }
+            result = Double.toString(answer);
+            status = "Done";
         }
-        catch (IllegalArgumentException e)
+        logger.Log(logMessage(logEvent.CALCULATE.toString()));
+    }
+
+    public List<String> getLog()
+    {
+        List<String> log = logger.getLog();
+        return log;
+    }
+
+    private String logMessage(String logStatus) {
+        String message = logStatus +
+                "PointA( " + pointA1 + "; " + pointA2 + "); " +
+                "PointB( " + pointB1 + "; " + pointB2 + "); " +
+                "PointC( " + pointC1 + "; " + pointC2 + "); " +
+                "Operation: " + operation + "; " +
+                "status: " + status;
+        return message;
+    }
+
+    public int logDataSize()
+    {
+        return logger.dataSize();
+    }
+
+    private enum logEvent
+    {
+        UPDATE("update fields "),
+        CALCULATE("calculate ");
+
+        private final String name;
+        private logEvent(String name)
         {
-            status = e.getMessage();
-            return;
+            this.name = name;
         }
 
-        switch (operation)
+        public String toString()
         {
-            case PERIMETR:
-                answer = triangle.perimeter();
-                break;
-            case SQUARE:
-                answer = triangle.square();
-                break;
-            case INRADIUS:
-                answer = triangle.inRadius();
-                break;
-            case CIRCUMRADIUS:
-                answer = triangle.circumradius();
-                break;
-            case SIDELENGTHAB:
-                answer = triangle.sideLength("AB");
-                break;
-            case SIDELENGTHBC:
-                answer = triangle.sideLength("BC");
-                break;
-            case SIDELENGTHAC:
-                answer = triangle.sideLength("AC");
-                break;
-            case ANGLEA:
-                answer = triangle.angle("A");
-                break;
-            case ANGLEB:
-                answer = triangle.angle("B");
-                break;
-            case ANGLEC:
-                answer = triangle.angle("C");
-                break;
+            return name;
         }
-        result = Double.toString(answer);
-        status = "Done";
     }
 }

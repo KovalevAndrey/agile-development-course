@@ -1,0 +1,11 @@
+dependencies
+{
+    compile project(':elena-tilkova-ViewModel')
+    testCompile project(':elena-tilkova-ViewModel').sourceSets.test.output
+}
+
+sourceSets
+ {
+    main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
+}

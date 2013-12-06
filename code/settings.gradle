@@ -123,6 +123,8 @@ include "elena-tilkova/ViewModel"
 project(":elena-tilkova/ViewModel").name = "elena-tilkova-ViewModel"
 include "elena-tilkova/View"
 project(":elena-tilkova/View").name = "elena-tilkova-View"
+include "elena-tilkova/Infrastructure"
+project(":elena-tilkova/Infrastructure").name = "elena-tilkova-Infrastructure"
 
 // Evgeniy Kapralov
 include "evgeniy-kapralov/Model"
