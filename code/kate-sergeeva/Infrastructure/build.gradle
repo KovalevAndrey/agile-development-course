@@ -1,8 +1,9 @@
 dependencies {
     compile project(':kate-sergeeva-ViewModel')
-    compile project(':kate-sergeeva-Infrastructure')
+    testCompile project(':kate-sergeeva-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
     main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }

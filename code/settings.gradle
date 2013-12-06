@@ -163,6 +163,8 @@ include "kate-sergeeva/ViewModel"
 project(":kate-sergeeva/ViewModel").name = "kate-sergeeva-ViewModel"
 include "kate-sergeeva/View"
 project(":kate-sergeeva/View").name = "kate-sergeeva-View"
+include "kate-sergeeva/Infrastructure"
+project(":kate-sergeeva/Infrastructure").name = "kate-sergeeva-Infrastructure"
 
 // Kurilov Dmitry
 include "kurilov-dmitry/Model"
