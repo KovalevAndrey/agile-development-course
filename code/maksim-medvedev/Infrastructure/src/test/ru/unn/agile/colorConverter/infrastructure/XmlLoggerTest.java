@@ -46,6 +46,7 @@ public class XmlLoggerTest {
         assert(logContent.contains(testMessage));
     }
 
+    @Test
     public void canWriteSeveralMessages() {
         String[] messages = new String[] { "msg 1", "msg 2", "msg 3" };
 
@@ -58,6 +59,7 @@ public class XmlLoggerTest {
             assert(logContent.contains(messages[i]));
     }
 
+    @Test
     public void logMessageContentsTimeStamp() {
         logger.log("test message");
 
@@ -85,9 +87,10 @@ public class XmlLoggerTest {
             String line = reader.readLine();
 
             while (line != null) {
-                content = line + "\n";
+                content += line + "\n";
                 line = reader.readLine();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
