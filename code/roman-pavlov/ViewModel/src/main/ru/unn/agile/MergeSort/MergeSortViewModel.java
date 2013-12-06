@@ -4,8 +4,16 @@ public class MergeSortViewModel {
     String statusText = "";
     String arrayText = "";
     String resultText = "";
+    public ILogger logger;
+
+    MergeSortViewModel(ILogger logger){
+        if (logger == null)
+            throw new IllegalArgumentException("Logger is null");
+        this.logger = logger;
+    }
 
     public void processSort() {
+        logger.log("Processing array: " + arrayText);
         if (isValidInput()) {
             int[] array = parseInput();
             MergeSort.mergeSort(array);
@@ -23,9 +31,11 @@ public class MergeSortViewModel {
             resultText += String.valueOf(array[i]);
             if (i < array.length - 1) resultText += " ";
         }
+        logger.log("Result array: " + resultText);
     }
 
     private int[] parseInput() {
+        logger.log("Array string parsing");
         String[] arrStrings = arrayText.split("[ ]");
         int arrayLength = 0;
         for (int i = 0; i < arrStrings.length; i++) {
@@ -45,11 +55,16 @@ public class MergeSortViewModel {
     }
 
     private boolean isValidInput() {
+        logger.log("Array string validating");
         String validSymbols = "0123456789 ";
         for (int i = 0; i < arrayText.length(); i++) {
             if (validSymbols.indexOf(arrayText.charAt(i)) < 0)
+            {
+                logger.log("Array string is invalid");
                 return false;
+            }
         }
+        logger.log("Array string is valid");
         return true;
     }
 }

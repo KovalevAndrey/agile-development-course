@@ -3,6 +3,7 @@ package ru.unn.agile.MergeSort;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MergeSortView {
     private JPanel sortForm;
@@ -13,6 +14,8 @@ public class MergeSortView {
     private JTextField textFieldResult;
     private JLabel lblStatusMark;
     private JLabel lblStatus;
+    private JTextArea logArea;
+    private JScrollPane scrollPane;
     private MergeSortViewModel viewModel;
 
     public MergeSortView(MergeSortViewModel viewModel) {
@@ -29,7 +32,7 @@ public class MergeSortView {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MergeSortView");
-        frame.setContentPane(new MergeSortView(new MergeSortViewModel()).sortForm);
+        frame.setContentPane(new MergeSortView(new MergeSortViewModel(new MergeSortLogger("./MergeSort.log"))).sortForm);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setBounds(100, 100, 500, 250);
@@ -46,5 +49,12 @@ public class MergeSortView {
         lblStatus.setText(viewModel.statusText);
         textFieldArray.setText(viewModel.arrayText);
         textFieldResult.setText(viewModel.resultText);
+        logArea.setText("");
+        List<String> logStrings = viewModel.logger.getLog();
+        for (int i=0; i< logStrings.size(); i++)
+        {
+            logArea.append(logStrings.get(i));
+            logArea.append("\n");
+        }
     }
 }

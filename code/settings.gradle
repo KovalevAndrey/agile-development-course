@@ -197,6 +197,8 @@ include "roman-pavlov/ViewModel"
 project(":roman-pavlov/ViewModel").name = "roman-pavlov-ViewModel"
 include "roman-pavlov/View"
 project(":roman-pavlov/View").name = "roman-pavlov-View"
+include "roman-pavlov/Infrastructure"
+project(":roman-pavlov/Infrastructure").name = "roman-pavlov-Infrastructure"
 
 // Sergei Belousov
 include "sergei-belousov/Model"
