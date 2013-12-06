@@ -131,6 +131,8 @@ include "evgeniy-kapralov/ViewModel"
 project(":evgeniy-kapralov/ViewModel").name = "evgeniy-kapralov-ViewModel"
 include "evgeniy-kapralov/View"
 project(":evgeniy-kapralov/View").name = "evgeniy-kapralov-View"
+include "evgeniy-kapralov/Infrastructure"
+project(":evgeniy-kapralov/Infrastructure").name = "evgeniy-kapralov-Infrastructure"
 
 // Grigory Smorkalov
 include "grigory-smorkalov"

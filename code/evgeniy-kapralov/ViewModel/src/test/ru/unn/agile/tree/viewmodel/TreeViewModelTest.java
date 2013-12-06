@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeViewModelTest {
-    TreeViewModel viewModel;
+    public TreeViewModel viewModel;
     FakeLogger fakeLogger;
 
     @Before
@@ -108,7 +108,7 @@ public class TreeViewModelTest {
     }
 
     @Test
-    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+    public void exceptionWithNullLogger() {
         try {
             new TreeViewModel(null);
             fail("Exception was not thrown");
