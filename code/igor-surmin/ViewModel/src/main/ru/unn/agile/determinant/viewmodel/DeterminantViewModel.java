@@ -8,9 +8,12 @@ public class DeterminantViewModel {
     public String matrix;
     public String status;
     public boolean isCalculateButtonEnabled;
+    public ILogger logger;
 
-    public DeterminantViewModel()
+    public DeterminantViewModel(ILogger logger)
     {
+        if (logger == null)
+            throw new IllegalArgumentException("Logger object is null");
         status = Status.WAITING;
         matrixSize = "";
         matrix = "";

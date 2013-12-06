@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class DeterminantViewModelTest {
@@ -13,7 +14,8 @@ public class DeterminantViewModelTest {
 
     @Before
     public void setUp() {
-        viewModel = new DeterminantViewModel();
+        MockLogger logger = new MockLogger();
+        viewModel = new DeterminantViewModel(new MockLogger());
     }
 
     @After
@@ -133,5 +135,13 @@ public class DeterminantViewModelTest {
         viewModel.Calculate();
 
         assertEquals("Determinant = 145.0", viewModel.status);
+    }
+
+
+    @Test
+    public void canCreateModelWithLogger() {
+        ILogger logger = new MockLogger();
+        DeterminantViewModel determinantViewModel = new DeterminantViewModel(logger);
+        assertNotNull(determinantViewModel);
     }
 }
