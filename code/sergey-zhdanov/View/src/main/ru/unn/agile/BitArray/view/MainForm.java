@@ -126,6 +126,7 @@ public class MainForm {
         viewModel.setBitsCountToOutput(countOutTxt.getText());
     }
 
+    @SuppressWarnings("unchecked")
     private void backBind() {
         //field to bind
         curArrayTxtArea.setText(viewModel.getBitStringOfCurrentArray());
