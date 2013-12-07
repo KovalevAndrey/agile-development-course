@@ -7,7 +7,11 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -41,29 +45,44 @@ public class XmlLoggerTest {
         String testMessage = "Test log message";
         logger.log(testMessage);
 
-        String logContent = readAllText();
+        String logContent = null;
+        try {
+            logContent = readAllContent(filename, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            fail();
+        }
 
         assert(logContent.contains(testMessage));
     }
 
     @Test
     public void canWriteSeveralMessages() {
-        String[] messages = new String[] { "msg 1", "msg 2", "msg 3" };
+        String[] messages = new String[] { "msg 1", "msg 2" };
 
-        for (int i = 0; i < messages.length; i++)
-            logger.log(messages[i]);
+        logger.log(messages[0]);
+        logger.log(messages[1]);
 
-        String logContent = readAllText();
+        String logContent = null;
+        try {
+            logContent = readAllContent(filename, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            fail();
+        }
 
-        for (int i = 0; i < messages.length; i++)
-            assert(logContent.contains(messages[i]));
+        assert(logContent.contains(messages[0]));
+        assert(logContent.contains(messages[1]));
     }
 
     @Test
     public void logMessageContentsTimeStamp() {
         logger.log("test message");
 
-        String logContent = readAllText();
+        String logContent = null;
+        try {
+            logContent = readAllContent(filename, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            fail();
+        }
 
         assert(logContent.contains("timestamp=\""));
     }
@@ -79,22 +98,10 @@ public class XmlLoggerTest {
         assertEquals(messages.get(1), "message 2");
     }
 
-    private String readAllText() {
-        String content = "";
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(filename));
-            String line = reader.readLine();
-
-            while (line != null) {
-                content += line + "\n";
-                line = reader.readLine();
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return content;
+    private String readAllContent(String path, Charset encoding)
+            throws IOException
+    {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }
 }

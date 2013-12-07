@@ -2,7 +2,7 @@ package ru.unn.agile.colorConverter.viewmodel;
 
 import java.util.*;
 
-class TestLogger implements ILogger {
+class FakeLogger implements ILogger {
     private ArrayList<String> content = new ArrayList<String>();
 
     @Override
