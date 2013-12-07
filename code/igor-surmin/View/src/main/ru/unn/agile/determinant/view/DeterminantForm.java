@@ -28,7 +28,7 @@ public class DeterminantForm {
     private JLabel lblMatrix;
     private JLabel lblResult;
     private JTextField tfResult;
-    private JList lstLog;
+    private JList<String> lstLog;
 
     private DeterminantViewModel viewModel;
 
