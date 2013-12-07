@@ -41,48 +41,33 @@ public class XmlLoggerTest {
     }
 
     @Test
-    public void canWriteLogMessage() {
+    public void canWriteLogMessage() throws IOException {
         String testMessage = "Test log message";
         logger.log(testMessage);
 
-        String logContent = null;
-        try {
-            logContent = readAllContent(filename, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            fail();
-        }
+        String logContent = readAllContent(filename, StandardCharsets.UTF_8);
 
         assert(logContent.contains(testMessage));
     }
 
     @Test
-    public void canWriteSeveralMessages() {
+    public void canWriteSeveralMessages() throws IOException {
         String[] messages = new String[] { "msg 1", "msg 2" };
 
         logger.log(messages[0]);
         logger.log(messages[1]);
 
-        String logContent = null;
-        try {
-            logContent = readAllContent(filename, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            fail();
-        }
+        String logContent = readAllContent(filename, StandardCharsets.UTF_8);
 
         assert(logContent.contains(messages[0]));
         assert(logContent.contains(messages[1]));
     }
 
     @Test
-    public void logMessageContentsTimeStamp() {
+    public void logMessageContentsTimeStamp() throws IOException {
         logger.log("test message");
 
-        String logContent = null;
-        try {
-            logContent = readAllContent(filename, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            fail();
-        }
+        String logContent = readAllContent(filename, StandardCharsets.UTF_8);
 
         assert(logContent.contains("timestamp=\""));
     }
