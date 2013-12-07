@@ -1,9 +1,11 @@
 package ru.unn.agile.deque.view;
 
 import ru.unn.agile.deque.viewmodel.ViewModel;
+import ru.unn.agile.deque.infrastructure.TxtLogger;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class DequeEmulator {
     private JPanel mainPanel;
@@ -14,6 +16,7 @@ public class DequeEmulator {
     private JTextArea dequeTextArea;
     private JLabel statusLabel;
     private JTextField maximumSizeTextField;
+    private JList<String> logList;
     private ViewModel viewModel;
 
     public DequeEmulator(ViewModel viewModel) {
@@ -47,29 +50,35 @@ public class DequeEmulator {
     }
 
     public void backBind() {
-        maximumSizeTextField.setText(viewModel.maximumSize);
-        pushTextField.setText(viewModel.pushedValue);
-        dequeTextArea.setText(viewModel.dequeRepresentation);
-        statusLabel.setText(viewModel.status);
+        maximumSizeTextField.setText(viewModel.getMaximumSize());
+        pushTextField.setText(viewModel.getPushedValue());
+        dequeTextArea.setText(viewModel.getDequeRepresentation());
+        statusLabel.setText(viewModel.getStatus());
 
-        actionsComboBox.setEnabled(viewModel.isActionsComboBoxEnabled);
-        pushTextField.setEnabled(viewModel.isPushTextFieldEnabled);
-        actButton.setEnabled(viewModel.isActButtonEnabled);
+        actionsComboBox.setEnabled(viewModel.getActionsComboBoxEnabled());
+        pushTextField.setEnabled(viewModel.getPushTextFieldEnabled());
+        actButton.setEnabled(viewModel.getActButtonEnabled());
+
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        logList.setListData(items);
     }
 
     public void bind(){
-        viewModel.maximumSize = maximumSizeTextField.getText();
-        viewModel.pushedValue = pushTextField.getText();
-        viewModel.dequeRepresentation = dequeTextArea.getText();
-        viewModel.status = statusLabel.getText();
-        viewModel.action = (ViewModel.Action) actionsComboBox.getSelectedItem();
+        viewModel.setMaximumSize(maximumSizeTextField.getText());
+        viewModel.setPushedValue(pushTextField.getText());
+        viewModel.setDequeRepresentation(dequeTextArea.getText());
+        viewModel.setStatus(statusLabel.getText());
+        viewModel.setAction ((ViewModel.Action)actionsComboBox.getSelectedItem());
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Deque");
-        frame.setContentPane(new DequeEmulator(new ViewModel()).mainPanel);
+        frame.setContentPane(new DequeEmulator(new ViewModel(new TxtLogger("log.txt"))).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
+
+
 }

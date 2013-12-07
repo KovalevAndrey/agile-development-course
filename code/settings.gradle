@@ -159,6 +159,8 @@ include "ilya-krylov/ViewModel"
 project(":ilya-krylov/ViewModel").name = "ilya-krylov-ViewModel"
 include "ilya-krylov/View"
 project(":ilya-krylov/View").name = "ilya-krylov-View"
+include "ilya-krylov/Infrastructure"
+project(":ilya-krylov/Infrastructure").name = "ilya-krylov-Infrastructure"
 
 // Kate Sergeeva
 include "kate-sergeeva/Model"
