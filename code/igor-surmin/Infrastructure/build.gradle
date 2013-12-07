@@ -1,9 +1,9 @@
 dependencies {
     compile project(':igor-surmin-ViewModel')
-	compile project(':igor-surmin-Infrastructure')
+    testCompile project(':igor-surmin-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
-	main.java.srcDir 'src/main'
+    main.java.srcDir 'src/main'
     test.java.srcDir 'src/test'
 }

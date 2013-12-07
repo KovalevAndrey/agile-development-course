@@ -1,20 +1,66 @@
 package ru.unn.agile.determinant.viewmodel;
 
+import java.util.List;
 import ru.unn.agile.determinant.model.Matrix;
 import ru.unn.agile.determinant.model.DeterminantCalculator;
 
 public class DeterminantViewModel {
-    public String matrixSize;
-    public String matrix;
+    private String matrixSize;
+    private String matrix;
+
     public String status;
     public boolean isCalculateButtonEnabled;
 
-    public DeterminantViewModel()
+    private ILogger logger;
+    private boolean isInputChanged;
+
+    public DeterminantViewModel(ILogger logger)
     {
+        if (logger == null)
+            throw new IllegalArgumentException("Logger object is null");
         status = Status.WAITING;
         matrixSize = "";
         matrix = "";
         isCalculateButtonEnabled = false;
+        this.logger = logger;
+    }
+
+    public String getMatrixSize() {
+        return matrixSize;
+    }
+
+    public void setMatrixSize(String matrixSize) {
+        if (matrixSize.equals(this.matrixSize))
+            return;
+        this.matrixSize = matrixSize;
+        isInputChanged = true;
+    }
+
+    public String getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(String matrix) {
+        if (parseInput() && this.matrix.equals(matrix))
+            return;
+        this.matrix = matrix;
+        isInputChanged = true;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String formatMatrix(String matrix)
+    {
+        return "[" + matrix.trim().replace(' ', ',').replace('\n', ',') + "]";
+    }
+
+    public String getInputReadyLogMessage()
+    {
+        String message = LogMessages.READY_MESSAGE + "matrix size = " + matrixSize
+            + ", matrix = " + formatMatrix(matrix);
+        return message;
     }
 
     private boolean parseInput() {
@@ -90,14 +136,36 @@ public class DeterminantViewModel {
         return true;
     }
 
-    public void handleKey()
-    {
+    public void handleKey() {
+        logInput();
         parseInput();
+    }
+
+    private String getCalculateLogMessage()
+    {
+        String message = LogMessages.CALCULATE_MESSAGE + "matrix size = " + matrixSize
+                + ", matrix = " + formatMatrix(matrix);
+        return message;
+    }
+
+    private void logInput() {
+        if (!isInputChanged || !parseInput())
+            return;
+        logger.logMessage(getInputReadyLogMessage());
+    }
+
+    private void logCalculating() {
+        if (!isInputChanged)
+            return;
+        logger.logMessage(getCalculateLogMessage());
+        isInputChanged = false;
     }
 
     public void Calculate()
     {
-        if (!parseInput()) return;
+        logCalculating();
+        if (!parseInput())
+            return;
 
         int n = Integer.parseInt(matrixSize);
         Matrix A = new Matrix(n);
@@ -112,6 +180,15 @@ public class DeterminantViewModel {
         status = "Determinant = " + determinantCalculator.getDeterminant();
     }
 
+    public List<String> getLog() {
+        List<String> log = logger.getLog();
+        return log;
+    }
+
+    public void clearLog() {
+        logger.clearLog();
+    }
+
     public class Status {
         public static final String WAITING = "Please provide input data";
         public static final String READY = "Press 'Calculate'";
@@ -121,5 +198,10 @@ public class DeterminantViewModel {
         public static final String LESS_ROWS = "Too much rows";
         public static final String MORE_COLUMNS = "Too low columns in row ";
         public static final String LESS_COLUMNS = "Too much columns in row ";
+    }
+
+    public class LogMessages {
+        public static final String CALCULATE_MESSAGE = "Calculating determinant. ";
+        public static final String READY_MESSAGE = "Input data ready. ";
     }
 }
