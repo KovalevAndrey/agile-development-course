@@ -6,5 +6,4 @@ public interface ILogger
 {
     void Log(String s);
     List<String> getLog();
-    public int dateSize();
 }

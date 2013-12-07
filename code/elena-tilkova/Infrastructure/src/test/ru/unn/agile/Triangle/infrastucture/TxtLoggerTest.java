@@ -8,6 +8,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static ru.unn.agile.Triangle.viewmodel.RegexMatcher.matchesPattern;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -49,9 +50,10 @@ public class TxtLoggerTest
     {
         String testMessage = "Test message";
         txtLogger.Log(testMessage);
-        String message = readLog().get(0).substring(txtLogger.dateSize());
-        assertEquals(message, testMessage);
+        String message = readLog().get(0);
+        assertThat(message, matchesPattern(".*" + testMessage + ".*"));
     }
+
     @Test
     public void canWriteSeveralLogMessage() {
         String[] messages = {"Test message 1", "Test message 2"};
@@ -61,7 +63,7 @@ public class TxtLoggerTest
 
         List<String> actualMessages = readLog();
         for (int i = 0; i < actualMessages.size(); i++)
-            assertEquals(actualMessages.get(i).substring(txtLogger.dateSize()), messages[i]);
+            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + ".*"));
     }
 
     private List<String> readLog() {

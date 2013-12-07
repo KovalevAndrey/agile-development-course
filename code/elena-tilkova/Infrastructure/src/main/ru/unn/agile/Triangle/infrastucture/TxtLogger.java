@@ -50,11 +50,6 @@ public class TxtLogger implements ILogger
     }
 
     @Override
-    public int dateSize()
-    {
-        return DATE.length() + 1;
-    }
-    @Override
     public List<String> getLog() {
         BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();

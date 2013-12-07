@@ -170,17 +170,12 @@ public class ViewModel
 
     private String logMessage(String logStatus) {
         String message = logStatus +
-                "PointA( " + pointA1 + "; " + pointA2 + "); " +
-                "PointB( " + pointB1 + "; " + pointB2 + "); " +
-                "PointC( " + pointC1 + "; " + pointC2 + "); " +
+                "PointA " + pointA1 + ", " + pointA2 + "; " +
+                "PointB " + pointB1 + ", " + pointB2 + "; " +
+                "PointC " + pointC1 + ", " + pointC2 + "; " +
                 "Operation: " + operation + "; " +
                 "status: " + status;
         return message;
-    }
-
-    public int logDateSize()
-    {
-        return logger.dateSize();
     }
 
     private enum logEvent

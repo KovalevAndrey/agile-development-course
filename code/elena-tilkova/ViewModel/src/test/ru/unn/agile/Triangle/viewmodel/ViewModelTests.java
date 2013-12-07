@@ -8,6 +8,8 @@ import ru.unn.agile.Triangle.Triangle;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+import static ru.unn.agile.Triangle.viewmodel.RegexMatcher.matchesPattern;
+
 public class ViewModelTests
 {
     public ViewModel viewModel;
@@ -243,7 +245,6 @@ public class ViewModelTests
         assertEquals(Double.toString(6.0), viewModel.result);
     }
 
-
     @Test
     public void canGetResultCircumradiusRightValues()
     {
@@ -327,8 +328,8 @@ public class ViewModelTests
         viewModel.pointA1 = Double.toString(0);
         viewModel.pointA2 = Double.toString(0);
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( ; ); PointC( ; ); Operation: Perimetr; status: ");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB , ; PointC , ; Operation: Perimetr; status: " + ".*"));
     }
 
     @Test
@@ -341,8 +342,8 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = Double.toString(4);
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 3.0; 0.0); PointC( 0.0; 4.0); Operation: Perimetr; status: Data is correct");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 3.0, 0.0; PointC 0.0, 4.0; Operation: Perimetr; status: Data is correct" + ".*"));
     }
 
     @Test
@@ -355,8 +356,8 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = Double.toString(0);
         viewModel.enterKeyInTextField(ENTER_CODE);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "calculate PointA( 0.0; 0.0); PointB( 0.0; 0.0); PointC( 0.0; 0.0); Operation: Perimetr; status: Points must be different.");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "calculate PointA 0.0, 0.0; PointB 0.0, 0.0; PointC 0.0, 0.0; Operation: Perimetr; status: Points must be different." + ".*"));
     }
 
     @Test
@@ -369,8 +370,8 @@ public class ViewModelTests
         viewModel.pointC1 = Double.toString(0);
         viewModel.pointC2 = "d";
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 0.0; d); Operation: Perimetr; status: Bad format numbers");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 0.0, d; Operation: Perimetr; status: Bad format numbers" + ".*"));
     }
 
     @Test
@@ -384,8 +385,8 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.SQUARE;
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: Square; status: Data is correct");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: Square; status: Data is correct" + ".*"));
     }
 
     @Test
@@ -399,8 +400,8 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.INRADIUS;
         viewModel.enterKeyInTextField(ANY_KEY);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "update fields PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: InRadius; status: Data is correct");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: InRadius; status: Data is correct" + ".*"));
     }
 
     @Test
@@ -414,9 +415,8 @@ public class ViewModelTests
         viewModel.pointC2 = Double.toString(5);
         viewModel.operation = ViewModel.Operation.ANGLEA;
         viewModel.enterKeyInTextField(ENTER_CODE);
-        String message = viewModel.getLog().get(0).substring(viewModel.logDateSize());
-        assertEquals(message, "calculate PointA( 0.0; 0.0); PointB( 0.0; 1.0); PointC( 5.0; 5.0); Operation: Angle A; status: Done");
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "calculate PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: Angle A; status: Done" + ".*"));
     }
-
 }
 
