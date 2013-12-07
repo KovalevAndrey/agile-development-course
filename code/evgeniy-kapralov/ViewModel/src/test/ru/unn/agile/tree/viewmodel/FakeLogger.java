@@ -13,12 +13,6 @@ public class FakeLogger implements ILogger {
     }
 
     @Override
-    public void logWithDate(String log)
-    {
-        logContent.add(log);
-    }
-
-    @Override
     public List<String> readLog()
     {
         return logContent;
