@@ -1,5 +1,6 @@
 dependencies {
     compile project(':elena-tilkova-ViewModel')
+    compile project(':elena-tilkova-Infrastructure')
 }
 
 sourceSets {

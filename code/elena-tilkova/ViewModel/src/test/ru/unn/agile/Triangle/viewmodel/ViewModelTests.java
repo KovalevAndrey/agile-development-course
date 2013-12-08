@@ -6,16 +6,20 @@ import org.junit.Test;
 import ru.unn.agile.Triangle.Triangle;
 
 import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
+import static ru.unn.agile.Triangle.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests
 {
-    private ViewModel viewModel;
+    public ViewModel viewModel;
     public static final int ANY_KEY = 1;
     public static final int ENTER_CODE = 10;
     @Before
     public void setUp()
     {
-        viewModel = new ViewModel();
+        TestLogger logger = new TestLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @After
@@ -241,7 +245,6 @@ public class ViewModelTests
         assertEquals(Double.toString(6.0), viewModel.result);
     }
 
-
     @Test
     public void canGetResultCircumradiusRightValues()
     {
@@ -296,6 +299,124 @@ public class ViewModelTests
         viewModel.operation = ViewModel.Operation.INRADIUS;
         viewModel.calculate();
         assertEquals(Double.toString(0.288675134594813), viewModel.result);
+    }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        TestLogger logger = new TestLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test (expected = RuntimeException.class)
+    public void viewModelConstructorThrowsExceptionWithNullLogger()
+    {
+        ViewModel viewModelLogged = new ViewModel(null);
+    }
+
+    @Test
+    public void isLogEmptyInTheBeginning()
+    {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
+    }
+
+    @Test
+    public void isLogRightForTwoValues()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.enterKeyInTextField(ANY_KEY);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB , ; PointC , ; Operation: Perimetr; status: " + ".*"));
+    }
+
+    @Test
+    public void isLogRightForAllInputValues()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(3);
+        viewModel.pointB2 = Double.toString(0);
+        viewModel.pointC1 = Double.toString(0);
+        viewModel.pointC2 = Double.toString(4);
+        viewModel.enterKeyInTextField(ANY_KEY);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 3.0, 0.0; PointC 0.0, 4.0; Operation: Perimetr; status: Data is correct" + ".*"));
+    }
+
+    @Test
+    public void isLogRightForWrongValues()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(0);
+        viewModel.pointB2 = Double.toString(0);
+        viewModel.pointC1 = Double.toString(0);
+        viewModel.pointC2 = Double.toString(0);
+        viewModel.enterKeyInTextField(ENTER_CODE);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "calculate PointA 0.0, 0.0; PointB 0.0, 0.0; PointC 0.0, 0.0; Operation: Perimetr; status: Points must be different." + ".*"));
+    }
+
+    @Test
+    public void isLogRightForBadFormatValues()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(0);
+        viewModel.pointB2 = Double.toString(1);
+        viewModel.pointC1 = Double.toString(0);
+        viewModel.pointC2 = "d";
+        viewModel.enterKeyInTextField(ANY_KEY);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 0.0, d; Operation: Perimetr; status: Bad format numbers" + ".*"));
+    }
+
+    @Test
+    public void isLogRightForSquareOperation()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(0);
+        viewModel.pointB2 = Double.toString(1);
+        viewModel.pointC1 = Double.toString(5);
+        viewModel.pointC2 = Double.toString(5);
+        viewModel.operation = ViewModel.Operation.SQUARE;
+        viewModel.enterKeyInTextField(ANY_KEY);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: Square; status: Data is correct" + ".*"));
+    }
+
+    @Test
+    public void isLogRightForInradiusOperation()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(0);
+        viewModel.pointB2 = Double.toString(1);
+        viewModel.pointC1 = Double.toString(5);
+        viewModel.pointC2 = Double.toString(5);
+        viewModel.operation = ViewModel.Operation.INRADIUS;
+        viewModel.enterKeyInTextField(ANY_KEY);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "update fields PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: InRadius; status: Data is correct" + ".*"));
+    }
+
+    @Test
+    public void isLogRightForAngleAOperation()
+    {
+        viewModel.pointA1 = Double.toString(0);
+        viewModel.pointA2 = Double.toString(0);
+        viewModel.pointB1 = Double.toString(0);
+        viewModel.pointB2 = Double.toString(1);
+        viewModel.pointC1 = Double.toString(5);
+        viewModel.pointC2 = Double.toString(5);
+        viewModel.operation = ViewModel.Operation.ANGLEA;
+        viewModel.enterKeyInTextField(ENTER_CODE);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + "calculate PointA 0.0, 0.0; PointB 0.0, 1.0; PointC 5.0, 5.0; Operation: Angle A; status: Done" + ".*"));
     }
 }
 

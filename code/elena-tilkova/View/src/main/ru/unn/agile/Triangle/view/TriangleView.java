@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
+
 import ru.unn.agile.Triangle.viewmodel.ViewModel;
+import ru.unn.agile.Triangle.infrastucture.TxtLogger;
 
 public class TriangleView
 {
@@ -23,12 +26,14 @@ public class TriangleView
     private JLabel lblPointA;
     private JLabel lblPointB;
     private JLabel lblPointC;
+    private JList<String> lstLog;
 
     private ViewModel viewModel;
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("Triangle");
-        frame.setContentPane(new TriangleView(new ViewModel()).mainPanel);
+        TxtLogger logger = new TxtLogger("./Calculator.log");
+        frame.setContentPane(new TriangleView(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -103,5 +108,9 @@ public class TriangleView
         txtResult.setText(viewModel.result);
         lbStatus.setText(viewModel.status);
         btnCalc.setEnabled(viewModel.isCalculateButtonEnabled);
+
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 }
