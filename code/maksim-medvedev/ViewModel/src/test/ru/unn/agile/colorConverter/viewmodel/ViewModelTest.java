@@ -3,17 +3,19 @@ package ru.unn.agile.colorConverter.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.colorConverter.model.Converter;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class ViewModelTest {
     public static final int ANY_KEY = 0;
-    private ViewModel viewModel;
+    protected ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger logger = new FakeLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @After
@@ -23,83 +25,84 @@ public class ViewModelTest {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("255", viewModel.firstColorFirstValue);
-        assertEquals("0", viewModel.firstColorSecondValue);
-        assertEquals("0", viewModel.firstColorThirdValue);
+        assertEquals("255", viewModel.getFirstColorFirstValue());
+        assertEquals("0", viewModel.getFirstColorSecondValue());
+        assertEquals("0", viewModel.getFirstColorThirdValue());
 
-        assertEquals("", viewModel.secondColorFirstValue);
-        assertEquals("", viewModel.secondColorSecondValue);
-        assertEquals("", viewModel.secondColorThirdValue);
+        assertEquals("", viewModel.getSecondColorFirstValue());
+        assertEquals("", viewModel.getSecondColorSecondValue());
+        assertEquals("", viewModel.getSecondColorThirdValue());
 
-        assertEquals(ViewModel.ColorSpace.RGB, viewModel.firstColorSpace);
-        assertEquals(ViewModel.ColorSpace.RGB, viewModel.secondColorSpace);
-        assertEquals(true, viewModel.isConvertButtonEnabled);
+        assertEquals(ViewModel.ColorSpace.RGB, viewModel.getFirstColorSpace());
+        assertEquals(ViewModel.ColorSpace.RGB, viewModel.getSecondColorSpace());
+        assertEquals(true, viewModel.isConvertButtonEnabled());
 
-        assertEquals(ViewModel.Status.WAITING, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void convertButtonIsDisabledWhenNoValue() {
-        viewModel.firstColorFirstValue = "";
+        viewModel.setFirstColorFirstValue("");
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(false, viewModel.isConvertButtonEnabled);
+        assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void statusIsWaitingDataWhenNoValue() {
-        viewModel.firstColorFirstValue = "";
+        viewModel.setFirstColorFirstValue("");
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(ViewModel.Status.WAITING, viewModel.status);
+        assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void convertButtonIsDisabledWhenIncorrectValue() {
-        viewModel.firstColorFirstValue = "1.0";
+        viewModel.setFirstColorFirstValue("1.0");
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(false, viewModel.isConvertButtonEnabled);
+        assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void statusIsBadFormatWhenNoValue() {
-        viewModel.firstColorFirstValue = "1.0";
+        viewModel.setFirstColorFirstValue("1.0");
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
+        assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
     public void statusIsReadyDataWhenReady() {
-        viewModel.firstColorFirstValue = "0";
-        viewModel.firstColorSecondValue = "0";
-        viewModel.firstColorThirdValue = "0";
+        viewModel.setFirstColorFirstValue("0");
+        viewModel.setFirstColorSecondValue("0");
+        viewModel.setFirstColorThirdValue("0");
         viewModel.processKeyInTextField(ANY_KEY);
 
-        assertEquals(ViewModel.Status.READY, viewModel.status);
+        assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
 
     @Test
     public void statusIsErrorWhenError() {
-        viewModel.firstColorFirstValue = "260";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.RGB;
+        viewModel.setFirstColorFirstValue("260");
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.RGB);
         viewModel.convert();
 
-        assertEquals(ViewModel.Status.ERROR_CONVERTING, viewModel.status);
+        assertEquals(ViewModel.Status.ERROR_CONVERTING, viewModel.getStatus());
     }
 
     @Test
     public void statusIsSuccessWhenSuccess() {
-        viewModel.firstColorFirstValue = "255";
-        viewModel.firstColorSecondValue = "128";
-        viewModel.firstColorThirdValue = "0";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.RGB;
+        viewModel.setFirstColorFirstValue("255");
+        viewModel.setFirstColorSecondValue("128");
+        viewModel.setFirstColorThirdValue("0");
 
-        viewModel.secondColorSpace = ViewModel.ColorSpace.HSV;
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.RGB);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.HSV);
+
         viewModel.convert();
 
-        assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
+        assertEquals(ViewModel.Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
@@ -120,59 +123,131 @@ public class ViewModelTest {
 
     @Test
     public void isConvertingByEnter() {
-        viewModel.firstColorFirstValue = "255";
-        viewModel.firstColorFirstValue = "128";
-        viewModel.firstColorFirstValue = "0";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.RGB;
+        viewModel.setFirstColorFirstValue("255");
+        viewModel.setFirstColorSecondValue("128");
+        viewModel.setFirstColorThirdValue("0");
 
-        viewModel.secondColorSpace = ViewModel.ColorSpace.HSV;
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.RGB);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.HSV);
         viewModel.processKeyInTextField(ViewModel.ENTER_CODE);
 
-        assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
+        assertEquals(ViewModel.Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
     public void convertsRGBtoRGB() {
-        viewModel.firstColorFirstValue = "255";
-        viewModel.firstColorSecondValue = "128";
-        viewModel.firstColorThirdValue = "64";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.RGB;
+        viewModel.setFirstColorFirstValue("255");
+        viewModel.setFirstColorSecondValue("128");
+        viewModel.setFirstColorThirdValue("64");
 
-        viewModel.secondColorSpace = ViewModel.ColorSpace.RGB;
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.RGB);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.RGB);
+
         viewModel.convert();
 
-        assertEquals("255", viewModel.secondColorFirstValue);
-        assertEquals("128", viewModel.secondColorSecondValue);
-        assertEquals("64", viewModel.secondColorThirdValue);
+        assertEquals("255", viewModel.getSecondColorFirstValue());
+        assertEquals("128", viewModel.getSecondColorSecondValue());
+        assertEquals("64", viewModel.getSecondColorThirdValue());
     }
 
     @Test
     public void convertsHSVtoHSV() {
-        viewModel.firstColorFirstValue = "30";
-        viewModel.firstColorSecondValue = "70";
-        viewModel.firstColorThirdValue = "100";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.HSV;
+        viewModel.setFirstColorFirstValue("30");
+        viewModel.setFirstColorSecondValue("70");
+        viewModel.setFirstColorThirdValue("100");
 
-        viewModel.secondColorSpace = ViewModel.ColorSpace.HSV;
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.HSV);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.HSV);
         viewModel.convert();
 
-        assertEquals("30", viewModel.secondColorFirstValue);
-        assertEquals("70", viewModel.secondColorSecondValue);
-        assertEquals("100", viewModel.secondColorThirdValue);
+        assertEquals("30", viewModel.getSecondColorFirstValue());
+        assertEquals("70", viewModel.getSecondColorSecondValue());
+        assertEquals("100", viewModel.getSecondColorThirdValue());
     }
 
     @Test
     public void convertsLABtoLAB() {
-        viewModel.firstColorFirstValue = "5";
-        viewModel.firstColorSecondValue = "1";
-        viewModel.firstColorThirdValue = "2";
-        viewModel.firstColorSpace = ViewModel.ColorSpace.LAB;
+        viewModel.setFirstColorFirstValue("5");
+        viewModel.setFirstColorSecondValue("1");
+        viewModel.setFirstColorThirdValue("2");
 
-        viewModel.secondColorSpace = ViewModel.ColorSpace.LAB;
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.LAB);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.LAB);
         viewModel.convert();
 
-        assertEquals("5", viewModel.secondColorFirstValue);
-        assertEquals("1", viewModel.secondColorSecondValue);
-        assertEquals("2", viewModel.secondColorThirdValue);
+        assertEquals("5", viewModel.getSecondColorFirstValue());
+        assertEquals("1", viewModel.getSecondColorSecondValue());
+        assertEquals("2", viewModel.getSecondColorThirdValue());
+    }
+
+    private String getLastLogMessage() throws Exception {
+        List<String> log = viewModel.getLog();
+        if (log.size() == 0)
+            throw new Exception("Log is empty");
+
+        return log.get(log.size() - 1);
+    }
+
+    @Test
+    public void changingValuesIsBeingLogged() {
+        int size = viewModel.getLog().size();
+
+        viewModel.setFirstColorFirstValue("5");
+        viewModel.setFirstColorSecondValue("3");
+        viewModel.setFirstColorThirdValue("7");
+
+        assertEquals(viewModel.getLog().size(), size + 3);
+    }
+
+    @Test
+    public void changingColorSpaceIsBeingLogged() {
+        int size = viewModel.getLog().size();
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.HSV);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.LAB);
+
+        assertEquals(viewModel.getLog().size(), size + 2);
+    }
+
+    @Test
+    public void convertingIsBeingLogged() {
+        int size = viewModel.getLog().size();
+        viewModel.convert();
+
+        assertEquals(viewModel.getLog().size(), size + 1);
+    }
+
+    @Test
+    public void changingValuesCorrectlyLogged() throws Exception {
+        viewModel.setFirstColorFirstValue("5");
+
+        assert(getLastLogMessage().startsWith(ViewModel.LogMessage.ValueChanged));
+    }
+
+    @Test
+    public void changingColorSpaceCorrectlyLogged() throws Exception {
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.LAB);
+
+        assert(getLastLogMessage().startsWith(ViewModel.LogMessage.ColorSpaceChanged));
+    }
+
+    @Test
+    public void convertingCorrectlyLogged() throws Exception {
+        viewModel.convert();
+
+        assert(getLastLogMessage().startsWith(ViewModel.LogMessage.ConvertClicked));
+    }
+
+    @Test
+    public void valuesAreCorrectlyLogged() throws Exception {
+        viewModel.setFirstColorFirstValue("5");
+        viewModel.setFirstColorSecondValue("3");
+        viewModel.setFirstColorThirdValue("7");
+
+        viewModel.setFirstColorSpace(ViewModel.ColorSpace.RGB);
+        viewModel.setSecondColorSpace(ViewModel.ColorSpace.HSV);
+
+        String logMsg = ViewModel.LogMessage.ColorSpaceChanged + " Values are: [5, 3, 7]; RGB -> HSV";
+
+        assertEquals(getLastLogMessage(), logMsg);
     }
 }
