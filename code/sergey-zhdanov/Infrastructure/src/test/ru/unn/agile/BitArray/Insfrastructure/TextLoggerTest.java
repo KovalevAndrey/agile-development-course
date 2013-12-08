@@ -89,19 +89,16 @@ public class TextLoggerTest {
 
     @Test
     public void testGetLogs() throws Exception {
-        List<String> expectedLogs = new ArrayList<String>(){ {
-            add("first log message");
-            add("second log message");
-            add("third log message");
-        }};
-        logger.log(expectedLogs.get(0));
-        logger.log(expectedLogs.get(1));
-        logger.log(expectedLogs.get(2));
+        String firstMessage = "first log message";
+        String secondMessage = "second log message";
+        String thirdMessage = "third log message";
+        logger.log(firstMessage);
+        logger.log(secondMessage);
+        logger.log(thirdMessage);
         List<String> actualLogs = logger.getLogs();
-        assertEquals(actualLogs.size(), expectedLogs.size());
-        for(int i = 0; i < expectedLogs.size(); ++i) {
-            assertEquals(expectedLogs.get(i), getMessage(actualLogs.get(i)));
-        }
+        assertEquals(firstMessage, getMessage(actualLogs.get(0)));
+        assertEquals(secondMessage, getMessage(actualLogs.get(1)));
+        assertEquals(thirdMessage, getMessage(actualLogs.get(2)));
     }
 
     private int getSequence(String logEntry) {
