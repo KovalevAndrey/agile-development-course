@@ -2,8 +2,11 @@ package ru.unn.agile.BitArray.viewmodel;
 
 import com.szhdanov.main.BitArray;
 
+import java.util.List;
+
 public class ViewModel {
 
+    private ILogger logger;
     private BitArray bitArray;
     //field to bind
     private String bitStringOfCurrentArray;
@@ -13,9 +16,11 @@ public class ViewModel {
     private String lengthOfCurrentArray;
     private String error;
 
-    public ViewModel() {
+    public ViewModel(ILogger logger) {
+        this.logger = logger;
         this.bitArray = new BitArray();
         updateState();
+        this.logger.log(ViewModelLoggingMessages.VIEW_MODEL_CREATED);
     }
     private void updateState() {
         this.bitStringOfCurrentArray = bitArray.toBitString();
@@ -30,8 +35,10 @@ public class ViewModel {
         try {
             bitArray = BitArray.fromString(str);
             updateState();
+            logger.log(ViewModelLoggingMessages.SUCCESSFUL_INPUT_OF_ARRAY_FROM_STRING +str);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.UNSUCCESSFUL_ATTEMPT_TO_INPUT_ARRAY_FROM_BAD_BIT_STARING +str);
         }
     }
 
@@ -52,8 +59,10 @@ public class ViewModel {
             int[] ints = intArrayFromStr(str);
             bitArray = BitArray.fromArray(ints);
             updateState();
+            logger.log(ViewModelLoggingMessages.INPUT_ARRAY_FROM_STRING_OF_INTS_SUCCESS +str);
         } catch (Exception ex) {
-            error = "Can't parse string: " + ex.getMessage();
+            setError("Can't parse string: " + ex.getMessage());
+            logger.log(ViewModelLoggingMessages.INPUT_ARRAY_FROM_STRING_OF_INTS_FAIL +str);
         }
     }
 
@@ -61,8 +70,10 @@ public class ViewModel {
         try {
             bitArray = bitArray.not();
             updateState();
+            logger.log(ViewModelLoggingMessages.NOT_ACTION_SUCCESS);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.NOT_ACTION_FAIL);
         }
     }
 
@@ -70,8 +81,10 @@ public class ViewModel {
         try {
             bitArray = bitArray.lshft(1);
             updateState();
+            logger.log(ViewModelLoggingMessages.LEFT_SHIFT_SUCCESS);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.LEFT_SHIFT_FAIL);
         }
     }
 
@@ -79,8 +92,10 @@ public class ViewModel {
         try {
             bitArray = bitArray.rshft(1);
             updateState();
+            logger.log(ViewModelLoggingMessages.RIGHT_SHIFT_SUCCESS);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.RIGHT_SHIFT_FAIL);
         }
     }
 
@@ -89,8 +104,10 @@ public class ViewModel {
             int intIndex = Integer.parseInt(index);
             bitArray.set(intIndex, 0);
             updateState();
+            logger.log(ViewModelLoggingMessages.SET_ZERO_TO_INDEX_SUCCESS_INDEX +index);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.SET_ZERO_TO_INDEX_FAIL_INDEX +index);
         }
     }
 
@@ -99,8 +116,10 @@ public class ViewModel {
             int intIndex = Integer.parseInt(index);
             bitArray.set(intIndex, 1);
             updateState();
+            logger.log(ViewModelLoggingMessages.SET_ONE_TO_INDEX_SUCCESS_INDEX +index);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.SET_ONE_TO_INDEX_FAIL_INDEX +index);
         }
     }
 
@@ -109,8 +128,10 @@ public class ViewModel {
             updateState();
             beginIndexToOutput = "0";
             bitsCountToOutput = lengthOfCurrentArray;
+            logger.log(ViewModelLoggingMessages.MARK_WHOLE_ARRAY_TO_OUTPUT_SUCCESS);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.MARK_WHOLE_ARRAY_TO_OUTPUT_FAIL);
         }
     }
 
@@ -120,8 +141,10 @@ public class ViewModel {
             int count = Integer.parseInt(bitsCountToOutput);
             BitArray subArray = bitArray.subArray(startInd, count);
             arrayToOutput = subArray.toBitString();
+            logger.log(ViewModelLoggingMessages.OUTPUT_TO_BIT_STRING_SUCCESS +arrayToOutput);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.OUTPUT_TO_BIT_STRING_FAIL);
         }
     }
 
@@ -147,8 +170,10 @@ public class ViewModel {
             BitArray subArray = bitArray.subArray(startInd, count);
             int[] ints = subArray.toIntArray();
             arrayToOutput = intArrayToString(ints);
+            logger.log(ViewModelLoggingMessages.OUTPUT_TO_STRING_OF_INTS_SUCCESS +arrayToOutput);
         } catch (Exception ex) {
-            error = ex.getMessage();
+            setError(ex.getMessage());
+            logger.log(ViewModelLoggingMessages.OUTPUT_TO_STRING_OF_INTS_FAIL);
         }
     }
 
@@ -156,16 +181,8 @@ public class ViewModel {
         return bitStringOfCurrentArray;
     }
 
-    public void setBitStringOfCurrentArray(String bitStringOfCurrentArray) {
-        this.bitStringOfCurrentArray = bitStringOfCurrentArray;
-    }
-
     public String getArrayToOutput() {
         return arrayToOutput;
-    }
-
-    public void setArrayToOutput(String arrayToOutput) {
-        this.arrayToOutput = arrayToOutput;
     }
 
     public String getBeginIndexToOutput() {
@@ -174,6 +191,7 @@ public class ViewModel {
 
     public void setBeginIndexToOutput(String beginIndexToOutput) {
         this.beginIndexToOutput = beginIndexToOutput;
+        logger.log(ViewModelLoggingMessages.SET_BEGIN_INDEX_TO_OUTPUT +beginIndexToOutput);
     }
 
     public String getBitsCountToOutput() {
@@ -182,14 +200,11 @@ public class ViewModel {
 
     public void setBitsCountToOutput(String bitsCountToOutput) {
         this.bitsCountToOutput = bitsCountToOutput;
+        logger.log(ViewModelLoggingMessages.SET_BITS_COUNT_TO_OUTPUT +bitsCountToOutput);
     }
 
     public String getLengthOfCurrentArray() {
         return lengthOfCurrentArray;
-    }
-
-    public void setLengthOfCurrentArray(String lengthOfCurrentArray) {
-        this.lengthOfCurrentArray = lengthOfCurrentArray;
     }
 
     public String getError() {
@@ -198,5 +213,10 @@ public class ViewModel {
 
     public void setError(String error) {
         this.error = error;
+        logger.log(ViewModelLoggingMessages.SET_ERROR +error);
+    }
+
+    public List<String> getLog() {
+        return logger.getLogs();
     }
 }

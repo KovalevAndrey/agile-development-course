@@ -249,6 +249,8 @@ include "sergey-zhdanov/ViewModel"
 project(":sergey-zhdanov/ViewModel").name = "sergey-zhdanov-ViewModel"
 include "sergey-zhdanov/View"
 project(":sergey-zhdanov/View").name = "sergey-zhdanov-View"
+include "sergey-zhdanov/Infrastructure"
+project(":sergey-zhdanov/Infrastructure").name = "sergey-zhdanov-Infrastructure"
 
 // Stanislav Filippenko
 include "stanislav-filippenko"
