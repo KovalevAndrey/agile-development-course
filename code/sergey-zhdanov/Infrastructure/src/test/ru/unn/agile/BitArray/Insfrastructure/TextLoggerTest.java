@@ -89,14 +89,18 @@ public class TextLoggerTest {
 
     @Test
     public void testGetLogs() throws Exception {
-        logger.log("first log message");
-        logger.log("second log message");
-        logger.log("third log message");
-        List<String> expectedLogs = readLoggedLines();
+        List<String> expectedLogs = new ArrayList<String>(){ {
+            add("first log message");
+            add("second log message");
+            add("third log message");
+        }};
+        logger.log(expectedLogs.get(0));
+        logger.log(expectedLogs.get(1));
+        logger.log(expectedLogs.get(2));
         List<String> actualLogs = logger.getLogs();
-        assertEquals(expectedLogs.size(), actualLogs.size());
+        assertEquals(actualLogs.size(), expectedLogs.size());
         for(int i = 0; i < expectedLogs.size(); ++i) {
-            assertEquals(expectedLogs.get(i), actualLogs.get(i));
+            assertEquals(expectedLogs.get(i), getMessage(actualLogs.get(i)));
         }
     }
 
