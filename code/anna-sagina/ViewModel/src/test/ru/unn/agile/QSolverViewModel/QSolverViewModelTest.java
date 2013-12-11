@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
@@ -13,7 +15,8 @@ public class QSolverViewModelTest {
 
     @Before
     public void setUp() {
-        viewModel = new QSolverViewModel();
+       ILogger logger = new FakeLogger();
+        viewModel = new QSolverViewModel(logger);
     }
 
     @After
@@ -107,4 +110,129 @@ public class QSolverViewModelTest {
         viewModel.RunSolver();
         assertEquals("Oops.. something is wrong: Equation cannot be solved!", viewModel.result);
     }
+
+    @Test
+    public void canCreateViewModelWithLogger(){
+        assertNotNull(viewModel);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenCreateViewModelWithNullLoggerExceptionIsThrown(){
+        QSolverViewModel viewModelLogged = new QSolverViewModel(null);
+    }
+
+    @Test
+    public void isLogEmptyInBeginning(){
+        assertEquals(0,viewModel.getLog().size());
+    }
+
+    @Test
+    public void setCoefficientValueBeginsWithInfoMessage(){
+        viewModel.a = "0";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+
+        int position  = viewModel.getLog().get(0).indexOf("Info:");
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void doesStartValidationMessageLogged(){
+        viewModel.a = "0";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        int position  = viewModel.getLog().get(0).indexOf(QSolverViewModel.Message.START_VALIDATION);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void doesFinishValidationMessageLogged(){
+        viewModel.a = "0";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        List<String> log = viewModel.getLog();
+        String message =  "Info:" + QSolverViewModel.Message.VALIDATION_FINISHED;
+        int position  = log.get(log.size()-1).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void areAllCoefficientsLogged(){
+        viewModel.a = "0";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        List<String> log = viewModel.getLog();
+        String message =  "Info:" + QSolverViewModel.Message.INPUT_IS +"a = " + 0 + "; b = " + 0 + "; c = " + 3;
+        int position  = log.get(1).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void badCoefficientGivesErrorLog(){
+        viewModel.a = "asd";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        List<String> log = viewModel.getLog();
+        String message =  "ERROR:" +  QSolverViewModel.Message.VALIDATION_FAILED;
+        int position  = log.get(log.size()- 2).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void solvingStartsWithInfoLog(){
+        viewModel.a = "9";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        viewModel.RunSolver();
+        List<String> log = viewModel.getLog();
+        String message =  "Info:" +  QSolverViewModel.Message.START_SOLVER;
+        int position  = log.get(3).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void solvingEndsWithInfoLog(){
+        viewModel.a = "9";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        viewModel.RunSolver();
+        List<String> log = viewModel.getLog();
+        String message =  "Info:" +  QSolverViewModel.Message.SOLVER_FINISHED;
+        int position  = log.get(log.size()-1).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    @Test
+    public void resultIsLogged(){
+        viewModel.a = "9";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        viewModel.RunSolver();
+        List<String> log = viewModel.getLog();
+        String message =  "Info:" + viewModel.result;
+        int position  = log.get(log.size()- 2).indexOf(message);
+        assertTrue(position>=0);
+    }
+
+    //@Test
+    public void solverErrorsAreLogged(){
+        viewModel.a = "9";
+        viewModel.b = "0";
+        viewModel.c = "3";
+        viewModel.setCoefficientValue();
+        viewModel.RunSolver();
+        List<String> log = viewModel.getLog();
+        String message =  "ERROR:" + QSolverViewModel.Message.SOLVER_FAILED;
+        int position  = log.get(log.size()- 2).indexOf(message);
+        assertTrue(position>=0);
+    }
+
 }
