@@ -267,6 +267,9 @@ include "vyacheslav-yudanov/ViewModel"
 project(":vyacheslav-yudanov/ViewModel").name = "vyacheslav-yudanov-ViewModel"
 include "vyacheslav-yudanov/View"
 project(":vyacheslav-yudanov/View").name = "vyacheslav-yudanov-View"
+include "vyacheslav-yudanov/Infrastructure"
+project(":vyacheslav-yudanov/Infrastructure").name = "vyacheslav-yudanov-Infrastructure"
+
 
 // Zoya Maslova
 include "zoya-maslova/Model"
