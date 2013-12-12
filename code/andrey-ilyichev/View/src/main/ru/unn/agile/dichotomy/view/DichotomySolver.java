@@ -41,7 +41,7 @@ public class DichotomySolver {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DichotomySolver window = new DichotomySolver(new ViewModel.Builder().logger(new TxtLogger("log.txt")).build());
+					DichotomySolver window = new DichotomySolver(new ViewModel(new TxtLogger("log.txt")));
 					window.frmDichotomySolver.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

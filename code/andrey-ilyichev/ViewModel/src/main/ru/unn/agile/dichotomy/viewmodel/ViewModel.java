@@ -18,42 +18,43 @@ public class ViewModel {
 	
 	public String getA() {
 		return a;
-	}
+	};
 	public void setA(String a) {
 		this.a = a;
-	}
+	};
 
 	public String getB() {
 		return b;
-	}
+	};
 	public void setB(String b) {
 		this.b = b;
-	}
+	};
 
 	public String getSigma() {
 		return sigma;
-	}
+	};
 	public void setSigma(String sigma) {
 		this.sigma = sigma;
-	}
+	};
 
 	public String getEps() {
 		return eps;
-	}
+	};
 	public void setEps(String eps) {
 		this.eps = eps;
-	}
+	};
 
 	public Function getFunction() {
 		return function;
-	}
+	};
 	public void setFunction(Function function) {
 		this.function = function;
-	}
+	};
 		
 	public String getResultMessage() {
 		return resultMessage;
-	}
+	};
+	
 	public enum Function {
 		FunctionLnOfXplusOne("log10(x+1)"),
 		FunctionSqrXminusOne("x^2-1");
@@ -62,92 +63,27 @@ public class ViewModel {
 		
 		private Function(String functionString) {
 			this.functionString = functionString;
-		}
+		};
 		
 		public String toString() {
 			return functionString;
-		}
+		};
 	};
 	
-	public static class Builder {
-		private String a;
-		private String b;
-		private String sigma;
-		private String eps;
-		private Function function;
-		private ILogger logger;
-		
-		public Builder a(String a) {
-			this.a = a;
-			return this;
-		}
-		
-		public Builder b(String b) {
-			this.b = b;
-			return this;
-		}
-		
-		public Builder eps(String eps) {
-			this.eps = eps;
-			return this;
-		}
-		
-		public Builder sigma(String sigma) {
-			this.sigma = sigma;
-			return this;
-		}
-		
-		public Builder function(Function function) {
-			this.function = function;
-			return this;
-		}
-		
-		public Builder logger(ILogger logger) {
-			this.logger = logger;
-			return this;
-		}
-		
-		public ViewModel build() {
-			return new ViewModel(this);
-		}
-	}
-	
-	public ViewModel(Builder builder) {
-		
-		if (builder.a==null)
-			this.a = "";
-		else
-			this.a = builder.a;
-		
-		if (builder.b==null)
-			this.b = "";
-		else
-			this.b = builder.b;
-		
-		if (builder.sigma==null)
-			this.sigma = "";
-		else
-			this.sigma = builder.sigma;
-		
-		if (builder.eps==null)
-			this.eps = "";
-		else
-			this.eps = builder.eps;
-		
+	public ViewModel(ILogger logger) {
+		this.a = "";
+		this.b = "";
+		this.sigma = "";
+		this.eps = "";
 		this.resultMessage = "";
-		
-		if (builder.function==null)
-			this.function = ViewModel.Function.FunctionLnOfXplusOne;
-		else
-			this.function = builder.function;
-		
-		this.logger = builder.logger;
-	}
+		this.function = Function.FunctionLnOfXplusOne;
+		this.logger = logger;
+	};
 	
 	public int getLogSize() {
 		int result =  this.logger.getLogSize();
 		return result;
-	}
+	};
 	
 	public void getResult() {
 		float a,b,sigma,eps;
@@ -187,12 +123,12 @@ public class ViewModel {
 					this.resultMessage = "Error of function";
 					this.logger.addRecord(createLogRecord());
 					return;	
-			}
+			};
 		} catch(Exception ex) {
 			this.resultMessage = "Data is invalid for algorithm";	
 			this.logger.addRecord(createLogRecord());
 			return;
-		}
+		};
 		dichotomySolver = null;
 		this.resultMessage = String.valueOf(result);
 		this.logger.addRecord(createLogRecord());
@@ -206,10 +142,10 @@ public class ViewModel {
 				"; sigma = " + sigma +
 				"; function is " + function +
 				"; resultMessage = " + resultMessage;
-	}
+	};
 
 	public ArrayList<String> getLog() {
 		return this.logger.getLogList();
-	}
+	};
 	
 }

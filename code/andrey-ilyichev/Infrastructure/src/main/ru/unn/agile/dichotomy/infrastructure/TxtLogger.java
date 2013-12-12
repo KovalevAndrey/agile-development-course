@@ -18,18 +18,16 @@ public class TxtLogger implements ILogger {
 	private BufferedReader bufReader;
     private static String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
 	
-	public TxtLogger(String fileName){
+	public TxtLogger(String fileName) {
 		TxtLogger.fileName = fileName;
-		
 		try {
 			FileWriter fileWriter = new FileWriter(fileName);		
 			bufWriter = new BufferedWriter(fileWriter);
 		} catch (IOException e) {
-			System.err.print("Error in conctructor of txtLogger: "+ e.toString());
+			System.err.print("Error in conctructor of txtLogger: " + e.toString());
 		}
 	}
 
-	
     private static String getCurrentDateAndTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -38,16 +36,15 @@ public class TxtLogger implements ILogger {
 	
 	@Override
 	public void addRecord(String record) {
-		if (record == null){
+		if (record == null) {
 			throw new IllegalArgumentException("Record was null");
 		}
 		try {
-			bufWriter.write(getCurrentDateAndTime() + " : "+record+"\n");
+			bufWriter.write(getCurrentDateAndTime() + " : " + record + "\n");
 			bufWriter.flush();
 		} catch (IOException e) {
-			System.err.print("Error in addRecord of txtLogger: "+ e.toString());
+			System.err.print("Error in addRecord of txtLogger: " + e.toString());
 		}
-		
 	}
 
 	@Override
@@ -58,7 +55,6 @@ public class TxtLogger implements ILogger {
         	String line = bufReader.readLine();
         	
             while (line != null) {
-
             	result.add(line);
                 line = bufReader.readLine();
             }
