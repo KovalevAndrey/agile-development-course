@@ -4,12 +4,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.CreditCalculator.viewmodel.RegexHelper;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
-import java.util.regex.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -17,7 +17,6 @@ import static org.junit.Assert.fail;
 
 public class RealLoggerTest {
     private static final String LOGS_FILE_PATH = "./test-log.txt";
-    private static final String DATE_PATTERN = "^\\(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\): ";
     private RealLogger realLogger;
 
     @Before
@@ -41,7 +40,7 @@ public class RealLoggerTest {
             FileReader fileReader = new FileReader(LOGS_FILE_PATH);
             new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
-            fail("File " + LOGS_FILE_PATH + " hasn't founded!");
+            fail("File " + LOGS_FILE_PATH + " has not been found!");
         }
     }
 
@@ -50,7 +49,7 @@ public class RealLoggerTest {
         String testMessage = "My first message to log!";
         realLogger.Log(testMessage);
         String logString = realLogger.getLog().get(0);
-        assertEquals(true, IsMessageOfLogString(testMessage, logString));
+        assertEquals(true, RegexHelper.IsMessageOfLogString(testMessage, logString));
     }
 
     @Test
@@ -65,12 +64,6 @@ public class RealLoggerTest {
         List<String> logMessages = realLogger.getLog();
 
         for (int i=0; i<messages.length; i++)
-            Assert.assertEquals(true, IsMessageOfLogString(messages[i], logMessages.get(i)));
-    }
-
-    private boolean IsMessageOfLogString(String message, String logString) {
-        Pattern pattern = Pattern.compile(DATE_PATTERN + message);
-        Matcher matcher = pattern.matcher(logString);
-        return matcher.matches();
+            Assert.assertEquals(true, RegexHelper.IsMessageOfLogString(messages[i], logMessages.get(i)));
     }
 }

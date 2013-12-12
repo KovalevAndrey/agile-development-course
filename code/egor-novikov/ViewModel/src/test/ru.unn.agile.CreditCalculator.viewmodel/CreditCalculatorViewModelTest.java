@@ -8,8 +8,7 @@ import ru.unn.agile.creditcalculator.CreditCalculator;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class CreditCalculatorViewModelTest
-{
+public class CreditCalculatorViewModelTest{
     protected CreditCalculatorViewModel creditCalculatorViewModel;
 
     @Before
@@ -306,30 +305,6 @@ public class CreditCalculatorViewModelTest
         assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
-    @Test
-    public void canCreateCreditCalculatorViewModelWithLogger() {
-        TestLogger logger = new TestLogger();
-        CreditCalculatorViewModel creditCalculatorViewModel = new CreditCalculatorViewModel(logger);
-
-        assertNotNull(creditCalculatorViewModel);
-    }
-
-    @Test
-    public void creditCalculatorViewModelConstructorThrowsExceptionWithNullLogger() {
-        try
-        {
-            new CreditCalculatorViewModel(null);
-            fail("Exception wasn't thrown");
-        }
-        catch(IllegalArgumentException ex)
-        {
-            assertEquals("Argument 'logger' must not be null", ex.getMessage());
-        }
-        catch(Exception ex)
-        {
-            fail("Invalid exception type");
-        }
-    }
 
     private void assertDoubles(double expected, double input)
     {
