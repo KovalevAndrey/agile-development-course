@@ -5,18 +5,22 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Re.model.ReError;
 
+import java.awt.Color;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-public class ReViewModelTests
+public class RegexViewModelTests
 {
-    private ReViewModel viewModel;
+    private RegexViewModel viewModel;
 
     @Before
     public void setUp()
     {
-        viewModel = new ReViewModel();
+        viewModel = new RegexViewModel(new MockLogger());
     }
 
     @After
@@ -112,4 +116,27 @@ public class ReViewModelTests
         assertNotEquals(viewModel.status, previousStatus);
     }
 
+    @Test
+    public void returnLightGrayRowColorOnInfoLogType()
+    {
+        assertThat(viewModel.getRowColor(ILogger.INFO), is(equalTo(Color.LIGHT_GRAY)));
+    }
+
+    @Test
+    public void returnYellowRowColorOnWarningLogType()
+    {
+        assertThat(viewModel.getRowColor(ILogger.WARN), is(equalTo(Color.YELLOW)));
+    }
+
+    @Test
+    public void returnMagentaRowColorOnErrorLogType()
+    {
+        assertThat(viewModel.getRowColor(ILogger.ERROR), is(equalTo(Color.MAGENTA)));
+    }
+
+    @Test
+    public void returnWhiteRowColorOnUnknownLogType()
+    {
+        assertThat(viewModel.getRowColor("other type"), is(equalTo(Color.WHITE)));
+    }
 }

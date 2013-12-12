@@ -1,15 +1,21 @@
 package ru.unn.agile.Re.view;
 
-import ru.unn.agile.Re.viewmodel.ReViewModel;
+import ru.unn.agile.Re.infrastructure.TxtLogger;
+import ru.unn.agile.Re.viewmodel.RegexViewModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 import static javax.swing.UIManager.setLookAndFeel;
 
 public class SearchEngine
 {
-    public SearchEngine(ReViewModel viewModel)
+    public SearchEngine(final RegexViewModel viewModel)
     {
         this.viewModel = viewModel;
         searchButton.addActionListener(new ActionListener()
@@ -22,8 +28,38 @@ public class SearchEngine
                 backBind();
             }
         });
-        patternTextField.addKeyListener(new DefaultKeyListener());
-        searchTextArea.addKeyListener(new DefaultKeyListener());
+
+        KeyAdapter defaultKeyListener = new KeyAdapter()
+        {
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                super.keyReleased(e);
+                updateButtonState();
+            }
+        };
+        patternTextField.addKeyListener(defaultKeyListener);
+        searchTextArea.addKeyListener(defaultKeyListener);
+
+        FocusAdapter defaultTextFocusAdapter = new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent e)
+            {
+                bind();
+                super.focusLost(e);
+                JTextComponent component = (JTextComponent)e.getSource();
+                viewModel.focusLost(component.getClass().getName(), component.getText());
+                backBind();
+            }
+        };
+        patternTextField.addFocusListener(defaultTextFocusAdapter);
+        searchTextArea.addFocusListener(defaultTextFocusAdapter);
+
+        logTableModel = new LogTableModel();
+        logTable.setModel(logTableModel);
+        logTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+        logTable.setDefaultRenderer(Object.class, new LogTableRowRenderer());
     }
 
     private void bind()
@@ -38,6 +74,8 @@ public class SearchEngine
         patternTextField.setText(viewModel.pattern);
         searchTextArea.setText(viewModel.text);
         statusTextLabel.setText(viewModel.status);
+        List<String[]> logList = viewModel.getLog();
+        logTableModel.updateData(logList.get(logList.size()-1));
     }
 
     public static void main(String[] args)
@@ -52,7 +90,7 @@ public class SearchEngine
         }
 
         JFrame frame = new JFrame("SearchEngine");
-        frame.setContentPane(new SearchEngine(new ReViewModel()).mainPanel);
+        frame.setContentPane(new SearchEngine(new RegexViewModel(new TxtLogger("searchEngine.log"))).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -73,29 +111,52 @@ public class SearchEngine
         }
     }
 
-    private class DefaultKeyListener implements KeyListener
+    private class LogTableModel extends DefaultTableModel
     {
+        String[] columnNames = {"Type", "Tag", "Text", "Date"};
+
         @Override
-        public void keyTyped(KeyEvent e) {
-            updateButtonState();
+        public int getColumnCount()
+        {
+            return columnNames.length;
         }
 
         @Override
-        public void keyPressed(KeyEvent e) {
-            updateButtonState();
+        public String getColumnName(int index)
+        {
+            return columnNames[index];
         }
 
-        @Override
-        public void keyReleased(KeyEvent e) {
-            updateButtonState();
+        public void updateData(String[] logEntry)
+        {
+            int firstRow = getRowCount();
+            addRow(logEntry);
+            int lastRow = getRowCount() - 1;
+
+            fireTableRowsInserted(firstRow, lastRow);
         }
     }
 
-    private ReViewModel viewModel;
+    private class LogTableRowRenderer extends DefaultTableCellRenderer
+    {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+        {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            String logType = (String) table.getValueAt(row, 0);
+            setBackground(viewModel.getRowColor(logType));
+
+            return this;
+        }
+    }
+
+    private RegexViewModel viewModel;
+    private LogTableModel logTableModel;
 
     private JPanel mainPanel;
     private JTextField patternTextField;
     private JButton searchButton;
     private JTextArea searchTextArea;
     private JLabel statusTextLabel;
+    private JTable logTable;
 }
