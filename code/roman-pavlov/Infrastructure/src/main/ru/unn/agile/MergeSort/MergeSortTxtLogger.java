@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MergeSortLogger implements ILogger{
+public class MergeSortTxtLogger implements ILogger{
     private List<String> log;
+    private String file= "";
+
     private BufferedWriter fileWriter;
 
-    MergeSortLogger(String file) {
+    MergeSortTxtLogger(String file) {
+        this.file=file;
         log = new ArrayList<String>();
         try {
             fileWriter = new BufferedWriter(new FileWriter(file));
@@ -39,4 +42,17 @@ public class MergeSortLogger implements ILogger{
     public List<String> getLog() {
         return log;
     }
+
+    @Override
+    public void clear() {
+        log.clear();
+        try {
+            FileWriter logFile = new FileWriter(file);
+            fileWriter = new BufferedWriter(logFile);
+        }
+        catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
+
 }

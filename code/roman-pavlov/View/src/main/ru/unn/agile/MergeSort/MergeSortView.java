@@ -16,6 +16,7 @@ public class MergeSortView {
     private JLabel lblStatus;
     private JTextArea logArea;
     private JScrollPane scrollPane;
+    private JButton buttonClear;
     private MergeSortViewModel viewModel;
 
     public MergeSortView(MergeSortViewModel viewModel) {
@@ -28,11 +29,19 @@ public class MergeSortView {
                 backBind();
             }
         });
+        MergeSortView.this.buttonClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bind();
+                MergeSortView.this.viewModel.clearLogger();
+                backBind();
+            }
+        });
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MergeSortView");
-        frame.setContentPane(new MergeSortView(new MergeSortViewModel(new MergeSortLogger("./MergeSort.log"))).sortForm);
+        frame.setContentPane(new MergeSortView(new MergeSortViewModel(new MergeSortTxtLogger("./MergeSort.log"))).sortForm);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setBounds(100, 100, 500, 250);

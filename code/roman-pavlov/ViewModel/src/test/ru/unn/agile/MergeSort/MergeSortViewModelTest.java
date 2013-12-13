@@ -149,4 +149,12 @@ public class MergeSortViewModelTest {
         assertFindedInString(mes,
                 "Array string validating");
     }
+
+    @Test
+    public void loggerAfterClearIsEmpty()
+    {
+        viewModel.processSort();
+        viewModel.clearLogger();
+        assertTrue(viewModel.logger.getLog().isEmpty());
+    }
 }

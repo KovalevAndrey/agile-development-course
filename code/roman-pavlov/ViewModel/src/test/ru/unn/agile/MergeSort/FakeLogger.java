@@ -18,4 +18,9 @@ public class FakeLogger implements ILogger {
     public List<String> getLog() {
         return log;
     }
+
+    @Override
+    public void clear() {
+        log.clear();
+    }
 }

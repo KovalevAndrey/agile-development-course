@@ -25,6 +25,10 @@ public class MergeSortViewModel {
         }
     }
 
+    public void clearLogger(){
+        logger.clear();
+    }
+
     private void writeResult(int[] array) {
         resultText = "";
         for (int i = 0; i < array.length; i++) {
