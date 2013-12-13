@@ -18,13 +18,6 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sasha
- * Date: 12/5/13
- * Time: 10:55 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TextLoggerTests {
     private static final String logFilename = "./testLog.log";
     private TextLogger logger;

@@ -6,13 +6,6 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sasha
- * Date: 11/9/13
- * Time: 6:03 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ViewModel {
     public static final int ENTER_CODE = 10;
     public String listOfElements = "";

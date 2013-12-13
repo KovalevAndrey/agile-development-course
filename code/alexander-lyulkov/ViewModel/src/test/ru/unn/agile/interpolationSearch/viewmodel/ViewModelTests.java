@@ -4,8 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -17,7 +15,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        SimpleLogger log = new SimpleLogger();
+        FakeLogger log = new FakeLogger();
         viewModel = new ViewModel(log);
     }
 
@@ -195,7 +193,7 @@ public class ViewModelTests {
 
     @Test
     public void canInitializeViewModelWithLogger() {
-        SimpleLogger logger = new SimpleLogger();
+        FakeLogger logger = new FakeLogger();
         ViewModel viewModelLogged = new ViewModel(logger);
 
         assertNotNull(viewModelLogged);

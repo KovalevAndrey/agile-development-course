@@ -6,13 +6,7 @@ import ru.unn.agile.interpolationSearch.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sasha
- * Date: 11/8/13
- * Time: 5:28 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Finder {
     private JTextField txtListOfElements;
     private JTextField txtKey;

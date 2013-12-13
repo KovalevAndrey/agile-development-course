@@ -11,13 +11,6 @@ import java.util.List;
 import ru.unn.agile.interpolationSearch.viewmodel.ILogger;
 
 
-/**
- * Created with IntelliJ IDEA.
- * User: sasha
- * Date: 12/5/13
- * Time: 10:54 PM
- * To change this template use File | Settings | File Templates.
- */
 public class TextLogger implements ILogger {
     private BufferedWriter bufferedWriter;
     private String filename;
