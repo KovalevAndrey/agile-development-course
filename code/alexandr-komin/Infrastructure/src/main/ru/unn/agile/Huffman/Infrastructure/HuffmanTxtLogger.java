@@ -27,22 +27,14 @@ public class HuffmanTxtLogger implements ILogger
         }
     }
 
-    private static String now() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        return sdf.format(cal.getTime());
+    @Override
+    public void logInfo(String message) {
+        log("Info: ",message);
     }
 
     @Override
-    public void log(String message) {
-        try {
-            writer.write(now()+" "+message);
-            writer.newLine();
-            writer.flush();
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+    public void logError(String message) {
+        log("Error: ",message);
     }
 
     @Override
@@ -68,9 +60,37 @@ public class HuffmanTxtLogger implements ILogger
         return logList;
     }
 
+    @Override
+    public void clearLog() {
+        try {
+        FileWriter logFile = new FileWriter(filename);
+        writer = new BufferedWriter(logFile);
+        }
+        catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
+
     protected void finalize() {
         try {
             writer.close();
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
+
+    private void log(String typeLog, String message) {
+        try {
+            writer.write(now()+" "+typeLog+message);
+            writer.newLine();
+            writer.flush();
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());

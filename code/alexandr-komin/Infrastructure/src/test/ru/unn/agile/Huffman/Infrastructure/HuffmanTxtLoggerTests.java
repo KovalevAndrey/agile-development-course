@@ -41,20 +41,20 @@ public class HuffmanTxtLoggerTests {
 
     @Test
     public void RecordGetFromFileLogAndFromLoggerAreEquals(){
-        huffmanTxtLogger.log("Example");
+        huffmanTxtLogger.logInfo("Example");
         assertLists(readLogFile(), huffmanTxtLogger.getLog());
     }
 
     @Test
     public void logSizeMustBeIncreaseThenAddRecord() {
-        huffmanTxtLogger.log("Example");
+        huffmanTxtLogger.logInfo("Example");
         assertTrue(huffmanTxtLogger.getLog().size() > 0);
     }
 
     @Test
-    public void massageWriteToLoggerCorrect() {
+    public void messageWriteToLoggerCorrect() {
         String message = "Example";
-        huffmanTxtLogger.log(message);
+        huffmanTxtLogger.logInfo(message);
         assertEquals(true, huffmanTxtLogger.getLog().get(0).indexOf("Example")>0);
     }
 

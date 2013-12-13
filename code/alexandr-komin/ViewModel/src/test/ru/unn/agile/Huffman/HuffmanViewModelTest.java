@@ -18,6 +18,7 @@ public class HuffmanViewModelTest {
         FakeLogger logger=new FakeLogger();
         viewModelHuffman = new HuffmanViewModel(logger);
     }
+
     @After
     public void afterTest() {
         viewModelHuffman = null;
@@ -104,50 +105,62 @@ public class HuffmanViewModelTest {
     }
 
     @Test
-    public void afterResetToLoggerAddOneRecord()
-    {
+    public void loggerAfterClearIsEmpty(){
+        viewModelHuffman.reset();
+        viewModelHuffman.clearLog();
+        assertEquals(true,viewModelHuffman.getLog().isEmpty());
+    }
+
+    @Test
+    public void afterResetToLoggerAddOneRecord(){
         viewModelHuffman.reset();
         assertEquals(1,viewModelHuffman.getLog().size());
     }
 
     @Test
-    public void afterResetLoggerContentCorrespondingRecord()
-    {
+    public void afterAllowableOperationLoggerContentInfoRecord(){
+        viewModelHuffman.reset();
+        assertEquals(true, viewModelHuffman.getLog().get(0).indexOf("Info:")>=0);
+    }
+
+    @Test
+    public void afterNotAllowableOperationLoggerContentErrorRecord(){
+        compress("");
+        assertEquals(true, viewModelHuffman.getLog().get(1).indexOf("Error:")>=0);
+    }
+
+    @Test
+    public void afterResetLoggerContentCorrespondingRecord(){
         viewModelHuffman.reset();
         assertEquals(true, viewModelHuffman.getLog().get(0).indexOf(HuffmanViewModel.LogMessages.RESET)>=0);
     }
 
     @Test
-    public void afterCompressAndAfterExpandToLoggerAddFourRecord()
-    {
+    public void afterCompressAndAfterExpandToLoggerAddFourRecord(){
         compressAndExpand("test");
         assertEquals(4,viewModelHuffman.getLog().size());
     }
 
     @Test
-    public void afterCompressEmptyStringLoggerContainRecordAboutFail()
-    {
+    public void afterCompressEmptyStringLoggerContainRecordAboutFail(){
         compress("");
         assertEquals(true,viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.FAIL)>=0);
     }
 
     @Test
-    public void afterCompressNotEmptyStringLoggerContainRecordAboutSuccess()
-    {
+    public void afterCompressNotEmptyStringLoggerContainRecordAboutSuccess(){
         compress("test");
         assertEquals(true,viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.SUCCESS)>=0);
     }
 
     @Test
-    public void afterExpandEmptyStringLoggerContainRecordAboutFail()
-    {
+    public void afterExpandEmptyStringLoggerContainRecordAboutFail(){
         expand("");
         assertEquals(true, viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.FAIL)>=0);
     }
 
     @Test
-    public void afterExpandCorrectStringLoggerContainRecordAboutSuccess()
-    {
+    public void afterExpandCorrectStringLoggerContainRecordAboutSuccess(){
         compressAndExpand("test");
         assertEquals(true,viewModelHuffman.getLog().get(3).indexOf(HuffmanViewModel.LogMessages.SUCCESS)>=0);
     }

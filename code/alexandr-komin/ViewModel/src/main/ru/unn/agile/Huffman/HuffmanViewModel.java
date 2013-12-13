@@ -29,35 +29,32 @@ public class HuffmanViewModel {
 
     public void compress() {
         try {
-            logger.log(LogMessages.COMPRESS+text);
+            logger.logInfo(LogMessages.COMPRESS + text);
             text=Huffman.compress(text);
-            logger.log(LogMessages.SUCCESS);
+            logger.logInfo(LogMessages.SUCCESS);
             isActiveCompressButton = false;
             isActiveEncodingButton = true;
             isEditableTextArea =false;
             status="String successful compress";
-
         }
-        catch (RuntimeException e)
-        {
+        catch (RuntimeException e){
             if(e.getMessage()=="Empty string are not allowed for compress");
             status="Empty string are not allowed for compress";
-            logger.log(LogMessages.FAIL);
+            logger.logError(LogMessages.FAIL);
         }
     }
     public void expand() {
         try{
-            logger.log(LogMessages.EXPAND+text);
+            logger.logInfo(LogMessages.EXPAND + text);
             text=Huffman.expand(text);
-            logger.log(LogMessages.SUCCESS);
+            logger.logInfo(LogMessages.SUCCESS);
             isActiveCompressButton=true;
             isActiveEncodingButton=false;
             isEditableTextArea =true;
             status="String successful expand";
         }
-        catch (RuntimeException e)
-        {
-            logger.log(LogMessages.FAIL);
+        catch (RuntimeException e){
+            logger.logError(LogMessages.FAIL);
             if(e.getMessage()=="Empty string are not allowed for expand");
             status="Empty string are not allowed for expand";
         }
@@ -65,7 +62,7 @@ public class HuffmanViewModel {
 
     public void reset() {
         init();
-        logger.log(LogMessages.RESET);
+        logger.logInfo(LogMessages.RESET);
     }
 
     private void init() {
@@ -78,5 +75,9 @@ public class HuffmanViewModel {
 
     public List<String> getLog() {
         return logger.getLog();
+    }
+
+    public void clearLog() {
+        logger.clearLog();
     }
 }

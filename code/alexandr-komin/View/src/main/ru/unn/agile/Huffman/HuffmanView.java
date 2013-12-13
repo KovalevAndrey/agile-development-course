@@ -15,6 +15,7 @@ public class HuffmanView {
     private JTextArea txtArea;
     private JLabel lblStatus;
     private JList<String> listLog;
+    private JButton btnClearLog;
 
     private HuffmanViewModel huffmanViewModel; 
 
@@ -49,6 +50,15 @@ public class HuffmanView {
             }
         });
 
+        btnClearLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                HuffmanView.this.huffmanViewModel.clearLog();
+                backBind();
+            }
+        });
+
     }
 
     private void bind() {
@@ -75,7 +85,7 @@ public class HuffmanView {
     }
 
     public static void main(String[] args) {
-        HuffmanTxtLogger huffmanTxtLogger = new HuffmanTxtLogger("Huffman.log");
+        HuffmanTxtLogger huffmanTxtLogger = new HuffmanTxtLogger("Huffman.logInfo");
 
         JFrame frame = new JFrame("HuffmanView");
         frame.setContentPane(new HuffmanView(new HuffmanViewModel(huffmanTxtLogger)).mainPanel);
