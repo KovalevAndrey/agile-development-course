@@ -4,18 +4,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import ru.unn.agile.Converter.ViewModel.LogMessages;
 
 public class ViewModelTests
 {
     public static final int ANY_KEY = 0;
-    private ViewModel viewModel;
+    private FakeLogger fakeLogger;
+    protected ViewModel viewModel;
 
     @Before
     public void setUp()
     {
-        viewModel = new ViewModel();
+        fakeLogger = new FakeLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
@@ -175,5 +180,67 @@ public class ViewModelTests
         viewModel.calculate();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
+    }
+
+    @Test
+    public void canGetViewModelLog()
+    {
+        List<String> log = viewModel.getLog();
+        assertNotNull(log);
+    }
+
+    @Test
+    public void isStartingLogEmpty()
+    {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
+    }
+
+    private void assertLogSize()
+    {
+        List<String> log = viewModel.getLog();
+        assertTrue(log.size() == 2);
+    }
+
+    private void assertLastLogMessage(String expMessage)
+    {
+        List<String> log = viewModel.getLog();
+        int size = log.size();
+        String message = log.get(size - 1);
+        assertEquals(message, expMessage);
+    }
+
+    private void assertLastTwoLogMessages(String first, String second)
+    {
+        List<String> log = viewModel.getLog();
+        int size = log.size();
+        String message = log.get(size - 2);
+        assertEquals(message, first);
+        message = log.get(size - 1);
+        assertEquals(message, second);
+    }
+
+    @Test
+    public void doesAddWriteAnythingToLog()
+    {
+        viewModel.inputNumber = "1";
+        viewModel.calculate();
+        assertLogSize();
+    }
+
+    @Test
+    public void canWriteCalculationAndSuccessLogs()
+    {
+        viewModel.inputNumber = "1";
+        viewModel.calculate();
+        assertLastTwoLogMessages(LogMessages.CALC + "'1' from Binary system to Binary system", LogMessages.SUCCESS + "'1' in Binary system");
+    }
+
+    @Test
+    public void canWriteBadFormatLog()
+    {
+        viewModel.inputNumber = "2";
+        viewModel.processKeyInTextField(10);
+        assertLastLogMessage(LogMessages.BAD_FORMAT + "'2' is not belong to Binary system");
     }
 }
