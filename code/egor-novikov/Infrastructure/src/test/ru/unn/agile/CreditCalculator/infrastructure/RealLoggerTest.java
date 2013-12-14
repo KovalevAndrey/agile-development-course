@@ -54,16 +54,18 @@ public class RealLoggerTest {
 
     @Test
     public void canWriteListOfMessagesToLogger() {
-        String[] messages = new String[3];
-        for (int i=0; i<messages.length; i++)
-            messages[i] = "My " + i +" message to log!";
+        String message1 = "My 1st message to log!";
+        String message2 = "My 2nd message to log!";
+        String message3 = "My 3rd message to log!";
 
-        for (int i=0; i<messages.length; i++)
-            realLogger.Log(messages[i]);
+        realLogger.Log(message1);
+        realLogger.Log(message2);
+        realLogger.Log(message3);
 
-        List<String> logMessages = realLogger.getLog();
+        List<String> loggerMessages = realLogger.getLog();
 
-        for (int i=0; i<messages.length; i++)
-            Assert.assertEquals(true, RegexHelper.IsMessageOfLogString(messages[i], logMessages.get(i)));
+        Assert.assertEquals(true, RegexHelper.IsMessageOfLogString(message1, loggerMessages.get(0)));
+        Assert.assertEquals(true, RegexHelper.IsMessageOfLogString(message2, loggerMessages.get(1)));
+        Assert.assertEquals(true, RegexHelper.IsMessageOfLogString(message3, loggerMessages.get(2)));
     }
 }

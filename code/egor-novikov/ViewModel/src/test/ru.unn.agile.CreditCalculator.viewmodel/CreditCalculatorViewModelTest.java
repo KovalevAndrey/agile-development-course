@@ -13,7 +13,7 @@ public class CreditCalculatorViewModelTest{
 
     @Before
     public void setUp() {
-        TestLogger testLogger = new TestLogger();
+        FakeLogger testLogger = new FakeLogger();
         creditCalculatorViewModel = new CreditCalculatorViewModel(testLogger);
     }
 

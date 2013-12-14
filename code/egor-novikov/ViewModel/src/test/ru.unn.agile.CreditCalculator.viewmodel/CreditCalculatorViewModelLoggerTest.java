@@ -13,7 +13,7 @@ public class CreditCalculatorViewModelLoggerTest {
 
     @Before
     public void setUp() {
-        TestLogger testLogger = new TestLogger();
+        FakeLogger testLogger = new FakeLogger();
         creditCalculatorViewModel = new CreditCalculatorViewModel(testLogger);
     }
 
@@ -24,7 +24,7 @@ public class CreditCalculatorViewModelLoggerTest {
 
     @Test
     public void canCreateCreditCalculatorViewModelWithLogger() {
-        TestLogger logger = new TestLogger();
+        FakeLogger logger = new FakeLogger();
         CreditCalculatorViewModel creditCalculatorViewModel = new CreditCalculatorViewModel(logger);
 
         assertNotNull(creditCalculatorViewModel);

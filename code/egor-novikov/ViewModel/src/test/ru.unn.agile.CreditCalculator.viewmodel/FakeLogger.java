@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class TestLogger implements ILogger
+public class FakeLogger implements ILogger
 {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private ArrayList<String> log = new ArrayList<String>();
