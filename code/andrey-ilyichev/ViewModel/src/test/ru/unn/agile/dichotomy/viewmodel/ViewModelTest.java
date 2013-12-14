@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ViewModelTest {
-	private ViewModel viewModel;
+	protected ViewModel viewModel;
 	public ILogger logger;
 	
 	private final float delta = 0.01F;
