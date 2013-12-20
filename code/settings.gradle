@@ -67,6 +67,8 @@ include "anna-sagina/ViewModel"
 project(":anna-sagina/ViewModel").name = "anna-sagina-ViewModel"
 include "anna-sagina/View"
 project(":anna-sagina/View").name = "anna-sagina-View"
+include "anna-sagina/Infrastructure"
+project(":anna-sagina/Infrastructure").name = "anna-sagina-Infrastructure"
 
 // Anton Bevzuk
 include "anton-bevzuk-lab1"

@@ -13,22 +13,17 @@ public class FakeLogger implements ILogger {
 
     @Override
     public void addInfo(String s) {
-       fakeLog.add(LogTitle.INFO_STRING + s);
+       fakeLog.add(s);
+
     }
 
     @Override
     public void addWarning(String s) {
-        fakeLog.add(LogTitle.WARNING_STRING + s);
+        fakeLog.add(s);
      }
 
     @Override
     public void addError(String s) {
-        fakeLog.add(LogTitle.ERROR_STRING + s);
-    }
-
-    public class LogTitle {
-        public static final String ERROR_STRING = "ERROR:";
-        public static final String WARNING_STRING = "WARNING:";
-        public static final String INFO_STRING = "Info:";
+        fakeLog.add(s);
     }
 }

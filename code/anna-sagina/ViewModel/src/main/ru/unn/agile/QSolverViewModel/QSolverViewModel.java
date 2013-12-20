@@ -3,7 +3,6 @@ package ru.unn.agile.QSolverViewModel;
 import ru.unn.agile.quadsolver.QuadraticEquationSolver;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class QSolverViewModel {
