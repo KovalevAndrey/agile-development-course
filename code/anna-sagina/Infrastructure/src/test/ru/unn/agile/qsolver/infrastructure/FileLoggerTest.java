@@ -1,6 +1,5 @@
 package ru.unn.agile.qsolver.infrastructure;
 
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,12 +31,12 @@ public class FileLoggerTest {
     @Test
     public void logFileCanBeCreated() {
         File file = new File(fileName);
-        TestCase.assertTrue(file.exists());
+        assertTrue(file.exists());
     }
 
     @Test
     public void getAllLogGivesEmptyListAfterCreatingLog() {
-        TestCase.assertEquals(0, logger.getAllLog().size());
+        assertEquals(0, logger.getAllLog().size());
     }
 
     private void assertLogLastMessageIs(String str) {
@@ -73,6 +72,6 @@ public class FileLoggerTest {
         String message = "This is the error log message!";
         logger.addError(message + "1");
         logger.addError(message + "2");
-        TestCase.assertEquals(2, logger.getAllLog().size());
+        assertEquals(2, logger.getAllLog().size());
     }
 }
