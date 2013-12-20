@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 
 public class QSolverViewModelTest {
 
-    private QSolverViewModel viewModel;
+    protected QSolverViewModel viewModel;
 
     @Before
     public void setUp() {
-       ILogger logger = new FakeLogger();
+        ILogger logger = new FakeLogger();
         viewModel = new QSolverViewModel(logger);
     }
 
