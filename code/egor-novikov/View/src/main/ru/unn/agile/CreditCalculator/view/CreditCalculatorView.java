@@ -1,12 +1,15 @@
 package ru.unn.agile.CreditCalculator.view;
 
+import ru.unn.agile.CreditCalculator.infrastructure.RealLogger;
 import ru.unn.agile.CreditCalculator.viewmodel.CreditCalculatorViewModel;
+import ru.unn.agile.CreditCalculator.viewmodel.ILogger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class CreditCalculatorView {
     private JPanel mainPanel;
@@ -14,10 +17,11 @@ public class CreditCalculatorView {
     private JTextField creditAmountTextField;
     private JTextField monthsCountTextField;
     private JTextField percentTextField;
-    private JButton CalculateButton;
+    private JButton calculateButton;
     private JComboBox<CreditCalculatorViewModel.PaymentType> paymentTypesComboBox;
     private JTextField resultTextField;
-    private JLabel StatusLabel;
+    private JLabel statusLabel;
+    private JList<String> logList;
 
     public CreditCalculatorView(CreditCalculatorViewModel viewModel) {
         this.creditCalculatorViewModel = viewModel;
@@ -25,11 +29,19 @@ public class CreditCalculatorView {
 
         loadListOfPaymentTypes();
 
-        CalculateButton.addActionListener(new ActionListener() {
+        calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 bind();
                 CreditCalculatorView.this.creditCalculatorViewModel.calculate();
+                backBind();
+            }
+        });
+
+        paymentTypesComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
                 backBind();
             }
         });
@@ -50,7 +62,8 @@ public class CreditCalculatorView {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        frame.setContentPane(new CreditCalculatorView(new CreditCalculatorViewModel()).mainPanel);
+        ILogger realLogger = new RealLogger("./log.txt");
+        frame.setContentPane(new CreditCalculatorView(new CreditCalculatorViewModel(realLogger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -62,24 +75,25 @@ public class CreditCalculatorView {
     }
 
     public void bind() {
-        creditCalculatorViewModel.creditAmountString = creditAmountTextField.getText();
-        creditCalculatorViewModel.monthsCountString = monthsCountTextField.getText();
-        creditCalculatorViewModel.percentString = percentTextField.getText();
+        creditCalculatorViewModel.setCreditAmountString(creditAmountTextField.getText());
+        creditCalculatorViewModel.setMonthsCountString(monthsCountTextField.getText());
+        creditCalculatorViewModel.setPercentString(percentTextField.getText());
 
-        creditCalculatorViewModel.paymentType = (CreditCalculatorViewModel.PaymentType) paymentTypesComboBox.getSelectedItem();
-
-        creditCalculatorViewModel.result = resultTextField.getText();
-        creditCalculatorViewModel.status = StatusLabel.getText();
+        creditCalculatorViewModel.setPaymentType((CreditCalculatorViewModel.PaymentType) paymentTypesComboBox.getSelectedItem());
     }
 
     public void backBind() {
-        creditAmountTextField.setText(creditCalculatorViewModel.creditAmountString);
-        monthsCountTextField.setText(creditCalculatorViewModel.monthsCountString);
-        percentTextField.setText(creditCalculatorViewModel.percentString);
+        creditAmountTextField.setText(creditCalculatorViewModel.getCreditAmountString());
+        monthsCountTextField.setText(creditCalculatorViewModel.getMonthsCountString());
+        percentTextField.setText(creditCalculatorViewModel.getPercentString());
 
-        resultTextField.setText(creditCalculatorViewModel.result);
-        StatusLabel.setText(creditCalculatorViewModel.status);
+        resultTextField.setText(creditCalculatorViewModel.getResult());
+        statusLabel.setText(creditCalculatorViewModel.getStatus());
 
-        CalculateButton.setEnabled(creditCalculatorViewModel.isCalculateButtonEnabled);
+        calculateButton.setEnabled(creditCalculatorViewModel.getIsCalculateButtonEnabled());
+
+        List<String> logMessages = creditCalculatorViewModel.getLog();
+        String[] items = logMessages.toArray(new String[logMessages.size()]);
+        logList.setListData(items);
     }
 }
