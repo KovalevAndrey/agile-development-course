@@ -1,8 +1,9 @@
 dependencies {
     compile project(':alexander-lyulkov-ViewModel')
-    compile project(':alexander-lyulkov-Infrastructure')
+    testCompile project(':alexander-lyulkov-ViewModel').sourceSets.test.output
 }
 
 sourceSets {
     main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
 }

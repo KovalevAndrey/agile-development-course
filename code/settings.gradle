@@ -15,6 +15,8 @@ include "alexander-lyulkov/ViewModel"
 project(":alexander-lyulkov/ViewModel").name = "alexander-lyulkov-ViewModel"
 include "alexander-lyulkov/View"
 project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
+include "alexander-lyulkov/Infrastructure"
+project(":alexander-lyulkov/Infrastructure").name = "alexander-lyulkov-Infrastructure"
 
 // Alexander Malyshev
 include "alexander-malyshev/Model"
