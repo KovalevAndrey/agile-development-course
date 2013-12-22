@@ -1,6 +1,6 @@
 package ru.unn.agile.Huffman;
 
-import ru.unn.agile.Huffman.Infrastructure.HuffmanTxtLogger;
+import ru.unn.agile.Huffman.Infrastructure.TxtLogger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -85,10 +85,10 @@ public class HuffmanView {
     }
 
     public static void main(String[] args) {
-        HuffmanTxtLogger huffmanTxtLogger = new HuffmanTxtLogger("Huffman.logInfo");
+        TxtLogger txtLogger = new TxtLogger("Huffman.logInfo");
 
         JFrame frame = new JFrame("HuffmanView");
-        frame.setContentPane(new HuffmanView(new HuffmanViewModel(huffmanTxtLogger)).mainPanel);
+        frame.setContentPane(new HuffmanView(new HuffmanViewModel(txtLogger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

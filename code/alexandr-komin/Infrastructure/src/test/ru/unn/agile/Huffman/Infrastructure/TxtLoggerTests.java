@@ -10,18 +10,18 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.ArrayList;
 
-public class HuffmanTxtLoggerTests {
+public class TxtLoggerTests {
     private static final String filename = "./HuffmanTxtLoggerTestLog.log";
-    private HuffmanTxtLogger huffmanTxtLogger;
+    private TxtLogger txtLogger;
 
     @Before
     public void beforeTest() {
-        huffmanTxtLogger = new HuffmanTxtLogger(filename);
+        txtLogger = new TxtLogger(filename);
     }
 
     @Test
     public void txtLoggerCanBeCreated() {
-        assertNotNull(huffmanTxtLogger);
+        assertNotNull(txtLogger);
     }
 
     @Test
@@ -36,26 +36,26 @@ public class HuffmanTxtLoggerTests {
 
     @Test
     public void txtLogCanBeGet() {
-        assertNotNull(huffmanTxtLogger.getLog());
+        assertNotNull(txtLogger.getLog());
     }
 
     @Test
     public void RecordGetFromFileLogAndFromLoggerAreEquals(){
-        huffmanTxtLogger.logInfo("Example");
-        assertLists(readLogFile(), huffmanTxtLogger.getLog());
+        txtLogger.logInfo("Example");
+        assertLists(readLogFile(), txtLogger.getLog());
     }
 
     @Test
     public void logSizeMustBeIncreaseThenAddRecord() {
-        huffmanTxtLogger.logInfo("Example");
-        assertTrue(huffmanTxtLogger.getLog().size() > 0);
+        txtLogger.logInfo("Example");
+        assertTrue(txtLogger.getLog().size() > 0);
     }
 
     @Test
     public void messageWriteToLoggerCorrect() {
         String message = "Example";
-        huffmanTxtLogger.logInfo(message);
-        assertEquals(true, huffmanTxtLogger.getLog().get(0).indexOf("Example")>0);
+        txtLogger.logInfo(message);
+        assertEquals(true, txtLogger.getLog().get(0).indexOf("Example")>0);
     }
 
     private void assertLists(List<String> expected, List<String> actual) {

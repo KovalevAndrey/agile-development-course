@@ -11,13 +11,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 
-public class HuffmanTxtLogger implements ILogger
+public class TxtLogger implements ILogger
 {
     private String filename = "";
     private BufferedWriter writer = null;
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
-    public HuffmanTxtLogger(String filename) {
+    public TxtLogger(String filename) {
         this.filename = filename;
         try {
             writer = new BufferedWriter(new FileWriter(this.filename));
