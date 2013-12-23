@@ -4,16 +4,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class HuffmanViewModelTest {
 
-    private HuffmanViewModel viewModelHuffman;
+    public HuffmanViewModel viewModelHuffman;
 
     @Before
     public void beforeTest() {
-        viewModelHuffman = new HuffmanViewModel();
+        FakeLogger logger=new FakeLogger();
+        viewModelHuffman = new HuffmanViewModel(logger);
     }
+
     @After
     public void afterTest() {
         viewModelHuffman = null;
@@ -77,6 +82,87 @@ public class HuffmanViewModelTest {
         assertEquals(false,viewModelHuffman.isActiveEncodingButton);
         assertEquals(true,viewModelHuffman.isEditableTextArea);
         assertEquals(false,viewModelHuffman.text.isEmpty());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void nullLoggerIsNotAllowed() {
+        viewModelHuffman = new HuffmanViewModel(null);
+    }
+
+    @Test
+    public void canAcceptNotNullLogger() {
+        assertNotNull(viewModelHuffman);
+    }
+
+    @Test
+    public void canGetViewModelLog() {
+        assertNotNull(viewModelHuffman.getLog());
+    }
+
+    @Test
+    public void loggerAtStartIsEmpty() {
+        assertEquals(0, viewModelHuffman.getLog().size());
+    }
+
+    @Test
+    public void loggerAfterClearIsEmpty(){
+        viewModelHuffman.reset();
+        viewModelHuffman.clearLog();
+        assertEquals(true,viewModelHuffman.getLog().isEmpty());
+    }
+
+    @Test
+    public void afterResetToLoggerAddOneRecord(){
+        viewModelHuffman.reset();
+        assertEquals(1,viewModelHuffman.getLog().size());
+    }
+
+    @Test
+    public void afterAllowableOperationLoggerContentInfoRecord(){
+        viewModelHuffman.reset();
+        assertEquals(true, viewModelHuffman.getLog().get(0).indexOf("Info:")>=0);
+    }
+
+    @Test
+    public void afterNotAllowableOperationLoggerContentErrorRecord(){
+        compress("");
+        assertEquals(true, viewModelHuffman.getLog().get(1).indexOf("Error:")>=0);
+    }
+
+    @Test
+    public void afterResetLoggerContentCorrespondingRecord(){
+        viewModelHuffman.reset();
+        assertEquals(true, viewModelHuffman.getLog().get(0).indexOf(HuffmanViewModel.LogMessages.RESET)>=0);
+    }
+
+    @Test
+    public void afterCompressAndAfterExpandToLoggerAddFourRecord(){
+        compressAndExpand("test");
+        assertEquals(4,viewModelHuffman.getLog().size());
+    }
+
+    @Test
+    public void afterCompressEmptyStringLoggerContainRecordAboutFail(){
+        compress("");
+        assertEquals(true,viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.FAIL)>=0);
+    }
+
+    @Test
+    public void afterCompressNotEmptyStringLoggerContainRecordAboutSuccess(){
+        compress("test");
+        assertEquals(true,viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.SUCCESS)>=0);
+    }
+
+    @Test
+    public void afterExpandEmptyStringLoggerContainRecordAboutFail(){
+        expand("");
+        assertEquals(true, viewModelHuffman.getLog().get(1).indexOf(HuffmanViewModel.LogMessages.FAIL)>=0);
+    }
+
+    @Test
+    public void afterExpandCorrectStringLoggerContainRecordAboutSuccess(){
+        compressAndExpand("test");
+        assertEquals(true,viewModelHuffman.getLog().get(3).indexOf(HuffmanViewModel.LogMessages.SUCCESS)>=0);
     }
 
     private void compress(String string){

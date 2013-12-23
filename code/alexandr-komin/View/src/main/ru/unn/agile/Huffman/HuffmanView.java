@@ -1,8 +1,11 @@
 package ru.unn.agile.Huffman;
 
+import ru.unn.agile.Huffman.Infrastructure.TxtLogger;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class HuffmanView {
     private JPanel mainPanel;
@@ -11,16 +14,10 @@ public class HuffmanView {
     private JButton btnCompress;
     private JTextArea txtArea;
     private JLabel lblStatus;
+    private JList<String> listLog;
+    private JButton btnClearLog;
 
     private HuffmanViewModel huffmanViewModel; 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("HuffmanView");
-        frame.setContentPane(new HuffmanView(new HuffmanViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 
     public HuffmanView(HuffmanViewModel huffmanViewModel) {
         this.huffmanViewModel = huffmanViewModel;
@@ -53,8 +50,16 @@ public class HuffmanView {
             }
         });
 
-    }
+        btnClearLog.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                bind();
+                HuffmanView.this.huffmanViewModel.clearLog();
+                backBind();
+            }
+        });
 
+    }
 
     private void bind() {
         huffmanViewModel.status = lblStatus.getText();
@@ -72,5 +77,20 @@ public class HuffmanView {
         btnExpand.setEnabled(huffmanViewModel.isActiveEncodingButton);
         txtArea.setEditable(huffmanViewModel.isEditableTextArea);
         txtArea.setEditable(huffmanViewModel.isEditableTextArea);
+
+        List<String> log = huffmanViewModel.getLog();
+        String[] items = new String[log.size()];
+        log.toArray(items);
+        listLog.setListData(items);
+    }
+
+    public static void main(String[] args) {
+        TxtLogger txtLogger = new TxtLogger("Huffman.logInfo");
+
+        JFrame frame = new JFrame("HuffmanView");
+        frame.setContentPane(new HuffmanView(new HuffmanViewModel(txtLogger)).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
