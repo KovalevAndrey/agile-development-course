@@ -4,6 +4,6 @@ public class SortViewModelWithRealLoggerTest extends MergeSortViewModelTest {
 
     @Override
     public void setUp() {
-        viewModel = new MergeSortViewModel(new MergeSortTxtLogger("./SortViewModelWithRealLoggerTest.log"));
+        viewModel = new MergeSortViewModel(new TxtLogger("./SortViewModelWithRealLoggerTest.log"));
     }
 }

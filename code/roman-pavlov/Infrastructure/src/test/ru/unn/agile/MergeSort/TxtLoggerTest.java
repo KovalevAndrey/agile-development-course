@@ -13,14 +13,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class MergeSortTxtLoggerTest {
+public class TxtLoggerTest {
 
-    public static final String LOG_FILE = "./MergeSortTxtLoggerTest.log";
-    private MergeSortTxtLogger logger;
+    public static final String LOG_FILE = "./TxtLoggerTest.log";
+    private TxtLogger logger;
 
     @Before
     public void setUp() {
-        logger = new MergeSortTxtLogger(LOG_FILE);
+        logger = new TxtLogger(LOG_FILE);
     }
 
     @After

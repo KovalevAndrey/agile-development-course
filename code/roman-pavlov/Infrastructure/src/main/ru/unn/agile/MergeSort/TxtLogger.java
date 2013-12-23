@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MergeSortTxtLogger implements ILogger{
+public class TxtLogger implements ILogger{
     private List<String> log;
     private String file= "";
 
     private BufferedWriter fileWriter;
 
-    MergeSortTxtLogger(String file) {
+    TxtLogger(String file) {
         this.file=file;
         log = new ArrayList<String>();
         try {

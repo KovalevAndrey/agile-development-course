@@ -41,7 +41,7 @@ public class MergeSortView {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("MergeSortView");
-        frame.setContentPane(new MergeSortView(new MergeSortViewModel(new MergeSortTxtLogger("./MergeSort.log"))).sortForm);
+        frame.setContentPane(new MergeSortView(new MergeSortViewModel(new TxtLogger("./MergeSort.log"))).sortForm);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setBounds(100, 100, 500, 250);
