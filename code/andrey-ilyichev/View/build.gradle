@@ -1,6 +1,7 @@
 dependencies
 {
 	compile project(':andrey-ilyichev-ViewModel')
+	compile project(':andrey-ilyichev-Infrastructure')
 }
 sourceSets {
     main.java.srcDir 'src/main'
