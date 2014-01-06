@@ -2,6 +2,11 @@
   - Разместить материалы курса отдельно от кодов студентов
   - Краткая заметка на Хабр (Coursera?)
 
+  - Придумать 4ю лабу
+  - Тесты на `ViewModel` с логгером поместить в отдельный класс
+  - Rename `FakeLogger` в `MockLogger`
+  - Добавить пример на Observer в ViewModel
+
 # Лекции
   - Набрать картинок из книги Agile Samurai
   - Понятие антипаттерна <http://en.wikipedia.org/wiki/Anti-pattern#Software_design_anti-patterns>
