@@ -6,14 +6,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class ViewModelTests {
     public static final int ANY_KEY = 0;
-    private ViewModel viewModel;
+    public static final int NON_ENTER_KEY = 1;
+    public ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger log = new FakeLogger();
+        viewModel = new ViewModel(log);
     }
 
     @After
@@ -37,7 +40,7 @@ public class ViewModelTests {
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
-        viewModel.calculate();
+        viewModel.Search();
 
         assertEquals(ViewModel.Status.WAITING, viewModel.status);
     }
@@ -144,7 +147,7 @@ public class ViewModelTests {
     public void canPerformSearchAction() {
         viewModel.listOfElements = "7 8 9 10";
         viewModel.key = "8";
-        viewModel.calculate();
+        viewModel.Search();
 
         assertEquals("2", viewModel.keyIndex);
     }
@@ -153,7 +156,7 @@ public class ViewModelTests {
     public void canSetSuccessMessage() {
         viewModel.listOfElements = "1";
         viewModel.key = "1";
-        viewModel.calculate();
+        viewModel.Search();
 
         assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
     }
@@ -163,7 +166,7 @@ public class ViewModelTests {
         viewModel.listOfElements = "oigoidfjgoi";
         viewModel.key = "qweq";
 
-        viewModel.calculate();
+        viewModel.Search();
 
         assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.status);
     }
@@ -187,5 +190,131 @@ public class ViewModelTests {
 
         assertEquals(ViewModel.Status.SUCCESS, viewModel.status);
     }
+
+    @Test
+    public void canInitializeViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test
+    public void viewModelConstructorThrowsExceptionWhenLoggerIsNull() {
+        try
+        {
+            new ViewModel(null);
+            fail("No Exception");
+        }
+        catch(IllegalArgumentException e)
+        {
+            assertEquals(true, true);
+        }
+        catch(Exception e)
+        {
+            fail("Wrong exception");
+        }
+    }
+
+    @Test
+    public void isLogEmptyAfterCreatingViewModel() {
+        String[] logNotes = viewModel.log.ReadLog();
+
+        assertEquals(0, logNotes.length);
+    }
+
+    @Test
+    public void isSearchAddsNoteToLog() {
+        viewModel.Search();
+
+        String[] logNotes = viewModel.log.ReadLog();
+        assertNotEquals(0, logNotes.length);
+    }
+
+    @Test
+    public void isLogContainsProperMessageAfterSearch() {
+        viewModel.Search();
+        String note = viewModel.log.ReadLog()[0];
+        assertTrue(note.matches(".*" + ViewModel.Events.SEARCH_WAS_PRESSED + ".*"
+                                + viewModel.listOfElements + ".*"
+                                + viewModel.key + ".*"
+                                + viewModel.status + ".*"
+                                + viewModel.keyIndex + ".*"));
+    }
+
+
+
+    @Test
+    public void isLogHasProperArgumentsNames() {
+        viewModel.listOfElements = " 1 5 8 10";
+        viewModel.key = "5";
+
+        viewModel.Search();
+        String note = viewModel.log.ReadLog()[0];
+
+        assertTrue(note.matches(".*" + ViewModel.Events.SEARCH_WAS_PRESSED + ".*"
+                + "listOfElements = " + viewModel.listOfElements + ".*"
+                + "key = " + viewModel.key + ".*"
+                + "status = " + viewModel.status + ".*"
+                + "keyIndex = " + viewModel.keyIndex + ".*"));
+    }
+
+
+
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        viewModel.listOfElements = "4 8 2";
+        viewModel.key = "0";
+
+        viewModel.Search();
+        viewModel.Search();
+        viewModel.Search();
+
+        assertEquals(3, viewModel.log.ReadLog().length);
+    }
+
+
+
+    @Test
+    public void isEditingAddsLog() {
+        viewModel.processKeyInTextField(NON_ENTER_KEY);
+
+        viewModel.focusLost();
+
+        String note = viewModel.log.ReadLog()[0];
+        assertTrue(note.matches(".*" + ViewModel.Events.INPUT_WAS_CHANGED + ".*"));
+    }
+
+    @Test
+    public void isLogContainsProperMessageAfterChangingInput() {
+        viewModel.listOfElements = "10 20 30";
+        viewModel.key = "15";
+        viewModel.inputWasChanged = true;
+
+        viewModel.focusLost();
+
+        String note = viewModel.log.ReadLog()[0];
+
+        assertTrue(note.matches(".*" + ViewModel.Events.INPUT_WAS_CHANGED + ".*"
+                + "listOfElements = 10 20 30" + ".*"
+                + "key = 15"  + ".*"));
+    }
+
+
+
+    @Test
+    public void doNotLogWithUnchangedInput() {
+        viewModel.listOfElements = "4 8 2";
+        viewModel.key = "0";
+        viewModel.inputWasChanged = true;
+
+        viewModel.focusLost();
+        viewModel.focusLost();
+
+        assertEquals(1, viewModel.log.ReadLog().length);
+    }
+
+
 
 }

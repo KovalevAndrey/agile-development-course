@@ -8,14 +8,13 @@ import ru.unn.agile.creditcalculator.CreditCalculator;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class CreditCalculatorViewModelTest
-{
-    public static final int ANY_KEY = 0;
-    private CreditCalculatorViewModel creditCalculatorViewModel;
+public class CreditCalculatorViewModelTest{
+    protected CreditCalculatorViewModel creditCalculatorViewModel;
 
     @Before
     public void setUp() {
-        creditCalculatorViewModel = new CreditCalculatorViewModel();
+        FakeLogger testLogger = new FakeLogger();
+        creditCalculatorViewModel = new CreditCalculatorViewModel(testLogger);
     }
 
     @After
@@ -25,78 +24,77 @@ public class CreditCalculatorViewModelTest
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", creditCalculatorViewModel.creditAmountString);
-        assertEquals("", creditCalculatorViewModel.monthsCountString);
-        assertEquals("", creditCalculatorViewModel.percentString);
-        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.paymentType);
-        assertEquals("", creditCalculatorViewModel.result);
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals("", creditCalculatorViewModel.getCreditAmountString());
+        assertEquals("", creditCalculatorViewModel.getMonthsCountString());
+        assertEquals("", creditCalculatorViewModel.getPercentString());
+        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.getPaymentType());
+        assertEquals("", creditCalculatorViewModel.getResult());
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isStatusBadFormatInTheBeginning() {
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isStatusBadFormatWhenCalculateWithEmptyFields() {
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isStatusReadyWhenFieldsAreFill() {
-        creditCalculatorViewModel.creditAmountString = "1";
-        creditCalculatorViewModel.monthsCountString = "1";
-        creditCalculatorViewModel.percentString = "3";
+        creditCalculatorViewModel.setCreditAmountString("1");
+        creditCalculatorViewModel.setMonthsCountString("1");
+        creditCalculatorViewModel.setPercentString("3");
 
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(CreditCalculatorViewModel.Status.READY, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.READY, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void canReportBadFormat() {
-        creditCalculatorViewModel.creditAmountString = "a";
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.setCreditAmountString("a");
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void canCleanStatusIfParseIsOK() {
-        creditCalculatorViewModel.creditAmountString = "a";
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
-        creditCalculatorViewModel.creditAmountString = "1.0";
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.setCreditAmountString("a");
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
+        creditCalculatorViewModel.setCreditAmountString("1.0");
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isCalculateButtonDisabledInitially() {
-        assertEquals(false, creditCalculatorViewModel.isCalculateButtonEnabled);
+        assertEquals(false, creditCalculatorViewModel.getIsCalculateButtonEnabled());
     }
 
     @Test
     public void isCalculateButtonDisabledWhenFormatIsBad() {
-        creditCalculatorViewModel.isCalculateButtonEnabled = true;
-        creditCalculatorViewModel.creditAmountString = "trash";
+        creditCalculatorViewModel.setCreditAmountString("trash");
 
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(false, creditCalculatorViewModel.isCalculateButtonEnabled);
+        assertEquals(false, creditCalculatorViewModel.getIsCalculateButtonEnabled());
     }
 
     @Test
     public void isCalculateButtonDisabledWithIncompleteInput() {
-        creditCalculatorViewModel.creditAmountString = "1";
-        creditCalculatorViewModel.monthsCountString = "1";
+        creditCalculatorViewModel.setCreditAmountString("1");
+        creditCalculatorViewModel.setMonthsCountString("1");
 
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(false, creditCalculatorViewModel.isCalculateButtonEnabled);
+        assertEquals(false, creditCalculatorViewModel.getIsCalculateButtonEnabled());
     }
 
     @Test
@@ -129,25 +127,25 @@ public class CreditCalculatorViewModelTest
 
     @Test
     public void isCalculateButtonEnabledWithCorrectInput() {
-        creditCalculatorViewModel.creditAmountString = "1";
-        creditCalculatorViewModel.monthsCountString = "1";
-        creditCalculatorViewModel.percentString = "3";
+        creditCalculatorViewModel.setCreditAmountString("1");
+        creditCalculatorViewModel.setMonthsCountString("1");
+        creditCalculatorViewModel.setPercentString("3");
 
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(true, creditCalculatorViewModel.isCalculateButtonEnabled);
+        assertEquals(true, creditCalculatorViewModel.getIsCalculateButtonEnabled());
     }
 
     @Test
     public void canSetAnnuityPaymentType() {
-        creditCalculatorViewModel.paymentType = CreditCalculatorViewModel.PaymentType.ANNUITY;
-        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.paymentType);
+        creditCalculatorViewModel.setPaymentType(CreditCalculatorViewModel.PaymentType.ANNUITY);
+        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.getPaymentType());
     }
 
     @Test
     public void canSetDifferentiatedPaymentType() {
-        creditCalculatorViewModel.paymentType = CreditCalculatorViewModel.PaymentType.DIFFERENTIATED;
-        assertEquals(CreditCalculatorViewModel.PaymentType.DIFFERENTIATED, creditCalculatorViewModel.paymentType);
+        creditCalculatorViewModel.setPaymentType(CreditCalculatorViewModel.PaymentType.DIFFERENTIATED);
+        assertEquals(CreditCalculatorViewModel.PaymentType.DIFFERENTIATED, creditCalculatorViewModel.getPaymentType());
     }
 
     @Test
@@ -166,146 +164,147 @@ public class CreditCalculatorViewModelTest
 
     @Test
     public void isDefaultPaymentTypeAnnuity() {
-        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.paymentType);
+        assertEquals(CreditCalculatorViewModel.PaymentType.ANNUITY, creditCalculatorViewModel.getPaymentType());
     }
 
     @Test
     public void canPerformCalcAction() {
-        creditCalculatorViewModel.creditAmountString = "300000";
-        creditCalculatorViewModel.monthsCountString = "24";
-        creditCalculatorViewModel.percentString = "12";
-        creditCalculatorViewModel.paymentType = CreditCalculatorViewModel.PaymentType.ANNUITY;
+        creditCalculatorViewModel.setCreditAmountString("300000");
+        creditCalculatorViewModel.setMonthsCountString("24");
+        creditCalculatorViewModel.setPercentString("12");
+        creditCalculatorViewModel.setPaymentType(CreditCalculatorViewModel.PaymentType.ANNUITY);
 
         creditCalculatorViewModel.calculate();
 
-        assertDoubles(338929, Double.parseDouble(creditCalculatorViewModel.result));
+        assertDoubles(338929, Double.parseDouble(creditCalculatorViewModel.getResult()));
     }
 
     @Test
     public void canSetSuccessMessage() {
-        creditCalculatorViewModel.creditAmountString = "25000";
-        creditCalculatorViewModel.monthsCountString = "10";
-        creditCalculatorViewModel.percentString = "15";
+        creditCalculatorViewModel.setCreditAmountString("25000");
+        creditCalculatorViewModel.setMonthsCountString("10");
+        creditCalculatorViewModel.setPercentString("15");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.SUCCESS, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.SUCCESS, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void canSetBadFormatMessage() {
-        creditCalculatorViewModel.creditAmountString = "a";
+        creditCalculatorViewModel.setCreditAmountString("a");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isStatusReadyWhenKeyIsNotEnter() {
-        creditCalculatorViewModel.creditAmountString = "125000";
-        creditCalculatorViewModel.monthsCountString = "12";
-        creditCalculatorViewModel.percentString = "9.5";
+        creditCalculatorViewModel.setCreditAmountString("125000");
+        creditCalculatorViewModel.setMonthsCountString("12");
+        creditCalculatorViewModel.setPercentString("9.5");
 
-        creditCalculatorViewModel.processKeyInTextField(ANY_KEY);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ANY);
 
-        assertEquals(CreditCalculatorViewModel.Status.READY, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.READY, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void isStatusSuccessWhenKeyIsEnter() {
-        creditCalculatorViewModel.creditAmountString = "1000";
-        creditCalculatorViewModel.monthsCountString = "6";
-        creditCalculatorViewModel.percentString = "20";
+        creditCalculatorViewModel.setCreditAmountString("1000");
+        creditCalculatorViewModel.setMonthsCountString("6");
+        creditCalculatorViewModel.setPercentString("20");
 
-        creditCalculatorViewModel.processKeyInTextField(CreditCalculatorViewModel.ENTER_CODE);
+        creditCalculatorViewModel.processKeyInTextField(SpecialKeys.ENTER);
 
-        assertEquals(CreditCalculatorViewModel.Status.SUCCESS, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.SUCCESS, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void canCalculateAnnuityPayment() {
-        creditCalculatorViewModel.creditAmountString = "60000";
-        creditCalculatorViewModel.monthsCountString = "18";
-        creditCalculatorViewModel.percentString = "12";
-        creditCalculatorViewModel.paymentType = CreditCalculatorViewModel.PaymentType.ANNUITY;
+        creditCalculatorViewModel.setCreditAmountString("60000");
+        creditCalculatorViewModel.setMonthsCountString("18");
+        creditCalculatorViewModel.setPercentString("12");
+        creditCalculatorViewModel.setPaymentType(CreditCalculatorViewModel.PaymentType.ANNUITY);
 
         creditCalculatorViewModel.calculate();
 
-        assertDoubles(65860.61, Double.parseDouble(creditCalculatorViewModel.result));
+        assertDoubles(65860.61, Double.parseDouble(creditCalculatorViewModel.getResult()));
     }
 
     @Test
     public void canCalculateDifferentiatedPayment() {
-        creditCalculatorViewModel.creditAmountString = "60000";
-        creditCalculatorViewModel.monthsCountString = "18";
-        creditCalculatorViewModel.percentString = "12";
-        creditCalculatorViewModel.paymentType = CreditCalculatorViewModel.PaymentType.DIFFERENTIATED;
+        creditCalculatorViewModel.setCreditAmountString("60000");
+        creditCalculatorViewModel.setMonthsCountString("18");
+        creditCalculatorViewModel.setPercentString("12");
+        creditCalculatorViewModel.setPaymentType(CreditCalculatorViewModel.PaymentType.DIFFERENTIATED);
 
         creditCalculatorViewModel.calculate();
 
-        assertDoubles(65700.00, Double.parseDouble(creditCalculatorViewModel.result));
+        assertDoubles(65700.00, Double.parseDouble(creditCalculatorViewModel.getResult()));
     }
 
     @Test
     public void zeroAmountArgumentSetBadFormatStatus()
     {
-        creditCalculatorViewModel.creditAmountString = "0";
-        creditCalculatorViewModel.monthsCountString = "15";
-        creditCalculatorViewModel.percentString = "5";
+        creditCalculatorViewModel.setCreditAmountString("0");
+        creditCalculatorViewModel.setMonthsCountString("15");
+        creditCalculatorViewModel.setPercentString("5");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void negativeAmountArgumentSetBadFormatStatus()
     {
-        creditCalculatorViewModel.creditAmountString = "-10000";
-        creditCalculatorViewModel.monthsCountString = "15";
-        creditCalculatorViewModel.percentString = "5";
+        creditCalculatorViewModel.setCreditAmountString("-10000");
+        creditCalculatorViewModel.setMonthsCountString("15");
+        creditCalculatorViewModel.setPercentString("5");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void zeroMonthsCountArgumentSetBadFormatStatus()
     {
-        creditCalculatorViewModel.creditAmountString = "145000";
-        creditCalculatorViewModel.monthsCountString = "0";
-        creditCalculatorViewModel.percentString = "14";
+        creditCalculatorViewModel.setCreditAmountString("145000");
+        creditCalculatorViewModel.setMonthsCountString("0");
+        creditCalculatorViewModel.setPercentString("14");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void negativeMonthsCountArgumentSetBadFormatStatus()
     {
-        creditCalculatorViewModel.creditAmountString = "125000";
-        creditCalculatorViewModel.monthsCountString = "-12";
-        creditCalculatorViewModel.percentString = "19";
+        creditCalculatorViewModel.setCreditAmountString("125000");
+        creditCalculatorViewModel.setMonthsCountString("-12");
+        creditCalculatorViewModel.setPercentString("19");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
 
     @Test
     public void negativePercentArgumentSetBadFormatStatus()
     {
-        creditCalculatorViewModel.creditAmountString = "75000";
-        creditCalculatorViewModel.monthsCountString = "36";
-        creditCalculatorViewModel.percentString = "-10";
+        creditCalculatorViewModel.setCreditAmountString("75000");
+        creditCalculatorViewModel.setMonthsCountString("36");
+        creditCalculatorViewModel.setPercentString("-10");
 
         creditCalculatorViewModel.calculate();
 
-        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.status);
+        assertEquals(CreditCalculatorViewModel.Status.BAD_FORMAT, creditCalculatorViewModel.getStatus());
     }
+
 
     private void assertDoubles(double expected, double input)
     {

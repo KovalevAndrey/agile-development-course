@@ -1,6 +1,6 @@
 dependencies {
     compile project(':egor-novikov-ViewModel')
-}
+    compile project(':egor-novikov-Infrastructure')}
 
 sourceSets {
     main.java.srcDir 'src/main'

@@ -7,158 +7,70 @@ import static org.junit.Assert.fail;
 
 public class CreditCalculatorTests
 {
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void zeroAmountArgumentThrowExceptionInBuilder()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(0).monthsCount(15).percent(5).build();
-            fail();
-        }
-        catch (IllegalArgumentException ex)
-        {
-            assertEquals("amount argument value exception", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(0).monthsCount(15).percent(5).build();
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void negativeAmountArgumentThrowExceptionInBuilder()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(-10000).monthsCount(15).percent(5).build();
-            fail();
-        }
-        catch (IllegalArgumentException ex)
-        {
-            assertEquals("amount argument value exception", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(-10000).monthsCount(15).percent(5).build();
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void zeroMonthsCountArgumentThrowExceptionInBuilder()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(145000).monthsCount(0).percent(14).build();
-            fail();
-        }
-        catch (IllegalArgumentException ex)
-        {
-            assertEquals("monthsCount argument value exception", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(145000).monthsCount(0).percent(14).build();
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void negativeMonthsCountArgumentThrowExceptionInConstructor()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(125000).monthsCount(-12).percent(19).build();
-            fail();
-        }
-        catch (IllegalArgumentException ex)
-        {
-            assertEquals("monthsCount argument value exception", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(125000).monthsCount(-12).percent(19).build();
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void negativePercentArgumentThrowExceptionInConstructor()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(75000).monthsCount(36).percent(-10).build();
-            fail();
-        }
-        catch (IllegalArgumentException ex)
-        {
-            assertEquals("percent argument value exception", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(75000).monthsCount(36).percent(-10).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled1()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(20000).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(20000).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled2()
     {
-        try
-        {
-            new CreditCalculator.Builder().monthsCount(10).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().monthsCount(10).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled3()
     {
-        try
-        {
-            new CreditCalculator.Builder().percent(11).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().percent(11).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled4()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(20000).monthsCount(12).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(20000).monthsCount(12).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled5()
     {
-        try
-        {
-            new CreditCalculator.Builder().amount(20000).percent(6).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().amount(20000).percent(6).build();
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void BuilderThrowExceptionIfNotAllRequiredFieldsAreFilled6()
     {
-        try
-        {
-            new CreditCalculator.Builder().monthsCount(12).percent(7).build();
-            fail();
-        }
-        catch (IllegalStateException ex)
-        {
-            assertEquals("Not all required fields are filled", ex.getMessage());
-        }
+        new CreditCalculator.Builder().monthsCount(12).percent(7).build();
     }
 
     @Test

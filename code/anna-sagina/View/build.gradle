@@ -1,5 +1,6 @@
 dependencies {
     compile project(':anna-sagina-ViewModel')
+	compile project(':anna-sagina-Infrastructure')
 }
 
 sourceSets {

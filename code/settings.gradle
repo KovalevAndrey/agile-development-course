@@ -15,6 +15,8 @@ include "alexander-lyulkov/ViewModel"
 project(":alexander-lyulkov/ViewModel").name = "alexander-lyulkov-ViewModel"
 include "alexander-lyulkov/View"
 project(":alexander-lyulkov/View").name = "alexander-lyulkov-View"
+include "alexander-lyulkov/Infrastructure"
+project(":alexander-lyulkov/Infrastructure").name = "alexander-lyulkov-Infrastructure"
 
 // Alexander Malyshev
 include "alexander-malyshev/Model"
@@ -31,6 +33,8 @@ include "alexandr-komin/ViewModel"
 project(":alexandr-komin/ViewModel").name = "alexandr-komin-ViewModel"
 include "alexandr-komin/View"
 project(":alexandr-komin/View").name = "alexandr-komin-View"
+include "alexandr-komin/Infrastructure"
+project(":alexandr-komin/Infrastructure").name = "alexandr-komin-Infrastructure"
 
 // Alexey Sagin
 include "alexey-sagin/Model"
@@ -59,6 +63,8 @@ include "andrey-ilyichev/ViewModel"
 project(":andrey-ilyichev/ViewModel").name = "andrey-ilyichev-ViewModel"
 include "andrey-ilyichev/View"
 project(":andrey-ilyichev/View").name = "andrey-ilyichev-View"
+include "andrey-ilyichev/Infrastructure"
+project(":andrey-ilyichev/Infrastructure").name = "andrey-ilyichev-Infrastructure"
 
 // Anna Sagina
 include "anna-sagina/Model"
@@ -67,6 +73,8 @@ include "anna-sagina/ViewModel"
 project(":anna-sagina/ViewModel").name = "anna-sagina-ViewModel"
 include "anna-sagina/View"
 project(":anna-sagina/View").name = "anna-sagina-View"
+include "anna-sagina/Infrastructure"
+project(":anna-sagina/Infrastructure").name = "anna-sagina-Infrastructure"
 
 // Anton Bevzuk
 include "anton-bevzuk-lab1"
@@ -113,6 +121,8 @@ include "egor-novikov/ViewModel"
 project(":egor-novikov/ViewModel").name = "egor-novikov-ViewModel"
 include "egor-novikov/View"
 project(":egor-novikov/View").name = "egor-novikov-View"
+include "egor-novikov/Infrastructure"
+project(":egor-novikov/Infrastructure").name = "egor-novikov-Infrastructure"
 
 // Elena Artemieva
 include "elena-artemieva/Model"
@@ -189,6 +199,8 @@ include "kurilov-dmitry/ViewModel"
 project(":kurilov-dmitry/ViewModel").name = "kurilov-dmitry-ViewModel"
 include "kurilov-dmitry/View"
 project(":kurilov-dmitry/View").name = "kurilov-dmitry-View"
+include "kurilov-dmitry/Infrastructure"
+project(":kurilov-dmitry/Infrastructure").name = "kurilov-dmitry-Infrastructure"
 
 // Maksim Medvedev
 include "maksim-medvedev/Model"
@@ -217,6 +229,8 @@ include "roman-pavlov/ViewModel"
 project(":roman-pavlov/ViewModel").name = "roman-pavlov-ViewModel"
 include "roman-pavlov/View"
 project(":roman-pavlov/View").name = "roman-pavlov-View"
+include "roman-pavlov/Infrastructure"
+project(":roman-pavlov/Infrastructure").name = "roman-pavlov-Infrastructure"
 
 // Sergei Belousov
 include "sergei-belousov/Model"

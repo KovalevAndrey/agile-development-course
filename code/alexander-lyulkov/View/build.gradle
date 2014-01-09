@@ -1,5 +1,6 @@
 dependencies {
     compile project(':alexander-lyulkov-ViewModel')
+    compile project(':alexander-lyulkov-Infrastructure')
 }
 
 sourceSets {

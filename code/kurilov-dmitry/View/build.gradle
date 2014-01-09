@@ -1,5 +1,6 @@
 dependencies {
     compile project(':kurilov-dmitry-ViewModel')
+    compile project(':kurilov-dmitry-Infrastructure')
 }
 
 sourceSets {

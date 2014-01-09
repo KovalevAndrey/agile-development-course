@@ -1,20 +1,12 @@
 package ru.unn.agile.interpolationSearch.view;
 
+import ru.unn.agile.interpolationSearch.infrastructure.TextLogger;
 import ru.unn.agile.interpolationSearch.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sasha
- * Date: 11/8/13
- * Time: 5:28 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Finder {
     private JTextField txtListOfElements;
     private JTextField txtKey;
@@ -23,6 +15,7 @@ public class Finder {
     private JButton searchButton;
     private JLabel lbResult;
     private JLabel lbStatus;
+    private JList<String> lstLog;
 
     public Finder(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -33,7 +26,7 @@ public class Finder {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 bind();
-                Finder.this.viewModel.calculate();
+                Finder.this.viewModel.Search();
                 backBind();
             }
         });
@@ -48,12 +41,23 @@ public class Finder {
 
         txtListOfElements.addKeyListener(keyListener);
         txtKey.addKeyListener(keyListener);
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                bind();
+                Finder.this.viewModel.focusLost();
+                backBind();
+            }
+        };
+        txtListOfElements.addFocusListener(focusLostListener);
+        txtKey.addFocusListener(focusLostListener);
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Finder");
 
-        frame.setContentPane(new Finder(new ViewModel()).mainPanel);
+        TextLogger textLogger = new TextLogger("./InterpolationSearch.log");
+        frame.setContentPane(new Finder(new ViewModel(textLogger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -74,5 +78,7 @@ public class Finder {
         lbStatus.setText(viewModel.status);
 
         searchButton.setEnabled(viewModel.isSearchButtonEnabled);
+
+        lstLog.setListData(viewModel.log.ReadLog());
     }
 }

@@ -1,52 +1,83 @@
 package ru.unn.agile.Huffman;
 
+import java.util.List;
+
 public class HuffmanViewModel {
 
-    public boolean isActiveResetButton=true;
+    public class LogMessages {
+        public static final String COMPRESS = "Trying to compress string: ";
+        public static final String EXPAND = "Trying to expand string: ";
+        public static final String RESET = "Reset";
+        public static final String SUCCESS = "Operation successful";
+        public static final String FAIL = "Operation failed";
+    }
+
     public boolean isEditableTextArea;
     public boolean isActiveCompressButton;
     public boolean isActiveEncodingButton;
     public String status;
     public String text;
 
-    public HuffmanViewModel() {
-        reset();
+    private ILogger logger;
+
+    public HuffmanViewModel(ILogger logger) {
+        if (logger == null)
+            throw new IllegalArgumentException("Logger can't be null");
+        this.logger=logger;
+        init();
     }
 
     public void compress() {
         try {
+            logger.logInfo(LogMessages.COMPRESS + text);
             text=Huffman.compress(text);
+            logger.logInfo(LogMessages.SUCCESS);
             isActiveCompressButton = false;
             isActiveEncodingButton = true;
             isEditableTextArea =false;
             status="String successful compress";
         }
-        catch (RuntimeException e)
-        {
+        catch (RuntimeException e){
             if(e.getMessage()=="Empty string are not allowed for compress");
             status="Empty string are not allowed for compress";
+            logger.logError(LogMessages.FAIL);
         }
     }
     public void expand() {
         try{
+            logger.logInfo(LogMessages.EXPAND + text);
             text=Huffman.expand(text);
+            logger.logInfo(LogMessages.SUCCESS);
             isActiveCompressButton=true;
             isActiveEncodingButton=false;
             isEditableTextArea =true;
             status="String successful expand";
         }
-        catch (RuntimeException e)
-        {
+        catch (RuntimeException e){
+            logger.logError(LogMessages.FAIL);
             if(e.getMessage()=="Empty string are not allowed for expand");
             status="Empty string are not allowed for expand";
         }
     }
 
     public void reset() {
+        init();
+        logger.logInfo(LogMessages.RESET);
+    }
+
+    private void init() {
         isActiveCompressButton = true;
         isActiveEncodingButton = false;
         isEditableTextArea =true;
         status = "Enter string for compress";
         text="";
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
+    public void clearLog() {
+        logger.clearLog();
     }
 }

@@ -1,5 +1,6 @@
 dependencies {
     compile project(':roman-pavlov-ViewModel')
+	compile project(':roman-pavlov-Infrastructure')
 }
 
 sourceSets {
