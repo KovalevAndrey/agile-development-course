@@ -1,6 +1,7 @@
 package ru.unn.agile.geometry.view;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
 
 /**
  * Created by geser on 10.01.14.
@@ -18,6 +19,11 @@ public class LinePlainIntersectionForm {
     private JTextField resultX;
     private JTextField resultY;
     private JPanel mainPanel;
+
+    public LinePlainIntersectionForm() {
+        lineP1X.addKeyListener(new KeyAdapter() {
+        });
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LinePlainIntersectionForm");
