@@ -157,8 +157,8 @@ project(":evgeniy-kapralov/Infrastructure").name = "evgeniy-kapralov-Infrastruct
 // Grigory Smorkalov
 include "grigory-smorkalov/Model"
 project(":grigory-smorkalov/Model").name = "grigory-smorkalov-Model"
-//include "grigory-smorkalov/ViewModel"
-//project(":grigory-smorkalov/ViewModel").name = "grigory-smorkalov-ViewModel"
+include "grigory-smorkalov/ViewModel"
+project(":grigory-smorkalov/ViewModel").name = "grigory-smorkalov-ViewModel"
 include "grigory-smorkalov/View"
 project(":grigory-smorkalov/View").name = "grigory-smorkalov-View"
 
