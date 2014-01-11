@@ -1,6 +1,9 @@
 package ru.unn.agile.geometry.viewModel;
 
 import ru.unn.agile.geometry.IntersectionComputer;
+import ru.unn.agile.geometry.Line;
+import ru.unn.agile.geometry.Plain;
+import ru.unn.agile.geometry.Point;
 
 public class LinePlainIntersection {
     public String lineP1X = "";
@@ -24,8 +27,35 @@ public class LinePlainIntersection {
         isCalcButtonEnabled = isInputValid();
     }
 
-    private boolean isInputAvailable() {
-        return true;
+    public void calc() {
+        inputSomething();
+        if (!isCalcButtonEnabled) return;
+
+        Point lineP1 = parsePoint(lineP1X, lineP1Y, lineP1Z);
+        Point lineP2 = parsePoint(lineP2X, lineP2Y, lineP2Z);
+        Point plainPoint = parsePoint(plainPointX, plainPointY, plainPointZ);
+        Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
+
+        Line line = new Line(lineP1, lineP2);
+        Plain plain = new Plain(plainPoint, plainOrt);
+
+        IntersectionComputer computer = new IntersectionComputer();
+        Point res = computer.compute(plain, line);
+
+        resultX = "" + res.getX();
+        resultY = "" + res.getY();
+        resultZ = "" + res.getZ();
+    }
+
+    public Point parsePoint(String x, String y, String z) {
+        Point res;
+        try {
+            res = new Point(Double.parseDouble(x), Double.parseDouble(y), Double.parseDouble(z));
+        }
+        catch (Exception e) {
+            return null;
+        }
+        return res;
     }
 
     private boolean isInputValid() {

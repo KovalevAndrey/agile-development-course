@@ -3,8 +3,10 @@ package ru.unn.agile.geometry.viewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.geometry.Point;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
     private LinePlainIntersection viewModel;
@@ -74,5 +76,39 @@ public class ViewModelTests {
         viewModel.inputSomething();
 
         assertEquals(viewModel.isCalcButtonEnabled, true);
+    }
+
+    @Test
+    public void canConvertToPoint() {
+        String x = "0";
+        String y = "-1.0";
+        String z = "2e-1";
+
+        Point result = viewModel.parsePoint(x, y, z);
+
+        assertEquals(result, new Point(0, -1.0, 0.2));
+    }
+
+    @Test
+    public void whenIntersectionExist() {
+        viewModel.lineP1X = "1";
+        viewModel.lineP1Y = "2";
+        viewModel.lineP1Z = "3";
+        viewModel.lineP2X = "0";
+        viewModel.lineP2Y = "0";
+        viewModel.lineP2Z = "1";
+        viewModel.plainPointX = "1";
+        viewModel.plainPointY = "2";
+        viewModel.plainPointZ = "3";
+        viewModel.plainOrtX = "0.0";
+        viewModel.plainOrtY = "0.0";
+        viewModel.plainOrtZ = "1.0";
+
+        viewModel.inputSomething();
+        viewModel.calc();
+
+        Point result = viewModel.parsePoint(viewModel.resultX, viewModel.resultY, viewModel.resultZ);
+
+        assertEquals(result, new Point(1.0, 2.0, 3.0));
     }
 }
