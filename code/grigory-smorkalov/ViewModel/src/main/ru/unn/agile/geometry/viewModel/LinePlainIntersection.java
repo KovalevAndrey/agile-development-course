@@ -6,12 +6,12 @@ import ru.unn.agile.geometry.Plain;
 import ru.unn.agile.geometry.Point;
 
 public class LinePlainIntersection {
-    public String lineP1X = "";
-    public String lineP1Y = "";
-    public String lineP1Z = "";
-    public String lineP2X = "";
-    public String lineP2Y = "";
-    public String lineP2Z = "";
+    public String linePx = "";
+    public String linePy = "";
+    public String linePz = "";
+    public String lineDirX = "";
+    public String lineDirY = "";
+    public String lineDirZ = "";
     public String plainPointX = "";
     public String plainPointY = "";
     public String plainPointZ = "";
@@ -31,12 +31,12 @@ public class LinePlainIntersection {
         inputSomething();
         if (!isCalcButtonEnabled) return;
 
-        Point lineP1 = parsePoint(lineP1X, lineP1Y, lineP1Z);
-        Point lineP2 = parsePoint(lineP2X, lineP2Y, lineP2Z);
+        Point linePoint = parsePoint(linePx, linePy, linePz);
+        Point lineDir = parsePoint(lineDirX, lineDirY, lineDirZ);
         Point plainPoint = parsePoint(plainPointX, plainPointY, plainPointZ);
         Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
 
-        Line line = new Line(lineP1, lineP2);
+        Line line = new Line(linePoint, lineDir);
         Plain plain = new Plain(plainPoint, plainOrt);
 
         IntersectionComputer computer = new IntersectionComputer();
@@ -66,10 +66,10 @@ public class LinePlainIntersection {
 
     private boolean isInputValid() {
         try {
-            Double.parseDouble(lineP1X);
-            Double.parseDouble(lineP1Y);
-            Double.parseDouble(lineP2X);
-            Double.parseDouble(lineP2Y);
+            Double.parseDouble(linePx);
+            Double.parseDouble(linePy);
+            Double.parseDouble(lineDirX);
+            Double.parseDouble(lineDirY);
             Double.parseDouble(plainPointX);
             Double.parseDouble(plainPointY);
             Double.parseDouble(plainOrtX);

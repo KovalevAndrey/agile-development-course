@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.geometry.Point;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
@@ -23,12 +22,12 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals(viewModel.lineP1X, "");
-        assertEquals(viewModel.lineP1Y, "");
-        assertEquals(viewModel.lineP1Z, "");
-        assertEquals(viewModel.lineP2X, "");
-        assertEquals(viewModel.lineP2Y, "");
-        assertEquals(viewModel.lineP2Z, "");
+        assertEquals(viewModel.linePx, "");
+        assertEquals(viewModel.linePy, "");
+        assertEquals(viewModel.linePz, "");
+        assertEquals(viewModel.lineDirX, "");
+        assertEquals(viewModel.lineDirY, "");
+        assertEquals(viewModel.lineDirZ, "");
         assertEquals(viewModel.plainPointX, "");
         assertEquals(viewModel.plainPointY, "");
         assertEquals(viewModel.plainPointZ, "");
@@ -40,12 +39,12 @@ public class ViewModelTests {
 
     @Test
     public void whenInputIsIncorrectButtonDisabled() {
-        viewModel.lineP1X = "lineP1X";
-        viewModel.lineP1Y = "lineP1Y";
-        viewModel.lineP1Z = "lineP1Z";
-        viewModel.lineP2X = "lineP2X";
-        viewModel.lineP2Y = "lineP2Y";
-        viewModel.lineP2Z = "lineP2Z";
+        viewModel.linePx = "linePx";
+        viewModel.linePy = "linePy";
+        viewModel.linePz = "linePz";
+        viewModel.lineDirX = "lineDirX";
+        viewModel.lineDirY = "lineDirY";
+        viewModel.lineDirZ = "lineDirZ";
         viewModel.plainPointX = "plainPointX";
         viewModel.plainPointY = "plainPointY";
         viewModel.plainPointZ = "plainPointZ";
@@ -60,12 +59,12 @@ public class ViewModelTests {
 
     @Test
     public void whenInputIsCorrectButtonEnabled() {
-        viewModel.lineP1X = "1";
-        viewModel.lineP1Y = "1.0";
-        viewModel.lineP1Z = "1.0";
-        viewModel.lineP2X = "0";
-        viewModel.lineP2Y = "0.0";
-        viewModel.lineP2Z = "1.0";
+        viewModel.linePx = "1";
+        viewModel.linePy = "1.0";
+        viewModel.linePz = "1.0";
+        viewModel.lineDirX = "0";
+        viewModel.lineDirY = "0.0";
+        viewModel.lineDirZ = "1.0";
         viewModel.plainPointX = "0.0";
         viewModel.plainPointY = "0.0";
         viewModel.plainPointZ = "0.0";
@@ -91,12 +90,12 @@ public class ViewModelTests {
 
     @Test
     public void whenIntersectionExist() {
-        viewModel.lineP1X = "1";
-        viewModel.lineP1Y = "2";
-        viewModel.lineP1Z = "3";
-        viewModel.lineP2X = "0";
-        viewModel.lineP2Y = "0";
-        viewModel.lineP2Z = "1";
+        viewModel.linePx = "1";
+        viewModel.linePy = "2";
+        viewModel.linePz = "3";
+        viewModel.lineDirX = "0";
+        viewModel.lineDirY = "0";
+        viewModel.lineDirZ = "1";
         viewModel.plainPointX = "1";
         viewModel.plainPointY = "2";
         viewModel.plainPointZ = "3";
@@ -114,12 +113,12 @@ public class ViewModelTests {
 
     @Test
     public void whenIntersectionNotExist() {
-        viewModel.lineP1X = "0";
-        viewModel.lineP1Y = "0";
-        viewModel.lineP1Z = "1";
-        viewModel.lineP2X = "1";
-        viewModel.lineP2Y = "1";
-        viewModel.lineP2Z = "0";
+        viewModel.linePx = "0";
+        viewModel.linePy = "0";
+        viewModel.linePz = "1";
+        viewModel.lineDirX = "1";
+        viewModel.lineDirY = "1";
+        viewModel.lineDirZ = "0";
         viewModel.plainPointX = "0";
         viewModel.plainPointY = "0";
         viewModel.plainPointZ = "0";

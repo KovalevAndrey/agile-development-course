@@ -8,10 +8,10 @@ import java.awt.event.KeyAdapter;
  */
 public class LinePlainIntersectionForm {
     private JButton calcButton;
-    private JTextField lineP1X;
-    private JTextField lineP1Y;
-    private JTextField lineP2X;
-    private JTextField lineP2Y;
+    private JTextField linePx;
+    private JTextField linePy;
+    private JTextField lineDirX;
+    private JTextField lineDirY;
     private JTextField plainPointX;
     private JTextField plainPointY;
     private JTextField plainOrtX;
@@ -19,14 +19,14 @@ public class LinePlainIntersectionForm {
     private JTextField resultX;
     private JTextField resultY;
     private JPanel mainPanel;
-    private JTextField lineP1Z;
-    private JTextField lineP2Z;
+    private JTextField linePz;
+    private JTextField lineDirZ;
     private JTextField plainPointZ;
     private JTextField plainOrtZ;
     private JTextField resultZ;
 
     public LinePlainIntersectionForm() {
-        lineP1X.addKeyListener(new KeyAdapter() {
+        linePx.addKeyListener(new KeyAdapter() {
         });
     }
 
