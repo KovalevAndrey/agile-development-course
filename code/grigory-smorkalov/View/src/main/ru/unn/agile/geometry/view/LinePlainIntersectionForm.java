@@ -17,6 +17,15 @@ public class LinePlainIntersectionForm {
     private JTextField plainOrtY;
     private JTextField resultX;
     private JTextField resultY;
+    private JPanel mainPanel;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("LinePlainIntersectionForm");
+        frame.setContentPane(new LinePlainIntersectionForm().mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
