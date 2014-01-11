@@ -19,6 +19,11 @@ public class LinePlainIntersectionForm {
     private JTextField resultX;
     private JTextField resultY;
     private JPanel mainPanel;
+    private JTextField lineP1Z;
+    private JTextField lineP2Z;
+    private JTextField plainPointZ;
+    private JTextField plainOrtZ;
+    private JTextField resultZ;
 
     public LinePlainIntersectionForm() {
         lineP1X.addKeyListener(new KeyAdapter() {

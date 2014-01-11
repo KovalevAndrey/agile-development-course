@@ -1,19 +1,23 @@
 package ru.unn.agile.geometry.viewModel;
 
-/**
- * Created by geser on 12.01.14.
- */
+import ru.unn.agile.geometry.IntersectionComputer;
+
 public class LinePlainIntersection {
     public String lineP1X = "";
     public String lineP1Y = "";
+    public String lineP1Z = "";
     public String lineP2X = "";
     public String lineP2Y = "";
+    public String lineP2Z = "";
     public String plainPointX = "";
     public String plainPointY = "";
+    public String plainPointZ = "";
     public String plainOrtX = "";
     public String plainOrtY = "";
+    public String plainOrtZ = "";
     public String resultX = "";
     public String resultY = "";
+    public String resultZ = "";
     public boolean isCalcButtonEnabled = false;
 
     public void inputSomething() {
