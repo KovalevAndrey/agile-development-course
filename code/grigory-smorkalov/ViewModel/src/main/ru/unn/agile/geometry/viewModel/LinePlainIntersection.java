@@ -42,9 +42,15 @@ public class LinePlainIntersection {
         IntersectionComputer computer = new IntersectionComputer();
         Point res = computer.compute(plain, line);
 
-        resultX = "" + res.getX();
-        resultY = "" + res.getY();
-        resultZ = "" + res.getZ();
+        if (res != null) {
+            resultX = "" + res.getX();
+            resultY = "" + res.getY();
+            resultZ = "" + res.getZ();
+        } else {
+            resultX = "no intersection";
+            resultY = "no intersection";
+            resultZ = "no intersection";
+        }
     }
 
     public Point parsePoint(String x, String y, String z) {

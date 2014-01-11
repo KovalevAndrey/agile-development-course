@@ -111,4 +111,27 @@ public class ViewModelTests {
 
         assertEquals(result, new Point(1.0, 2.0, 3.0));
     }
+
+    @Test
+    public void whenIntersectionNotExist() {
+        viewModel.lineP1X = "0";
+        viewModel.lineP1Y = "0";
+        viewModel.lineP1Z = "1";
+        viewModel.lineP2X = "1";
+        viewModel.lineP2Y = "1";
+        viewModel.lineP2Z = "0";
+        viewModel.plainPointX = "0";
+        viewModel.plainPointY = "0";
+        viewModel.plainPointZ = "0";
+        viewModel.plainOrtX = "0.0";
+        viewModel.plainOrtY = "0.0";
+        viewModel.plainOrtZ = "1.0";
+
+        viewModel.inputSomething();
+        viewModel.calc();
+
+        assertEquals(viewModel.resultX, "no intersection");
+        assertEquals(viewModel.resultY, "no intersection");
+        assertEquals(viewModel.resultZ, "no intersection");
+    }
 }
