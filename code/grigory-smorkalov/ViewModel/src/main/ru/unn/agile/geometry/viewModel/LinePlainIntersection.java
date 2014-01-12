@@ -184,9 +184,7 @@ public class LinePlainIntersection {
         this.lineDirZ = lineDirZ;
     }
 
-    public String getPlainPointZ() {
-        return plainPointZ;
-    }
+    public String getPlainPointZ() { return plainPointZ; }
 
     public void setPlainPointZ(final String lainPointZ) {
         this.plainPointZ = lainPointZ;
@@ -204,7 +202,7 @@ public class LinePlainIntersection {
         return resultZ;
     }
 
-    public void setResultZ(final String rezultZ) {
-        this.resultZ = rezultZ;
+    public void setResultZ(final String resultZ) {
+        this.resultZ = resultZ;
     }
 }

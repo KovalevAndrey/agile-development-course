@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-/**
- * Created by geser on 10.01.14.
- */
 public class LinePlainIntersectionForm {
     private JButton calcButton;
     private JTextField linePx;
