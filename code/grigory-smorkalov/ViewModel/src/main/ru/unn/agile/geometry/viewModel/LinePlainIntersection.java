@@ -6,22 +6,22 @@ import ru.unn.agile.geometry.Plain;
 import ru.unn.agile.geometry.Point;
 
 public class LinePlainIntersection {
-    public String linePx = "";
-    public String linePy = "";
-    public String linePz = "";
-    public String lineDirX = "";
-    public String lineDirY = "";
-    public String lineDirZ = "";
-    public String plainPointX = "";
-    public String plainPointY = "";
-    public String plainPointZ = "";
-    public String plainOrtX = "";
-    public String plainOrtY = "";
-    public String plainOrtZ = "";
-    public String resultX = "";
-    public String resultY = "";
-    public String resultZ = "";
-    public boolean isCalcButtonEnabled = false;
+    private String linePx = "";
+    private String linePy = "";
+    private String linePz = "";
+    private String lineDirX = "";
+    private String lineDirY = "";
+    private String lineDirZ = "";
+    private String plainPointX = "";
+    private String plainPointY = "";
+    private String plainPointZ = "";
+    private String plainOrtX = "";
+    private String plainOrtY = "";
+    private String plainOrtZ = "";
+    private String resultX = "";
+    private String resultY = "";
+    private String resultZ = "";
+    private boolean isCalcButtonEnabled = false;
 
     public void inputSomething() {
         isCalcButtonEnabled = isInputValid();
@@ -106,6 +106,10 @@ public class LinePlainIntersection {
 
     public void setLineDirX(final String lineDirX) {
         this.lineDirX = lineDirX;
+    }
+
+    public boolean isCalcButtonEnabled() {
+        return isCalcButtonEnabled;
     }
 
     public String getLineDirY() {

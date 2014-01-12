@@ -22,59 +22,59 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals(viewModel.linePx, "");
-        assertEquals(viewModel.linePy, "");
-        assertEquals(viewModel.linePz, "");
-        assertEquals(viewModel.lineDirX, "");
-        assertEquals(viewModel.lineDirY, "");
-        assertEquals(viewModel.lineDirZ, "");
-        assertEquals(viewModel.plainPointX, "");
-        assertEquals(viewModel.plainPointY, "");
-        assertEquals(viewModel.plainPointZ, "");
-        assertEquals(viewModel.plainOrtX, "");
-        assertEquals(viewModel.plainOrtY, "");
-        assertEquals(viewModel.plainOrtZ, "");
-        assertEquals(viewModel.isCalcButtonEnabled, false);
+        assertEquals(viewModel.getLinePx(), "");
+        assertEquals(viewModel.getLinePy(), "");
+        assertEquals(viewModel.getLinePz(), "");
+        assertEquals(viewModel.getLineDirX(), "");
+        assertEquals(viewModel.getLineDirY(), "");
+        assertEquals(viewModel.getLineDirZ(), "");
+        assertEquals(viewModel.getPlainPointX(), "");
+        assertEquals(viewModel.getPlainPointY(), "");
+        assertEquals(viewModel.getPlainPointZ(), "");
+        assertEquals(viewModel.getPlainOrtX(), "");
+        assertEquals(viewModel.getPlainOrtY(), "");
+        assertEquals(viewModel.getPlainOrtZ(), "");
+        assertEquals(viewModel.isCalcButtonEnabled(), false);
     }
 
     @Test
     public void whenInputIsIncorrectButtonDisabled() {
-        viewModel.linePx = "linePx";
-        viewModel.linePy = "linePy";
-        viewModel.linePz = "linePz";
-        viewModel.lineDirX = "lineDirX";
-        viewModel.lineDirY = "lineDirY";
-        viewModel.lineDirZ = "lineDirZ";
-        viewModel.plainPointX = "plainPointX";
-        viewModel.plainPointY = "plainPointY";
-        viewModel.plainPointZ = "plainPointZ";
-        viewModel.plainOrtX = "plainOrtX";
-        viewModel.plainOrtY = "plainOrtY";
-        viewModel.plainOrtZ = "plainOrtZ";
+        viewModel.setLinePx("linePx");
+        viewModel.setLinePy("linePy");
+        viewModel.setLinePz("linePz");
+        viewModel.setLineDirX("lineDirX");
+        viewModel.setLineDirY("lineDirY");
+        viewModel.setLineDirZ("lineDirZ");
+        viewModel.setPlainPointX("plainPointX");
+        viewModel.setPlainPointY("plainPointY");
+        viewModel.setPlainPointZ("plainPointZ");
+        viewModel.setPlainOrtX("plainOrtX");
+        viewModel.setPlainOrtY("plainOrtY");
+        viewModel.setPlainOrtZ("plainOrtZ");
 
         viewModel.inputSomething();
 
-        assertEquals(viewModel.isCalcButtonEnabled, false);
+        assertEquals(viewModel.isCalcButtonEnabled(), false);
     }
 
     @Test
     public void whenInputIsCorrectButtonEnabled() {
-        viewModel.linePx = "1";
-        viewModel.linePy = "1.0";
-        viewModel.linePz = "1.0";
-        viewModel.lineDirX = "0";
-        viewModel.lineDirY = "0.0";
-        viewModel.lineDirZ = "1.0";
-        viewModel.plainPointX = "0.0";
-        viewModel.plainPointY = "0.0";
-        viewModel.plainPointZ = "0.0";
-        viewModel.plainOrtX = "0.0";
-        viewModel.plainOrtY = "0.0";
-        viewModel.plainOrtZ = "0.0";
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("1.0");
+        viewModel.setLinePz("1.0");
+        viewModel.setLineDirX("0");
+        viewModel.setLineDirY("0.0");
+        viewModel.setLineDirZ("0.0");
+        viewModel.setPlainPointX("0.0");
+        viewModel.setPlainPointY("0.0");
+        viewModel.setPlainPointZ("0.0");
+        viewModel.setPlainOrtX("0.0");
+        viewModel.setPlainOrtY("0.0");
+        viewModel.setPlainOrtZ("0.0");
 
         viewModel.inputSomething();
 
-        assertEquals(viewModel.isCalcButtonEnabled, true);
+        assertEquals(viewModel.isCalcButtonEnabled(), true);
     }
 
     @Test
@@ -90,47 +90,47 @@ public class ViewModelTests {
 
     @Test
     public void whenIntersectionExist() {
-        viewModel.linePx = "1";
-        viewModel.linePy = "2";
-        viewModel.linePz = "3";
-        viewModel.lineDirX = "0";
-        viewModel.lineDirY = "0";
-        viewModel.lineDirZ = "1";
-        viewModel.plainPointX = "1";
-        viewModel.plainPointY = "2";
-        viewModel.plainPointZ = "3";
-        viewModel.plainOrtX = "0.0";
-        viewModel.plainOrtY = "0.0";
-        viewModel.plainOrtZ = "1.0";
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("0");
+        viewModel.setLineDirY("0");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("1");
+        viewModel.setPlainPointY("2");
+        viewModel.setPlainPointZ("3");
+        viewModel.setPlainOrtX("0.0");
+        viewModel.setPlainOrtY("0.0");
+        viewModel.setPlainOrtZ("1.0");
 
         viewModel.inputSomething();
         viewModel.calc();
 
-        Point result = viewModel.parsePoint(viewModel.resultX, viewModel.resultY, viewModel.resultZ);
+        Point result = viewModel.parsePoint(viewModel.getResultX(), viewModel.getResultY(), viewModel.getResultZ());
 
         assertEquals(result, new Point(1.0, 2.0, 3.0));
     }
 
     @Test
     public void whenIntersectionNotExist() {
-        viewModel.linePx = "0";
-        viewModel.linePy = "0";
-        viewModel.linePz = "1";
-        viewModel.lineDirX = "1";
-        viewModel.lineDirY = "1";
-        viewModel.lineDirZ = "0";
-        viewModel.plainPointX = "0";
-        viewModel.plainPointY = "0";
-        viewModel.plainPointZ = "0";
-        viewModel.plainOrtX = "0.0";
-        viewModel.plainOrtY = "0.0";
-        viewModel.plainOrtZ = "1.0";
+        viewModel.setLinePx("0");
+        viewModel.setLinePy("0");
+        viewModel.setLinePz("1");
+        viewModel.setLineDirX("1");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("0");
+        viewModel.setPlainPointX("0");
+        viewModel.setPlainPointY("0");
+        viewModel.setPlainPointZ("0");
+        viewModel.setPlainOrtX("0.0");
+        viewModel.setPlainOrtY("0.0");
+        viewModel.setPlainOrtZ("1.0");
 
         viewModel.inputSomething();
         viewModel.calc();
 
-        assertEquals(viewModel.resultX, "no intersection");
-        assertEquals(viewModel.resultY, "no intersection");
-        assertEquals(viewModel.resultZ, "no intersection");
+        assertEquals(viewModel.getResultX(), "no intersection");
+        assertEquals(viewModel.getResultY(), "no intersection");
+        assertEquals(viewModel.getResultZ(), "no intersection");
     }
 }

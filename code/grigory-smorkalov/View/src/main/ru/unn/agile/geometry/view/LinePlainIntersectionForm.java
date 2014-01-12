@@ -52,7 +52,7 @@ public class LinePlainIntersectionForm {
                     super.keyTyped(e);
                     LinePlainIntersectionForm.this.getData(LinePlainIntersectionForm.this.viewModel);
                     LinePlainIntersectionForm.this.viewModel.inputSomething();
-                    calcButton.setEnabled(LinePlainIntersectionForm.this.viewModel.isCalcButtonEnabled);
+                    calcButton.setEnabled(LinePlainIntersectionForm.this.viewModel.isCalcButtonEnabled());
                 }
             });
         }
@@ -86,7 +86,7 @@ public class LinePlainIntersectionForm {
         plainPointZ.setText(data.getPlainPointZ());
         plainOrtZ.setText(data.getPlainOrtZ());
         resultZ.setText(data.getResultZ());
-        calcButton.setEnabled(data.isCalcButtonEnabled);
+        calcButton.setEnabled(data.isCalcButtonEnabled());
     }
 
     public void getData(LinePlainIntersection data) {
