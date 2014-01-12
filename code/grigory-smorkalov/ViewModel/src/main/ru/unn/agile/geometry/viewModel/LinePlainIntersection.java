@@ -68,15 +68,139 @@ public class LinePlainIntersection {
         try {
             Double.parseDouble(linePx);
             Double.parseDouble(linePy);
+            Double.parseDouble(linePz);
             Double.parseDouble(lineDirX);
             Double.parseDouble(lineDirY);
+            Double.parseDouble(lineDirZ);
             Double.parseDouble(plainPointX);
             Double.parseDouble(plainPointY);
+            Double.parseDouble(plainPointZ);
             Double.parseDouble(plainOrtX);
             Double.parseDouble(plainOrtY);
+            Double.parseDouble(plainOrtZ);
         } catch (Exception e) {
             return false;
         }
         return true;
+    }
+
+    public String getLinePx() {
+        return linePx;
+    }
+
+    public void setLinePx(final String linePx) {
+        this.linePx = linePx;
+    }
+
+    public String getLinePy() {
+        return linePy;
+    }
+
+    public void setLinePy(final String linePy) {
+        this.linePy = linePy;
+    }
+
+    public String getLineDirX() {
+        return lineDirX;
+    }
+
+    public void setLineDirX(final String lineDirX) {
+        this.lineDirX = lineDirX;
+    }
+
+    public String getLineDirY() {
+        return lineDirY;
+    }
+
+    public void setLineDirY(final String lineDirY) {
+        this.lineDirY = lineDirY;
+    }
+
+    public String getPlainPointX() {
+        return plainPointX;
+    }
+
+    public void setPlainPointX(final String plainPointX) {
+        this.plainPointX = plainPointX;
+    }
+
+    public String getPlainPointY() {
+        return plainPointY;
+    }
+
+    public void setPlainPointY(final String plainPointY) {
+        this.plainPointY = plainPointY;
+    }
+
+    public String getPlainOrtX() {
+        return plainOrtX;
+    }
+
+    public void setPlainOrtX(final String plainOrtX) {
+        this.plainOrtX = plainOrtX;
+    }
+
+    public String getPlainOrtY() {
+        return plainOrtY;
+    }
+
+    public void setPlainOrtY(final String plainOrtY) {
+        this.plainOrtY = plainOrtY;
+    }
+
+    public String getResultX() {
+        return resultX;
+    }
+
+    public void setResultX(final String resultX) {
+        this.resultX = resultX;
+    }
+
+    public String getResultY() {
+        return resultY;
+    }
+
+    public void setResultY(final String resultY) {
+        this.resultY = resultY;
+    }
+
+    public String getLinePz() {
+        return linePz;
+    }
+
+    public void setLinePz(final String linePz) {
+        this.linePz = linePz;
+    }
+
+    public String getLineDirZ() {
+        return lineDirZ;
+    }
+
+    public void setLineDirZ(final String lineDirZ) {
+        this.lineDirZ = lineDirZ;
+    }
+
+    public String getPlainPointZ() {
+        return plainPointZ;
+    }
+
+    public void setPlainPointZ(final String lainPointZ) {
+        this.plainPointZ = lainPointZ;
+    }
+
+    public String getPlainOrtZ() {
+        return plainOrtZ;
+    }
+
+    public void setPlainOrtZ(final String plainOrtZ) {
+        this.plainOrtZ = plainOrtZ;
+    }
+
+    public String getResultZ() {
+        return resultZ;
+    }
+
+    public void setResultZ(final String rezultZ) {
+        this.resultZ = rezultZ;
     }
 }
