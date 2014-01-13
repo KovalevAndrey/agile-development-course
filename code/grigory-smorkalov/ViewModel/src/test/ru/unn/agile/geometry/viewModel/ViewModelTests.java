@@ -4,15 +4,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.geometry.Point;
+import sun.security.jca.ProviderList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
     private LinePlainIntersection viewModel;
+    private FakeLogger logger;
 
     @Before
     public void setUp() {
-        viewModel = new LinePlainIntersection();
+        logger = new FakeLogger();
+        viewModel = new LinePlainIntersection(logger);
     }
 
     @After
@@ -132,5 +136,10 @@ public class ViewModelTests {
         assertEquals(viewModel.getResultX(), "no intersection");
         assertEquals(viewModel.getResultY(), "no intersection");
         assertEquals(viewModel.getResultZ(), "no intersection");
+    }
+
+    @Test
+    public void whenCreateLogIsEmpty() {
+        assertTrue(logger.getLog().isEmpty());
     }
 }

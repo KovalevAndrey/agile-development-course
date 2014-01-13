@@ -4,6 +4,7 @@ import ru.unn.agile.geometry.IntersectionComputer;
 import ru.unn.agile.geometry.Line;
 import ru.unn.agile.geometry.Plain;
 import ru.unn.agile.geometry.Point;
+import ru.unn.agile.geometry.viewModel.ILogger;
 
 public class LinePlainIntersection {
     private String linePx = "";
@@ -22,6 +23,10 @@ public class LinePlainIntersection {
     private String resultY = "";
     private String resultZ = "";
     private boolean isCalcButtonEnabled = false;
+
+    public  LinePlainIntersection(ILogger logger) {
+
+    }
 
     public void inputSomething() {
         isCalcButtonEnabled = isInputValid();
