@@ -113,6 +113,28 @@ public class ViewModelTests {
     }
 
     @Test
+    public void whenClearResultsOnInput() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("0");
+        viewModel.setLineDirY("0");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("1");
+        viewModel.setPlainPointY("2");
+        viewModel.setPlainPointZ("3");
+        viewModel.setPlainOrtX("0.0");
+        viewModel.setPlainOrtY("0.0");
+
+        viewModel.inputSomething();
+
+        viewModel.setPlainOrtZ("1.0");
+
+        viewModel.inputSomething();
+        assertEquals(viewModel.getResultX(), "");
+    }
+
+    @Test
     public void whenIntersectionNotExistSetMessage() {
         viewModel.setLinePx("0");
         viewModel.setLinePy("0");

@@ -24,6 +24,7 @@ public class LinePlainIntersection {
     private boolean isCalcButtonEnabled = false;
 
     public void inputSomething() {
+        resultX = resultY = resultZ = "";
         isCalcButtonEnabled = isInputValid();
     }
 
