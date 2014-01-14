@@ -35,9 +35,9 @@ public class LinePlaneIntersectionForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                LinePlaneIntersectionForm.this.getData();
+                LinePlaneIntersectionForm.this.setModelFromView();
                 LinePlaneIntersectionForm.this.viewModel.calc();
-                LinePlaneIntersectionForm.this.setData();
+                LinePlaneIntersectionForm.this.setViewFromModel();
             }
         });
         JTextField textFields[] = {linePx, linePy, lineDirX, lineDirY, plainPointX, plainPointY, plainOrtX, plainOrtY, linePz, lineDirZ, plainPointZ, plainOrtZ};
@@ -46,9 +46,9 @@ public class LinePlaneIntersectionForm {
                 @Override
                 public void keyReleased(KeyEvent e) {
                     super.keyTyped(e);
-                    LinePlaneIntersectionForm.this.getData();
+                    LinePlaneIntersectionForm.this.setModelFromView();
                     LinePlaneIntersectionForm.this.viewModel.inputSomething();
-                    LinePlaneIntersectionForm.this.setData();
+                    LinePlaneIntersectionForm.this.setViewFromModel();
                 }
             });
         }
@@ -62,7 +62,7 @@ public class LinePlaneIntersectionForm {
         frame.setVisible(true);
     }
 
-    public void setData() {
+    public void setViewFromModel() {
         linePx.setText(viewModel.getLinePx());
         linePy.setText(viewModel.getLinePy());
         lineDirX.setText(viewModel.getLineDirX());
@@ -81,7 +81,7 @@ public class LinePlaneIntersectionForm {
         calcButton.setEnabled(viewModel.isCalcButtonEnabled());
     }
 
-    public void getData() {
+    public void setModelFromView() {
         viewModel.setLinePx(linePx.getText());
         viewModel.setLinePy(linePy.getText());
         viewModel.setLineDirX(lineDirX.getText());
