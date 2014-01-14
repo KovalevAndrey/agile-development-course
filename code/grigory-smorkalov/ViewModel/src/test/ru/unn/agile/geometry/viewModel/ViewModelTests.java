@@ -7,6 +7,7 @@ import ru.unn.agile.geometry.Point;
 import sun.security.jca.ProviderList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
@@ -141,5 +142,28 @@ public class ViewModelTests {
     @Test
     public void whenCreateLogIsEmpty() {
         assertTrue(logger.getLog().isEmpty());
+    }
+
+    @Test
+    public void whenUserInputLogValues() {
+        viewModel.setLinePx("lpx");
+        viewModel.setLinePy("lpy");
+        viewModel.setLinePz("lpz");
+        viewModel.setLineDirX("dirX");
+        viewModel.setLineDirY("dirY");
+        viewModel.setLineDirZ("dirZ");
+        viewModel.setPlainPointX("ppx");
+        viewModel.setPlainPointY("ppy");
+        viewModel.setPlainPointZ("ppz");
+        viewModel.setPlainOrtX("ortX");
+        viewModel.setPlainOrtY("ortY");
+        viewModel.setPlainOrtZ("ortZ");
+
+        viewModel.inputSomething();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": INPUT: lineP{lpx,lpy,lpz};lineDir{dirX,dirY,dirZ};plainP{ppx,ppy,ppz};plainOrt{ortX,ortY,ortZ}";
+
+        assertEquals(logger.getLog().get(0), supposedLog);
     }
 }

@@ -23,12 +23,14 @@ public class LinePlainIntersection {
     private String resultY = "";
     private String resultZ = "";
     private boolean isCalcButtonEnabled = false;
+    ILogger logger;
 
     public  LinePlainIntersection(ILogger logger) {
-
+        this.logger = logger;
     }
 
     public void inputSomething() {
+        logTextFields();
         isCalcButtonEnabled = isInputValid();
     }
 
@@ -87,6 +89,13 @@ public class LinePlainIntersection {
             return false;
         }
         return true;
+    }
+
+    private void logTextFields() {
+        logger.message("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
+                "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
+                "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
+                "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
     }
 
     public String getLinePx() {
