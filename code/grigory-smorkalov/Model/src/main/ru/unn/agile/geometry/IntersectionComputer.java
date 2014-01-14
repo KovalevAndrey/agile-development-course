@@ -5,33 +5,33 @@ public class IntersectionComputer {
 
     }
 
-    public Point compute(Plain plain, Line line) {
-        if (plain == null && line != null) {
-            throw new RuntimeException("Null plain passed");
+    public Point compute(Plane plane, Line line) {
+        if (plane == null && line != null) {
+            throw new RuntimeException("Null plane passed");
         }
-        if (plain != null && line == null) {
+        if (plane != null && line == null) {
             throw new RuntimeException("Null line passed");
         }
-        if (plain == null && line == null) {
-            throw new RuntimeException("Null plain and line passed");
+        if (plane == null && line == null) {
+            throw new RuntimeException("Null plane and line passed");
         }
 
-        Point linePlainPointsDiff = plain.getPoint().minus(line.getPoint());
-        double linePointOrtToPlain = plain.getNormal().scalarMultiply(linePlainPointsDiff);
+        Point linePlainPointsDiff = plane.getPoint().minus(line.getPoint());
+        double linePointOrtToPlain = plane.getNormal().scalarMultiply(linePlainPointsDiff);
 
-        if (areLineAndPlainParallel(plain, line)) {
+        if (areLineAndPlainParallel(plane, line)) {
             if (Math.abs(linePointOrtToPlain) < Point.ACCURACY) {
                 return line.getPoint();
             } else {
                 return null;
             }
         } else {
-            double linePointToIntersectionDistance = linePointOrtToPlain / (plain.getNormal().scalarMultiply(line.getDirection()));
+            double linePointToIntersectionDistance = linePointOrtToPlain / (plane.getNormal().scalarMultiply(line.getDirection()));
             return line.getPoint().plus(line.getDirection().multiply(linePointToIntersectionDistance));
         }
     }
 
-    public boolean areLineAndPlainParallel(Plain plain, Line line) {
-        return Math.abs(plain.getNormal().scalarMultiply(line.getDirection())) < Point.ACCURACY;
+    public boolean areLineAndPlainParallel(Plane plane, Line line) {
+        return Math.abs(plane.getNormal().scalarMultiply(line.getDirection())) < Point.ACCURACY;
     }
 }

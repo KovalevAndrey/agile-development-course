@@ -3,10 +3,9 @@ package ru.unn.agile.geometry.view;
 import ru.unn.agile.geometry.viewModel.LinePlainIntersection;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
-public class LinePlainIntersectionForm {
+public class LinePlaneIntersectionForm {
     private JButton calcButton;
     private JTextField linePx;
     private JTextField linePy;
@@ -27,7 +26,7 @@ public class LinePlainIntersectionForm {
 
     private LinePlainIntersection viewModel;
 
-    public LinePlainIntersectionForm(LinePlainIntersection formVewModel) {
+    public LinePlaneIntersectionForm(LinePlainIntersection formVewModel) {
         this.viewModel = formVewModel;
 
         linePx.addKeyListener(new KeyAdapter() {
@@ -36,9 +35,9 @@ public class LinePlainIntersectionForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                LinePlainIntersectionForm.this.getData();
-                LinePlainIntersectionForm.this.viewModel.calc();
-                LinePlainIntersectionForm.this.setData();
+                LinePlaneIntersectionForm.this.getData();
+                LinePlaneIntersectionForm.this.viewModel.calc();
+                LinePlaneIntersectionForm.this.setData();
             }
         });
         JTextField textFields[] = {linePx, linePy, lineDirX, lineDirY, plainPointX, plainPointY, plainOrtX, plainOrtY, linePz, lineDirZ, plainPointZ, plainOrtZ};
@@ -47,17 +46,17 @@ public class LinePlainIntersectionForm {
                 @Override
                 public void keyReleased(KeyEvent e) {
                     super.keyTyped(e);
-                    LinePlainIntersectionForm.this.getData();
-                    LinePlainIntersectionForm.this.viewModel.inputSomething();
-                    calcButton.setEnabled(LinePlainIntersectionForm.this.viewModel.isCalcButtonEnabled());
+                    LinePlaneIntersectionForm.this.getData();
+                    LinePlaneIntersectionForm.this.viewModel.inputSomething();
+                    calcButton.setEnabled(LinePlaneIntersectionForm.this.viewModel.isCalcButtonEnabled());
                 }
             });
         }
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("LinePlainIntersectionForm");
-        frame.setContentPane(new LinePlainIntersectionForm(new LinePlainIntersection()).mainPanel);
+        JFrame frame = new JFrame("LinePlaneIntersectionForm");
+        frame.setContentPane(new LinePlaneIntersectionForm(new LinePlainIntersection()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

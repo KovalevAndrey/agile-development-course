@@ -2,7 +2,7 @@ package ru.unn.agile.geometry.viewModel;
 
 import ru.unn.agile.geometry.IntersectionComputer;
 import ru.unn.agile.geometry.Line;
-import ru.unn.agile.geometry.Plain;
+import ru.unn.agile.geometry.Plane;
 import ru.unn.agile.geometry.Point;
 
 public class LinePlainIntersection {
@@ -37,10 +37,10 @@ public class LinePlainIntersection {
         Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
 
         Line line = new Line(linePoint, lineDir);
-        Plain plain = new Plain(plainPoint, plainOrt);
+        Plane plane = new Plane(plainPoint, plainOrt);
 
         IntersectionComputer computer = new IntersectionComputer();
-        Point res = computer.compute(plain, line);
+        Point res = computer.compute(plane, line);
 
         if (res != null) {
             resultX = "" + res.getX();
