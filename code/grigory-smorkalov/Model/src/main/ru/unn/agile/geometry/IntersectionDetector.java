@@ -1,7 +1,7 @@
 package ru.unn.agile.geometry;
 
-public class IntersectionComputer {
-    public IntersectionComputer() {
+public class IntersectionDetector {
+    public IntersectionDetector() {
 
     }
 

@@ -1,6 +1,6 @@
 package ru.unn.agile.geometry.viewModel;
 
-import ru.unn.agile.geometry.IntersectionComputer;
+import ru.unn.agile.geometry.IntersectionDetector;
 import ru.unn.agile.geometry.Line;
 import ru.unn.agile.geometry.Plane;
 import ru.unn.agile.geometry.Point;
@@ -39,7 +39,7 @@ public class LinePlainIntersection {
         Line line = new Line(linePoint, lineDir);
         Plane plane = new Plane(plainPoint, plainOrt);
 
-        IntersectionComputer computer = new IntersectionComputer();
+        IntersectionDetector computer = new IntersectionDetector();
         Point res = computer.compute(plane, line);
 
         if (res != null) {
