@@ -55,6 +55,7 @@ public class ViewModelTests {
         viewModel.inputSomething();
 
         assertEquals(viewModel.isCalcButtonEnabled(), false);
+        assertEquals(viewModel.getResultX(), "Parse error");
     }
 
     @Test

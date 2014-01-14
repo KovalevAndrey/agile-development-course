@@ -79,6 +79,8 @@ public class LinePlainIntersection {
             Double.parseDouble(plainOrtY);
             Double.parseDouble(plainOrtZ);
         } catch (Exception e) {
+            resultX = "Parse error";
+            resultY = e.getMessage();
             return false;
         }
         return true;

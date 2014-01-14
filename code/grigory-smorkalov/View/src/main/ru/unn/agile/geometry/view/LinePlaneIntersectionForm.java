@@ -48,7 +48,7 @@ public class LinePlaneIntersectionForm {
                     super.keyTyped(e);
                     LinePlaneIntersectionForm.this.getData();
                     LinePlaneIntersectionForm.this.viewModel.inputSomething();
-                    calcButton.setEnabled(LinePlaneIntersectionForm.this.viewModel.isCalcButtonEnabled());
+                    LinePlaneIntersectionForm.this.setData();
                 }
             });
         }
