@@ -89,7 +89,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenIntersectionExist() {
+    public void whenIntersectionExistSetResult() {
         viewModel.setLinePx("1");
         viewModel.setLinePy("2");
         viewModel.setLinePz("3");
@@ -112,7 +112,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenIntersectionNotExist() {
+    public void whenIntersectionNotExistSetMessage() {
         viewModel.setLinePx("0");
         viewModel.setLinePy("0");
         viewModel.setLinePz("1");
