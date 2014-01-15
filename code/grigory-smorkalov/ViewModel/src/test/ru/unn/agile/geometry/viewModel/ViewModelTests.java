@@ -90,6 +90,17 @@ public class ViewModelTests {
     }
 
     @Test
+    public void canConvertToPointSpecific() {
+        String x = " 1.2e0";
+        String y = "100 ";
+        String z = " 6";
+
+        Point result = viewModel.parsePoint(x, y, z);
+
+        assertEquals(result, new Point(1.2, 100, 6));
+    }
+
+    @Test
     public void whenIntersectionExistSetResult() {
         viewModel.setLinePx("1");
         viewModel.setLinePy("2");
