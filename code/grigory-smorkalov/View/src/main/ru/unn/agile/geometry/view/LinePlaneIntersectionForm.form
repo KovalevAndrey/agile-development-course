@@ -96,7 +96,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="25de2" class="javax.swing.JTextField" binding="plainPointX">
+      <component id="25de2" class="javax.swing.JTextField" binding="planePointX">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -106,7 +106,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="9637" class="javax.swing.JTextField" binding="plainPointY">
+      <component id="9637" class="javax.swing.JTextField" binding="planePointY">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -189,7 +189,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="d65c4" class="javax.swing.JTextField" binding="plainPointZ">
+      <component id="d65c4" class="javax.swing.JTextField" binding="planePointZ">
         <constraints>
           <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -197,7 +197,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="5dd89" class="javax.swing.JTextField" binding="plainOrtZ">
+      <component id="5dd89" class="javax.swing.JTextField" binding="planeOrtZ">
         <constraints>
           <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

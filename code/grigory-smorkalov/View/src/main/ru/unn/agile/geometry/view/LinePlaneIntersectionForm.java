@@ -11,8 +11,8 @@ public class LinePlaneIntersectionForm {
     private JTextField linePy;
     private JTextField lineDirX;
     private JTextField lineDirY;
-    private JTextField plainPointX;
-    private JTextField plainPointY;
+    private JTextField planePointX;
+    private JTextField planePointY;
     private JTextField plainOrtX;
     private JTextField plainOrtY;
     private JTextField resultX;
@@ -20,8 +20,8 @@ public class LinePlaneIntersectionForm {
     private JPanel mainPanel;
     private JTextField linePz;
     private JTextField lineDirZ;
-    private JTextField plainPointZ;
-    private JTextField plainOrtZ;
+    private JTextField planePointZ;
+    private JTextField planeOrtZ;
     private JTextField resultZ;
 
     private LinePlainIntersection viewModel;
@@ -35,20 +35,20 @@ public class LinePlaneIntersectionForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                LinePlaneIntersectionForm.this.setModelFromView();
+                LinePlaneIntersectionForm.this.backBind();
                 LinePlaneIntersectionForm.this.viewModel.calc();
-                LinePlaneIntersectionForm.this.setViewFromModel();
+                LinePlaneIntersectionForm.this.bind();
             }
         });
-        JTextField textFields[] = {linePx, linePy, lineDirX, lineDirY, plainPointX, plainPointY, plainOrtX, plainOrtY, linePz, lineDirZ, plainPointZ, plainOrtZ};
+        JTextField textFields[] = {linePx, linePy, lineDirX, lineDirY, planePointX, planePointY, plainOrtX, plainOrtY, linePz, lineDirZ, planePointZ, planeOrtZ};
         for(JTextField textField : textFields) {
             textField.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
                     super.keyTyped(e);
-                    LinePlaneIntersectionForm.this.setModelFromView();
+                    LinePlaneIntersectionForm.this.backBind();
                     LinePlaneIntersectionForm.this.viewModel.inputSomething();
-                    LinePlaneIntersectionForm.this.setViewFromModel();
+                    LinePlaneIntersectionForm.this.bind();
                 }
             });
         }
@@ -62,40 +62,40 @@ public class LinePlaneIntersectionForm {
         frame.setVisible(true);
     }
 
-    public void setViewFromModel() {
+    public void bind() {
         linePx.setText(viewModel.getLinePx());
         linePy.setText(viewModel.getLinePy());
         lineDirX.setText(viewModel.getLineDirX());
         lineDirY.setText(viewModel.getLineDirY());
-        plainPointX.setText(viewModel.getPlainPointX());
-        plainPointY.setText(viewModel.getPlainPointY());
+        planePointX.setText(viewModel.getPlainPointX());
+        planePointY.setText(viewModel.getPlainPointY());
         plainOrtX.setText(viewModel.getPlainOrtX());
         plainOrtY.setText(viewModel.getPlainOrtY());
         resultX.setText(viewModel.getResultX());
         resultY.setText(viewModel.getResultY());
         linePz.setText(viewModel.getLinePz());
         lineDirZ.setText(viewModel.getLineDirZ());
-        plainPointZ.setText(viewModel.getPlainPointZ());
-        plainOrtZ.setText(viewModel.getPlainOrtZ());
+        planePointZ.setText(viewModel.getPlainPointZ());
+        planeOrtZ.setText(viewModel.getPlainOrtZ());
         resultZ.setText(viewModel.getResultZ());
         calcButton.setEnabled(viewModel.isCalcButtonEnabled());
     }
 
-    public void setModelFromView() {
+    public void backBind() {
         viewModel.setLinePx(linePx.getText());
         viewModel.setLinePy(linePy.getText());
         viewModel.setLineDirX(lineDirX.getText());
         viewModel.setLineDirY(lineDirY.getText());
-        viewModel.setPlainPointX(plainPointX.getText());
-        viewModel.setPlainPointY(plainPointY.getText());
+        viewModel.setPlainPointX(planePointX.getText());
+        viewModel.setPlainPointY(planePointY.getText());
         viewModel.setPlainOrtX(plainOrtX.getText());
         viewModel.setPlainOrtY(plainOrtY.getText());
         viewModel.setResultX(resultX.getText());
         viewModel.setResultY(resultY.getText());
         viewModel.setLinePz(linePz.getText());
         viewModel.setLineDirZ(lineDirZ.getText());
-        viewModel.setPlainPointZ(plainPointZ.getText());
-        viewModel.setPlainOrtZ(plainOrtZ.getText());
+        viewModel.setPlainPointZ(planePointZ.getText());
+        viewModel.setPlainOrtZ(planeOrtZ.getText());
         viewModel.setResultZ(resultZ.getText());
     }
 }
