@@ -1,0 +1,11 @@
+dependencies {
+    compile project(':grigory-smorkalov-ViewModel')
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main'
+        }
+    }
+}

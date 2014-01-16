@@ -1,10 +1,10 @@
 package ru.unn.agile.geometry;
 
-public class Plain {
+public class Plane {
     private Point point;
     private Point normal;
 
-    public Plain(Point point, Point normal) {
+    public Plane(Point point, Point normal) {
         this.point = point;
         this.normal = normal;
     }
