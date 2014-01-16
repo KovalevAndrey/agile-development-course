@@ -257,6 +257,8 @@ include "sergey-koklyuev/ViewModel"
 project(":sergey-koklyuev/ViewModel").name = "sergey-koklyuev-ViewModel"
 include "sergey-koklyuev/View"
 project(":sergey-koklyuev/View").name = "sergey-koklyuev-View"
+include "sergey-koklyuev/Infrastructure"
+project(":sergey-koklyuev/Infrastructure").name = "sergey-koklyuev-Infrastructure"
 
 // Sergey Zhdanov
 include "sergey-zhdanov/Model"

@@ -3,22 +3,50 @@ package ru.unn.agile.Polynomial.viewmodel;
 import ru.unn.agile.Polynomial.PolynomialCalculator;
 import ru.unn.agile.Polynomial.Term;
 
-public class ViewModel {
-    public static final int ENTER_CODE = 10;
-    public String polynomial1 = "";
-    public String polynomial2 = "";
-    public Operation operation = Operation.ADD;
-    public String result = "";
-    public String status = Status.WAITING;
-    public boolean isCalculateButtonEnabled = false;
+import java.util.List;
 
-    public ViewModel() {
+public class ViewModel {
+    private final ILogger logger;
+    private String polynomial1 = "";
+    private String polynomial2 = "";
+    private String result = "";
+    private String status = Status.WAITING;
+    private boolean isCalculateButtonEnabled = false;
+    private Operation operation = Operation.ADD;
+    private boolean isInputChanged = true;
+
+    public ViewModel(ILogger logger) {
+        if (logger == null)
+            throw new IllegalArgumentException("Logger parameter cannot be null");
         parser = new PolynomialParser();
         writer = new PolynomialWriter();
+        this.logger = logger;
         calculator = new PolynomialCalculator();
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public boolean getIsCalculateButtonEnabled() {
+        return isCalculateButtonEnabled;
+    }
+
     public void calculate() {
+        logger.log(LoggingLevel.RELEASE, calculateLogMessage());
+
         if (!parseInput())
             return;
 
@@ -29,14 +57,55 @@ public class ViewModel {
             return;
 
         result = writer.writePolynomial(resultTerms);
+        logger.log(LoggingLevel.RELEASE, "Result: " + result);
         status = Status.SUCCESS;
     }
 
     public void processKeyInTextField(int keyCode) {
-        if (keyCode == ENTER_CODE)
+        parseInput();
+        if (keyCode == KeyboardKeys.ENTER && isCalculateButtonEnabled)
             calculate();
-        else
-            parseInput();
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
+    public void setOperation(Operation op) {
+        if (operation == op)
+            return;
+        logger.log(LoggingLevel.DEBUG, "Operation " + op.toString() + " was selected");
+        operation = op;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setPolynomial1(String polynomial1) {
+        if (polynomial1.equals(this.polynomial1))
+            return;
+
+        this.polynomial1 = polynomial1;
+
+        isInputChanged = true;
+    }
+
+    public String getPolynomial1() {
+        return polynomial1;
+    }
+
+    public void setPolynomial2(String polynomial2) {
+        if (polynomial2.equals(this.polynomial2))
+            return;
+
+        this.polynomial2 = polynomial2;
+
+        isInputChanged = true;
+    }
+
+    public String getPolynomial2() {
+        return polynomial2;
     }
 
     public class Status {
@@ -46,6 +115,46 @@ public class ViewModel {
         public static final String SUCCESS = "Success";
         public static final String ERROR = "Internal error";
     }
+
+    private String calculateLogMessage() {
+        String message = "Polynomial1: " + polynomial1 +
+                " Polynomial2: " + polynomial2 +
+                " Operation: " + operation.toString();
+        return message;
+    }
+
+    public void focusLost() {
+        logInputParams();
+    }
+
+    public void setLogLevel(LoggingLevel level) {
+        logger.setLevel(level);
+    }
+
+    public LoggingLevel getLogLevel() {
+        return logger.getLevel();
+    }
+
+    public String getLastLogMessage() {
+        return logger.getLastMessage();
+    }
+
+    private void logInputParams() {
+        if (!isInputChanged) return;
+
+        logger.log(LoggingLevel.DEBUG, editingFinishedLogMessage());
+
+        isInputChanged = false;
+    }
+
+    private String editingFinishedLogMessage() {
+        String p1 = polynomial1.isEmpty() ? "None" : polynomial1;
+        String p2 = polynomial2.isEmpty() ? "None" : polynomial2;
+        String message = "Input arguments changed: p1 = " + p1 + ", p2 = " + p2;
+
+        return message;
+    }
+
 
     private boolean isInputAvailable() {
         return !polynomial1.isEmpty() && !polynomial2.isEmpty();
