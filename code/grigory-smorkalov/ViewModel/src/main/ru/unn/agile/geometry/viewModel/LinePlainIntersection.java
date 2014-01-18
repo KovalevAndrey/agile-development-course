@@ -1,8 +1,8 @@
 package ru.unn.agile.geometry.viewModel;
 
-import ru.unn.agile.geometry.IntersectionComputer;
+import ru.unn.agile.geometry.IntersectionDetector;
 import ru.unn.agile.geometry.Line;
-import ru.unn.agile.geometry.Plain;
+import ru.unn.agile.geometry.Plane;
 import ru.unn.agile.geometry.Point;
 import ru.unn.agile.geometry.viewModel.ILogger;
 
@@ -31,6 +31,7 @@ public class LinePlainIntersection {
 
     public void inputSomething() {
         logTextFields();
+        resultX = resultY = resultZ = "";
         isCalcButtonEnabled = isInputValid();
     }
 
@@ -44,10 +45,10 @@ public class LinePlainIntersection {
         Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
 
         Line line = new Line(linePoint, lineDir);
-        Plain plain = new Plain(plainPoint, plainOrt);
+        Plane plane = new Plane(plainPoint, plainOrt);
 
-        IntersectionComputer computer = new IntersectionComputer();
-        Point res = computer.compute(plain, line);
+        IntersectionDetector computer = new IntersectionDetector();
+        Point res = computer.compute(plane, line);
 
         if (res != null) {
             resultX = "" + res.getX();
@@ -86,6 +87,8 @@ public class LinePlainIntersection {
             Double.parseDouble(plainOrtY);
             Double.parseDouble(plainOrtZ);
         } catch (Exception e) {
+            resultX = "Parse error";
+            resultY = e.getMessage();
             return false;
         }
         return true;

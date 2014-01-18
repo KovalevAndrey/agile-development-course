@@ -6,23 +6,23 @@ import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class WhenPlainAndLineIntersection {
-    IntersectionComputer intersectionComputer;
+public class WhenPlaneAndLineIntersection {
+    IntersectionDetector intersectionDetector;
 
     @Before
     public void setUp() {
-        intersectionComputer = new IntersectionComputer();
+        intersectionDetector = new IntersectionDetector();
     }
 
     @Test
-    public void nullPlainPassed() {
-        Plain plain = null;
+    public void nullPlanePassed() {
+        Plane plane = null;
         Line line = new Line(new Point(0, 0, 0), new Point(0, 0, 1));
         try {
-            intersectionComputer.compute(plain, line);
+            intersectionDetector.compute(plane, line);
             fail("Exception expected");
         } catch (RuntimeException e) {
-            assertEquals("Null plain passed", e.getMessage());
+            assertEquals("Null plane passed", e.getMessage());
         }
         catch (Exception e) {
             fail("Unexpected exception: " + e.toString());
@@ -31,10 +31,10 @@ public class WhenPlainAndLineIntersection {
 
     @Test
     public void nullLinePassed() {
-        Plain plain = new Plain(new Point(0, 0, 0), new Point(0, 0, 1));
+        Plane plane = new Plane(new Point(0, 0, 0), new Point(0, 0, 1));
         Line line = null;
         try {
-            intersectionComputer.compute(plain, line);
+            intersectionDetector.compute(plane, line);
             fail("Exception expected");
         } catch (RuntimeException e) {
             assertEquals("Null line passed", e.getMessage());
@@ -46,13 +46,13 @@ public class WhenPlainAndLineIntersection {
 
     @Test
     public void nullArgsPassed() {
-        Plain plain = null;
+        Plane plane = null;
         Line line = null;
         try {
-            intersectionComputer.compute(plain, line);
+            intersectionDetector.compute(plane, line);
             fail("Exception expected");
         } catch (RuntimeException e) {
-            assertEquals("Null plain and line passed", e.getMessage());
+            assertEquals("Null plane and line passed", e.getMessage());
         }
         catch (Exception e) {
             fail("Unexpected exception: " + e.toString());
@@ -60,41 +60,41 @@ public class WhenPlainAndLineIntersection {
     }
 
     @Test
-    public void lineParallelPlain() {
-        Plain plain = new Plain(new Point(0, 0, 0), new Point(0, 0, 1));
+    public void lineParallelPlane() {
+        Plane plane = new Plane(new Point(0, 0, 0), new Point(0, 0, 1));
         Line line = new Line(new Point(0, 0, 1), new Point(0, 1, 0));
 
-        Point result = intersectionComputer.compute(plain, line);
+        Point result = intersectionDetector.compute(plane, line);
 
         assertEquals(result, null);
     }
 
     @Test
-    public void lineOrtPlain() {
-        Plain plain = new Plain(new Point(1, 2, 3), new Point(0, 0, 1));
+    public void lineOrtPlane() {
+        Plane plane = new Plane(new Point(1, 2, 3), new Point(0, 0, 1));
         Line line = new Line(new Point(1, 2, 3), new Point(0, 0, 1));
 
-        Point result = intersectionComputer.compute(plain, line);
+        Point result = intersectionDetector.compute(plane, line);
 
         assertEquals(result, new Point(1, 2, 3));
     }
 
     @Test
-    public void plainIncludeLine() {
-        Plain plain = new Plain(new Point(1, 2, 3), new Point(0, 0, 1));
+    public void planeIncludeLine() {
+        Plane plane = new Plane(new Point(1, 2, 3), new Point(0, 0, 1));
         Line line = new Line(new Point(1, 2, 3), new Point(0, 1, 0));
 
-        Point result = intersectionComputer.compute(plain, line);
+        Point result = intersectionDetector.compute(plane, line);
 
         assertEquals(result, new Point(1, 2, 3));
     }
 
     @Test
-    public void linePlainOxyCrossXyz() {
-        Plain plain = new Plain(new Point(1, 2, 0), new Point(0, 0, 1));
+    public void linePlaneOxyCrossXyz() {
+        Plane plane = new Plane(new Point(1, 2, 0), new Point(0, 0, 1));
         Line line = new Line(new Point(1, 1, 1), new Point(Math.cbrt(1.0/3.0), Math.cbrt(1.0/3.0), Math.cbrt(1.0/3.0)));
 
-        Point result = intersectionComputer.compute(plain, line);
+        Point result = intersectionDetector.compute(plane, line);
 
         assertEquals(result, new Point(0, 0, 0));
     }

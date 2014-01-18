@@ -60,6 +60,7 @@ public class ViewModelTests {
         viewModel.inputSomething();
 
         assertEquals(viewModel.isCalcButtonEnabled(), false);
+        assertEquals(viewModel.getResultX(), "Parse error");
     }
 
     @Test
@@ -94,7 +95,18 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenIntersectionExist() {
+    public void canConvertToPointSpecific() {
+        String x = " 1.2e0";
+        String y = "100 ";
+        String z = " 6";
+
+        Point result = viewModel.parsePoint(x, y, z);
+
+        assertEquals(result, new Point(1.2, 100, 6));
+    }
+
+    @Test
+    public void whenIntersectionExistSetResult() {
         viewModel.setLinePx("1");
         viewModel.setLinePy("2");
         viewModel.setLinePz("3");
@@ -117,7 +129,29 @@ public class ViewModelTests {
     }
 
     @Test
-    public void whenIntersectionNotExist() {
+    public void whenClearResultsOnInput() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("0");
+        viewModel.setLineDirY("0");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("1");
+        viewModel.setPlainPointY("2");
+        viewModel.setPlainPointZ("3");
+        viewModel.setPlainOrtX("0.0");
+        viewModel.setPlainOrtY("0.0");
+
+        viewModel.inputSomething();
+
+        viewModel.setPlainOrtZ("1.0");
+
+        viewModel.inputSomething();
+        assertEquals(viewModel.getResultX(), "");
+    }
+
+    @Test
+    public void whenIntersectionNotExistSetMessage() {
         viewModel.setLinePx("0");
         viewModel.setLinePy("0");
         viewModel.setLinePz("1");
