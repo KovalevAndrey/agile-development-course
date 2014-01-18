@@ -89,16 +89,19 @@ public class LinePlainIntersection {
         } catch (Exception e) {
             resultX = "Parse error";
             resultY = e.getMessage();
+            logger.message("PARSE ERROR: " + e.getMessage());
             return false;
         }
         return true;
     }
 
     private void logTextFields() {
-        logger.message("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
-                "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
-                "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
-                "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
+        if (logger != null) {
+            logger.message("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
+                    "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
+                    "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
+                    "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
+        }
     }
 
     public String getLinePx() {

@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.geometry.Point;
 import sun.security.jca.ProviderList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -199,5 +200,30 @@ public class ViewModelTests {
                 + ": INPUT: lineP{lpx,lpy,lpz};lineDir{dirX,dirY,dirZ};plainP{ppx,ppy,ppz};plainOrt{ortX,ortY,ortZ}";
 
         assertEquals(logger.getLog().get(0), supposedLog);
+    }
+
+    @Test
+    public void whenParseErrorLogMessage() {
+        viewModel.setLinePx("lpx");
+        viewModel.setLinePy("1");
+        viewModel.setLinePz("1");
+        viewModel.setLineDirX("1");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("1");
+        viewModel.setPlainPointY("1");
+        viewModel.setPlainPointZ("1");
+        viewModel.setPlainOrtX("1");
+        viewModel.setPlainOrtY("1");
+        viewModel.setPlainOrtZ("1");
+
+        viewModel.inputSomething();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": PARSE ERROR: For input string: \"lpx\"";
+
+        List<String> log = logger.getLog();
+        assertFalse(logger.getLog().isEmpty());
+        assertEquals(log.get(log.size() - 1), supposedLog);
     }
 }
