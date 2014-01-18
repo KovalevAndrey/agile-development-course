@@ -32,7 +32,11 @@ public class LinePlainIntersection {
     public void inputSomething() {
         logTextFields();
         resultX = resultY = resultZ = "";
-        isCalcButtonEnabled = isInputValid();
+        boolean buttonStatus = isInputValid();
+        if (buttonStatus != isCalcButtonEnabled) {
+            logger.message("BUTTON ENABLE SET: " + buttonStatus);
+        }
+        isCalcButtonEnabled = buttonStatus;
     }
 
     public void calc() {
@@ -44,11 +48,22 @@ public class LinePlainIntersection {
         Point plainPoint = parsePoint(plainPointX, plainPointY, plainPointZ);
         Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
 
+        if (logger != null) {
+            logger.message("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
+                    "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
+                    "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
+                    "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
+        }
+
         Line line = new Line(linePoint, lineDir);
         Plane plane = new Plane(plainPoint, plainOrt);
 
         IntersectionDetector computer = new IntersectionDetector();
         Point res = computer.compute(plane, line);
+
+        if (logger != null) {
+            logger.message("RESULT: {" + res.getX() + "," + res.getY() + "," + res.getZ() + "}");
+        }
 
         if (res != null) {
             resultX = "" + res.getX();

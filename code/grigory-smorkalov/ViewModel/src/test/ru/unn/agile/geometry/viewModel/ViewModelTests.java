@@ -226,4 +226,89 @@ public class ViewModelTests {
         assertFalse(logger.getLog().isEmpty());
         assertEquals(log.get(log.size() - 1), supposedLog);
     }
+
+    @Test
+    public void whenButtonActivateLog() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("1");
+        viewModel.setLinePz("1");
+        viewModel.setLineDirX("1");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("1");
+        viewModel.setPlainPointY("1");
+        viewModel.setPlainPointZ("1");
+        viewModel.setPlainOrtX("1");
+        viewModel.setPlainOrtY("1");
+        viewModel.setPlainOrtZ("1");
+
+        viewModel.inputSomething();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": BUTTON ENABLE SET: true";
+
+        List<String> log = logger.getLog();
+        assertFalse(logger.getLog().isEmpty());
+        assertEquals(log.get(log.size() - 1), supposedLog);
+
+        // не надо выносить деактивацию в отдельный тест потому что он будет полностью включать в себя этот + деактивация
+
+        viewModel.setPlainOrtZ("");
+        viewModel.inputSomething();
+
+        supposedLog = ILogger.MESSAGE_PREFIX
+                + ": BUTTON ENABLE SET: false";
+        assertEquals(log.get(log.size() - 1), supposedLog);
+    }
+
+    @Test
+    public void whenCalculateLogParsedInput() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("1");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("0");
+        viewModel.setPlainPointY("0");
+        viewModel.setPlainPointZ("0");
+        viewModel.setPlainOrtX("1");
+        viewModel.setPlainOrtY("0");
+        viewModel.setPlainOrtZ("0");
+
+        viewModel.inputSomething();
+        viewModel.calc();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": PARSED INPUT: lineP{1.0,2.0,3.0};lineDir{1.0,1.0,1.0};plainP{0.0,0.0,0.0};plainOrt{1.0,0.0,0.0}";
+
+        List<String> log = logger.getLog();
+        assertEquals(log.get(log.size() - 2), supposedLog);
+    }
+
+    @Test
+    public void whenCalculateLogResults() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("1");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("0");
+        viewModel.setPlainPointY("0");
+        viewModel.setPlainPointZ("0");
+        viewModel.setPlainOrtX("1");
+        viewModel.setPlainOrtY("0");
+        viewModel.setPlainOrtZ("0");
+
+        viewModel.inputSomething();
+        viewModel.calc();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": RESULT: {0.0,1.0,2.0}";
+
+        List<String> log = logger.getLog();
+        assertFalse(logger.getLog().isEmpty());
+        assertEquals(log.get(log.size() - 1), supposedLog);
+    }
 }

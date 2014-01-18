@@ -56,7 +56,8 @@ public class LinePlaneIntersectionForm {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LinePlaneIntersectionForm");
-        frame.setContentPane(new LinePlaneIntersectionForm(new LinePlainIntersection()).mainPanel);
+        LinePlainIntersection viewModel = new LinePlainIntersection(null);
+        frame.setContentPane(new LinePlaneIntersectionForm(viewModel).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
