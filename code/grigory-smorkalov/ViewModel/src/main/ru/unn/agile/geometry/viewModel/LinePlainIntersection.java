@@ -5,6 +5,8 @@ import ru.unn.agile.geometry.Line;
 import ru.unn.agile.geometry.Plane;
 import ru.unn.agile.geometry.Point;
 import ru.unn.agile.geometry.viewModel.ILogger;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class LinePlainIntersection {
     private String linePx = "";
@@ -62,7 +64,11 @@ public class LinePlainIntersection {
         Point res = computer.compute(plane, line);
 
         if (logger != null) {
-            logger.message("RESULT: {" + res.getX() + "," + res.getY() + "," + res.getZ() + "}");
+            if (res != null) {
+                logger.message("RESULT: {" + res.getX() + "," + res.getY() + "," + res.getZ() + "}");
+            } else {
+                logger.message("RESULT: {NULL}");
+            }
         }
 
         if (res != null) {
@@ -102,6 +108,10 @@ public class LinePlainIntersection {
             Double.parseDouble(plainOrtY);
             Double.parseDouble(plainOrtZ);
         } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            logger.debug(sw.toString());
             resultX = "Parse error";
             resultY = e.getMessage();
             logger.message("PARSE ERROR: " + e.getMessage());

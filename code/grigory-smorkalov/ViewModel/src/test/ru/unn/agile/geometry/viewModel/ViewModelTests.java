@@ -311,4 +311,40 @@ public class ViewModelTests {
         assertFalse(logger.getLog().isEmpty());
         assertEquals(log.get(log.size() - 1), supposedLog);
     }
+
+    @Test
+    public void whenCalculateLogNullResults() {
+        viewModel.setLinePx("1");
+        viewModel.setLinePy("2");
+        viewModel.setLinePz("3");
+        viewModel.setLineDirX("0");
+        viewModel.setLineDirY("1");
+        viewModel.setLineDirZ("1");
+        viewModel.setPlainPointX("0");
+        viewModel.setPlainPointY("0");
+        viewModel.setPlainPointZ("0");
+        viewModel.setPlainOrtX("1");
+        viewModel.setPlainOrtY("0");
+        viewModel.setPlainOrtZ("0");
+
+        viewModel.inputSomething();
+        viewModel.calc();
+
+        String supposedLog = ILogger.MESSAGE_PREFIX
+                + ": RESULT: {NULL}";
+
+        List<String> log = logger.getLog();
+        assertFalse(logger.getLog().isEmpty());
+        assertEquals(log.get(log.size() - 1), supposedLog);
+    }
+
+    @Test
+    public void whenWrongInputExceptionDebugLog() {
+        viewModel.setLinePx("q");
+
+        viewModel.inputSomething();
+
+        List<String> log = logger.getLog();
+        assertTrue(log.get(log.size() - 2).startsWith(ILogger.DEBUG_PREFIX));
+    }
 }
