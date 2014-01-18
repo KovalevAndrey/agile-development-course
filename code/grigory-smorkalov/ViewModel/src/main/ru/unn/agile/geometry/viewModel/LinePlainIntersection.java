@@ -50,12 +50,7 @@ public class LinePlainIntersection {
         Point plainPoint = parsePoint(plainPointX, plainPointY, plainPointZ);
         Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
 
-        if (logger != null) {
-            logger.message("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
-                    "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
-                    "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
-                    "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
-        }
+        logParsedInput(linePoint, lineDir, plainPoint, plainOrt);
 
         Line line = new Line(linePoint, lineDir);
         Plane plane = new Plane(plainPoint, plainOrt);
@@ -79,6 +74,15 @@ public class LinePlainIntersection {
             resultX = "no intersection";
             resultY = "no intersection";
             resultZ = "no intersection";
+        }
+    }
+
+    private void logParsedInput(Point linePoint, Point lineDir, Point plainPoint, Point plainOrt) {
+        if (logger != null) {
+            logger.message("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
+                    "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
+                    "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
+                    "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
         }
     }
 
@@ -108,16 +112,20 @@ public class LinePlainIntersection {
             Double.parseDouble(plainOrtY);
             Double.parseDouble(plainOrtZ);
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            logger.debug(sw.toString());
+            writeExceptionInDebugLog(e);
             resultX = "Parse error";
             resultY = e.getMessage();
             logger.message("PARSE ERROR: " + e.getMessage());
             return false;
         }
         return true;
+    }
+
+    private void writeExceptionInDebugLog(Exception e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        logger.debug(sw.toString());
     }
 
     private void logTextFields() {
