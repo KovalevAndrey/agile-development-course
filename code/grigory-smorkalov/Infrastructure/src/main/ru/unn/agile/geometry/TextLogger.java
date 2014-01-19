@@ -25,7 +25,14 @@ public class TextLogger implements ILogger{
     }
 
     public void message(String msg) {
-
+        try {
+            writer.write(msg);
+            writer.newLine();
+            writer.flush();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     public void error(String msg) {
 
