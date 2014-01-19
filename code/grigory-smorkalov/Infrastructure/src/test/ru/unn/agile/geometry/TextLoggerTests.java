@@ -62,4 +62,15 @@ public class TextLoggerTests {
         assertEquals(readLogFile().get(0), message);
     }
 
+    @Test
+    public void canLogMultipleMessages() {
+        String messages[] = {"m1", "m2", "m3"};
+        List<String> loggedMessages = new ArrayList<String>();
+        for (String msg : messages) {
+            logger.message(msg);
+            loggedMessages.add(msg);
+        }
+        assertEquals(readLogFile(), loggedMessages);
+    }
+
 }
