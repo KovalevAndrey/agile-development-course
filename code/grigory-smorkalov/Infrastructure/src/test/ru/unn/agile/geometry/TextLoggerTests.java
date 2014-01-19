@@ -83,7 +83,7 @@ public class TextLoggerTests {
 
     @Test
     public void canGetMultilineMessageFromLog() {
-        String message = "message\nmessage";
+        String message = "message" + System.lineSeparator() + "message";
         logger.debug(message);
         assertEquals(logger.getLog().get(0), ILogger.DEBUG_PREFIX + ": " + message);
     }
