@@ -25,21 +25,25 @@ public class TextLogger implements ILogger{
     }
 
     public void message(String msg) {
+        write(ILogger.MESSAGE_PREFIX + ":\t" + msg);
+    }
+
+    public void debug(String msg) {
+        write(ILogger.DEBUG_PREFIX + ":\t" + msg);
+    }
+
+    public List<String> getLog() {
+        return null;
+    }
+
+    private void write(String string) {
         try {
-            writer.write(msg);
+            writer.write(string);
             writer.newLine();
             writer.flush();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void debug(String msg) {
-
-    }
-
-    public List<String> getLog() {
-        return null;
     }
 }

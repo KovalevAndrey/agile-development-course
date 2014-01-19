@@ -4,6 +4,7 @@ import ru.unn.agile.geometry.TextLogger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.geometry.viewModel.ILogger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -59,7 +60,7 @@ public class TextLoggerTests {
     public void canLogMessage() {
         String message = "message";
         logger.message(message);
-        assertEquals(readLogFile().get(0), message);
+        assertEquals(readLogFile().get(0), ILogger.MESSAGE_PREFIX + ":\t" + message);
     }
 
     @Test
@@ -68,9 +69,15 @@ public class TextLoggerTests {
         List<String> loggedMessages = new ArrayList<String>();
         for (String msg : messages) {
             logger.message(msg);
-            loggedMessages.add(msg);
+            loggedMessages.add(ILogger.MESSAGE_PREFIX + ":\t" + msg);
         }
         assertEquals(readLogFile(), loggedMessages);
     }
 
+    @Test
+    public void canLogDebugMessage() {
+        String message = "message";
+        logger.debug(message);
+        assertEquals(readLogFile().get(0), ILogger.DEBUG_PREFIX + ":\t" + message);
+    }
 }
