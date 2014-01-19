@@ -34,9 +34,7 @@ public class TextLogger implements ILogger{
             System.out.println(e.getMessage());
         }
     }
-    public void error(String msg) {
 
-    }
     public void debug(String msg) {
 
     }

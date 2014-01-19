@@ -14,11 +14,6 @@ public class FakeLogger implements ILogger {
     }
 
     @Override
-    public void error(String msg) {
-        log.add(createFormatLogString(msg, ILogger.ERROR_PREFIX));
-    }
-
-    @Override
     public void debug(String msg) {
         log.add(createFormatLogString(msg, ILogger.DEBUG_PREFIX));
     }
