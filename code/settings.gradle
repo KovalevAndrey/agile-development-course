@@ -161,6 +161,8 @@ include "grigory-smorkalov/ViewModel"
 project(":grigory-smorkalov/ViewModel").name = "grigory-smorkalov-ViewModel"
 include "grigory-smorkalov/View"
 project(":grigory-smorkalov/View").name = "grigory-smorkalov-View"
+include "grigory-smorkalov/Infrastructure"
+project(":grigory-smorkalov/Infrastructure").name = "grigory-smorkalov-Infrastructure"
 
 // Igor Surmin
 include "igor-surmin/Model"
