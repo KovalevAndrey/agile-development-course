@@ -7,6 +7,8 @@ import ru.unn.agile.geometry.Point;
 import ru.unn.agile.geometry.viewModel.ILogger;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
+import java.lang.StringBuilder;
 
 public class LinePlainIntersection {
     private String linePx = "";
@@ -257,5 +259,14 @@ public class LinePlainIntersection {
 
     public void setResultZ(final String resultZ) {
         this.resultZ = resultZ;
+    }
+
+    public String getLog() {
+        StringBuilder result = new StringBuilder();
+        for (String msg : logger.getLog()) {
+            result.append(msg);
+            result.append(System.lineSeparator());
+        }
+        return result.toString();
     }
 }

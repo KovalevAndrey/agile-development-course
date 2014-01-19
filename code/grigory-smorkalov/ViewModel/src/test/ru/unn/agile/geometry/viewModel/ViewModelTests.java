@@ -341,6 +341,20 @@ public class ViewModelTests {
 
     @Test
     public void whenWrongInputExceptionDebugLog() {
+        String separator = System.lineSeparator();
+        logger.message("message");
+        logger.debug("message" + separator + "with" + separator + "several" + separator + "lines");
+        logger.message("last message");
+
+        String log = viewModel.getLog();
+        String expected = ILogger.MESSAGE_PREFIX + ": message" + separator +
+                ILogger.DEBUG_PREFIX +  ": message" + separator + "with" + separator + "several" + separator + "lines" + separator +
+                ILogger.MESSAGE_PREFIX + ": last message" + separator;
+        assertEquals(expected, log);
+    }
+
+    @Test
+    public void canConvertLogToString() {
         viewModel.setLinePx("q");
 
         viewModel.inputSomething();
