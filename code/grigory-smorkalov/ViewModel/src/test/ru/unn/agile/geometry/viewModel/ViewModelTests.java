@@ -12,8 +12,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
-    private LinePlainIntersection viewModel;
-    private FakeLogger logger;
+    protected LinePlainIntersection viewModel;
+    protected ILogger logger;
 
     @Before
     public void setUp() {
@@ -256,6 +256,7 @@ public class ViewModelTests {
         viewModel.setPlainOrtZ("");
         viewModel.inputSomething();
 
+        log = logger.getLog();
         supposedLog = ILogger.MESSAGE_PREFIX
                 + ": BUTTON ENABLE SET: false";
         assertEquals(log.get(log.size() - 1), supposedLog);
@@ -345,6 +346,6 @@ public class ViewModelTests {
         viewModel.inputSomething();
 
         List<String> log = logger.getLog();
-        assertTrue(log.get(log.size() - 2).startsWith(ILogger.DEBUG_PREFIX));
+        assertTrue(log.get(log.size() - 2).contains(ILogger.DEBUG_PREFIX));
     }
 }
