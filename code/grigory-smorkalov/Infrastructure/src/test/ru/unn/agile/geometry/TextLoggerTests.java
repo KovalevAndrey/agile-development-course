@@ -60,7 +60,7 @@ public class TextLoggerTests {
     public void canLogMessage() {
         String message = "message";
         logger.message(message);
-        assertEquals(readLogFile().get(0), ILogger.MESSAGE_PREFIX + ":\t" + message);
+        assertEquals(readLogFile().get(0), ILogger.MESSAGE_PREFIX + ": " + message);
     }
 
     @Test
@@ -69,16 +69,23 @@ public class TextLoggerTests {
         List<String> loggedMessages = new ArrayList<String>();
         for (String msg : messages) {
             logger.message(msg);
-            loggedMessages.add(ILogger.MESSAGE_PREFIX + ":\t" + msg);
+            loggedMessages.add(ILogger.MESSAGE_PREFIX + ": " + msg);
         }
         assertEquals(readLogFile(), loggedMessages);
     }
 
     @Test
-    public void canLogDebugMessage() {
+     public void canLogDebugMessage() {
         String message = "message";
         logger.debug(message);
-        assertEquals(readLogFile().get(0), ILogger.DEBUG_PREFIX + ":\t" + message);
+        assertEquals(readLogFile().get(0), ILogger.DEBUG_PREFIX + ": " + message);
+    }
+
+    @Test
+    public void canGetMultilineMessageFromLog() {
+        String message = "message\nmessage";
+        logger.debug(message);
+        assertEquals(logger.getLog().get(0), ILogger.DEBUG_PREFIX + ": " + message);
     }
 
     @Test

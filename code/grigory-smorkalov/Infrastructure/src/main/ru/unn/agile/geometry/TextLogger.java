@@ -28,21 +28,36 @@ public class TextLogger implements ILogger{
     }
 
     public void message(String msg) {
-        write(ILogger.MESSAGE_PREFIX + ":\t" + msg);
+        write(ILogger.MESSAGE_PREFIX + ": " + msg);
     }
 
     public void debug(String msg) {
-        write(ILogger.DEBUG_PREFIX + ":\t" + msg);
+        write(ILogger.DEBUG_PREFIX + ": " + msg);
     }
 
     public List<String> getLog() {
         BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();
+
         try {
             reader = new BufferedReader(new FileReader(fileName));
             String line = null;
+            String lastMessage = null;
             while ((line = reader.readLine()) != null) {
-                log.add(line);
+                if (line.startsWith(ILogger.MESSAGE_PREFIX) || line.startsWith(ILogger.DEBUG_PREFIX)) {
+                    if (lastMessage != null) {
+                        log.add(lastMessage);
+                    }
+                    lastMessage = null;
+                }
+                if (lastMessage == null) {
+                    lastMessage = line;
+                } else {
+                    lastMessage = lastMessage + System.lineSeparator() + line;
+                }
+            }
+            if (lastMessage != null) {
+                log.add(lastMessage);
             }
         }
         catch (Exception e) {
