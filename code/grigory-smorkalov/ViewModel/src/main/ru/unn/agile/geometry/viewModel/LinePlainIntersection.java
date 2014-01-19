@@ -117,7 +117,9 @@ public class LinePlainIntersection {
             writeExceptionInDebugLog(e);
             resultX = "Parse error";
             resultY = e.getMessage();
-            logger.message("PARSE ERROR: " + e.getMessage());
+            if (logger != null) {
+                logger.message("PARSE ERROR: " + e.getMessage());
+            }
             return false;
         }
         return true;
@@ -127,7 +129,9 @@ public class LinePlainIntersection {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
-        logger.debug(sw.toString());
+        if (logger != null) {
+            logger.debug(sw.toString());
+        }
     }
 
     private void logTextFields() {
@@ -262,6 +266,7 @@ public class LinePlainIntersection {
     }
 
     public String getLog() {
+        if (logger == null) { return ""; }
         StringBuilder result = new StringBuilder();
         for (String msg : logger.getLog()) {
             result.append(msg);

@@ -4,6 +4,8 @@ import ru.unn.agile.geometry.viewModel.LinePlainIntersection;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
+import ru.unn.agile.geometry.TextLogger;
 
 public class LinePlaneIntersectionForm {
     private JButton calcButton;
@@ -23,6 +25,7 @@ public class LinePlaneIntersectionForm {
     private JTextField planePointZ;
     private JTextField planeOrtZ;
     private JTextField resultZ;
+    private JTextArea log;
 
     private LinePlainIntersection viewModel;
 
@@ -56,7 +59,7 @@ public class LinePlaneIntersectionForm {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("LinePlaneIntersectionForm");
-        LinePlainIntersection viewModel = new LinePlainIntersection(null);
+        LinePlainIntersection viewModel = new LinePlainIntersection(new TextLogger("textLogger.log"));
         frame.setContentPane(new LinePlaneIntersectionForm(viewModel).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -80,6 +83,7 @@ public class LinePlaneIntersectionForm {
         planeOrtZ.setText(viewModel.getPlainOrtZ());
         resultZ.setText(viewModel.getResultZ());
         calcButton.setEnabled(viewModel.isCalcButtonEnabled());
+        log.setText(viewModel.getLog());
     }
 
     public void backBind() {
