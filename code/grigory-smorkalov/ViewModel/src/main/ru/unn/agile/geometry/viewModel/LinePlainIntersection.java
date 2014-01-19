@@ -38,7 +38,7 @@ public class LinePlainIntersection {
         resultX = resultY = resultZ = "";
         boolean buttonStatus = isInputValid();
         if (buttonStatus != isCalcButtonEnabled) {
-            logger.message("BUTTON ENABLE SET: " + buttonStatus);
+            logMessage("BUTTON ENABLE SET: " + buttonStatus);
         }
         isCalcButtonEnabled = buttonStatus;
     }
@@ -60,12 +60,10 @@ public class LinePlainIntersection {
         IntersectionDetector computer = new IntersectionDetector();
         Point res = computer.compute(plane, line);
 
-        if (logger != null) {
-            if (res != null) {
-                logger.message("RESULT: {" + res.getX() + "," + res.getY() + "," + res.getZ() + "}");
-            } else {
-                logger.message("RESULT: {NULL}");
-            }
+        if (res != null) {
+            logMessage("RESULT: {" + res.getX() + "," + res.getY() + "," + res.getZ() + "}");
+        } else {
+            logMessage("RESULT: {NULL}");
         }
 
         if (res != null) {
@@ -80,12 +78,10 @@ public class LinePlainIntersection {
     }
 
     private void logParsedInput(Point linePoint, Point lineDir, Point plainPoint, Point plainOrt) {
-        if (logger != null) {
-            logger.message("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
-                    "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
-                    "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
-                    "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
-        }
+        logMessage("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
+                "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
+                "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
+                "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
     }
 
     public Point parsePoint(String x, String y, String z) {
@@ -117,9 +113,7 @@ public class LinePlainIntersection {
             writeExceptionInDebugLog(e);
             resultX = "Parse error";
             resultY = e.getMessage();
-            if (logger != null) {
-                logger.message("PARSE ERROR: " + e.getMessage());
-            }
+            logMessage("PARSE ERROR: " + e.getMessage());
             return false;
         }
         return true;
@@ -135,11 +129,15 @@ public class LinePlainIntersection {
     }
 
     private void logTextFields() {
+        logMessage("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
+                "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
+                "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
+                "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
+    }
+
+    private void logMessage(String message) {
         if (logger != null) {
-            logger.message("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
-                    "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
-                    "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
-                    "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
+            logger.message(message);
         }
     }
 
