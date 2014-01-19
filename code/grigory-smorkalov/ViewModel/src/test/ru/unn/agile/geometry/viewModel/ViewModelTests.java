@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.geometry.Point;
-import sun.security.jca.ProviderList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
