@@ -2,8 +2,11 @@ package ru.unn.agile.geometry;
 
 import ru.unn.agile.geometry.viewModel.ILogger;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TextLogger implements ILogger{
@@ -33,7 +36,19 @@ public class TextLogger implements ILogger{
     }
 
     public List<String> getLog() {
-        return null;
+        BufferedReader reader;
+        ArrayList<String> log = new ArrayList<String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                log.add(line);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return log;
     }
 
     private void write(String string) {

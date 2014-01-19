@@ -42,8 +42,8 @@ public class TextLoggerTests {
 
     private List<String> readLogFile() {
         BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
-        try {
+            ArrayList<String> log = new ArrayList<String>();
+            try {
             reader = new BufferedReader(new FileReader("./TextLoggerTest.log"));
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -79,5 +79,16 @@ public class TextLoggerTests {
         String message = "message";
         logger.debug(message);
         assertEquals(readLogFile().get(0), ILogger.DEBUG_PREFIX + ":\t" + message);
+    }
+
+    @Test
+    public void canReadLog() {
+        String messages[] = {"m1", "m2", "m3"};
+        List<String> loggedMessages = new ArrayList<String>();
+        for (String msg : messages) {
+            logger.message(msg);
+            loggedMessages.add(ILogger.MESSAGE_PREFIX + ": " + msg);
+        }
+        assertEquals(readLogFile(), logger.getLog());
     }
 }
