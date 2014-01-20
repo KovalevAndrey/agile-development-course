@@ -159,9 +159,7 @@ public class ViewModelTests {
         String supposedLog = ILogger.MESSAGE_PREFIX
                 + ": PARSE ERROR: For input string: \"lpx\"";
 
-        List<String> log = logger.getLog();
-        assertFalse(logger.getLog().isEmpty());
-        assertEquals(log.get(log.size() - 1), supposedLog);
+        assertLastLogEquals(supposedLog);
     }
 
     @Test
@@ -173,8 +171,7 @@ public class ViewModelTests {
         String supposedLog = ILogger.MESSAGE_PREFIX
                 + ": BUTTON ENABLE SET: true";
 
-        List<String> log = logger.getLog();
-        assertEquals(log.get(log.size() - 1), supposedLog);
+        assertLastLogEquals(supposedLog);
     }
 
     @Test
@@ -188,6 +185,10 @@ public class ViewModelTests {
         String supposedLog = supposedLog = ILogger.MESSAGE_PREFIX
                 + ": BUTTON ENABLE SET: false";
 
+        assertLastLogEquals(supposedLog);
+    }
+
+    private void assertLastLogEquals(String supposedLog) {
         List<String> log = logger.getLog();
         assertEquals(log.get(log.size() - 1), supposedLog);
     }
@@ -216,9 +217,7 @@ public class ViewModelTests {
         String supposedLog = ILogger.MESSAGE_PREFIX
                 + ": RESULT: {0.0,1.0,2.0}";
 
-        List<String> log = logger.getLog();
-        assertFalse(logger.getLog().isEmpty());
-        assertEquals(log.get(log.size() - 1), supposedLog);
+        assertLastLogEquals(supposedLog);
     }
 
     @Test
@@ -231,9 +230,7 @@ public class ViewModelTests {
         String supposedLog = ILogger.MESSAGE_PREFIX
                 + ": RESULT: {NULL}";
 
-        List<String> log = logger.getLog();
-        assertFalse(logger.getLog().isEmpty());
-        assertEquals(log.get(log.size() - 1), supposedLog);
+        assertLastLogEquals(supposedLog);
     }
 
     @Test
