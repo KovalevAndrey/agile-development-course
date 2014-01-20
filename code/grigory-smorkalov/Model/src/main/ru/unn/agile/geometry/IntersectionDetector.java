@@ -16,22 +16,22 @@ public class IntersectionDetector {
             throw new RuntimeException("Null plane and line passed");
         }
 
-        Point linePlainPointsDiff = plane.getPoint().minus(line.getPoint());
-        double linePointOrtToPlain = plane.getNormal().scalarMultiply(linePlainPointsDiff);
+        Point linePlanePointsDiff = plane.getPoint().minus(line.getPoint());
+        double linePointOrtToPlane = plane.getNormal().scalarMultiply(linePlanePointsDiff);
 
-        if (areLineAndPlainParallel(plane, line)) {
-            if (Math.abs(linePointOrtToPlain) < Point.ACCURACY) {
+        if (areLineAndPlaneParallel(plane, line)) {
+            if (Math.abs(linePointOrtToPlane) < Point.ACCURACY) {
                 return line.getPoint();
             } else {
                 return null;
             }
         } else {
-            double linePointToIntersectionDistance = linePointOrtToPlain / (plane.getNormal().scalarMultiply(line.getDirection()));
+            double linePointToIntersectionDistance = linePointOrtToPlane / (plane.getNormal().scalarMultiply(line.getDirection()));
             return line.getPoint().plus(line.getDirection().multiply(linePointToIntersectionDistance));
         }
     }
 
-    public boolean areLineAndPlainParallel(Plane plane, Line line) {
+    public boolean areLineAndPlaneParallel(Plane plane, Line line) {
         return Math.abs(plane.getNormal().scalarMultiply(line.getDirection())) < Point.ACCURACY;
     }
 }
