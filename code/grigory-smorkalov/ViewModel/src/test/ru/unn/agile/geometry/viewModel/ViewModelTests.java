@@ -182,7 +182,7 @@ public class ViewModelTests {
         viewModel.setPlaneOrtZ("");
         viewModel.inputSomething();
 
-        String supposedLog = supposedLog = ILogger.MESSAGE_PREFIX
+        String supposedLog = ILogger.MESSAGE_PREFIX
                 + ": BUTTON ENABLE SET: false";
 
         assertLastLogEquals(supposedLog);
