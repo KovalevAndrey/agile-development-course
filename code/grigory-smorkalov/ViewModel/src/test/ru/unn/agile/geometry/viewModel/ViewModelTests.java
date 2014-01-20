@@ -174,17 +174,21 @@ public class ViewModelTests {
                 + ": BUTTON ENABLE SET: true";
 
         List<String> log = logger.getLog();
-        assertFalse(log.isEmpty());
         assertEquals(log.get(log.size() - 1), supposedLog);
+    }
 
-        // не надо выносить деактивацию в отдельный тест потому что он будет полностью включать в себя этот + деактивация
+    @Test
+    public void whenButtonDeactivateLog() {
+        fillWithCorrectData();
 
+        viewModel.inputSomething();
         viewModel.setPlaneOrtZ("");
         viewModel.inputSomething();
 
-        log = logger.getLog();
-        supposedLog = ILogger.MESSAGE_PREFIX
+        String supposedLog = supposedLog = ILogger.MESSAGE_PREFIX
                 + ": BUTTON ENABLE SET: false";
+
+        List<String> log = logger.getLog();
         assertEquals(log.get(log.size() - 1), supposedLog);
     }
 
