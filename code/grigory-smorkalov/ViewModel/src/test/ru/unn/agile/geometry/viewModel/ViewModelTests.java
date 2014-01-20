@@ -190,6 +190,7 @@ public class ViewModelTests {
 
     private void assertLastLogEquals(String supposedLog) {
         List<String> log = logger.getLog();
+        assertFalse(log.isEmpty());
         assertEquals(log.get(log.size() - 1), supposedLog);
     }
 
