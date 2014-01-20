@@ -11,13 +11,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ViewModelTests {
-    protected LinePlainIntersection viewModel;
+    protected LinePlaneIntersection viewModel;
     protected ILogger logger;
 
     @Before
     public void setUp() {
         logger = new FakeLogger();
-        viewModel = new LinePlainIntersection(logger);
+        viewModel = new LinePlaneIntersection(logger);
     }
 
     @After
@@ -33,12 +33,12 @@ public class ViewModelTests {
         assertEquals(viewModel.getLineDirX(), "");
         assertEquals(viewModel.getLineDirY(), "");
         assertEquals(viewModel.getLineDirZ(), "");
-        assertEquals(viewModel.getPlainPointX(), "");
-        assertEquals(viewModel.getPlainPointY(), "");
-        assertEquals(viewModel.getPlainPointZ(), "");
-        assertEquals(viewModel.getPlainOrtX(), "");
-        assertEquals(viewModel.getPlainOrtY(), "");
-        assertEquals(viewModel.getPlainOrtZ(), "");
+        assertEquals(viewModel.getPlanePointX(), "");
+        assertEquals(viewModel.getPlanePointY(), "");
+        assertEquals(viewModel.getPlanePointZ(), "");
+        assertEquals(viewModel.getPlaneOrtX(), "");
+        assertEquals(viewModel.getPlaneOrtY(), "");
+        assertEquals(viewModel.getPlaneOrtZ(), "");
         assertEquals(viewModel.isCalcButtonEnabled(), false);
     }
 
@@ -50,12 +50,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("lineDirX");
         viewModel.setLineDirY("lineDirY");
         viewModel.setLineDirZ("lineDirZ");
-        viewModel.setPlainPointX("plainPointX");
-        viewModel.setPlainPointY("plainPointY");
-        viewModel.setPlainPointZ("plainPointZ");
-        viewModel.setPlainOrtX("plainOrtX");
-        viewModel.setPlainOrtY("plainOrtY");
-        viewModel.setPlainOrtZ("plainOrtZ");
+        viewModel.setPlanePointX("planePointX");
+        viewModel.setPlanePointY("planePointY");
+        viewModel.setPlanePointZ("planePointZ");
+        viewModel.setPlaneOrtX("planeOrtX");
+        viewModel.setPlaneOrtY("planeOrtY");
+        viewModel.setPlaneOrtZ("planeOrtZ");
 
         viewModel.inputSomething();
 
@@ -71,12 +71,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("0");
         viewModel.setLineDirY("0.0");
         viewModel.setLineDirZ("0.0");
-        viewModel.setPlainPointX("0.0");
-        viewModel.setPlainPointY("0.0");
-        viewModel.setPlainPointZ("0.0");
-        viewModel.setPlainOrtX("0.0");
-        viewModel.setPlainOrtY("0.0");
-        viewModel.setPlainOrtZ("0.0");
+        viewModel.setPlanePointX("0.0");
+        viewModel.setPlanePointY("0.0");
+        viewModel.setPlanePointZ("0.0");
+        viewModel.setPlaneOrtX("0.0");
+        viewModel.setPlaneOrtY("0.0");
+        viewModel.setPlaneOrtZ("0.0");
 
         viewModel.inputSomething();
 
@@ -113,12 +113,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("0");
         viewModel.setLineDirY("0");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("1");
-        viewModel.setPlainPointY("2");
-        viewModel.setPlainPointZ("3");
-        viewModel.setPlainOrtX("0.0");
-        viewModel.setPlainOrtY("0.0");
-        viewModel.setPlainOrtZ("1.0");
+        viewModel.setPlanePointX("1");
+        viewModel.setPlanePointY("2");
+        viewModel.setPlanePointZ("3");
+        viewModel.setPlaneOrtX("0.0");
+        viewModel.setPlaneOrtY("0.0");
+        viewModel.setPlaneOrtZ("1.0");
 
         viewModel.inputSomething();
         viewModel.calc();
@@ -136,15 +136,15 @@ public class ViewModelTests {
         viewModel.setLineDirX("0");
         viewModel.setLineDirY("0");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("1");
-        viewModel.setPlainPointY("2");
-        viewModel.setPlainPointZ("3");
-        viewModel.setPlainOrtX("0.0");
-        viewModel.setPlainOrtY("0.0");
+        viewModel.setPlanePointX("1");
+        viewModel.setPlanePointY("2");
+        viewModel.setPlanePointZ("3");
+        viewModel.setPlaneOrtX("0.0");
+        viewModel.setPlaneOrtY("0.0");
 
         viewModel.inputSomething();
 
-        viewModel.setPlainOrtZ("1.0");
+        viewModel.setPlaneOrtZ("1.0");
 
         viewModel.inputSomething();
         assertEquals(viewModel.getResultX(), "");
@@ -158,12 +158,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("1");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("0");
-        viewModel.setPlainPointX("0");
-        viewModel.setPlainPointY("0");
-        viewModel.setPlainPointZ("0");
-        viewModel.setPlainOrtX("0.0");
-        viewModel.setPlainOrtY("0.0");
-        viewModel.setPlainOrtZ("1.0");
+        viewModel.setPlanePointX("0");
+        viewModel.setPlanePointY("0");
+        viewModel.setPlanePointZ("0");
+        viewModel.setPlaneOrtX("0.0");
+        viewModel.setPlaneOrtY("0.0");
+        viewModel.setPlaneOrtZ("1.0");
 
         viewModel.inputSomething();
         viewModel.calc();
@@ -186,17 +186,17 @@ public class ViewModelTests {
         viewModel.setLineDirX("dirX");
         viewModel.setLineDirY("dirY");
         viewModel.setLineDirZ("dirZ");
-        viewModel.setPlainPointX("ppx");
-        viewModel.setPlainPointY("ppy");
-        viewModel.setPlainPointZ("ppz");
-        viewModel.setPlainOrtX("ortX");
-        viewModel.setPlainOrtY("ortY");
-        viewModel.setPlainOrtZ("ortZ");
+        viewModel.setPlanePointX("ppx");
+        viewModel.setPlanePointY("ppy");
+        viewModel.setPlanePointZ("ppz");
+        viewModel.setPlaneOrtX("ortX");
+        viewModel.setPlaneOrtY("ortY");
+        viewModel.setPlaneOrtZ("ortZ");
 
         viewModel.inputSomething();
 
         String supposedLog = ILogger.MESSAGE_PREFIX
-                + ": INPUT: lineP{lpx,lpy,lpz};lineDir{dirX,dirY,dirZ};plainP{ppx,ppy,ppz};plainOrt{ortX,ortY,ortZ}";
+                + ": INPUT: lineP{lpx,lpy,lpz};lineDir{dirX,dirY,dirZ};planeP{ppx,ppy,ppz};planeOrt{ortX,ortY,ortZ}";
 
         assertEquals(logger.getLog().get(0), supposedLog);
     }
@@ -209,12 +209,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("1");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("1");
-        viewModel.setPlainPointY("1");
-        viewModel.setPlainPointZ("1");
-        viewModel.setPlainOrtX("1");
-        viewModel.setPlainOrtY("1");
-        viewModel.setPlainOrtZ("1");
+        viewModel.setPlanePointX("1");
+        viewModel.setPlanePointY("1");
+        viewModel.setPlanePointZ("1");
+        viewModel.setPlaneOrtX("1");
+        viewModel.setPlaneOrtY("1");
+        viewModel.setPlaneOrtZ("1");
 
         viewModel.inputSomething();
 
@@ -234,12 +234,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("1");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("1");
-        viewModel.setPlainPointY("1");
-        viewModel.setPlainPointZ("1");
-        viewModel.setPlainOrtX("1");
-        viewModel.setPlainOrtY("1");
-        viewModel.setPlainOrtZ("1");
+        viewModel.setPlanePointX("1");
+        viewModel.setPlanePointY("1");
+        viewModel.setPlanePointZ("1");
+        viewModel.setPlaneOrtX("1");
+        viewModel.setPlaneOrtY("1");
+        viewModel.setPlaneOrtZ("1");
 
         viewModel.inputSomething();
 
@@ -252,7 +252,7 @@ public class ViewModelTests {
 
         // не надо выносить деактивацию в отдельный тест потому что он будет полностью включать в себя этот + деактивация
 
-        viewModel.setPlainOrtZ("");
+        viewModel.setPlaneOrtZ("");
         viewModel.inputSomething();
 
         log = logger.getLog();
@@ -269,18 +269,18 @@ public class ViewModelTests {
         viewModel.setLineDirX("1");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("0");
-        viewModel.setPlainPointY("0");
-        viewModel.setPlainPointZ("0");
-        viewModel.setPlainOrtX("1");
-        viewModel.setPlainOrtY("0");
-        viewModel.setPlainOrtZ("0");
+        viewModel.setPlanePointX("0");
+        viewModel.setPlanePointY("0");
+        viewModel.setPlanePointZ("0");
+        viewModel.setPlaneOrtX("1");
+        viewModel.setPlaneOrtY("0");
+        viewModel.setPlaneOrtZ("0");
 
         viewModel.inputSomething();
         viewModel.calc();
 
         String supposedLog = ILogger.MESSAGE_PREFIX
-                + ": PARSED INPUT: lineP{1.0,2.0,3.0};lineDir{1.0,1.0,1.0};plainP{0.0,0.0,0.0};plainOrt{1.0,0.0,0.0}";
+                + ": PARSED INPUT: lineP{1.0,2.0,3.0};lineDir{1.0,1.0,1.0};planeP{0.0,0.0,0.0};planeOrt{1.0,0.0,0.0}";
 
         List<String> log = logger.getLog();
         assertEquals(log.get(log.size() - 2), supposedLog);
@@ -294,12 +294,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("1");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("0");
-        viewModel.setPlainPointY("0");
-        viewModel.setPlainPointZ("0");
-        viewModel.setPlainOrtX("1");
-        viewModel.setPlainOrtY("0");
-        viewModel.setPlainOrtZ("0");
+        viewModel.setPlanePointX("0");
+        viewModel.setPlanePointY("0");
+        viewModel.setPlanePointZ("0");
+        viewModel.setPlaneOrtX("1");
+        viewModel.setPlaneOrtY("0");
+        viewModel.setPlaneOrtZ("0");
 
         viewModel.inputSomething();
         viewModel.calc();
@@ -320,12 +320,12 @@ public class ViewModelTests {
         viewModel.setLineDirX("0");
         viewModel.setLineDirY("1");
         viewModel.setLineDirZ("1");
-        viewModel.setPlainPointX("0");
-        viewModel.setPlainPointY("0");
-        viewModel.setPlainPointZ("0");
-        viewModel.setPlainOrtX("1");
-        viewModel.setPlainOrtY("0");
-        viewModel.setPlainOrtZ("0");
+        viewModel.setPlanePointX("0");
+        viewModel.setPlanePointY("0");
+        viewModel.setPlanePointZ("0");
+        viewModel.setPlaneOrtX("1");
+        viewModel.setPlaneOrtY("0");
+        viewModel.setPlaneOrtZ("0");
 
         viewModel.inputSomething();
         viewModel.calc();

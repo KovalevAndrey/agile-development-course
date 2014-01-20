@@ -10,26 +10,26 @@ import java.io.StringWriter;
 import java.util.List;
 import java.lang.StringBuilder;
 
-public class LinePlainIntersection {
+public class LinePlaneIntersection {
     private String linePx = "";
     private String linePy = "";
     private String linePz = "";
     private String lineDirX = "";
     private String lineDirY = "";
     private String lineDirZ = "";
-    private String plainPointX = "";
-    private String plainPointY = "";
-    private String plainPointZ = "";
-    private String plainOrtX = "";
-    private String plainOrtY = "";
-    private String plainOrtZ = "";
+    private String planePointX = "";
+    private String planePointY = "";
+    private String planePointZ = "";
+    private String planeOrtX = "";
+    private String planeOrtY = "";
+    private String planeOrtZ = "";
     private String resultX = "";
     private String resultY = "";
     private String resultZ = "";
     private boolean isCalcButtonEnabled = false;
     ILogger logger;
 
-    public  LinePlainIntersection(ILogger logger) {
+    public LinePlaneIntersection(ILogger logger) {
         this.logger = logger;
     }
 
@@ -49,13 +49,13 @@ public class LinePlainIntersection {
 
         Point linePoint = parsePoint(linePx, linePy, linePz);
         Point lineDir = parsePoint(lineDirX, lineDirY, lineDirZ);
-        Point plainPoint = parsePoint(plainPointX, plainPointY, plainPointZ);
-        Point plainOrt = parsePoint(plainOrtX, plainOrtY, plainOrtZ);
+        Point planePoint = parsePoint(planePointX, planePointY, planePointZ);
+        Point planeOrt = parsePoint(planeOrtX, planeOrtY, planeOrtZ);
 
-        logParsedInput(linePoint, lineDir, plainPoint, plainOrt);
+        logParsedInput(linePoint, lineDir, planePoint, planeOrt);
 
         Line line = new Line(linePoint, lineDir);
-        Plane plane = new Plane(plainPoint, plainOrt);
+        Plane plane = new Plane(planePoint, planeOrt);
 
         IntersectionDetector computer = new IntersectionDetector();
         Point res = computer.compute(plane, line);
@@ -77,11 +77,11 @@ public class LinePlainIntersection {
         }
     }
 
-    private void logParsedInput(Point linePoint, Point lineDir, Point plainPoint, Point plainOrt) {
+    private void logParsedInput(Point linePoint, Point lineDir, Point planePoint, Point planeOrt) {
         logMessage("PARSED INPUT: lineP{" + linePoint.getX() + "," + linePoint.getY() + "," + linePoint.getZ() +
                 "};lineDir{" + lineDir.getX() + "," + lineDir.getY() + "," + lineDir.getZ() +
-                "};plainP{" + plainPoint.getX() + "," + plainPoint.getY() + "," + plainPoint.getZ() +
-                "};plainOrt{" + plainOrt.getX() + "," + plainOrt.getY() + "," + plainOrt.getZ() + "}");
+                "};planeP{" + planePoint.getX() + "," + planePoint.getY() + "," + planePoint.getZ() +
+                "};planeOrt{" + planeOrt.getX() + "," + planeOrt.getY() + "," + planeOrt.getZ() + "}");
     }
 
     public Point parsePoint(String x, String y, String z) {
@@ -103,12 +103,12 @@ public class LinePlainIntersection {
             Double.parseDouble(lineDirX);
             Double.parseDouble(lineDirY);
             Double.parseDouble(lineDirZ);
-            Double.parseDouble(plainPointX);
-            Double.parseDouble(plainPointY);
-            Double.parseDouble(plainPointZ);
-            Double.parseDouble(plainOrtX);
-            Double.parseDouble(plainOrtY);
-            Double.parseDouble(plainOrtZ);
+            Double.parseDouble(planePointX);
+            Double.parseDouble(planePointY);
+            Double.parseDouble(planePointZ);
+            Double.parseDouble(planeOrtX);
+            Double.parseDouble(planeOrtY);
+            Double.parseDouble(planeOrtZ);
         } catch (Exception e) {
             writeExceptionInDebugLog(e);
             resultX = "Parse error";
@@ -131,8 +131,8 @@ public class LinePlainIntersection {
     private void logTextFields() {
         logMessage("INPUT: lineP{" + linePx + "," + linePy + "," + linePz +
                 "};lineDir{" + lineDirX + "," + lineDirY + "," + lineDirZ +
-                "};plainP{" + plainPointX + "," + plainPointY + "," + plainPointZ + "" +
-                "};plainOrt{" + plainOrtX + "," + plainOrtY + "," + plainOrtZ + "}");
+                "};planeP{" + planePointX + "," + planePointY + "," + planePointZ + "" +
+                "};planeOrt{" + planeOrtX + "," + planeOrtY + "," + planeOrtZ + "}");
     }
 
     private void logMessage(String message) {
@@ -177,36 +177,36 @@ public class LinePlainIntersection {
         this.lineDirY = lineDirY;
     }
 
-    public String getPlainPointX() {
-        return plainPointX;
+    public String getPlanePointX() {
+        return planePointX;
     }
 
-    public void setPlainPointX(final String plainPointX) {
-        this.plainPointX = plainPointX;
+    public void setPlanePointX(final String planePointX) {
+        this.planePointX = planePointX;
     }
 
-    public String getPlainPointY() {
-        return plainPointY;
+    public String getPlanePointY() {
+        return planePointY;
     }
 
-    public void setPlainPointY(final String plainPointY) {
-        this.plainPointY = plainPointY;
+    public void setPlanePointY(final String planePointY) {
+        this.planePointY = planePointY;
     }
 
-    public String getPlainOrtX() {
-        return plainOrtX;
+    public String getPlaneOrtX() {
+        return planeOrtX;
     }
 
-    public void setPlainOrtX(final String plainOrtX) {
-        this.plainOrtX = plainOrtX;
+    public void setPlaneOrtX(final String planeOrtX) {
+        this.planeOrtX = planeOrtX;
     }
 
-    public String getPlainOrtY() {
-        return plainOrtY;
+    public String getPlaneOrtY() {
+        return planeOrtY;
     }
 
-    public void setPlainOrtY(final String plainOrtY) {
-        this.plainOrtY = plainOrtY;
+    public void setPlaneOrtY(final String planeOrtY) {
+        this.planeOrtY = planeOrtY;
     }
 
     public String getResultX() {
@@ -241,18 +241,18 @@ public class LinePlainIntersection {
         this.lineDirZ = lineDirZ;
     }
 
-    public String getPlainPointZ() { return plainPointZ; }
+    public String getPlanePointZ() { return planePointZ; }
 
-    public void setPlainPointZ(final String lainPointZ) {
-        this.plainPointZ = lainPointZ;
+    public void setPlanePointZ(final String lainPointZ) {
+        this.planePointZ = lainPointZ;
     }
 
-    public String getPlainOrtZ() {
-        return plainOrtZ;
+    public String getPlaneOrtZ() {
+        return planeOrtZ;
     }
 
-    public void setPlainOrtZ(final String plainOrtZ) {
-        this.plainOrtZ = plainOrtZ;
+    public void setPlaneOrtZ(final String planeOrtZ) {
+        this.planeOrtZ = planeOrtZ;
     }
 
     public String getResultZ() {
