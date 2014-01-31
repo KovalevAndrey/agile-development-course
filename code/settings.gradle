@@ -300,3 +300,7 @@ include "zoya-maslova/View"
 project(":zoya-maslova/View").name = "zoya-maslova-View"
 include "zoya-maslova/Infrastructure"
 project(":zoya-maslova/Infrastructure").name = "zoya-maslova-Infrastructure"
+
+// Andrey Kovalev
+include "andrey-kovalev"
+project(":andrey-kovalev").name = "andrey-kovalev"
