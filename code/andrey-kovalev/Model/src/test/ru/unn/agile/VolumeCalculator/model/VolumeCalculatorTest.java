@@ -1,4 +1,4 @@
-package ru.unn.agile.VolumeCalculator;
+package ru.unn.agile.VolumeCalculator.model;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

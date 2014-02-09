@@ -302,5 +302,9 @@ include "zoya-maslova/Infrastructure"
 project(":zoya-maslova/Infrastructure").name = "zoya-maslova-Infrastructure"
 
 // Andrey Kovalev
-include "andrey-kovalev"
-project(":andrey-kovalev").name = "andrey-kovalev"
+include "andrey-kovalev/Model"
+project(":andrey-kovalev/Model").name = "andrey-kovalev-Model"
+include "andrey-kovalev/ViewModel"
+project(":andrey-kovalev/ViewModel").name = "andrey-kovalev-ViewModel"
+include "andrey-kovalev/View"
+project(":andrey-kovalev/View").name = "andrey-kovalev-View"
