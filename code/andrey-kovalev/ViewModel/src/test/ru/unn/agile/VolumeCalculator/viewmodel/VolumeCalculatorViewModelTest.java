@@ -139,7 +139,52 @@ public class VolumeCalculatorViewModelTest {
     }
 
     @Test
-         public void statusAfterCorrectCalculationMustBeCorrespond(){
+    public void resultMustBeCorrectAfterCalculationVolumeCube(){
+        String arg1="2";
+        String arg2="";
+        viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.CUBE;
+        viewModel.calculate(arg1,arg2);
+        assertEquals("8.0", viewModel.result);
+    }
+
+    @Test
+    public void resultMustBeCorrectAfterCalculationVolumeSphere(){
+        String arg1="2";
+        String arg2="";
+        viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.SPHERE;
+        viewModel.calculate(arg1,arg2);
+        assertEquals("33.510321638291124", viewModel.result);
+    }
+
+    @Test
+    public void resultMustBeCorrectAfterCalculationVolumeCone(){
+        String arg1="2";
+        String arg2="3";
+        viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.CONE;
+        viewModel.calculate(arg1,arg2);
+        assertEquals("12.566370614359172", viewModel.result);
+    }
+
+    @Test
+    public void resultMustBeCorrectAfterCalculationVolumeSquarePyramid(){
+        String arg1="3";
+        String arg2="2";
+        viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID;
+        viewModel.calculate(arg1,arg2);
+        assertEquals("9.0", viewModel.result);
+    }
+
+    @Test
+    public void resultMustBeCorrectAfterCalculationVolumeCylinder(){
+        String arg1="2";
+        String arg2="1.5";
+        viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.CYLINDER;
+        viewModel.calculate(arg1,arg2);
+        assertEquals("18.84955592153876", viewModel.result);
+    }
+
+    @Test
+    public void statusAfterCorrectCalculationMustBeCorrespond(){
         String arg1="2.2";
         String arg2="4.3";
         viewModel.typeFigure= VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID;

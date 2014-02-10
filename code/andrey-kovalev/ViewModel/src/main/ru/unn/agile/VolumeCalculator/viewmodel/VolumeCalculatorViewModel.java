@@ -50,9 +50,9 @@ public class VolumeCalculatorViewModel {
         result="";
     }
 
-    public void calculate(String agr_1, String agr_2) {
+    public void calculate(String arg_1, String arg_2) {
         try {
-            double arg1= Double.valueOf(agr_1);
+            double arg1= Double.valueOf(arg_1);
             double arg2;
             double resultCalculation=0;
             switch (typeFigure){
@@ -65,17 +65,17 @@ public class VolumeCalculatorViewModel {
                     break;
                 }
                 case SQUARE_PYRAMID:{
-                    arg2 = Double.valueOf(agr_2);
+                    arg2 = Double.valueOf(arg_2);
                     resultCalculation=VolumeCalculator.calculateVolumeSquarePyramid(arg1,arg2);
                     break;
                 }
                 case CONE:{
-                    arg2 = Double.valueOf(agr_2);
+                    arg2 = Double.valueOf(arg_2);
                     resultCalculation=VolumeCalculator.calculateVolumeCone(arg1,arg2);
                     break;
                 }
                 case CYLINDER:{
-                    arg2 = Double.valueOf(agr_2);
+                    arg2 = Double.valueOf(arg_2);
                     resultCalculation=VolumeCalculator.calculateVolumeCylinder(arg1,arg2);
                     break;
                 }
