@@ -5,13 +5,15 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class VolumeCalculatorViewModelTest {
     public VolumeCalculatorViewModel viewModel;
 
     @Before
     public void beforeTest() {
-        viewModel = new VolumeCalculatorViewModel();
+        FakeLogger logger=new FakeLogger();
+        viewModel = new VolumeCalculatorViewModel(logger);
     }
 
     @After
@@ -196,5 +198,109 @@ public class VolumeCalculatorViewModelTest {
     public void statusAfterChangeFigureMustBeWaiting(){
         viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID);
         assertEquals(VolumeCalculatorViewModel.Status.WAITING, viewModel.status);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void nullLoggerIsNotAllowed() {
+        viewModel = new VolumeCalculatorViewModel(null);
+    }
+
+    @Test
+    public void canAcceptNotNullLogger() {
+        assertNotNull(viewModel);
+    }
+
+    @Test
+    public void canGetViewModelLog() {
+        assertNotNull(viewModel.getLog());
+    }
+
+    @Test
+    public void loggerIsEmptyAtStart() {
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void loggerMustBeEmptyAfterClear(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID);
+        viewModel.calculate("1","2");
+        viewModel.clearLog();
+        assertEquals(true,viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void afterCalculateLoggerMustHaveTwoRecord(){
+        viewModel.calculate("1","2");
+        assertEquals(2,viewModel.getLog().size());
+    }
+
+    @Test
+    public void afterCorrectCalculateLoggerMustHaveInfoRecord(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CONE);
+        viewModel.calculate("1","2");
+        assertEquals(true, viewModel.getLog().get(2).indexOf("Info:")>=0);
+    }
+
+    @Test
+    public void afterNonCorrectCalculateLoggerMustHaveErrorRecord(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CYLINDER);
+        viewModel.calculate("1","a");
+        assertEquals(true, viewModel.getLog().get(2).indexOf("Error:")>=0);
+    }
+
+    @Test
+    public void afterSetNameAndVisibleForArgumentsLoggerMustHaveInfoRecord(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CUBE);
+        assertEquals(true, viewModel.getLog().get(0).indexOf("Info:")>=0);
+    }
+
+    @Test
+    public void afterCorrectCalculateGetLastMassageGiveCorrespondRecord(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CUBE);
+        viewModel.calculate("1","");
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf("Info:")>=0);
+    }
+
+    @Test
+    public void afterNonCorrectCalculateGetLastMassageGiveCorrespondRecord(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.SPHERE);
+        viewModel.calculate("q","");
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf("Error:")>=0);
+    }
+
+    @Test
+    public void forEmptyLoggerGetLastMassageGiveEmptyString(){
+        viewModel.clearLog();
+        assertEquals("", viewModel.getLastMessageFromLog());
+    }
+
+    @Test
+    public void logHaveCorrespondRecordAfterSelectCone(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CONE);
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf(VolumeCalculatorViewModel.TypeFigure.CONE.toString())>=0);
+    }
+
+    @Test
+    public void logHaveCorrespondRecordAfterSelectSphere(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.SPHERE);
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf(VolumeCalculatorViewModel.TypeFigure.SPHERE.toString())>=0);
+    }
+
+    @Test
+    public void logHaveCorrespondRecordAfterSelectCube(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CUBE);
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf(VolumeCalculatorViewModel.TypeFigure.CUBE.toString())>=0);
+    }
+
+    @Test
+    public void logHaveCorrespondRecordAfterSelectCylinder(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.CYLINDER);
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf(VolumeCalculatorViewModel.TypeFigure.CYLINDER.toString())>=0);
+    }
+
+    @Test
+    public void logHaveCorrespondRecordAfterSelectSquarePyramid(){
+        viewModel.setNameAndVisibleForArguments(VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID);
+        assertEquals(true, viewModel.getLastMessageFromLog().indexOf(VolumeCalculatorViewModel.TypeFigure.SQUARE_PYRAMID.toString())>=0);
     }
 }

@@ -1,9 +1,12 @@
 package ru.unn.agile.VolumeCalculator.view;
 
 import ru.unn.agile.VolumeCalculator.viewmodel.VolumeCalculatorViewModel;
+import ru.unn.agile.VolumeCalculator.Infrastructure.TxtLogger;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class VolumeCalculatorView {
     private JPanel mainPanel;
@@ -16,6 +19,7 @@ public class VolumeCalculatorView {
     private JLabel lblResult;
     private JLabel lblArg1;
     private JLabel lblArg2;
+    private JList<String> listLog;
 
     VolumeCalculatorViewModel volumeCalculatorViewModel;
 
@@ -38,16 +42,22 @@ public class VolumeCalculatorView {
         lblArg1.setText(volumeCalculatorViewModel.nameArg1);
         lblArg2.setText(volumeCalculatorViewModel.nameArg2);
         txtArea.setText(volumeCalculatorViewModel.status);
+
+        List<String> log = volumeCalculatorViewModel.getLog();
+        String[] items = new String[log.size()];
+        log.toArray(items);
+        listLog.setListData(items);
     }
 
     private void loadListOfOperations() {
         VolumeCalculatorViewModel.TypeFigure[] typesFigures = VolumeCalculatorViewModel.TypeFigure.values();
         cbTypeFigure.setModel(new JComboBox<VolumeCalculatorViewModel.TypeFigure>(typesFigures).getModel());
     }
-    public VolumeCalculatorView() {
+
+    public VolumeCalculatorView(VolumeCalculatorViewModel volumeCalculatorViewModel) {
         txtArea.setEditable(false);
         textFieldResult.setEditable(false);
-        this.volumeCalculatorViewModel=  new VolumeCalculatorViewModel();
+        this.volumeCalculatorViewModel=  volumeCalculatorViewModel;
         backBind();
 
         loadListOfOperations();
@@ -72,8 +82,10 @@ public class VolumeCalculatorView {
 
 
     public static void main(String[] args) {
+        TxtLogger txtLogger = new TxtLogger("VolumeCalculator.logInfo");
+
         JFrame frame = new JFrame("VolumeCalculatorView");
-        frame.setContentPane(new VolumeCalculatorView().mainPanel);
+        frame.setContentPane(new VolumeCalculatorView(new VolumeCalculatorViewModel(txtLogger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
