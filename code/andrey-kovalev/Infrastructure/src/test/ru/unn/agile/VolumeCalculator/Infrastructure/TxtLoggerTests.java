@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +28,15 @@ public class TxtLoggerTests {
     @Test
     public void logFileCanBeCreated() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            new BufferedReader(new FileReader(filename));
+        } catch (FileNotFoundException e) {
+            fail("File " + filename + " wasn't found!");
         }
     }
 
     @Test
     public void txtLogCanBeGet() {
-        assertNotNull(txtLogger.getAllMessage());
+        assertNotNull(txtLogger.getAllMessages());
     }
 
     @Test
@@ -45,17 +45,17 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void RecordGetFromFileLogAndFromLoggerAreEquals(){
+    public void recordGetFromFileLogAndFromLoggerAreEquals(){
         txtLogger.logInfo("Example");
-        assertLists(readLogFile(), txtLogger.getAllMessage());
+        assertLists(readLogFile(), txtLogger.getAllMessages());
     }
 
     @Test
     public void afterAddRecordSizeLogMustBeIncreased() {
-        int startSize=txtLogger.getAllMessage().size();
+        int startSize=txtLogger.getAllMessages().size();
         txtLogger.logInfo("Example");
-        int finishSize=txtLogger.getAllMessage().size();
-        assertTrue(finishSize>startSize);
+        int finishSize=txtLogger.getAllMessages().size();
+        assertTrue(finishSize==startSize+1);
     }
 
     @Test

@@ -17,7 +17,7 @@ public class FakeLogger implements ILogger{
     }
 
     @Override
-    public List<String> getAllMessage() {
+    public List<String> getAllMessages() {
         return log;
     }
 

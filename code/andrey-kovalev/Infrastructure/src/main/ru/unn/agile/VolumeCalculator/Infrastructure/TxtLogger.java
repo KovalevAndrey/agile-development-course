@@ -37,7 +37,7 @@ public class TxtLogger implements ILogger {
     }
 
     @Override
-    public  List<String> getAllMessage() {
+    public  List<String> getAllMessages() {
         BufferedReader reader;
         ArrayList<String> logList = new ArrayList<String>();
         try {
@@ -58,7 +58,7 @@ public class TxtLogger implements ILogger {
 
     @Override
     public String getLastMessage() {
-        List<String> log=getAllMessage();
+        List<String> log= getAllMessages();
         String res = log.size() == 0 ? "" : log.get(log.size() - 1);
         return res;
     }

@@ -109,7 +109,7 @@ public class VolumeCalculatorViewModel {
     }
 
     public List<String> getLog() {
-        return logger.getAllMessage();
+        return logger.getAllMessages();
     }
 
     public String getLastMessageFromLog() {
